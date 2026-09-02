@@ -145,29 +145,16 @@ export const ES = {
     close: {
       kicker: "Empieza por el problema",
       title: "No necesitas saber qué tecnología necesitas.",
-      copy: "Cuéntanos qué ocurre hoy. Nosotros identificamos qué conviene construir, automatizar, integrar o simplificar.",
-      question: "¿Qué se parece más a tu caso?",
-      situations: [
-        {
-          text: "Hay demasiado trabajo manual.",
-          hint: "Procesos · Automatización · IA",
-          layer: { label: "Procesos", value: "Trabajo manual repetitivo" },
-        },
-        {
-          text: "Nuestros sistemas no se hablan.",
-          hint: "Integraciones · APIs · Datos",
-          layer: { label: "Sistemas", value: "Datos desconectados" },
-        },
-        {
-          text: "El software actual no encaja.",
-          hint: "Software a medida · CRM · ERP · Odoo",
-          layer: { label: "Software", value: "Herramientas que no encajan" },
-        },
-        {
-          text: "Tenemos una idea y no sabemos cómo construirla.",
-          hint: "Producto · Arquitectura · Desarrollo",
-          layer: { label: "Producto", value: "Una idea sin forma" },
-        },
+      copy: "Cuéntanos qué ocurre hoy. Nosotros decidimos qué conviene construir, automatizar, integrar o simplificar.",
+      question: "¿No sabes qué tecnología necesitas?",
+      fragments: [
+        "Seguimos copiando datos manualmente.",
+        "Tenemos herramientas que no se hablan.",
+        "El CRM no encaja con nuestro proceso.",
+        "Hay tareas que se repiten todos los días.",
+        "Tenemos una idea pero no sabemos cómo construirla.",
+        "Demasiadas cosas dependen de una persona.",
+        "Los datos están repartidos en varios sistemas.",
       ],
       cta: "Cuéntanos qué necesitas resolver",
       all: "Ver todos los servicios",

@@ -4,7 +4,7 @@ import { STRINGS } from "@/i18n";
 import CapabilityNav from "./capabilities/CapabilityNav";
 import CapabilityScene from "./capabilities/CapabilityScene";
 import CapabilityChapter from "./capabilities/CapabilityChapter";
-import ProblemBridge from "./ProblemBridge";
+import ProblemCanvas from "./ProblemCanvas";
 
 /**
  * What we build — an interactive capability experience. The six
@@ -18,8 +18,9 @@ export default function WhatWeBuild({ lang = "es" }) {
   const labels = { when: s.whenLabel, build: s.buildLabel };
 
   return (
+    <>
     <section
-      className="bg-background px-5 py-20 md:px-10 md:py-32"
+      className="bg-background px-5 pt-20 md:px-10 md:pt-32"
       aria-labelledby="build-heading"
     >
       <div className="mx-auto max-w-[1440px]">
@@ -65,9 +66,11 @@ export default function WhatWeBuild({ lang = "es" }) {
           ))}
         </div>
 
-        {/* Conversion bridge — problem → system */}
-        <ProblemBridge lang={lang} />
       </div>
     </section>
+
+    {/* Conversion canvas — from confusion to clarity */}
+    <ProblemCanvas lang={lang} />
+    </>
   );
 }

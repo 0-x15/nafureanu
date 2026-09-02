@@ -145,29 +145,16 @@ export const EN = {
     close: {
       kicker: "Start with the problem",
       title: "You don't need to know which technology you need.",
-      copy: "Tell us what is happening today. We'll identify what should be built, automated, integrated or simplified.",
-      question: "Which sounds most like your situation?",
-      situations: [
-        {
-          text: "Too much work is still manual.",
-          hint: "Process · Automation · AI",
-          layer: { label: "Workflow", value: "Repetitive manual work" },
-        },
-        {
-          text: "Our systems don't talk to each other.",
-          hint: "Integrations · APIs · Data",
-          layer: { label: "Systems", value: "Disconnected data" },
-        },
-        {
-          text: "Our current software doesn't fit.",
-          hint: "Custom software · CRM · ERP · Odoo",
-          layer: { label: "Software", value: "Tools that don't fit" },
-        },
-        {
-          text: "We have an idea but don't know how to build it.",
-          hint: "Product · Architecture · Development",
-          layer: { label: "Product", value: "An idea without shape" },
-        },
+      copy: "Tell us what is not working today. We'll decide what should be built, automated, integrated or simplified.",
+      question: "Don't know which technology you need?",
+      fragments: [
+        "We're still copying data by hand.",
+        "Our tools don't talk to each other.",
+        "The CRM doesn't fit our process.",
+        "There are tasks we repeat every day.",
+        "We have an idea but don't know how to build it.",
+        "Too many things depend on one person.",
+        "Our data is scattered across systems.",
       ],
       cta: "Tell us what you need to solve",
       all: "View all services",
