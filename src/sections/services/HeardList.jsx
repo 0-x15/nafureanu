@@ -1,22 +1,26 @@
-import { HEARD } from "@/data/capabilities";
 import Reveal from "@/components/Reveal";
+import { STRINGS } from "@/i18n";
 
-export default function HeardList() {
+export default function HeardList({ lang = "es" }) {
+  const s = STRINGS[lang].servicesPage;
+  const heard = STRINGS[lang].heard;
+
   return (
     <section className="px-5 py-24 md:px-10 md:py-36" aria-labelledby="heard-title">
       <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
-        <span className="text-[#E63946]">03</span> — What we hear
+        <span className="text-[#E63946]">{s.heardKicker.split(" — ")[0]}</span> —{" "}
+        {s.heardKicker.split(" — ")[1]}
       </p>
       <Reveal>
         <h2
           id="heard-title"
           className="mt-6 max-w-4xl font-heading text-3xl font-bold tracking-[-0.02em] md:text-5xl"
         >
-          Business owners arrive with sentences like these.
+          {s.heardTitle}
         </h2>
       </Reveal>
       <ul className="mt-12 border-t border-[#E0E0DE]">
-        {HEARD.map((quote, i) => (
+        {heard.map((quote, i) => (
           <Reveal
             key={quote}
             delay={Math.min(i * 0.04, 0.3)}
@@ -31,9 +35,7 @@ export default function HeardList() {
           </Reveal>
         ))}
       </ul>
-      <p className="mt-8 max-w-xl text-base leading-relaxed text-[#5C5C58]">
-        If any of these sounds like your company, you are exactly who we build for.
-      </p>
+      <p className="mt-8 max-w-xl text-base leading-relaxed text-[#5C5C58]">{s.heardNote}</p>
     </section>
   );
 }

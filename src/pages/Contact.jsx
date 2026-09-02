@@ -1,24 +1,21 @@
 import { useState } from "react";
 import { ArrowUpRight, Check, Copy } from "lucide-react";
 import { SITE } from "@/data/site";
+import { STRINGS, langPath, otherLang } from "@/i18n";
 import { usePageMeta } from "@/lib/seo";
 
 const inputCls =
   "border-b border-[#121212] bg-transparent px-1 py-0.5 font-heading font-medium placeholder:text-[#B9B9B5] focus:border-[#E63946] focus:outline-none";
 
-const NEXT_STEPS = [
-  "We read your statement.",
-  "We reply with real questions.",
-  "We map your process.",
-  "We propose a system.",
-];
-
-export default function Contact() {
+export default function Contact({ lang = "es" }) {
+  const s = STRINGS[lang];
+  const c = s.contact;
   usePageMeta({
-    title: "Start a project — Nafureanu",
-    description:
-      "Tell us what slows your business down. Complete the statement and start the conversation.",
-    path: "/contact",
+    lang,
+    title: s.meta.contact.title,
+    description: s.meta.contact.description,
+    path: langPath(lang, "/contact"),
+    alternatePath: langPath(otherLang(lang), "/contact"),
   });
 
   const [form, setForm] = useState({ name: "", need: "", outcome: "", email: "" });
@@ -27,20 +24,18 @@ export default function Contact() {
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
 
-  const statement = `My name is ${form.name || "…"} and my company needs ${
-    form.need || "…"
-  } — so that we can achieve ${form.outcome || "…"}. You can reach me at ${
-    form.email || "…"
-  }.`;
+  const statement = `${c.s1a} ${form.name || "…"} ${c.s1b} ${form.need || "…"} ${c.s1c} ${
+    form.outcome || "…"
+  }. ${c.s2} ${form.email || "…"}.`;
 
   const submit = (e) => {
     e.preventDefault();
     if (!form.name.trim() || !form.email.trim()) {
-      setError("Name and email are required so we can reply.");
+      setError(c.error);
       return;
     }
     setError("");
-    const subject = `Project inquiry — ${form.name}`;
+    const subject = `${c.subjectPrefix} — ${form.name}`;
     window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(statement)}`;
@@ -52,7 +47,7 @@ export default function Contact() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      setError("Copy failed — you can email us directly instead.");
+      setError(c.errorCopy);
     }
   };
 
@@ -60,60 +55,60 @@ export default function Contact() {
     <>
       <section className="px-5 pt-36 md:px-10 md:pt-48" aria-labelledby="contact-title">
         <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
-          <span className="text-[#E63946]">05</span> — Initiation node
+          <span className="text-[#E63946]">{c.kicker.split(" — ")[0]}</span> —{" "}
+          {c.kicker.split(" — ")[1]}
         </p>
         <h1
           id="contact-title"
           className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] md:text-8xl"
         >
-          Start a project.
+          {c.h1}
         </h1>
         <p className="mt-8 max-w-xl text-base leading-relaxed text-[#5C5C58] md:text-lg">
-          Don't fill a form — complete the statement. It's the fastest way to tell us what
-          actually matters.
+          {c.sub}
         </p>
 
         <div className="mt-20 grid gap-16 md:mt-28 md:grid-cols-12">
           <form onSubmit={submit} noValidate className="md:col-span-8">
             <p className="font-heading text-2xl font-medium leading-[1.7] md:text-4xl">
-              My name is{" "}
+              {c.s1a}{" "}
               <input
                 type="text"
                 value={form.name}
                 onChange={set("name")}
-                placeholder="your name"
-                aria-label="Your name"
+                placeholder={c.phName}
+                aria-label={c.phName}
                 autoComplete="name"
                 className={`w-44 ${inputCls}`}
               />{" "}
-              and my company needs{" "}
+              {c.s1b}{" "}
               <input
                 type="text"
                 value={form.need}
                 onChange={set("need")}
-                placeholder="what eats your time"
-                aria-label="What your company needs"
+                placeholder={c.phNeed}
+                aria-label={c.ariaNeed}
                 className={`w-64 ${inputCls}`}
               />{" "}
-              — so that we can achieve{" "}
+              {c.s1c}{" "}
               <input
                 type="text"
                 value={form.outcome}
                 onChange={set("outcome")}
-                placeholder="the outcome you want"
-                aria-label="The outcome you want to achieve"
+                placeholder={c.phOutcome}
+                aria-label={c.ariaOutcome}
                 className={`w-64 ${inputCls}`}
               />
               .
             </p>
             <p className="mt-8 font-heading text-2xl font-medium leading-[1.7] md:text-4xl">
-              You can reach me at{" "}
+              {c.s2}{" "}
               <input
                 type="email"
                 value={form.email}
                 onChange={set("email")}
-                placeholder="you@company.com"
-                aria-label="Your email"
+                placeholder={c.phEmail}
+                aria-label={c.ariaEmail}
                 autoComplete="email"
                 className={`w-64 ${inputCls}`}
               />
@@ -131,7 +126,7 @@ export default function Contact() {
                 type="submit"
                 className="inline-flex items-center gap-2 bg-[#121212] px-8 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7] transition-colors hover:bg-[#E63946]"
               >
-                Send statement <ArrowUpRight className="h-4 w-4" />
+                {c.send} <ArrowUpRight className="h-4 w-4" />
               </button>
               <button
                 type="button"
@@ -143,17 +138,17 @@ export default function Contact() {
                 ) : (
                   <Copy className="h-3.5 w-3.5" />
                 )}
-                {copied ? "Copied" : "Copy statement"}
+                {copied ? c.copied : c.copy}
               </button>
             </div>
           </form>
 
           <aside className="md:col-span-4">
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
-              What happens next
+              {c.nextKicker}
             </p>
             <ol className="mt-6 space-y-4">
-              {NEXT_STEPS.map((step, i) => (
+              {c.steps.map((step, i) => (
                 <li key={step} className="flex items-baseline gap-4">
                   <span className="font-mono text-[10px] text-[#E63946]">
                     {String(i + 1).padStart(2, "0")}
@@ -163,7 +158,7 @@ export default function Contact() {
               ))}
             </ol>
             <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
-              Prefer plain email?
+              {c.emailKicker}
             </p>
             <a
               href={`mailto:${SITE.email}`}
@@ -177,8 +172,7 @@ export default function Contact() {
 
       <section className="mt-24 border-t border-[#E0E0DE] px-5 py-16 md:px-10 md:py-24" aria-label="Studio note">
         <p className="max-w-2xl font-heading text-2xl font-bold leading-[1.4] tracking-[-0.02em] md:text-4xl">
-          We take on a small number of engagements at a time. The earlier the conversation,
-          the better the system.
+          {c.studioTitle}
         </p>
       </section>
     </>

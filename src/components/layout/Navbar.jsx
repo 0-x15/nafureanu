@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import MobileMenu from "@/components/layout/MobileMenu";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { STRINGS, langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
 
-const LINKS = [
-  { to: "/work", label: "Work", num: "01" },
-  { to: "/services", label: "Services", num: "02" },
-  { to: "/about", label: "About", num: "03" },
+const BASE_LINKS = [
+  { path: "/work", key: "work", num: "01" },
+  { path: "/services", key: "services", num: "02" },
+  { path: "/about", key: "about", num: "03" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ lang = "es" }) {
   const [scrolled, setScrolled] = useState(false);
+  const s = STRINGS[lang];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -34,17 +37,17 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <Link
-          to="/"
+          to={langPath(lang, "/")}
           className="flex items-center gap-2 font-heading text-lg font-bold uppercase tracking-[-0.02em]"
         >
           <span aria-hidden="true" className="inline-block h-2 w-2 bg-[#E63946]" />
           Nafureanu
         </Link>
         <div className="hidden items-center gap-8 md:flex">
-          {LINKS.map((l) => (
+          {BASE_LINKS.map((l) => (
             <NavLink
-              key={l.to}
-              to={l.to}
+              key={l.path}
+              to={langPath(lang, l.path)}
               className={({ isActive }) =>
                 cn(
                   "font-mono text-xs uppercase tracking-[0.15em] transition-colors",
@@ -53,18 +56,20 @@ export default function Navbar() {
               }
             >
               <span className="mr-1.5 text-[#848482]">{l.num}</span>
-              {l.label}
+              {s.nav[l.key]}
             </NavLink>
           ))}
+          <span aria-hidden="true" className="h-4 w-px bg-[#E0E0DE]" />
+          <LanguageSwitch lang={lang} />
           <Link
-            to="/contact"
-            className="ml-4 inline-flex items-center gap-1.5 bg-[#121212] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7] transition-colors hover:bg-[#E63946]"
+            to={langPath(lang, "/contact")}
+            className="ml-2 inline-flex items-center gap-1.5 bg-[#121212] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7] transition-colors hover:bg-[#E63946]"
           >
-            Start a project <ArrowUpRight className="h-3.5 w-3.5" />
+            {s.nav.start} <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>
         </div>
         <div className="md:hidden">
-          <MobileMenu links={LINKS} />
+          <MobileMenu lang={lang} />
         </div>
       </nav>
     </header>

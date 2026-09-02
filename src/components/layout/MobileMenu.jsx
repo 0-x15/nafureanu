@@ -1,10 +1,19 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import LanguageSwitch from "@/components/LanguageSwitch";
+import { STRINGS, langPath } from "@/i18n";
 
-export default function MobileMenu({ links }) {
+const BASE_LINKS = [
+  { path: "/work", key: "work", num: "01" },
+  { path: "/services", key: "services", num: "02" },
+  { path: "/about", key: "about", num: "03" },
+];
+
+export default function MobileMenu({ lang = "es" }) {
   const [open, setOpen] = useState(false);
   const { pathname } = useLocation();
+  const s = STRINGS[lang];
 
   useEffect(() => {
     setOpen(false);
@@ -49,25 +58,28 @@ export default function MobileMenu({ links }) {
             </button>
           </div>
           <nav className="flex flex-1 flex-col justify-center px-5" aria-label="Mobile navigation">
-            {links.map((l) => (
+            {BASE_LINKS.map((l) => (
               <Link
-                key={l.to}
-                to={l.to}
+                key={l.path}
+                to={langPath(lang, l.path)}
                 className="flex items-baseline gap-3 border-b border-[#E0E0DE] py-5 font-heading text-4xl font-bold tracking-[-0.02em]"
               >
                 <span className="font-mono text-xs text-[#E63946]">{l.num}</span>
-                {l.label}
+                {s.nav[l.key]}
               </Link>
             ))}
             <Link
-              to="/contact"
+              to={langPath(lang, "/contact")}
               className="mt-10 inline-flex items-center justify-center gap-2 bg-[#121212] px-6 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7]"
             >
-              Start a project <ArrowUpRight className="h-4 w-4" />
+              {s.nav.start} <ArrowUpRight className="h-4 w-4" />
             </Link>
+            <div className="mt-8 border-t border-[#E0E0DE] pt-6">
+              <LanguageSwitch lang={lang} />
+            </div>
           </nav>
           <p className="px-5 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-[#848482]">
-            Software that removes work
+            {STRINGS[lang].hero.eyebrow}
           </p>
         </div>
       )}

@@ -2,18 +2,22 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { Image } from "@/components/ui/image";
 import Reveal from "@/components/Reveal";
+import { STRINGS, langPath } from "@/i18n";
 
 /**
  * Cinematic case-study preview: the interface layer sits on top of a
  * dashed "logic layer" wireframe that separates on hover.
  */
-export default function CaseRow({ project, index }) {
+export default function CaseRow({ project, index, lang }) {
+  const s = STRINGS[lang].workSection;
+  const c = project.copy[lang];
+
   return (
     <Reveal>
       <Link
-        to={`/work/${project.slug}`}
+        to={langPath(lang, `/work/${project.slug}`)}
         className="group mt-14 grid gap-8 border-t border-[#E0E0DE] pt-10 md:mt-20 md:grid-cols-12 md:gap-10"
-        aria-label={`${project.title} case study`}
+        aria-label={`${project.title} — ${c.type}`}
       >
         <div className="relative md:col-span-7">
           <div
@@ -27,7 +31,7 @@ export default function CaseRow({ project, index }) {
           <div className="relative overflow-hidden bg-[#EDEDEA] transition-transform duration-500 group-hover:-translate-x-1 group-hover:-translate-y-1">
             <Image
               src={project.image}
-              alt={`${project.title} — ${project.summary}`}
+              alt={`${project.title} — ${c.summary}`}
               className="aspect-[16/10] w-full"
               fittingType="fill"
             />
@@ -36,28 +40,27 @@ export default function CaseRow({ project, index }) {
         <div className="flex flex-col justify-between md:col-span-5">
           <div>
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#848482]">
-              <span className="text-[#E63946]">{String(index + 1).padStart(2, "0")}</span> —{" "}
-              {project.type}
+              <span className="text-[#E63946]">{String(index + 1).padStart(2, "0")}</span> — {c.type}
             </p>
             <h3 className="mt-4 font-heading text-4xl font-bold uppercase tracking-[-0.02em] md:text-5xl">
               {project.title}
             </h3>
             <p className="mt-4 max-w-md text-sm leading-relaxed text-[#5C5C58] md:text-base">
-              {project.summary}
+              {c.summary}
             </p>
             <ul className="mt-6 flex flex-wrap gap-2">
-              {project.stack.slice(0, 4).map((s) => (
+              {project.stack.slice(0, 4).map((t) => (
                 <li
-                  key={s}
+                  key={t}
                   className="border border-[#E0E0DE] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[#848482]"
                 >
-                  {s}
+                  {t}
                 </li>
               ))}
             </ul>
           </div>
           <span className="mt-8 inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-[#121212] transition-colors group-hover:text-[#E63946]">
-            View case study
+            {s.viewCase}
             <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </span>
         </div>

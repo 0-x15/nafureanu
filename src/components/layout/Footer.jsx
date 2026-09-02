@@ -1,21 +1,32 @@
 import { Link } from "react-router-dom";
 import { SITE } from "@/data/site";
 import { CAPABILITIES } from "@/data/capabilities";
+import { STRINGS, langPath } from "@/i18n";
 
-export default function Footer() {
+export default function Footer({ lang = "es" }) {
+  const s = STRINGS[lang];
+
+  const navLinks = [
+    { to: "/", label: s.footer.home },
+    { to: "/work", label: s.nav.work },
+    { to: "/services", label: s.nav.services },
+    { to: "/about", label: s.nav.about },
+    { to: "/contact", label: s.nav.start },
+  ];
+
   return (
     <footer className="relative z-10 border-t border-[#E0E0DE] bg-[#F9F9F7]">
       <div className="mx-auto grid max-w-[1440px] gap-12 px-5 py-16 md:grid-cols-12 md:px-10 md:py-24">
         <div className="md:col-span-5">
           <Link
-            to="/"
+            to={langPath(lang, "/")}
             className="flex items-center gap-2 font-heading text-3xl font-bold uppercase tracking-[-0.02em]"
           >
             <span aria-hidden="true" className="inline-block h-2 w-2 bg-[#E63946]" />
             Nafureanu
           </Link>
           <p className="mt-5 max-w-sm text-sm leading-relaxed text-[#5C5C58]">
-            {SITE.description}
+            {SITE.description[lang]}
           </p>
           <a
             href={`mailto:${SITE.email}`}
@@ -26,38 +37,45 @@ export default function Footer() {
         </div>
         <nav className="md:col-span-2" aria-label="Sitemap">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#848482]">
-            Sitemap
+            {s.footer.sitemap}
           </p>
           <ul className="mt-5 space-y-2.5 text-sm">
-            <li><Link className="transition-colors hover:text-[#E63946]" to="/">Home</Link></li>
-            <li><Link className="transition-colors hover:text-[#E63946]" to="/work">Work</Link></li>
-            <li><Link className="transition-colors hover:text-[#E63946]" to="/services">Services</Link></li>
-            <li><Link className="transition-colors hover:text-[#E63946]" to="/about">About</Link></li>
-            <li><Link className="transition-colors hover:text-[#E63946]" to="/contact">Contact</Link></li>
+            {navLinks.map((l) => (
+              <li key={l.to}>
+                <Link
+                  className="transition-colors hover:text-[#E63946]"
+                  to={langPath(lang, l.to)}
+                >
+                  {l.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </nav>
         <div className="md:col-span-3">
           <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#848482]">
-            Capabilities
+            {s.footer.capabilities}
           </p>
           <ul className="mt-5 space-y-2.5 text-sm text-[#5C5C58]">
             {CAPABILITIES.slice(0, 5).map((c) => (
-              <li key={c.id}>{c.title}</li>
+              <li key={c.id}>{c.copy[lang].title}</li>
             ))}
           </ul>
         </div>
         <div className="md:col-span-2">
-          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#848482]">Soon</p>
-          <p className="mt-5 text-sm text-[#848482]">Insights — in development</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#848482]">
+            {s.footer.soon}
+          </p>
+          <p className="mt-5 text-sm text-[#848482]">{s.footer.insights}</p>
         </div>
       </div>
       <div className="border-t border-[#E0E0DE]">
         <div className="mx-auto flex max-w-[1440px] flex-col gap-2 px-5 py-6 font-mono text-[11px] uppercase tracking-[0.15em] text-[#848482] md:flex-row md:items-center md:justify-between md:px-10">
-          <span>© {new Date().getFullYear()} Nafureanu — All rights reserved</span>
+          <span>© {new Date().getFullYear()} Nafureanu — {s.footer.rights}</span>
           <span className="flex items-center gap-1.5">
-            System status:
+            {s.footer.status}:
             <span aria-hidden="true" className="inline-block h-1.5 w-1.5 rounded-full bg-[#E63946]" />
-            Operational
+            {s.footer.operational}
           </span>
         </div>
       </div>

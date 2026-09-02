@@ -1,13 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://nafureanu.com/</loc></url>
-  <url><loc>https://nafureanu.com/services</loc></url>
-  <url><loc>https://nafureanu.com/work</loc></url>
-  <url><loc>https://nafureanu.com/work/fivo</loc></url>
-  <url><loc>https://nafureanu.com/work/sophia</loc></url>
-  <url><loc>https://nafureanu.com/work/life-admin</loc></url>
-  <url><loc>https://nafureanu.com/work/odoo-engineering</loc></url>
-  <url><loc>https://nafureanu.com/work/web-projects</loc></url>
-  <url><loc>https://nafureanu.com/about</loc></url>
-  <url><loc>https://nafureanu.com/contact</loc></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://nafureanu.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/services</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/services</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/work</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/work</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/work/fivo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/fivo"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/fivo"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/fivo"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/work/fivo</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/fivo"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/fivo"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/fivo"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/work/sophia</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/sophia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/sophia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/sophia"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/work/sophia</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/sophia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/sophia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/sophia"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/work/life-admin</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/life-admin"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/life-admin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/life-admin"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/work/life-admin</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/life-admin"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/life-admin"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/life-admin"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/work/odoo-engineering</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/odoo-engineering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/odoo-engineering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/odoo-engineering"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/work/odoo-engineering</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/odoo-engineering"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/odoo-engineering"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/odoo-engineering"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/work/web-projects</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/web-projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/web-projects"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/web-projects"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/work/web-projects</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/web-projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/web-projects"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/web-projects"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/about</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/about"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/about"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/contact</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/contact"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/contact"/>
+  </url>
 </urlset>

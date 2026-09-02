@@ -1,18 +1,12 @@
-const QUOTES = [
-  "“We spend hours doing this manually.”",
-  "“Our CRM doesn't do what we need.”",
-  "“Our systems don't communicate.”",
-  "“We need software specifically for our process.”",
-  "“We want to introduce AI into our company.”",
-  "“We have repetitive administrative work.”",
-];
+import { STRINGS } from "@/i18n";
 
 /**
  * Marquee of the problems clients arrive with.
  * Content is duplicated for the seamless loop; clones are aria-hidden.
  */
-export default function ProblemTicker() {
-  const row = [...QUOTES, ...QUOTES];
+export default function ProblemTicker({ lang = "es" }) {
+  const quotes = STRINGS[lang].heard.slice(0, 6);
+  const row = [...quotes, ...quotes];
   return (
     <section
       aria-label="Problems we solve"
@@ -22,7 +16,7 @@ export default function ProblemTicker() {
         {row.map((q, i) => (
           <span
             key={i}
-            aria-hidden={i >= QUOTES.length}
+            aria-hidden={i >= quotes.length}
             className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.15em] text-[#848482]"
           >
             {q}

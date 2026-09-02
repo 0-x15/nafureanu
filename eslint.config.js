@@ -11,7 +11,13 @@ export default [
       "src/pages/**/*.{js,mjs,cjs,jsx}",
       "src/Layout.jsx",
     ],
-    ignores: ["src/lib/**/*", "src/components/ui/**/*"],
+    ignores: [
+      "src/lib/**/*",
+      "src/components/ui/**/*",
+      // react-three-fiber JSX uses three.js props (args, position, wireframe…)
+      // which eslint-plugin-react misreads as unknown DOM properties.
+      "src/components/systemcore/**/*",
+    ],
     ...pluginJs.configs.recommended,
     ...pluginReact.configs.flat.recommended,
     languageOptions: {
