@@ -30,12 +30,12 @@ export default function SophiaChapter({ lang = "es" }) {
       <div className="relative mx-auto max-w-[1440px] px-5 pb-24 pt-12 md:px-10 md:pb-28 md:pt-16">
         {/* section introduction — headline + summary, above the composition */}
         <Reveal>
-          <h3 className="max-w-4xl font-heading text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
+          <h3 className="mx-auto max-w-4xl text-center font-heading text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
             {s.headlineA}
           </h3>
         </Reveal>
         <Reveal delay={0.06}>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#5A6070] md:text-lg">
+          <p className="mx-auto mt-6 max-w-2xl text-center text-base leading-relaxed text-[#5A6070] md:text-lg">
             {s.copy}
           </p>
         </Reveal>
