@@ -1,16 +1,15 @@
 import { useRef, useState } from "react";
-import { useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { STRINGS, langPath } from "@/i18n";
+import { cn } from "@/lib/utils";
 import SpatialNumber from "@/components/production/SpatialNumber";
 import StateText from "@/components/production/StateText";
 import StateFragments from "@/components/production/StateFragments";
 
 /**
- * "Nafureanu en producción" — not a metrics grid. The warm page is
- * the canvas: one oversized number dominates at a time while the
- * others recede into depth, and each state carries its own floating
- * product fragments. Scroll (or the rail, or a neighbour number)
- * moves the composition through its four states.
+ * "Nafureanu en producción" — a storytelling composition on the ivory
+ * page itself. Zones: intro (top-left), stage (center), content
+ * (bottom-left, one state at a time), navigation rail (right).
  */
 export default function StatsBand({ lang = "es" }) {
   const s = STRINGS[lang].stats;
@@ -22,6 +21,7 @@ export default function StatsBand({ lang = "es" }) {
     offset: ["start start", "end end"],
   });
   const f = useTransform(scrollYProgress, [0, 1], [0, 3]);
+  const introY = useTransform(scrollYProgress, [0, 1], ["0vh", "-3vh"]);
 
   useMotionValueEvent(f, "change", (v) => {
     const idx = Math.max(0, Math.min(3, Math.round(v)));
@@ -46,14 +46,18 @@ export default function StatsBand({ lang = "es" }) {
       aria-label={s.title}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Faint cobalt wash over the ivory canvas */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(60%_50%_at_70%_40%,rgba(43,89,255,0.05),transparent_70%)]"
-        />
+        {/* Ambient atmosphere — soft light fields, kept quiet */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+          <span className="absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.06),transparent)]" />
+          <span className="absolute -top-36 right-[6%] h-[420px] w-[560px] rounded-full bg-[radial-gradient(closest-side,rgba(122,142,255,0.09),transparent)] blur-[80px]" />
+          <span className="absolute bottom-[8%] left-[28%] h-[360px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(139,124,246,0.06),transparent)] blur-[90px]" />
+        </div>
 
-        {/* Section header */}
-        <div className="absolute left-5 top-24 z-30 max-w-xs md:left-10 md:top-28">
+        {/* Intro zone */}
+        <motion.div
+          style={{ y: introY }}
+          className="absolute left-5 top-24 z-30 max-w-xs md:left-10 md:top-28"
+        >
           <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
             {s.kicker}
           </p>
@@ -63,53 +67,69 @@ export default function StatsBand({ lang = "es" }) {
           <p className="mt-2.5 hidden text-xs leading-relaxed text-muted-foreground md:block">
             {s.intro}
           </p>
-        </div>
+        </motion.div>
 
-        {/* Floating product fragments */}
+        {/* Stage fragments (behind the numbers) */}
         {s.metrics.map((m, i) => (
           <StateFragments key={m.label} state={i} f={f} progress={scrollYProgress} />
         ))}
 
-        {/* Numbers — four states of one spatial sequence */}
+        {/* Stage zone — one dominant number at a time */}
         <div className="absolute inset-0 z-20 flex items-center justify-center">
           {s.metrics.map((m, i) => (
             <SpatialNumber key={m.label} metric={m} index={i} f={f} goTo={goTo} />
           ))}
         </div>
 
-        {/* Editorial text column */}
+        {/* Content zone — one state at a time */}
         {s.metrics.map((m, i) => (
           <StateText key={m.label} metric={m} index={i} f={f} lang={lang} />
         ))}
 
-        {/* State rail */}
-        <nav className="absolute right-5 top-1/2 z-30 flex -translate-y-1/2 flex-col gap-4 md:right-10">
-          {s.metrics.map((m, i) => (
-            <button
-              key={m.label}
-              type="button"
-              onClick={() => goTo(i)}
-              aria-label={m.label}
-              className="group flex items-center gap-2.5"
-            >
-              <span
-                className={`font-mono text-[10px] transition-colors duration-500 ${
-                  active === i
-                    ? "text-accent"
-                    : "text-muted-foreground/40 group-hover:text-muted-foreground"
-                }`}
+        {/* Navigation zone — light rail with a progress line */}
+        <nav
+          aria-label={s.title}
+          className="absolute right-5 top-1/2 z-30 flex -translate-y-1/2 flex-col items-end md:right-10"
+        >
+          <div className="relative flex h-40 flex-col justify-between py-1">
+            <span
+              aria-hidden="true"
+              className="absolute right-[3px] top-0 h-full w-px bg-foreground/10"
+            />
+            <motion.span
+              aria-hidden="true"
+              style={{ scaleY: scrollYProgress }}
+              className="absolute right-[3px] top-0 h-full w-px origin-top bg-accent/70"
+            />
+            {s.metrics.map((m, i) => (
+              <button
+                key={m.label}
+                type="button"
+                onClick={() => goTo(i)}
+                aria-label={m.label}
+                className="group flex items-center gap-2.5"
               >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span
-                className={`h-px transition-all duration-500 ${
-                  active === i
-                    ? "w-8 bg-accent"
-                    : "w-4 bg-foreground/20 group-hover:bg-foreground/40"
-                }`}
-              />
-            </button>
-          ))}
+                <span
+                  className={cn(
+                    "font-mono text-[10px] transition-colors duration-500",
+                    active === i
+                      ? "text-accent"
+                      : "text-muted-foreground/40 group-hover:text-muted-foreground"
+                  )}
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span
+                  className={cn(
+                    "h-1.5 w-1.5 rounded-full transition-all duration-500",
+                    active === i
+                      ? "bg-accent shadow-[0_0_10px_rgba(43,89,255,0.6)]"
+                      : "bg-foreground/20 group-hover:bg-foreground/40"
+                  )}
+                />
+              </button>
+            ))}
+          </div>
         </nav>
 
         {/* Accessible static list of all four proof points */}

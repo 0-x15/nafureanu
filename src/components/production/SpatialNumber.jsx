@@ -1,31 +1,30 @@
 import { motion, useTransform } from "framer-motion";
 
-const T_INPUT = [-2, -1, 0, 1, 2];
-const X = ["62vw", "48vw", "6vw", "-38vw", "-52vw"];
-const Y = ["-2vh", "6vh", "0vh", "-9vh", "-4vh"];
-const SCALE = [0.14, 0.32, 1, 0.32, 0.14];
+/* Choreography: a number holds the focal point until |t| ≈ 0.3,
+   then sweeps out to the periphery (and back in) with speed — the
+   center is never shared by two competing metrics. */
+const T = [-2, -1, -0.55, -0.3, 0, 0.3, 0.55, 1, 2];
+const X = ["56vw", "50vw", "44vw", "8vw", "5vw", "8vw", "44vw", "50vw", "56vw"];
+const Y = ["-3vh", "-6vh", "-4vh", "0vh", "-1vh", "0vh", "-4vh", "-6vh", "-3vh"];
+const SCALE = [0.12, 0.15, 0.26, 0.97, 1, 0.97, 0.26, 0.15, 0.12];
+const OPACITY = [0, 0.05, 0.1, 1, 1, 1, 0.1, 0.05, 0];
+const BLUR = [
+  "blur(10px)", "blur(8px)", "blur(5px)", "blur(0px)",
+  "blur(0px)", "blur(0px)", "blur(5px)", "blur(8px)", "blur(10px)",
+];
 
 /**
- * One metric number moving through a spatial sequence: focal when
- * active, displaced and receded into depth as a neighbour. Clicking
- * a visible neighbour scrolls the composition to its state.
+ * One metric number: monumental and clean when focal, an atmospheric
+ * cropped hint in the periphery otherwise.
  */
 export default function SpatialNumber({ metric, index, f, goTo }) {
   const t = useTransform(f, (v) => v - index);
-  const x = useTransform(t, T_INPUT, X);
-  const y = useTransform(t, T_INPUT, Y);
-  const scale = useTransform(t, T_INPUT, SCALE);
-  const rotate = useTransform(t, [-1, 0, 1], [7, 0, -7]);
-  const opacity = useTransform(
-    t,
-    [-2, -1.3, -0.45, 0, 0.45, 1.3, 2],
-    [0, 0.08, 0.16, 1, 0.16, 0.08, 0]
-  );
-  const filter = useTransform(
-    t,
-    [-1.4, -0.35, 0, 0.35, 1.4],
-    ["blur(7px)", "blur(2px)", "blur(0px)", "blur(2px)", "blur(7px)"]
-  );
+  const x = useTransform(t, T, X);
+  const y = useTransform(t, T, Y);
+  const scale = useTransform(t, T, SCALE);
+  const rotate = useTransform(t, [-1, -0.55, 0, 0.55, 1], [6, 4, 0, -4, -6]);
+  const opacity = useTransform(t, T, OPACITY);
+  const filter = useTransform(t, T, BLUR);
   const pointerEvents = useTransform(opacity, (o) =>
     o < 0.05 ? "none" : "auto"
   );
@@ -35,7 +34,7 @@ export default function SpatialNumber({ metric, index, f, goTo }) {
       onClick={() => goTo(index)}
       style={{ x, y, scale, rotate, opacity, filter, pointerEvents }}
       aria-hidden="true"
-      className="absolute z-20 cursor-pointer select-none font-heading text-[clamp(9rem,30vw,30rem)] font-bold leading-[0.85] tracking-[-0.05em] text-foreground"
+      className="absolute z-20 cursor-pointer select-none font-heading text-[clamp(8rem,26vw,24rem)] font-bold leading-[0.85] tracking-[-0.05em] text-foreground"
     >
       {metric.value}
       {metric.suffix && <span className="text-accent">{metric.suffix}</span>}

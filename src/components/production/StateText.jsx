@@ -4,20 +4,27 @@ import { motion, useTransform } from "framer-motion";
 import { langPath } from "@/i18n";
 
 /**
- * The editorial text column for one state of the composition —
- * rises into place as its metric becomes focal.
+ * The content zone for one state. Readable only in a tight window
+ * around its own state — the outgoing block rises away and blurs
+ * out before the next one becomes readable. No two blocks ever
+ * share the same visual space.
  */
 export default function StateText({ metric, index, f, lang }) {
   const t = useTransform(f, (v) => v - index);
-  const opacity = useTransform(t, [-0.85, -0.3, 0.3, 0.85], [0, 1, 1, 0]);
-  const y = useTransform(t, [-0.85, -0.3, 0.3, 0.85], [48, 0, 0, -48]);
+  const opacity = useTransform(t, [-0.5, -0.32, 0.32, 0.5], [0, 1, 1, 0]);
+  const y = useTransform(t, [-0.5, -0.32, 0.32, 0.5], [36, 0, 0, -36]);
+  const filter = useTransform(
+    t,
+    [-0.5, -0.32, 0.32, 0.5],
+    ["blur(6px)", "blur(0px)", "blur(0px)", "blur(6px)"]
+  );
   const pointerEvents = useTransform(opacity, (o) =>
     o < 0.05 ? "none" : "auto"
   );
 
   return (
     <motion.div
-      style={{ opacity, y, pointerEvents }}
+      style={{ opacity, y, filter, pointerEvents }}
       className="absolute bottom-[15vh] left-5 z-30 max-w-sm md:left-10"
     >
       <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
