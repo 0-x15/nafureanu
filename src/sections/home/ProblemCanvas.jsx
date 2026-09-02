@@ -27,8 +27,16 @@ export default function ProblemCanvas({ lang = "es" }) {
   });
 
   /* Ambient field — appears mid-story, clears as it resolves */
-  const tintOp = useTransform(p, [0.05, 0.35, 0.62, 0.85], [0, 0.9, 0.45, 0]);
+  const tintOp = useTransform(p, [0, 0.35, 0.62, 0.85], [0.3, 0.9, 0.5, 0]);
   const stripOp = useTransform(p, [0.1, 0.35, 0.55], [0, 0.5, 0]);
+
+  /* Glass-plane parallax — nearly imperceptible drift, far slower than the text */
+  const p1Y = useTransform(p, [0, 1], ["3vh", "-3vh"]);
+  const p1R = useTransform(p, [0, 1], [-6, -3]);
+  const p2Y = useTransform(p, [0, 1], ["-2vh", "4vh"]);
+  const p2X = useTransform(p, [0, 1], ["-1vw", "2vw"]);
+  const p3Y = useTransform(p, [0, 1], ["4vh", "-2vh"]);
+  const planesO = useTransform(p, [0, 0.7, 0.92], [1, 1, 0.55]);
 
   /* The question */
   const qOp = useTransform(p, [0.32, 0.44, 0.56, 0.66], [0, 1, 1, 0]);
@@ -54,21 +62,53 @@ export default function ProblemCanvas({ lang = "es" }) {
       aria-label={c.title}
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
-        {/* ambient field — soft cobalt, a touch of violet */}
+        {/* ambient light — cobalt heart, pale cyan edge, distant violet */}
         <motion.div
           style={{ opacity: tintOp }}
           aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 z-0"
         >
-          <span className="absolute left-1/2 top-1/2 h-[70vh] w-[110vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.10),transparent)]" />
-          <span className="absolute bottom-[8%] left-[12%] h-[40vh] w-[40vw] rounded-full bg-[radial-gradient(closest-side,rgba(139,124,246,0.09),transparent)]" />
+          <span className="absolute left-1/2 top-1/2 h-[80vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.13),transparent)]" />
+          <span className="absolute right-[2%] top-[6%] h-[48vh] w-[44vw] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.12),transparent)]" />
+          <span className="absolute bottom-[4%] left-[6%] h-[44vh] w-[42vw] rounded-full bg-[radial-gradient(closest-side,rgba(139,124,246,0.11),transparent)]" />
         </motion.div>
 
-        {/* one glass strip crossing the composition */}
+        {/* ambient glass architecture — oversized planes drifting behind everything */}
+        <motion.div
+          style={{ opacity: planesO }}
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-[1]"
+        >
+          {/* plane 1 — broad horizontal glass, upper-right, catching light */}
+          <motion.div
+            style={{ y: p1Y, rotate: p1R }}
+            className="absolute right-[-8%] top-[6%] h-[32vh] w-[56vw] rounded-[40px] border border-white/35 bg-white/[0.12] shadow-[0_60px_120px_-70px_rgba(12,18,32,0.3)] backdrop-blur-[28px]"
+          >
+            <span className="absolute left-[8%] top-[16%] h-px w-[72%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.7),rgba(43,89,255,0.4),transparent)] blur-[1px]" />
+          </motion.div>
+
+          {/* plane 2 — distant, bottom-left, faint cobalt within the material */}
+          <motion.div
+            style={{ y: p2Y, x: p2X }}
+            className="absolute bottom-[0%] left-[-7%] h-[38vh] w-[55vw] rounded-[48px] border border-white/20 bg-[linear-gradient(130deg,rgba(255,255,255,0.14),rgba(43,89,255,0.05),rgba(255,255,255,0.04))] backdrop-blur-[40px]"
+          >
+            <span className="absolute bottom-[22%] right-[10%] h-px w-[55%] bg-[linear-gradient(to_right,transparent,rgba(43,89,255,0.3),transparent)] blur-[2px]" />
+          </motion.div>
+
+          {/* plane 3 — narrow diagonal catcher of light, mid-right */}
+          <motion.div
+            style={{ y: p3Y, rotate: -12 }}
+            className="absolute left-[38%] top-[44%] h-[16vh] w-[50vw] rounded-full border border-white/15 bg-white/[0.05] backdrop-blur-[24px]"
+          >
+            <span className="absolute left-[15%] top-[45%] h-px w-[65%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.5),transparent)] blur-[1px]" />
+          </motion.div>
+        </motion.div>
+
+        {/* diagonal glass strip — a quiet member of the same material system */}
         <motion.div
           style={{ opacity: stripOp }}
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 h-[24vh] w-[130vw] -translate-x-1/2 -translate-y-1/2 -rotate-[3deg] border-y border-white/50 bg-white/20 backdrop-blur-md"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-[1] h-[14vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 -rotate-[3deg] border-y border-white/30 bg-white/[0.10] backdrop-blur-md"
         />
 
         {/* the problems — fragments drifting from chaos to order */}
