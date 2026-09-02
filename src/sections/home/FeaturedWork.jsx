@@ -9,8 +9,8 @@ import TransitionBridge from "./work/TransitionBridge";
 /**
  * Featured work — two art-directed proof chapters. SophIA is the
  * business-operations billboard on warm stone; Fivo is the advanced
- * infrastructure chapter on deep navy, reached through a light
- * transition that carries operations into infrastructure.
+ * infrastructure chapter on a light fintech canvas, reached through
+ * a soft cobalt transition that carries operations into payments.
  */
 export default function FeaturedWork({ lang = "es" }) {
   const s = STRINGS[lang].workSection;
@@ -38,22 +38,22 @@ export default function FeaturedWork({ lang = "es" }) {
       {/* operations → infrastructure */}
       <TransitionBridge />
 
-      {/* chapter 02 environment — deep navy */}
+      {/* chapter 02 environment — light fintech canvas */}
       <FivoChapter lang={lang} />
 
-      {/* restrained continuation */}
-      <div className="bg-[#0B1220]">
+      {/* restrained continuation — back into the light site environment */}
+      <div className="bg-gradient-to-b from-[#F2F5FA] to-[#F5F3ED]">
         <div className="mx-auto max-w-[1440px] px-5 pb-20 md:px-10 md:pb-24">
           <Reveal>
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-white/40">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
               {s.moreKicker}
             </p>
             <Link
               to={langPath(lang, "/work")}
-              className="group mt-3 inline-flex items-center gap-2 font-heading text-xl font-bold tracking-tight text-white md:text-2xl"
+              className="group mt-3 inline-flex items-center gap-2 font-heading text-xl font-bold tracking-tight text-foreground md:text-2xl"
             >
               {s.moreLink}
-              <ArrowUpRight className="h-5 w-5 text-[#8FA5E8] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <ArrowUpRight className="h-5 w-5 text-accent transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </Link>
           </Reveal>
         </div>

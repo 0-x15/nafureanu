@@ -19,9 +19,10 @@ const DOTS = [
 ];
 
 /**
- * The engineering layer behind the Fivo checkout: the payment journey —
- * confirmation, on-chain verification, cross-chain settlement, completion
- * across nine networks — plays once, quietly, on viewport entry.
+ * The result layer of the Fivo system: the payment journey —
+ * confirmation, on-chain verification, cross-chain settlement,
+ * completion across nine networks — plays once, quietly, in
+ * translucent light material with a refracting cobalt edge.
  */
 export default function SettlementScene({ lang = "es" }) {
   const t = STRINGS[lang].workSection.fivo.scene;
@@ -33,35 +34,40 @@ export default function SettlementScene({ lang = "es" }) {
   });
 
   return (
-    <div className="w-52 rounded-xl border border-white/15 bg-[#101A30]/90 p-4 text-left shadow-[0_24px_48px_-18px_rgba(0,0,0,0.6)] backdrop-blur-md">
-      <p className="text-[10px] font-medium uppercase tracking-wider text-white/40">
+    <div className="relative w-52 rounded-lg border border-white/75 bg-white/60 p-4 text-left shadow-[0_32px_64px_-34px_rgba(43,89,255,0.4)] backdrop-blur-xl">
+      {/* light-refraction edge */}
+      <span
+        aria-hidden="true"
+        className="absolute inset-y-3 right-0 w-px bg-[linear-gradient(to_bottom,transparent,rgba(43,89,255,0.45),transparent)]"
+      />
+      <p className="text-[10px] font-medium uppercase tracking-wider text-[#8A8FA0]">
         {t.title}
       </p>
       <div className="mt-3 space-y-2.5">
         <motion.p
-          {...step(0.5)}
-          className="flex items-center gap-2 text-[11px] text-white/70"
+          {...step(0.6)}
+          className="flex items-center gap-2 text-[11px] text-[#3A4356]"
         >
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]/80" />
           {t.confirmed}
         </motion.p>
         <motion.p
-          {...step(1.1)}
-          className="flex items-center gap-2 text-[11px] text-white/70"
+          {...step(1.2)}
+          className="flex items-center gap-2 text-[11px] text-[#3A4356]"
         >
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]/60" />
           {t.verifying}
         </motion.p>
         <motion.p
-          {...step(1.7)}
-          className="flex items-center gap-2 text-[11px] text-white/70"
+          {...step(1.8)}
+          className="flex items-center gap-2 text-[11px] text-[#3A4356]"
         >
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]/45" />
           {t.settling}
         </motion.p>
         <motion.p
-          {...step(2.4)}
-          className="flex items-center gap-2 text-[11px] font-medium text-white"
+          {...step(2.5)}
+          className="flex items-center gap-2 text-[11px] font-medium text-[#171C29]"
         >
           <span
             aria-hidden="true"
@@ -76,13 +82,13 @@ export default function SettlementScene({ lang = "es" }) {
         {DOTS.map((dot, i) => (
           <motion.span
             key={i}
-            {...step(1.9 + i * 0.09)}
+            {...step(2.0 + i * 0.09)}
             aria-hidden="true"
             className={cn("h-2 w-2 rounded-full", dot)}
           />
         ))}
       </div>
-      <motion.p {...step(2.7)} className="mt-2 text-[9px] text-white/35">
+      <motion.p {...step(2.8)} className="mt-2 text-[9px] text-[#8A8FA0]">
         {t.networks}
       </motion.p>
     </div>

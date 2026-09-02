@@ -204,7 +204,7 @@ export const EN = {
       role: "Stablecoin payment infrastructure",
       headlineA: "One integration.",
       headlineB: "Nine networks.",
-      copy: "Fivo accepts USDC and EURC payments across nine blockchain networks through one integration. The checkout keeps the experience simple while the infrastructure handles verification, settlement and cross-chain movement behind the scenes.",
+      copy: "Fivo accepts USDC and EURC payments across nine blockchain networks through one integration. The infrastructure handles verification, settlement and cross-chain movement behind a simple experience.",
       proof: [
         { value: "9", label: "Blockchain networks" },
         { value: "2", label: "Stablecoins · USDC + EURC" },
