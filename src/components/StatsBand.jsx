@@ -2,14 +2,22 @@ import { useRef, useState } from "react";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { STRINGS, langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
-import SpatialNumber from "@/components/production/SpatialNumber";
-import StateText from "@/components/production/StateText";
-import StateFragments from "@/components/production/StateFragments";
+import StateAtmosphere from "@/components/production/StateAtmosphere";
+import StageVisual from "@/components/production/StageVisual";
+import StateContent from "@/components/production/StateContent";
+import ProofMark from "@/components/production/ProofMark";
+import DeliveryVisual from "@/components/production/visuals/DeliveryVisual";
+import SophiaVisual from "@/components/production/visuals/SophiaVisual";
+import OdooVisual from "@/components/production/visuals/OdooVisual";
+import FivoVisual from "@/components/production/visuals/FivoVisual";
+
+const VISUALS = [DeliveryVisual, SophiaVisual, OdooVisual, FivoVisual];
 
 /**
- * "Nafureanu en producción" — a storytelling composition on the ivory
- * page itself. Zones: intro (top-left), stage (center), content
- * (bottom-left, one state at a time), navigation rail (right).
+ * "Nafureanu en producción" — a four-chapter story of what has
+ * actually been built. Zones: intro (top-left), stage (right),
+ * content (left, one state at a time), proof mark (between both
+ * worlds), navigation rail (right edge).
  */
 export default function StatsBand({ lang = "es" }) {
   const s = STRINGS[lang].stats;
@@ -21,7 +29,7 @@ export default function StatsBand({ lang = "es" }) {
     offset: ["start start", "end end"],
   });
   const f = useTransform(scrollYProgress, [0, 1], [0, 3]);
-  const introY = useTransform(scrollYProgress, [0, 1], ["0vh", "-3vh"]);
+  const introY = useTransform(scrollYProgress, [0, 1], ["0vh", "-2vh"]);
 
   useMotionValueEvent(f, "change", (v) => {
     const idx = Math.max(0, Math.min(3, Math.round(v)));
@@ -46,50 +54,65 @@ export default function StatsBand({ lang = "es" }) {
       aria-label={s.title}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Ambient atmosphere — soft light fields, kept quiet */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-          <span className="absolute left-1/2 top-1/2 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.06),transparent)]" />
-          <span className="absolute -top-36 right-[6%] h-[420px] w-[560px] rounded-full bg-[radial-gradient(closest-side,rgba(122,142,255,0.09),transparent)] blur-[80px]" />
-          <span className="absolute bottom-[8%] left-[28%] h-[360px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(139,124,246,0.06),transparent)] blur-[90px]" />
-        </div>
+        {/* Quiet neutral base bloom under the per-state atmosphere */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.05),transparent)]"
+        />
+
+        {/* Per-state atmospheric tint */}
+        {s.states.map((state, i) => (
+          <StateAtmosphere key={state.headline} index={i} f={f} />
+        ))}
 
         {/* Intro zone */}
         <motion.div
           style={{ y: introY }}
-          className="absolute left-5 top-24 z-30 max-w-xs md:left-10 md:top-28"
+          className="absolute left-5 top-24 z-30 max-w-md md:left-10 md:top-28"
         >
-          <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-accent">
-            {s.kicker}
-          </p>
-          <h2 className="mt-3 font-heading text-xl font-bold tracking-[-0.02em] text-foreground md:text-2xl">
+          <h2 className="font-heading text-2xl font-bold tracking-[-0.02em] text-foreground md:text-3xl">
             {s.title}
           </h2>
-          <p className="mt-2.5 hidden text-xs leading-relaxed text-muted-foreground md:block">
+          <p className="mt-3 hidden max-w-sm text-sm leading-relaxed text-muted-foreground md:block">
             {s.intro}
           </p>
         </motion.div>
 
-        {/* Stage fragments (behind the numbers) */}
-        {s.metrics.map((m, i) => (
-          <StateFragments key={m.label} state={i} f={f} progress={scrollYProgress} />
+        {/* Stage zone — the built system, one per chapter */}
+        {s.states.map((state, i) => {
+          const Visual = VISUALS[i];
+          return (
+            <StageVisual
+              key={state.headline}
+              index={i}
+              f={f}
+              progress={scrollYProgress}
+            >
+              <Visual />
+            </StageVisual>
+          );
+        })}
+
+        {/* Content zone — one state readable at a time */}
+        {s.states.map((state, i) => (
+          <StateContent
+            key={state.headline}
+            state={state}
+            index={i}
+            f={f}
+            lang={lang}
+          />
         ))}
 
-        {/* Stage zone — one dominant number at a time */}
-        <div className="absolute inset-0 z-20 flex items-center justify-center">
-          {s.metrics.map((m, i) => (
-            <SpatialNumber key={m.label} metric={m} index={i} f={f} goTo={goTo} />
-          ))}
-        </div>
-
-        {/* Content zone — one state at a time */}
-        {s.metrics.map((m, i) => (
-          <StateText key={m.label} metric={m} index={i} f={f} lang={lang} />
+        {/* Proof marks — evidence between copy and product */}
+        {s.states.map((state, i) => (
+          <ProofMark key={state.headline} proof={state.proof} index={i} f={f} />
         ))}
 
         {/* Navigation zone — light rail with a progress line */}
         <nav
           aria-label={s.title}
-          className="absolute right-5 top-1/2 z-30 flex -translate-y-1/2 flex-col items-end md:right-10"
+          className="absolute right-4 top-1/2 z-30 flex -translate-y-1/2 flex-col items-end md:right-6"
         >
           <div className="relative flex h-40 flex-col justify-between py-1">
             <span
@@ -101,12 +124,12 @@ export default function StatsBand({ lang = "es" }) {
               style={{ scaleY: scrollYProgress }}
               className="absolute right-[3px] top-0 h-full w-px origin-top bg-accent/70"
             />
-            {s.metrics.map((m, i) => (
+            {s.states.map((state, i) => (
               <button
-                key={m.label}
+                key={state.headline}
                 type="button"
                 onClick={() => goTo(i)}
-                aria-label={m.label}
+                aria-label={state.headline}
                 className="group flex items-center gap-2.5"
               >
                 <span
@@ -132,13 +155,13 @@ export default function StatsBand({ lang = "es" }) {
           </div>
         </nav>
 
-        {/* Accessible static list of all four proof points */}
+        {/* Accessible static list of all four chapters */}
         <ul className="sr-only">
-          {s.metrics.map((m) => (
-            <li key={m.label}>
-              {m.value}
-              {m.suffix} {m.label} —{" "}
-              <a href={langPath(lang, m.to)}>{m.hint}</a>
+          {s.states.map((state) => (
+            <li key={state.headline}>
+              {state.headline} {state.copy} {state.proof.value}
+              {state.proof.suffix} {state.proof.label}{" "}
+              <a href={langPath(lang, state.to)}>{state.cta}</a>
             </li>
           ))}
         </ul>
