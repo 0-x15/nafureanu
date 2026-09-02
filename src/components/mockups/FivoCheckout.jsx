@@ -46,7 +46,11 @@ const DOTS = [
  * Fivo product mockup — stablecoin checkout with the settlement
  * status card floating alongside. Pure CSS, no images.
  */
-export default function FivoCheckout({ lang = "es", className }) {
+export default function FivoCheckout({
+  lang = "es",
+  className,
+  bare = false,
+}) {
   const t = T[lang];
 
   return (
@@ -116,6 +120,7 @@ export default function FivoCheckout({ lang = "es", className }) {
       </div>
 
       {/* Settlement status card */}
+      {!bare && (
       <div className="absolute -bottom-6 -left-10 hidden w-44 rounded-xl border border-[#E5E1D6] bg-white p-4 text-left shadow-[0_20px_40px_-16px_rgba(12,18,32,0.3)] md:block lg:-left-16">
         <p className="text-[10px] text-[#9A94A6]">{t.salesTitle}</p>
         <p className="mt-1.5 flex items-center gap-2 text-xs font-semibold text-[#171C29]">
@@ -129,6 +134,7 @@ export default function FivoCheckout({ lang = "es", className }) {
         </div>
         <p className="mt-2 text-[9px] text-[#9A94A6]">{t.networks}</p>
       </div>
+      )}
     </div>
   );
 }

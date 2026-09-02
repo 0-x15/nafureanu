@@ -49,7 +49,11 @@ const BARS = [34, 46, 40, 55, 48, 62, 58, 70, 66, 78, 74, 88, 82, 96];
  * SophIA product mockup — CRM/operations dashboard with the AI
  * WhatsApp assistant floating alongside. Pure CSS/SVG, no images.
  */
-export default function SophIADashboard({ lang = "es", className }) {
+export default function SophIADashboard({
+  lang = "es",
+  className,
+  bare = false,
+}) {
   const t = T[lang];
 
   return (
@@ -175,6 +179,7 @@ export default function SophIADashboard({ lang = "es", className }) {
       </div>
 
       {/* AI assistant card */}
+      {!bare && (
       <div className="absolute -bottom-8 -right-2 hidden w-60 rotate-1 rounded-xl border border-[#E5E1D6] bg-white p-3.5 text-left shadow-[0_20px_40px_-16px_rgba(12,18,32,0.3)] sm:block md:-right-6">
         <p className="flex items-center gap-2 text-[10px] font-medium text-[#9A94A6]">
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#25D366]" />
@@ -187,6 +192,7 @@ export default function SophIADashboard({ lang = "es", className }) {
           {t.chatA}
         </p>
       </div>
+      )}
     </div>
   );
 }
