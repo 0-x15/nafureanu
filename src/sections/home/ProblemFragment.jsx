@@ -27,7 +27,7 @@ export default function ProblemFragment({ text, index, progress }) {
     [0, 0.16, 0.3, cfg.fade],
     [0, cfg.dim, cfg.peak, 0]
   );
-  const blurV = useTransform(progress, [0, 0.3], [cfg.blur, 0]);
+  const blurV = useTransform(progress, [0, 0.18], [cfg.blur, 0]);
   const filter = useMotionTemplate`blur(${blurV}px)`;
 
   return (
