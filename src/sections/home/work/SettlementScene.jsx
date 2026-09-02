@@ -19,9 +19,9 @@ const DOTS = [
 ];
 
 /**
- * The middle layer of the Fivo scene: the payment journey settling
- * behind the clean checkout — verification, cross-chain settlement,
- * completion across nine networks. Plays once on viewport entry.
+ * The engineering layer behind the Fivo checkout: the payment journey —
+ * confirmation, on-chain verification, cross-chain settlement, completion
+ * across nine networks — plays once, quietly, on viewport entry.
  */
 export default function SettlementScene({ lang = "es" }) {
   const t = STRINGS[lang].workSection.fivo.scene;
@@ -39,21 +39,28 @@ export default function SettlementScene({ lang = "es" }) {
       </p>
       <div className="mt-3 space-y-2.5">
         <motion.p
-          {...step(0.3)}
+          {...step(0.5)}
           className="flex items-center gap-2 text-[11px] text-white/70"
         >
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]" />
-          {t.verifying}
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]/80" />
+          {t.confirmed}
         </motion.p>
         <motion.p
           {...step(1.1)}
           className="flex items-center gap-2 text-[11px] text-white/70"
         >
           <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]/60" />
+          {t.verifying}
+        </motion.p>
+        <motion.p
+          {...step(1.7)}
+          className="flex items-center gap-2 text-[11px] text-white/70"
+        >
+          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-[#2B59FF]/45" />
           {t.settling}
         </motion.p>
         <motion.p
-          {...step(1.9)}
+          {...step(2.4)}
           className="flex items-center gap-2 text-[11px] font-medium text-white"
         >
           <span
@@ -69,13 +76,13 @@ export default function SettlementScene({ lang = "es" }) {
         {DOTS.map((dot, i) => (
           <motion.span
             key={i}
-            {...step(1.2 + i * 0.09)}
+            {...step(1.9 + i * 0.09)}
             aria-hidden="true"
             className={cn("h-2 w-2 rounded-full", dot)}
           />
         ))}
       </div>
-      <motion.p {...step(2.1)} className="mt-2 text-[9px] text-white/35">
+      <motion.p {...step(2.7)} className="mt-2 text-[9px] text-white/35">
         {t.networks}
       </motion.p>
     </div>
