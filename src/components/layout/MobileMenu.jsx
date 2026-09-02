@@ -33,26 +33,27 @@ export default function MobileMenu({ lang = "es" }) {
         onClick={() => setOpen(true)}
         aria-label="Open menu"
         aria-expanded={open}
-        className="-mr-2 p-2"
+        className="-mr-2 p-2 text-[#F0EFEA]"
       >
         <Menu className="h-5 w-5" />
       </button>
       {open && (
         <div
-          className="fixed inset-0 z-[80] flex flex-col bg-[#F9F9F7]"
+          className="fixed inset-0 z-[80] flex flex-col bg-[#07090E]"
           role="dialog"
           aria-modal="true"
           aria-label="Menu"
         >
           <div className="flex h-16 items-center justify-between px-5">
-            <span className="font-heading text-lg font-bold uppercase tracking-[-0.02em]">
+            <span className="flex items-center gap-2 font-heading text-lg font-bold uppercase tracking-[-0.02em] text-[#F0EFEA]">
+              <span aria-hidden="true" className="inline-block h-2 w-2 bg-[#3D7BFF]" />
               Nafureanu
             </span>
             <button
               type="button"
               onClick={() => setOpen(false)}
               aria-label="Close menu"
-              className="-mr-2 p-2"
+              className="-mr-2 p-2 text-[#F0EFEA]"
             >
               <X className="h-5 w-5" />
             </button>
@@ -62,23 +63,23 @@ export default function MobileMenu({ lang = "es" }) {
               <Link
                 key={l.path}
                 to={langPath(lang, l.path)}
-                className="flex items-baseline gap-3 border-b border-[#E0E0DE] py-5 font-heading text-4xl font-bold tracking-[-0.02em]"
+                className="flex items-baseline gap-3 border-b border-[#1E2530] py-5 font-heading text-4xl font-bold tracking-[-0.02em] text-[#F0EFEA]"
               >
-                <span className="font-mono text-xs text-[#E63946]">{l.num}</span>
+                <span className="font-mono text-xs text-[#3D7BFF]">{l.num}</span>
                 {s.nav[l.key]}
               </Link>
             ))}
             <Link
               to={langPath(lang, "/contact")}
-              className="mt-10 inline-flex items-center justify-center gap-2 bg-[#121212] px-6 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7]"
+              className="mt-10 inline-flex items-center justify-center gap-2 bg-[#F0EFEA] px-6 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#07090E]"
             >
               {s.nav.start} <ArrowUpRight className="h-4 w-4" />
             </Link>
-            <div className="mt-8 border-t border-[#E0E0DE] pt-6">
+            <div className="mt-8 border-t border-[#1E2530] pt-6">
               <LanguageSwitch lang={lang} />
             </div>
           </nav>
-          <p className="px-5 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-[#848482]">
+          <p className="px-5 pb-8 font-mono text-[10px] uppercase tracking-[0.25em] text-[#8A93A6]">
             {STRINGS[lang].hero.eyebrow}
           </p>
         </div>

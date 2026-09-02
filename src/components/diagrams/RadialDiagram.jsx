@@ -1,12 +1,19 @@
-const INK = "#121212";
-const SIGNAL = "#E63946";
-const BG = "#F9F9F7";
+import { motion } from "framer-motion";
+
+const INK = "#8A93A6";
+const BLUE = "#3D7BFF";
+const CYAN = "#5CDBEA";
+const TXT = "#E8ECF3";
+const SURFACE = "#0D1117";
+const EDGE = "#2A3550";
 const MONO = "'JetBrains Mono', monospace";
+const EASE = [0.22, 1, 0.36, 1];
 
 /**
  * Radial hub-and-spoke architecture diagram (SophIA as the central
- * system). Signal-red pulses travel from the core to each module
- * unless reduced motion is on. nodes: [{ label, active }]
+ * system). On scroll-in, connections draw themselves progressively and
+ * modules appear in sequence; cyan/blue pulses then travel the data
+ * paths continuously (unless reduced motion). nodes: [{ label, active }]
  */
 export default function RadialDiagram({ centerLabel, nodes, reduced, label }) {
   const W = 780;
@@ -21,28 +28,42 @@ export default function RadialDiagram({ centerLabel, nodes, reduced, label }) {
   });
 
   return (
-    <svg viewBox={`0 0 ${W} ${W}`} className="mx-auto h-auto w-full max-w-3xl" role="img" aria-label={label}>
+    <motion.svg
+      viewBox={`0 0 ${W} ${W}`}
+      className="mx-auto h-auto w-full max-w-3xl"
+      role="img"
+      aria-label={label}
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-15%" }}
+    >
       {pos.map((p, i) => (
-        <line
+        <motion.line
           key={`line-${i}`}
           x1={cx}
           y1={cy}
           x2={p.x}
           y2={p.y}
-          stroke={INK}
-          strokeOpacity={nodes[i].active ? 0.5 : 0.2}
+          stroke={nodes[i].active ? BLUE : INK}
+          strokeOpacity={nodes[i].active ? 0.75 : 0.3}
           strokeWidth="1"
+          variants={{ hidden: { pathLength: 0, opacity: 0 }, show: { pathLength: 1, opacity: 1 } }}
+          transition={{ duration: 0.9, delay: 0.15 + i * 0.08, ease: EASE }}
         />
       ))}
       {pos.map((p, i) => (
-        <g key={`node-${i}`}>
+        <motion.g
+          key={`node-${i}`}
+          variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+          transition={{ duration: 0.5, delay: 0.45 + i * 0.08, ease: EASE }}
+        >
           <rect
             x={p.x - NW / 2}
             y={p.y - NH / 2}
             width={NW}
             height={NH}
-            fill={BG}
-            stroke={nodes[i].active ? SIGNAL : INK}
+            fill={SURFACE}
+            stroke={nodes[i].active ? BLUE : EDGE}
             strokeWidth={nodes[i].active ? 1.5 : 1}
           />
           <text
@@ -51,37 +72,42 @@ export default function RadialDiagram({ centerLabel, nodes, reduced, label }) {
             textAnchor="middle"
             fontSize="10"
             letterSpacing="1.2"
-            fill={INK}
+            fill={TXT}
             style={{ fontFamily: MONO }}
           >
             {nodes[i].label}
           </text>
-        </g>
+        </motion.g>
       ))}
-      <rect x={cx - 95} y={cy - 26} width={190} height={52} fill={INK} />
-      <rect x={cx - 95} y={cy - 26} width={8} height={52} fill={SIGNAL} />
-      <text
-        x={cx}
-        y={cy + 5}
-        textAnchor="middle"
-        fontSize="14"
-        letterSpacing="3"
-        fill={BG}
-        style={{ fontFamily: MONO }}
+      <motion.g
+        variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
+        transition={{ duration: 0.6, ease: EASE }}
       >
-        {centerLabel}
-      </text>
+        <rect x={cx - 95} y={cy - 26} width={190} height={52} fill="#111726" stroke={BLUE} strokeWidth="1" />
+        <rect x={cx - 95} y={cy - 26} width={8} height={52} fill={BLUE} />
+        <text
+          x={cx}
+          y={cy + 5}
+          textAnchor="middle"
+          fontSize="14"
+          letterSpacing="3"
+          fill={TXT}
+          style={{ fontFamily: MONO }}
+        >
+          {centerLabel}
+        </text>
+      </motion.g>
       {!reduced &&
         pos.map((p, i) => (
-          <circle key={`pulse-${i}`} r="3.5" fill={SIGNAL}>
+          <circle key={`pulse-${i}`} r="3.5" fill={nodes[i].active ? CYAN : BLUE}>
             <animateMotion
               dur={`${2.6 + (i % 5) * 0.4}s`}
-              begin={`${i * 0.45}s`}
+              begin={`${0.8 + i * 0.45}s`}
               repeatCount="indefinite"
               path={`M ${cx} ${cy} L ${p.x} ${p.y}`}
             />
           </circle>
         ))}
-    </svg>
+    </motion.svg>
   );
 }

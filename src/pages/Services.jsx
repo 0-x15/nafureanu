@@ -19,14 +19,14 @@ export default function Services({ lang = "es" }) {
   return (
     <>
       <header className="px-5 pt-36 md:px-10 md:pt-48">
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
-          <span className="text-[#E63946]">{s.servicesPage.kicker.split(" — ")[0]}</span> —{" "}
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
+          <span className="text-[#3D7BFF]">{s.servicesPage.kicker.split(" — ")[0]}</span> —{" "}
           {s.servicesPage.kicker.split(" — ")[1]}
         </p>
-        <h1 className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] md:text-8xl">
+        <h1 className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] text-[#F0EFEA] md:text-8xl">
           {s.servicesPage.h1}
         </h1>
-        <p className="mt-8 max-w-2xl text-base leading-[1.7] text-[#5C5C58] md:text-lg">
+        <p className="mt-8 max-w-2xl text-base leading-[1.7] text-[#A6AEBD] md:text-lg">
           {s.servicesPage.intro}
         </p>
       </header>
@@ -37,6 +37,7 @@ export default function Services({ lang = "es" }) {
       <ProcessStrip lang={lang} />
       <StatsBand lang={lang} />
       <CtaBand
+        lang={lang}
         kicker={s.servicesPage.cta.kicker}
         title={s.servicesPage.cta.title}
         note={s.servicesPage.cta.note}

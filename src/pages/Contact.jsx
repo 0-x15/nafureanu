@@ -5,7 +5,7 @@ import { STRINGS, langPath, otherLang } from "@/i18n";
 import { usePageMeta } from "@/lib/seo";
 
 const inputCls =
-  "border-b border-[#121212] bg-transparent px-1 py-0.5 font-heading font-medium placeholder:text-[#B9B9B5] focus:border-[#E63946] focus:outline-none";
+  "border-b border-[#8A93A6] bg-transparent px-1 py-0.5 font-heading font-medium text-[#F0EFEA] placeholder:text-[#55607A] focus:border-[#3D7BFF] focus:outline-none";
 
 export default function Contact({ lang = "es" }) {
   const s = STRINGS[lang];
@@ -54,23 +54,23 @@ export default function Contact({ lang = "es" }) {
   return (
     <>
       <section className="px-5 pt-36 md:px-10 md:pt-48" aria-labelledby="contact-title">
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
-          <span className="text-[#E63946]">{c.kicker.split(" — ")[0]}</span> —{" "}
+        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
+          <span className="text-[#3D7BFF]">{c.kicker.split(" — ")[0]}</span> —{" "}
           {c.kicker.split(" — ")[1]}
         </p>
         <h1
           id="contact-title"
-          className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] md:text-8xl"
+          className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] text-[#F0EFEA] md:text-8xl"
         >
           {c.h1}
         </h1>
-        <p className="mt-8 max-w-xl text-base leading-relaxed text-[#5C5C58] md:text-lg">
+        <p className="mt-8 max-w-xl text-base leading-relaxed text-[#A6AEBD] md:text-lg">
           {c.sub}
         </p>
 
         <div className="mt-20 grid gap-16 md:mt-28 md:grid-cols-12">
           <form onSubmit={submit} noValidate className="md:col-span-8">
-            <p className="font-heading text-2xl font-medium leading-[1.7] md:text-4xl">
+            <p className="font-heading text-2xl font-medium leading-[1.7] text-[#F0EFEA] md:text-4xl">
               {c.s1a}{" "}
               <input
                 type="text"
@@ -101,7 +101,7 @@ export default function Contact({ lang = "es" }) {
               />
               .
             </p>
-            <p className="mt-8 font-heading text-2xl font-medium leading-[1.7] md:text-4xl">
+            <p className="mt-8 font-heading text-2xl font-medium leading-[1.7] text-[#F0EFEA] md:text-4xl">
               {c.s2}{" "}
               <input
                 type="email"
@@ -116,7 +116,7 @@ export default function Contact({ lang = "es" }) {
             </p>
 
             {error && (
-              <p role="alert" className="mt-6 font-mono text-xs text-[#E63946]">
+              <p role="alert" className="mt-6 font-mono text-xs text-[#FF8E8E]">
                 {error}
               </p>
             )}
@@ -124,17 +124,18 @@ export default function Contact({ lang = "es" }) {
             <div className="mt-14 flex flex-wrap items-center gap-8">
               <button
                 type="submit"
-                className="inline-flex items-center gap-2 bg-[#121212] px-8 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7] transition-colors hover:bg-[#E63946]"
+                data-cursor="start"
+                className="inline-flex items-center gap-2 bg-[#F0EFEA] px-8 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#07090E] transition-colors hover:bg-[#3D7BFF] hover:text-[#F0EFEA]"
               >
                 {c.send} <ArrowUpRight className="h-4 w-4" />
               </button>
               <button
                 type="button"
                 onClick={copy}
-                className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-[#848482] transition-colors hover:text-[#121212]"
+                className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-[#8A93A6] transition-colors hover:text-[#F0EFEA]"
               >
                 {copied ? (
-                  <Check className="h-3.5 w-3.5 text-[#E63946]" />
+                  <Check className="h-3.5 w-3.5 text-[#3D7BFF]" />
                 ) : (
                   <Copy className="h-3.5 w-3.5" />
                 )}
@@ -144,25 +145,25 @@ export default function Contact({ lang = "es" }) {
           </form>
 
           <aside className="md:col-span-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
               {c.nextKicker}
             </p>
             <ol className="mt-6 space-y-4">
               {c.steps.map((step, i) => (
                 <li key={step} className="flex items-baseline gap-4">
-                  <span className="font-mono text-[10px] text-[#E63946]">
+                  <span className="font-mono text-[10px] text-[#3D7BFF]">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-sm text-[#5C5C58]">{step}</span>
+                  <span className="text-sm text-[#A6AEBD]">{step}</span>
                 </li>
               ))}
             </ol>
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.25em] text-[#848482]">
+            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
               {c.emailKicker}
             </p>
             <a
               href={`mailto:${SITE.email}`}
-              className="mt-3 inline-block font-mono text-sm underline underline-offset-4 transition-colors hover:text-[#E63946]"
+              className="mt-3 inline-block font-mono text-sm text-[#F0EFEA] underline underline-offset-4 transition-colors hover:text-[#3D7BFF]"
             >
               {SITE.email}
             </a>
@@ -170,8 +171,8 @@ export default function Contact({ lang = "es" }) {
         </div>
       </section>
 
-      <section className="mt-24 border-t border-[#E0E0DE] px-5 py-16 md:px-10 md:py-24" aria-label="Studio note">
-        <p className="max-w-2xl font-heading text-2xl font-bold leading-[1.4] tracking-[-0.02em] md:text-4xl">
+      <section className="mt-24 border-t border-[#1E2530] px-5 py-16 md:px-10 md:py-24" aria-label="Studio note">
+        <p className="max-w-2xl font-heading text-2xl font-bold leading-[1.4] tracking-[-0.02em] text-[#F0EFEA] md:text-4xl">
           {c.studioTitle}
         </p>
       </section>

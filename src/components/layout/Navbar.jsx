@@ -28,7 +28,7 @@ export default function Navbar({ lang = "es" }) {
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-colors duration-500",
         scrolled
-          ? "border-b border-[#E0E0DE] bg-[#F9F9F7]/85 backdrop-blur-md"
+          ? "border-b border-[#1E2530] bg-[#07090E]/80 backdrop-blur-md"
           : "border-b border-transparent"
       )}
     >
@@ -38,9 +38,9 @@ export default function Navbar({ lang = "es" }) {
       >
         <Link
           to={langPath(lang, "/")}
-          className="flex items-center gap-2 font-heading text-lg font-bold uppercase tracking-[-0.02em]"
+          className="flex items-center gap-2 font-heading text-lg font-bold uppercase tracking-[-0.02em] text-[#F0EFEA]"
         >
-          <span aria-hidden="true" className="inline-block h-2 w-2 bg-[#E63946]" />
+          <span aria-hidden="true" className="inline-block h-2 w-2 bg-[#3D7BFF]" />
           Nafureanu
         </Link>
         <div className="hidden items-center gap-8 md:flex">
@@ -51,19 +51,22 @@ export default function Navbar({ lang = "es" }) {
               className={({ isActive }) =>
                 cn(
                   "font-mono text-xs uppercase tracking-[0.15em] transition-colors",
-                  isActive ? "text-[#E63946]" : "text-[#121212] hover:text-[#E63946]"
+                  isActive
+                    ? "text-[#3D7BFF]"
+                    : "text-[#F0EFEA] hover:text-[#3D7BFF]"
                 )
               }
             >
-              <span className="mr-1.5 text-[#848482]">{l.num}</span>
+              <span className="mr-1.5 text-[#55607A]">{l.num}</span>
               {s.nav[l.key]}
             </NavLink>
           ))}
-          <span aria-hidden="true" className="h-4 w-px bg-[#E0E0DE]" />
+          <span aria-hidden="true" className="h-4 w-px bg-[#1E2530]" />
           <LanguageSwitch lang={lang} />
           <Link
             to={langPath(lang, "/contact")}
-            className="ml-2 inline-flex items-center gap-1.5 bg-[#121212] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.15em] text-[#F9F9F7] transition-colors hover:bg-[#E63946]"
+            data-cursor="start"
+            className="ml-2 inline-flex items-center gap-1.5 bg-[#F0EFEA] px-5 py-2.5 font-mono text-xs uppercase tracking-[0.15em] text-[#07090E] transition-colors hover:bg-[#3D7BFF] hover:text-[#F0EFEA]"
           >
             {s.nav.start} <ArrowUpRight className="h-3.5 w-3.5" />
           </Link>

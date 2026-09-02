@@ -11,7 +11,7 @@ export default function SiteLayout({ lang = "es" }) {
     <MotionConfig reducedMotion="user">
       <GridOverlay />
       <ScrollProgress />
-      <Cursor />
+      <Cursor lang={lang} />
       <Navbar lang={lang} />
       <main className="relative z-10">
         <Outlet />

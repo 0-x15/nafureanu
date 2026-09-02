@@ -8,7 +8,7 @@ import { motion, useReducedMotion } from "framer-motion";
 export default function GridOverlay() {
   const reduce = useReducedMotion();
   const lines = Array.from({ length: 12 }, (_, i) => (
-    <div key={i} className="h-full border-l border-[#E0E0DE]/70 last:border-r" />
+    <div key={i} className="h-full border-l border-[#1E2530]/60 last:border-r" />
   ));
   const innerClass =
     "absolute inset-0 mx-auto hidden max-w-[1440px] grid-cols-12 px-5 md:grid md:px-10";

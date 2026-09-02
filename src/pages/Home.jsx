@@ -26,7 +26,7 @@ export default function Home({ lang = "es" }) {
       <StatsBand lang={lang} />
       <CapabilitiesBlade lang={lang} />
       <SelectedWork lang={lang} />
-      <CtaBand kicker={s.homeCta.kicker} title={s.homeCta.title} note={s.homeCta.note} />
+      <CtaBand lang={lang} kicker={s.homeCta.kicker} title={s.homeCta.title} note={s.homeCta.note} />
     </>
   );
 }

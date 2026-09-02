@@ -10,17 +10,17 @@ export default function ProblemTicker({ lang = "es" }) {
   return (
     <section
       aria-label="Problems we solve"
-      className="overflow-hidden border-y border-[#E0E0DE] py-5"
+      className="overflow-hidden border-y border-[#1E2530] py-5"
     >
       <div className="animate-marquee flex w-max items-center gap-10 whitespace-nowrap">
         {row.map((q, i) => (
           <span
             key={i}
             aria-hidden={i >= quotes.length}
-            className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.15em] text-[#848482]"
+            className="flex items-center gap-10 font-mono text-xs uppercase tracking-[0.15em] text-[#8A93A6]"
           >
             {q}
-            <span aria-hidden="true" className="h-1.5 w-1.5 bg-[#E63946]" />
+            <span aria-hidden="true" className="h-1.5 w-1.5 bg-[#3D7BFF]" />
           </span>
         ))}
       </div>
