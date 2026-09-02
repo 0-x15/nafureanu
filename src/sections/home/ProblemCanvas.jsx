@@ -27,30 +27,31 @@ export default function ProblemCanvas({ lang = "es" }) {
   });
 
   /* Ambient field — appears mid-story, clears as it resolves */
-  const tintOp = useTransform(p, [0.05, 0.35, 0.62, 0.85], [0, 0.9, 0.45, 0]);
-  const stripOp = useTransform(p, [0.1, 0.35, 0.55], [0, 0.5, 0]);
+  const tintOp = useTransform(p, [0.05, 0.3, 0.6, 0.85], [0, 0.9, 0.5, 0.15]);
+  const stripOp = useTransform(p, [0.1, 0.35, 0.5], [0, 0.5, 0]);
 
-  /* The question */
-  const qOp = useTransform(p, [0.32, 0.44, 0.56, 0.66], [0, 1, 1, 0]);
-  const qY = useTransform(p, [0.32, 0.66], [36, -44]);
-  const qBlurV = useTransform(p, [0.32, 0.44, 0.56, 0.66], [10, 0, 0, 10]);
+  /* The question — ENTER fast, HOLD locked, EXIT clean, with a
+     dead zone on each side so it never overlaps another state */
+  const qOp = useTransform(p, [0.56, 0.62, 0.72, 0.78], [0, 1, 1, 0]);
+  const qY = useTransform(p, [0.56, 0.62, 0.72, 0.78], [24, 0, 0, -28]);
+  const qBlurV = useTransform(p, [0.56, 0.62, 0.72, 0.78], [2.5, 0, 0, 2]);
   const qBlur = useMotionTemplate`blur(${qBlurV}px)`;
 
-  /* The resolution */
-  const fOp = useTransform(p, [0.64, 0.8], [0, 1]);
-  const fY = useTransform(p, [0.64, 0.84], [48, 0]);
-  const fBlurV = useTransform(p, [0.64, 0.82], [10, 0]);
+  /* The resolution — enters fast, then holds until the section ends */
+  const fOp = useTransform(p, [0.82, 0.88], [0, 1]);
+  const fY = useTransform(p, [0.82, 0.88], [40, 0]);
+  const fBlurV = useTransform(p, [0.82, 0.88], [2.5, 0]);
   const fBlur = useMotionTemplate`blur(${fBlurV}px)`;
 
-  /* CTA and quiet closing line */
-  const cOp = useTransform(p, [0.8, 0.92], [0, 1]);
-  const cY = useTransform(p, [0.8, 0.95], [22, 0]);
-  const tOp = useTransform(p, [0.9, 0.99], [0, 1]);
+  /* CTA and quiet closing line — settle after the headline */
+  const cOp = useTransform(p, [0.86, 0.92], [0, 1]);
+  const cY = useTransform(p, [0.86, 0.93], [18, 0]);
+  const tOp = useTransform(p, [0.9, 0.96], [0, 1]);
 
   return (
     <section
       ref={ref}
-      className="relative h-[150vh] bg-background"
+      className="relative h-[190vh] bg-background"
       aria-label={c.title}
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
