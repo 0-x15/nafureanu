@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
-import { STRINGS, langPath } from "@/i18n";
+import { STRINGS } from "@/i18n";
 import CapabilityNav from "./capabilities/CapabilityNav";
 import CapabilityScene from "./capabilities/CapabilityScene";
 import CapabilityChapter from "./capabilities/CapabilityChapter";
+import ProblemBridge from "./ProblemBridge";
 
 /**
  * What we build — an interactive capability experience. The six
@@ -66,31 +65,8 @@ export default function WhatWeBuild({ lang = "es" }) {
           ))}
         </div>
 
-        {/* Closing CTA */}
-        <Reveal className="mt-16 border-t border-border pt-12 md:mt-24">
-          <p className="font-heading text-xl font-bold tracking-[-0.02em] text-foreground md:text-2xl">
-            {s.close.note}
-          </p>
-          <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
-            {s.close.sub}
-          </p>
-          <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <Link
-              to={langPath(lang, "/contact")}
-              className="group inline-flex items-center gap-2 text-sm font-medium text-accent"
-            >
-              {s.close.cta}
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-            <Link
-              to={langPath(lang, "/services")}
-              className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
-            >
-              {s.close.all}
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-            </Link>
-          </div>
-        </Reveal>
+        {/* Conversion bridge — problem → system */}
+        <ProblemBridge lang={lang} />
       </div>
     </section>
   );

@@ -143,10 +143,35 @@ export const EN = {
       },
     ],
     close: {
-      note: "Don't know which technology you need?",
-      sub: "You don't have to. Tell us how the process works and where the problem is.",
+      kicker: "Start with the problem",
+      title: "You don't need to know which technology you need.",
+      copy: "Tell us what is happening today. We'll identify what should be built, automated, integrated or simplified.",
+      question: "Which sounds most like your situation?",
+      situations: [
+        {
+          text: "Too much work is still manual.",
+          hint: "Process · Automation · AI",
+          layer: { label: "Workflow", value: "Repetitive manual work" },
+        },
+        {
+          text: "Our systems don't talk to each other.",
+          hint: "Integrations · APIs · Data",
+          layer: { label: "Systems", value: "Disconnected data" },
+        },
+        {
+          text: "Our current software doesn't fit.",
+          hint: "Custom software · CRM · ERP · Odoo",
+          layer: { label: "Software", value: "Tools that don't fit" },
+        },
+        {
+          text: "We have an idea but don't know how to build it.",
+          hint: "Product · Architecture · Development",
+          layer: { label: "Product", value: "An idea without shape" },
+        },
+      ],
       cta: "Tell us what you need to solve",
       all: "View all services",
+      trust: "We understand the process first. Then we propose the technology.",
     },
   },
   workSection: {

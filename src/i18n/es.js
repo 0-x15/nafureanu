@@ -143,10 +143,35 @@ export const ES = {
       },
     ],
     close: {
-      note: "¿No sabes qué tecnología necesitas?",
-      sub: "No hace falta. Cuéntanos cómo funciona el proceso y dónde está el problema.",
+      kicker: "Empieza por el problema",
+      title: "No necesitas saber qué tecnología necesitas.",
+      copy: "Cuéntanos qué ocurre hoy. Nosotros identificamos qué conviene construir, automatizar, integrar o simplificar.",
+      question: "¿Qué se parece más a tu caso?",
+      situations: [
+        {
+          text: "Hay demasiado trabajo manual.",
+          hint: "Procesos · Automatización · IA",
+          layer: { label: "Procesos", value: "Trabajo manual repetitivo" },
+        },
+        {
+          text: "Nuestros sistemas no se hablan.",
+          hint: "Integraciones · APIs · Datos",
+          layer: { label: "Sistemas", value: "Datos desconectados" },
+        },
+        {
+          text: "El software actual no encaja.",
+          hint: "Software a medida · CRM · ERP · Odoo",
+          layer: { label: "Software", value: "Herramientas que no encajan" },
+        },
+        {
+          text: "Tenemos una idea y no sabemos cómo construirla.",
+          hint: "Producto · Arquitectura · Desarrollo",
+          layer: { label: "Producto", value: "Una idea sin forma" },
+        },
+      ],
       cta: "Cuéntanos qué necesitas resolver",
       all: "Ver todos los servicios",
+      trust: "Primero entendemos el proceso. Después proponemos la tecnología.",
     },
   },
   workSection: {
