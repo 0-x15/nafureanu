@@ -1,33 +1,24 @@
 import { motion } from "framer-motion";
 
-const INK = "#8A93A6";
-const BLUE = "#3D7BFF";
-const CYAN = "#5CDBEA";
-const TXT = "#E8ECF3";
-const SURFACE = "#0D1117";
-const EDGE = "#2A3550";
-const MONO = "'JetBrains Mono', monospace";
 const EASE = [0.22, 1, 0.36, 1];
+const W = 620;
+const NW = 420;
+const NH = 52;
+const GAP = 20;
+const TOP = 22;
 
 /**
- * Vertical systems-pipeline diagram (Fivo payment architecture).
- * On scroll-in, connectors draw and boxes appear in sequence; signals
- * then travel the pipeline continuously (unless reduced motion).
- * steps: [{ label, active }]
+ * Vertical systems-pipeline diagram for dark bands — Fivo's payment
+ * architecture. steps: [{ label, active }].
  */
-export default function FlowDiagram({ steps, reduced, label }) {
-  const W = 600;
-  const NW = 380;
-  const NH = 56;
-  const GAP = 26;
-  const TOP = 30;
+export default function FlowDiagram({ steps, label, reduced }) {
   const y = (i) => TOP + i * (NH + GAP);
   const H = y(steps.length - 1) + NH + TOP;
 
   return (
     <motion.svg
       viewBox={`0 0 ${W} ${H}`}
-      className="mx-auto h-auto w-full max-w-2xl"
+      className="mx-auto h-auto w-full max-w-xl"
       role="img"
       aria-label={label}
       initial="hidden"
@@ -37,41 +28,52 @@ export default function FlowDiagram({ steps, reduced, label }) {
       {steps.map((s, i) => {
         const cy = y(i);
         return (
-          <g key={`wrap-${s.label}`}>
+          <g key={`step-${s.label}`}>
             {i < steps.length - 1 && (
-              <motion.line
-                x1={W / 2}
-                y1={cy + NH / 2}
-                x2={W / 2}
-                y2={y(i + 1) - NH / 2}
-                stroke={INK}
-                strokeOpacity="0.35"
-                strokeWidth="1"
-                variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1 } }}
-                transition={{ duration: 0.5, delay: 0.4 + i * 0.14, ease: EASE }}
-              />
+              <>
+                <motion.line
+                  x1={W / 2}
+                  y1={cy + NH / 2}
+                  x2={W / 2}
+                  y2={y(i + 1) - NH / 2}
+                  stroke="rgba(255,255,255,0.14)"
+                  strokeWidth="1"
+                  variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1 } }}
+                  transition={{ duration: 0.5, delay: 0.35 + i * 0.12, ease: EASE }}
+                />
+                {!reduced && (
+                  <circle r="3" fill="#5B84FF">
+                    <animateMotion
+                      dur={`${2.2 + (i % 4) * 0.4}s`}
+                      begin={`${1 + i * 0.3}s`}
+                      repeatCount="indefinite"
+                      path={`M ${W / 2} ${cy + NH / 2} L ${W / 2} ${y(i + 1) - NH / 2}`}
+                    />
+                  </circle>
+                )}
+              </>
             )}
             <motion.g
-              variants={{ hidden: { opacity: 0, y: 14 }, show: { opacity: 1, y: 0 } }}
-              transition={{ duration: 0.55, delay: 0.15 + i * 0.14, ease: EASE }}
+              variants={{ hidden: { opacity: 0, y: 12 }, show: { opacity: 1, y: 0 } }}
+              transition={{ duration: 0.5, delay: 0.15 + i * 0.12, ease: EASE }}
             >
               <rect
                 x={(W - NW) / 2}
                 y={cy - NH / 2}
                 width={NW}
                 height={NH}
-                fill={s.active ? "#13224A" : SURFACE}
-                stroke={s.active ? BLUE : EDGE}
-                strokeWidth={s.active ? 1.5 : 1}
+                rx="14"
+                fill={s.active ? "rgba(43,89,255,0.15)" : "rgba(255,255,255,0.04)"}
+                stroke={s.active ? "#5B84FF" : "rgba(255,255,255,0.14)"}
+                strokeWidth="1"
               />
               <text
                 x={W / 2}
-                y={cy + 4}
+                y={cy + 4.5}
                 textAnchor="middle"
-                fontSize="12"
-                letterSpacing="1.5"
-                fill={TXT}
-                style={{ fontFamily: MONO }}
+                fontSize="13"
+                fill={s.active ? "#EAF0FF" : "rgba(255,255,255,0.8)"}
+                style={{ fontFamily: "'Inter', sans-serif" }}
               >
                 {s.label}
               </text>
@@ -79,17 +81,6 @@ export default function FlowDiagram({ steps, reduced, label }) {
           </g>
         );
       })}
-      {!reduced &&
-        steps.slice(0, -1).map((_, i) => (
-          <circle key={`pulse-${i}`} r="3.5" fill={i === 4 ? CYAN : BLUE}>
-            <animateMotion
-              dur={`${2.4 + (i % 4) * 0.45}s`}
-              begin={`${0.9 + i * 0.32}s`}
-              repeatCount="indefinite"
-              path={`M ${W / 2} ${y(i) + NH / 2} L ${W / 2} ${y(i + 1) - NH / 2}`}
-            />
-          </circle>
-        ))}
     </motion.svg>
   );
 }

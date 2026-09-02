@@ -19,6 +19,18 @@ export const CAPABILITIES = [
           "We build software shaped around one specific business instead of forcing a business into generic tools: internal platforms, operational tools, dashboards, SaaS products and applications designed from your actual workflow.",
       },
     },
+    needs: {
+      es: [
+        "Tu proceso no encaja en las herramientas del mercado",
+        "Necesitas una plataforma interna o un SaaS propio",
+        "Los datos viven dispersos entre sistemas",
+      ],
+      en: [
+        "Your process doesn't fit off-the-shelf tools",
+        "You need an internal platform or your own SaaS",
+        "Your data lives scattered across systems",
+      ],
+    },
   },
   {
     id: "ai-automation",
@@ -39,6 +51,18 @@ export const CAPABILITIES = [
         detail:
           "We introduce AI where it earns its place: AI assistants, LLM integrations, document and data processing, and workflows that make operational decisions — designed to remove repetitive work, not to decorate a pitch deck.",
       },
+    },
+    needs: {
+      es: [
+        "Tareas administrativas que se repiten cada día",
+        "Clasificación y procesamiento manual de información",
+        "Asistentes IA para clientes y equipos",
+      ],
+      en: [
+        "Administrative tasks that repeat every day",
+        "Manual classification and processing of information",
+        "AI assistants for clients and teams",
+      ],
     },
   },
   {
@@ -61,6 +85,18 @@ export const CAPABILITIES = [
           "We digitalize how a company operates: CRM, ERP, internal tools and operational software that centralize information and execute the business's processes in one system.",
       },
     },
+    needs: {
+      es: [
+        "La información de la empresa está dispersa",
+        "El CRM o ERP actual no encaja con el negocio",
+        "Necesitas digitalizar operaciones internas",
+      ],
+      en: [
+        "Company information lives scattered",
+        "The current CRM or ERP doesn't fit the business",
+        "You need to digitalize internal operations",
+      ],
+    },
   },
   {
     id: "odoo-engineering",
@@ -81,6 +117,18 @@ export const CAPABILITIES = [
         detail:
           "Odoo engineered around your process: 20+ business modules developed, Python logic, CRM workflows, integrations, dashboards and migrations — the system fits the company, never the other way around.",
       },
+    },
+    needs: {
+      es: [
+        "Necesitas módulos Odoo que no existen",
+        "Tus flujos no encajan en el ERP estándar",
+        "Migras desde otro sistema",
+      ],
+      en: [
+        "You need Odoo modules that don't exist",
+        "Your workflows don't fit the standard ERP",
+        "You are migrating from another system",
+      ],
     },
   },
   {
@@ -103,6 +151,18 @@ export const CAPABILITIES = [
           "We make systems talk to each other: REST APIs, webhooks, bots and integrations that move information between your tools automatically, instead of through copy-paste.",
       },
     },
+    needs: {
+      es: [
+        "Tus sistemas no se comunican entre sí",
+        "La información se copia a mano entre herramientas",
+        "Necesitas bots o mensajería conectada",
+      ],
+      en: [
+        "Your systems don't talk to each other",
+        "Information is copied by hand between tools",
+        "You need bots or connected messaging",
+      ],
+    },
   },
   {
     id: "web-digital",
@@ -124,6 +184,18 @@ export const CAPABILITIES = [
           "We design and build corporate websites, interactive experiences and web applications with the same engineering discipline as our internal systems — fast, accessible and maintainable.",
       },
     },
+    needs: {
+      es: [
+        "Web corporativa con criterio de ingeniería",
+        "Aplicación web o experiencia interactiva",
+        "Producto digital que debe funcionar y posicionar",
+      ],
+      en: [
+        "A corporate website with real engineering",
+        "A web application or interactive experience",
+        "A digital product that must work and position",
+      ],
+    },
   },
   {
     id: "web3-payments",
@@ -144,6 +216,18 @@ export const CAPABILITIES = [
         detail:
           "Advanced payment engineering: stablecoin infrastructure, Circle Programmable Wallets, cross-chain settlement with CCTP and on-chain verification — one capability of the company, not its whole positioning.",
       },
+    },
+    needs: {
+      es: [
+        "Quieres aceptar pagos con stablecoins",
+        "Necesitas infraestructura cross-chain",
+        "Verificación y liquidación on-chain",
+      ],
+      en: [
+        "You want to accept stablecoin payments",
+        "You need cross-chain infrastructure",
+        "On-chain verification and settlement",
+      ],
     },
   },
 ];

@@ -9,15 +9,14 @@ export default function PracticeRow({ project, lang }) {
   return (
     <Link
       to={langPath(lang, `/work/${project.slug}`)}
-      data-cursor="view"
-      className="group flex items-baseline justify-between gap-4 border-b border-[#1E2530] py-6"
+      className="group flex items-baseline justify-between gap-4 border-b border-border py-6"
     >
-      <span className="font-heading text-xl font-bold tracking-[-0.02em] text-[#F0EFEA] transition-colors group-hover:text-[#3D7BFF] md:text-2xl">
+      <span className="font-heading text-xl font-bold tracking-[-0.02em] text-foreground transition-colors group-hover:text-accent md:text-2xl">
         {project.title}
       </span>
-      <span className="flex shrink-0 items-center gap-2 font-mono text-[10px] uppercase tracking-[0.15em] text-[#8A93A6]">
+      <span className="flex shrink-0 items-center gap-2 text-sm text-muted-foreground">
         {project.copy[lang].type}
-        <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+        <ArrowUpRight className="h-4 w-4 text-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
       </span>
     </Link>
   );

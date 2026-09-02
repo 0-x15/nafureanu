@@ -1,10 +1,7 @@
 export const PROJECTS = [
   {
     slug: "fivo",
-    code: "CAS-01",
     title: "Fivo",
-    image:
-      "https://media.base44.com/images/public/6a985632e9a07f054770f3c4/15b6b3b91_generated_image.png",
     featured: true,
     client: { es: "Producto independiente", en: "Independent product" },
     status: { es: "Producto en producción", en: "Live product" },
@@ -25,15 +22,15 @@ export const PROJECTS = [
       variant: "flow",
       title: { es: "Arquitectura de pagos", en: "Payment architecture" },
       nodes: [
-        { label: { es: "COMERCIO", en: "MERCHANT" } },
-        { label: { es: "CHECKOUT / ENLACE DE PAGO", en: "CHECKOUT / PAYMENT LINK" } },
-        { label: { es: "MOTOR DE PAGOS FIVO", en: "FIVO PAYMENT ENGINE" }, active: true },
+        { label: { es: "Comercio", en: "Merchant" } },
+        { label: { es: "Checkout / enlace de pago", en: "Checkout / payment link" } },
+        { label: { es: "Motor de pagos Fivo", en: "Fivo payment engine" }, active: true },
         { label: "USDC / EURC" },
-        { label: "CIRCLE CCTP" },
-        { label: { es: "RED BLOCKCHAIN", en: "BLOCKCHAIN NETWORK" } },
-        { label: { es: "VERIFICACIÓN ON-CHAIN", en: "ON-CHAIN VERIFICATION" }, active: true },
+        { label: "Circle CCTP" },
+        { label: { es: "Red blockchain", en: "Blockchain network" } },
+        { label: { es: "Verificación on-chain", en: "On-chain verification" }, active: true },
         {
-          label: { es: "WEBHOOK / LIQUIDACIÓN / FACTURA", en: "WEBHOOK / SETTLEMENT / INVOICE" },
+          label: { es: "Webhook / liquidación / factura", en: "Webhook / settlement / invoice" },
         },
       ],
     },
@@ -96,7 +93,6 @@ export const PROJECTS = [
             label: "Impacto",
             body: [
               "Fivo demuestra ingeniería de tecnología financiera compleja: arquitectura multi-chain, automatización de pagos y una experiencia de integración pensada para desarrolladores.",
-              "No publicamos volúmenes de transacciones, ingresos ni métricas que no podemos verificar — la arquitectura habla por sí sola.",
             ],
           },
         ],
@@ -159,7 +155,6 @@ export const PROJECTS = [
             label: "Business impact",
             body: [
               "Fivo demonstrates our ability to build complex financial technology: multi-chain architecture, payment automation, and a developer experience built for real integrations.",
-              "We don't publish transaction volume, revenue or any metric we can't verify — the architecture speaks for itself.",
             ],
           },
         ],
@@ -168,10 +163,7 @@ export const PROJECTS = [
   },
   {
     slug: "sophia",
-    code: "CAS-02",
     title: "SophIA",
-    image:
-      "https://media.base44.com/images/public/6a985632e9a07f054770f3c4/d2fd32ec9_generated_image.png",
     featured: true,
     client: { es: "Percent Servicios Inmobiliarios", en: "Percent Servicios Inmobiliarios" },
     status: { es: "En producción", en: "In production" },
@@ -195,20 +187,20 @@ export const PROJECTS = [
     diagram: {
       variant: "radial",
       title: { es: "Arquitectura del sistema", en: "System architecture" },
-      center: "SOPHIA",
+      center: "SophIA",
       nodes: [
-        { label: { es: "PROPIEDADES", en: "PROPERTIES" } },
-        { label: { es: "CLIENTES", en: "CLIENTS" } },
-        { label: { es: "MOTOR DE MATCHING", en: "MATCHING ENGINE" }, active: true },
-        { label: { es: "ASISTENTE IA", en: "AI ASSISTANT" }, active: true },
-        { label: { es: "CENTRO DE LLAMADAS IA", en: "AI CALL CENTER" }, active: true },
-        { label: "WHATSAPP" },
-        { label: "IDEALISTA" },
-        { label: "FOTOCASA" },
+        { label: { es: "Propiedades", en: "Properties" } },
+        { label: { es: "Clientes", en: "Clients" } },
+        { label: { es: "Motor de matching", en: "Matching engine" }, active: true },
+        { label: { es: "Asistente IA", en: "AI assistant" }, active: true },
+        { label: { es: "Centro de llamadas IA", en: "AI call center" }, active: true },
+        { label: "WhatsApp" },
+        { label: "Idealista" },
+        { label: "Fotocasa" },
         { label: "MLS" },
-        { label: { es: "FIRMA ELECTRÓNICA", en: "E-SIGNATURE" } },
-        { label: "MARKETING" },
-        { label: { es: "DATOS KPI", en: "KPI DATA" }, active: true },
+        { label: { es: "Firma electrónica", en: "E-signature" } },
+        { label: "Marketing" },
+        { label: { es: "Datos KPI", en: "KPI data" }, active: true },
       ],
     },
     copy: {
@@ -268,7 +260,7 @@ export const PROJECTS = [
             label: "Impacto",
             body: [
               "SophIA no es «un CRM de Odoo». Es un sistema operativo de negocio: análisis de procesos, ingeniería de flujos y desarrollo Odoo a medida, con un resultado claro — operaciones inmobiliarias que se ejecutan sin trabajo manual repetitivo.",
-              "No publicamos porcentajes ni ahorros inventados. El cambio se ve en cómo trabaja la agencia.",
+              "El resultado se nota en cómo trabaja la agencia cada día.",
             ],
           },
         ],
@@ -329,7 +321,7 @@ export const PROJECTS = [
             label: "Business impact",
             body: [
               "SophIA is not “an Odoo CRM”. It is a business operating system: process analysis, workflow engineering and custom Odoo development, with one clear result — real-estate operations that run without repetitive manual work.",
-              "We don't publish invented percentages or savings. The change is visible in how the agency works.",
+              "The change is visible in how the agency works every day.",
             ],
           },
         ],
@@ -338,10 +330,7 @@ export const PROJECTS = [
   },
   {
     slug: "life-admin",
-    code: "CAS-03",
     title: "Life Admin",
-    image:
-      "https://media.base44.com/images/public/6a985632e9a07f054770f3c4/0cc5d764a_generated_image.png",
     featured: true,
     client: { es: "Interno / privado", en: "Internal / private" },
     status: { es: "Privado — no lanzado", en: "Private — not publicly launched" },
@@ -406,10 +395,7 @@ export const PROJECTS = [
   },
   {
     slug: "odoo-engineering",
-    code: "PRA-01",
     title: "Odoo Engineering",
-    image:
-      "https://media.base44.com/images/public/6a985632e9a07f054770f3c4/e6fb52388_generated_image.png",
     featured: true,
     client: { es: "Múltiples proyectos", en: "Multiple engagements" },
     status: { es: "Práctica activa", en: "Ongoing practice" },
@@ -494,10 +480,7 @@ export const PROJECTS = [
   },
   {
     slug: "web-projects",
-    code: "PRA-02",
     title: "Web Projects",
-    image:
-      "https://media.base44.com/images/public/6a985632e9a07f054770f3c4/563ce7a32_generated_image.png",
     featured: false,
     client: { es: "Clientes pymes", en: "SME clients" },
     status: { es: "Entregado", en: "Delivered" },

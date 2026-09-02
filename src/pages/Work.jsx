@@ -1,14 +1,12 @@
 import { usePageMeta } from "@/lib/seo";
 import { PROJECTS } from "@/data/projects";
 import { STRINGS, langPath, otherLang } from "@/i18n";
-import WorkPanel from "@/components/WorkPanel";
+import ProjectBlock from "@/components/ProjectBlock";
 import PracticeRow from "@/components/PracticeRow";
 import CtaBand from "@/components/CtaBand";
 
-/**
- * Work: featured systems as sticky cinematic panels that stack over
- * each other while scrolling, then the secondary practice rows.
- */
+const FEATURED = ["sophia", "fivo"];
+
 export default function Work({ lang = "es" }) {
   const s = STRINGS[lang];
   usePageMeta({
@@ -19,35 +17,51 @@ export default function Work({ lang = "es" }) {
     alternatePath: langPath(otherLang(lang), "/work"),
   });
 
-  const featured = PROJECTS.filter((p) => p.featured);
-  const secondary = PROJECTS.filter((p) => !p.featured);
+  const featured = FEATURED.map((slug) =>
+    PROJECTS.find((p) => p.slug === slug)
+  );
+  const practice = PROJECTS.filter((p) => !FEATURED.includes(p.slug));
 
   return (
     <>
-      <header className="px-5 pt-36 md:px-10 md:pt-48">
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
-          <span className="text-[#3D7BFF]">{s.workPage.kicker.split(" — ")[0]}</span> —{" "}
-          {s.workPage.kicker.split(" — ")[1]}
+      <header className="bg-background px-5 pt-36 md:px-10 md:pt-48">
+        <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
+          {s.workPage.kicker}
         </p>
-        <h1 className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] text-[#F0EFEA] md:text-8xl">
+        <h1 className="mt-5 font-heading text-5xl font-bold tracking-[-0.03em] text-foreground md:text-8xl">
           {s.workPage.h1}
         </h1>
-        <p className="mt-8 max-w-2xl text-base leading-[1.7] text-[#A6AEBD] md:text-lg">
+        <p className="mt-8 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
           {s.workPage.intro}
         </p>
       </header>
 
-      <section className="mt-16 md:mt-24" aria-label="Case studies">
-        {featured.map((p, i) => (
-          <WorkPanel key={p.slug} project={p} index={i} lang={lang} stack />
-        ))}
-      </section>
+      <div className="mt-12 md:mt-16">
+        <ProjectBlock
+          project={featured[0]}
+          lang={lang}
+          environment="dark"
+          viewCase={s.workSection.viewCase}
+        />
+        <ProjectBlock
+          project={featured[1]}
+          lang={lang}
+          environment="light"
+          flip
+          viewCase={s.workSection.viewCase}
+        />
+      </div>
 
-      <section className="px-5 py-16 md:px-10 md:py-24" aria-label="Engineering practice">
-        <div className="border-t border-[#1E2530] pt-2">
-          {secondary.map((p) => (
-            <PracticeRow key={p.slug} project={p} lang={lang} />
-          ))}
+      <section className="bg-background px-5 py-20 md:px-10 md:py-28" aria-label={s.workPage.practiceKicker}>
+        <div className="mx-auto max-w-[1440px]">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
+            {s.workPage.practiceKicker}
+          </p>
+          <div className="mt-10 border-t border-border">
+            {practice.map((p) => (
+              <PracticeRow key={p.slug} project={p} lang={lang} />
+            ))}
+          </div>
         </div>
       </section>
 
@@ -56,6 +70,7 @@ export default function Work({ lang = "es" }) {
         kicker={s.workPage.cta.kicker}
         title={s.workPage.cta.title}
         note={s.workPage.cta.note}
+        button={s.nav.start}
       />
     </>
   );

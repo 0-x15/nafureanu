@@ -4,34 +4,34 @@
 
 @layer base {
   :root {
-    /* Base: deep graphite, near-black */
-    --background: 225 40% 4%;
-    /* Text: warm white / soft off-white */
-    --foreground: 45 16% 92%;
-    --card: 224 26% 6%;
-    --card-foreground: 45 16% 92%;
-    --popover: 224 26% 6%;
-    --popover-foreground: 45 16% 92%;
-    --primary: 45 16% 92%;
-    --primary-foreground: 225 40% 4%;
-    /* Secondary: cool neutral gray */
-    --secondary: 224 24% 9%;
-    --secondary-foreground: 45 16% 92%;
-    --muted: 224 24% 9%;
-    --muted-foreground: 220 13% 60%;
-    /* Accents: electric blue / soft cyan / subtle blue-violet */
-    --accent: 219 100% 62%;
-    --accent-foreground: 225 40% 4%;
-    --accent-cyan: 189 72% 64%;
-    --accent-violet: 250 84% 76%;
-    --destructive: 355 78% 56%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 222 24% 12%;
-    --input: 222 24% 12%;
-    --ring: 219 100% 62%;
-    --chart-1: 219 100% 62%;
-    --chart-2: 189 72% 64%;
-    --chart-3: 250 84% 76%;
+    /* Warm ivory canvas */
+    --background: 44 44% 96%;
+    /* Deep graphite-navy ink */
+    --foreground: 228 24% 13%;
+    --card: 45 60% 99%;
+    --card-foreground: 228 24% 13%;
+    --popover: 45 60% 99%;
+    --popover-foreground: 228 24% 13%;
+    --primary: 228 24% 13%;
+    --primary-foreground: 44 44% 96%;
+    --secondary: 45 38% 92%;
+    --secondary-foreground: 228 24% 13%;
+    --muted: 45 38% 92%;
+    --muted-foreground: 228 10% 44%;
+    /* Refined cobalt accent */
+    --accent: 226 100% 58%;
+    --accent-foreground: 0 0% 100%;
+    /* Sparingly-used secondary accents */
+    --accent-cyan: 189 80% 40%;
+    --accent-violet: 250 84% 64%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 45 25% 87%;
+    --input: 45 25% 87%;
+    --ring: 226 100% 58%;
+    --chart-1: 226 100% 58%;
+    --chart-2: 189 80% 40%;
+    --chart-3: 250 84% 64%;
     --radius: 0rem;
     --font-heading: "Satoshi", "Inter", ui-sans-serif, system-ui, sans-serif;
     --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
@@ -47,45 +47,27 @@
   body {
     @apply bg-background font-body text-foreground antialiased;
     text-rendering: optimizeLegibility;
-    /* Ambient depth — very subtle blue / violet fields */
+    /* Soft ambient depth on the ivory canvas */
     background-image:
-      radial-gradient(52% 44% at 84% 0%, rgba(61, 123, 255, 0.09), transparent 64%),
-      radial-gradient(46% 38% at 6% 98%, rgba(142, 123, 255, 0.07), transparent 62%);
+      radial-gradient(48% 36% at 88% -4%, rgba(43, 89, 255, 0.06), transparent 60%),
+      radial-gradient(40% 30% at 0% 100%, rgba(43, 89, 255, 0.04), transparent 55%);
     background-attachment: fixed;
   }
 
   ::selection {
-    background: #3d7bff;
-    color: #07090e;
+    background: #2b59ff;
+    color: #ffffff;
   }
 
   :focus-visible {
-    outline: 2px solid #3d7bff;
+    outline: 2px solid #2b59ff;
     outline-offset: 3px;
-  }
-}
-
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@layer utilities {
-  .animate-marquee {
-    animation: marquee 45s linear infinite;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
-  }
-  .animate-marquee {
-    animation: none;
   }
   *,
   *::before,

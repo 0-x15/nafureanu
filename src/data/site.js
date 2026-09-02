@@ -8,7 +8,7 @@ export const SITE = {
     en: "Software that removes work.",
   },
   description: {
-    es: "Nafureanu es un estudio de ingeniería de software. Diseñamos y construimos software a medida, sistemas de IA y automatización que eliminan el trabajo repetitivo.",
-    en: "Nafureanu is a software engineering studio. We design and build custom software, AI systems and business automation that remove repetitive work.",
+    es: "Nafureanu diseña y construye software a medida, sistemas de IA y automatización para empresas — tecnología alrededor de procesos de negocio reales.",
+    en: "Nafureanu designs and builds custom software, AI systems and business automation for companies — technology shaped around real business processes.",
   },
 };

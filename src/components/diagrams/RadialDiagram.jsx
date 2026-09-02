@@ -1,113 +1,117 @@
 import { motion } from "framer-motion";
 
-const INK = "#8A93A6";
-const BLUE = "#3D7BFF";
-const CYAN = "#5CDBEA";
-const TXT = "#E8ECF3";
-const SURFACE = "#0D1117";
-const EDGE = "#2A3550";
-const MONO = "'JetBrains Mono', monospace";
 const EASE = [0.22, 1, 0.36, 1];
+const W = 640;
+const H = 520;
+const CX = W / 2;
+const CY = H / 2;
+const RX = 248;
+const RY = 165;
 
 /**
- * Radial hub-and-spoke architecture diagram (SophIA as the central
- * system). On scroll-in, connections draw themselves progressively and
- * modules appear in sequence; cyan/blue pulses then travel the data
- * paths continuously (unless reduced motion). nodes: [{ label, active }]
+ * Hub-and-spoke system map for dark bands — SophIA's architecture.
+ * nodes: [{ label, active }]. Refined pill styling, no console HUD.
  */
-export default function RadialDiagram({ centerLabel, nodes, reduced, label }) {
-  const W = 780;
-  const cx = W / 2;
-  const cy = W / 2;
-  const R = 288;
-  const NW = 150;
-  const NH = 30;
-  const pos = nodes.map((_, i) => {
-    const a = (2 * Math.PI * i) / nodes.length - Math.PI / 2;
-    return { x: cx + R * Math.cos(a), y: cy + R * Math.sin(a) };
+export default function RadialDiagram({ centerLabel, nodes, label, reduced }) {
+  const pts = nodes.map((_, i) => {
+    const a = -Math.PI / 2 + (i * 2 * Math.PI) / nodes.length;
+    return { x: CX + RX * Math.cos(a), y: CY + RY * Math.sin(a) };
   });
+  const NW = 118;
+  const NH = 30;
 
   return (
     <motion.svg
-      viewBox={`0 0 ${W} ${W}`}
-      className="mx-auto h-auto w-full max-w-3xl"
+      viewBox={`0 0 ${W} ${H}`}
+      className="mx-auto h-auto w-full max-w-2xl"
       role="img"
       aria-label={label}
       initial="hidden"
       whileInView="show"
       viewport={{ once: true, margin: "-15%" }}
     >
-      {pos.map((p, i) => (
-        <motion.line
-          key={`line-${i}`}
-          x1={cx}
-          y1={cy}
-          x2={p.x}
-          y2={p.y}
-          stroke={nodes[i].active ? BLUE : INK}
-          strokeOpacity={nodes[i].active ? 0.75 : 0.3}
-          strokeWidth="1"
-          variants={{ hidden: { pathLength: 0, opacity: 0 }, show: { pathLength: 1, opacity: 1 } }}
-          transition={{ duration: 0.9, delay: 0.15 + i * 0.08, ease: EASE }}
-        />
-      ))}
-      {pos.map((p, i) => (
-        <motion.g
-          key={`node-${i}`}
-          variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
-          transition={{ duration: 0.5, delay: 0.45 + i * 0.08, ease: EASE }}
-        >
-          <rect
-            x={p.x - NW / 2}
-            y={p.y - NH / 2}
-            width={NW}
-            height={NH}
-            fill={SURFACE}
-            stroke={nodes[i].active ? BLUE : EDGE}
-            strokeWidth={nodes[i].active ? 1.5 : 1}
-          />
-          <text
-            x={p.x}
-            y={p.y + 4}
-            textAnchor="middle"
-            fontSize="10"
-            letterSpacing="1.2"
-            fill={TXT}
-            style={{ fontFamily: MONO }}
-          >
-            {nodes[i].label}
-          </text>
-        </motion.g>
-      ))}
+      {nodes.map((n, i) => {
+        const p = pts[i];
+        const active = n.active;
+        return (
+          <g key={`spoke-${i}`}>
+            <motion.line
+              x1={CX}
+              y1={CY}
+              x2={p.x}
+              y2={p.y}
+              stroke={active ? "rgba(91,132,255,0.55)" : "rgba(255,255,255,0.12)"}
+              strokeWidth="1"
+              variants={{ hidden: { pathLength: 0 }, show: { pathLength: 1 } }}
+              transition={{ duration: 0.6, delay: 0.2 + i * 0.05, ease: EASE }}
+            />
+            {!reduced && (
+              <circle r="2.5" fill={active ? "#8FA5E8" : "rgba(255,255,255,0.5)"}>
+                <animateMotion
+                  dur={`${2.6 + (i % 5) * 0.4}s`}
+                  begin={`${0.8 + i * 0.3}s`}
+                  repeatCount="indefinite"
+                  path={`M ${CX} ${CY} L ${p.x} ${p.y}`}
+                />
+              </circle>
+            )}
+          </g>
+        );
+      })}
+
+      {/* Center hub */}
       <motion.g
-        variants={{ hidden: { opacity: 0 }, show: { opacity: 1 } }}
-        transition={{ duration: 0.6, ease: EASE }}
+        variants={{ hidden: { opacity: 0, scale: 0.8 }, show: { opacity: 1, scale: 1 } }}
+        transition={{ duration: 0.7, ease: EASE }}
+        style={{ transformOrigin: `${CX}px ${CY}px` }}
       >
-        <rect x={cx - 95} y={cy - 26} width={190} height={52} fill="#111726" stroke={BLUE} strokeWidth="1" />
-        <rect x={cx - 95} y={cy - 26} width={8} height={52} fill={BLUE} />
+        <circle cx={CX} cy={CY} r="52" fill="rgba(43,89,255,0.16)" stroke="#5B84FF" strokeWidth="1.5" />
         <text
-          x={cx}
-          y={cy + 5}
+          x={CX}
+          y={CY + 5}
           textAnchor="middle"
-          fontSize="14"
-          letterSpacing="3"
-          fill={TXT}
-          style={{ fontFamily: MONO }}
+          fontSize="15"
+          fontWeight="700"
+          fill="#F2F3F6"
+          style={{ fontFamily: "'Satoshi', 'Inter', sans-serif" }}
         >
           {centerLabel}
         </text>
       </motion.g>
-      {!reduced &&
-        pos.map((p, i) => (
-          <circle key={`pulse-${i}`} r="3.5" fill={nodes[i].active ? CYAN : BLUE}>
-            <animateMotion
-              dur={`${2.6 + (i % 5) * 0.4}s`}
-              begin={`${0.8 + i * 0.45}s`}
-              repeatCount="indefinite"
-              path={`M ${cx} ${cy} L ${p.x} ${p.y}`}
+
+      {/* Nodes */}
+      {nodes.map((n, i) => {
+        const p = pts[i];
+        const active = n.active;
+        return (
+          <motion.g
+            key={n.label}
+            variants={{ hidden: { opacity: 0, y: 10 }, show: { opacity: 1, y: 0 } }}
+            transition={{ duration: 0.5, delay: 0.3 + i * 0.05, ease: EASE }}
+          >
+            <rect
+              x={p.x - NW / 2}
+              y={p.y - NH / 2}
+              width={NW}
+              height={NH}
+              rx={NH / 2}
+              fill={active ? "rgba(43,89,255,0.15)" : "rgba(255,255,255,0.04)"}
+              stroke={active ? "#5B84FF" : "rgba(255,255,255,0.14)"}
+              strokeWidth="1"
             />
-          </circle>
-        ))}
+            <text
+              x={p.x}
+              y={p.y + 4}
+              textAnchor="middle"
+              fontSize="12"
+              fill={active ? "#EAF0FF" : "rgba(255,255,255,0.75)"}
+              style={{ fontFamily: "'Inter', sans-serif" }}
+            >
+              {n.label}
+            </text>
+          </motion.g>
+        );
+      })}
     </motion.svg>
   );
 }

@@ -1,28 +1,22 @@
-import { getAccessToken } from '@base44/sdk';
-
-const isNode = typeof window === 'undefined';
-
-const isClearAccessTokenRequested = () =>
-	!isNode && new URLSearchParams(window.location.search).get("clear_access_token") === 'true';
+// Static-site app params — no platform bootstrap values are read and no
+// tokens are picked up. The site runs standalone; this module only exists
+// because platform scaffolding imports it.
+const isNode = typeof window === "undefined";
 
 const clearStoredAccessToken = () => {
-	window.localStorage.removeItem('base44_access_token');
-	window.localStorage.removeItem('token');
-}
+  window.localStorage.removeItem("base44_access_token");
+  window.localStorage.removeItem("token");
+};
 
-const getAppParams = () => {
-	if (isClearAccessTokenRequested()) {
-		clearStoredAccessToken();
-	}
-	return {
-		appId: import.meta.env.VITE_BASE44_APP_ID,
-		token: getAccessToken(),
-		functionsVersion: import.meta.env.VITE_BASE44_FUNCTIONS_VERSION,
-		appBaseUrl: import.meta.env.VITE_BASE44_APP_BASE_URL,
-	}
+if (!isNode) {
+  if (new URLSearchParams(window.location.search).get("clear_access_token") === "true") {
+    clearStoredAccessToken();
+  }
 }
-
 
 export const appParams = {
-	...getAppParams()
-}
+  appId: null,
+  token: null,
+  functionsVersion: null,
+  appBaseUrl: null,
+};

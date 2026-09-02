@@ -4,41 +4,42 @@ import Reveal from "@/components/Reveal";
 import Magnetic from "@/components/Magnetic";
 import { langPath } from "@/i18n";
 
+/**
+ * Closing call-to-action band — dark navy panel with a soft cobalt glow.
+ */
 export default function CtaBand({
   lang = "es",
-  kicker = "04 — INITIATION",
-  title = "Have a process that eats hours?",
-  note = "Tell us what slows your business down. We'll tell you how to remove it.",
+  kicker,
+  title,
+  note,
+  button,
 }) {
   return (
-    <section className="relative overflow-hidden bg-[#05060A] px-5 py-28 text-[#F0EFEA] md:px-10 md:py-44">
-      {/* Ambient light fields */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-40 -top-40 h-[480px] w-[480px] rounded-full bg-[#3D7BFF]/10 blur-[130px]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -bottom-48 -left-32 h-[420px] w-[420px] rounded-full bg-[#8E7BFF]/10 blur-[130px]"
-      />
-      <div className="relative mx-auto max-w-[1440px]">
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
-          <span className="text-[#3D7BFF]">{kicker}</span>
-        </p>
-        <Reveal variant="mask">
-          <h2 className="mt-8 max-w-5xl font-heading text-4xl font-bold leading-[1.05] tracking-[-0.02em] md:text-7xl">
-            {title}
-          </h2>
-        </Reveal>
-        <div className="mt-12 flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
-          <p className="max-w-md text-sm text-[#A6AEBD] md:text-base">{note}</p>
-          <Magnetic>
+    <section className="bg-background px-5 py-20 md:px-10 md:py-28">
+      <div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-2xl bg-[#0B1220] px-6 py-16 text-center md:px-10 md:py-24">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-44 left-1/2 h-[440px] w-[760px] -translate-x-1/2 rounded-full bg-[#2B59FF]/25 blur-[120px]"
+        />
+        <div className="relative">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#8FA5E8]">
+            {kicker}
+          </p>
+          <Reveal variant="mask">
+            <h2 className="mx-auto mt-6 max-w-2xl font-heading text-3xl font-bold leading-[1.08] tracking-[-0.02em] text-white md:text-5xl">
+              {title}
+            </h2>
+          </Reveal>
+          <p className="mx-auto mt-5 max-w-md text-sm leading-relaxed text-white/60 md:text-base">
+            {note}
+          </p>
+          <Magnetic className="mt-10 inline-block">
             <Link
               to={langPath(lang, "/contact")}
-              data-cursor="start"
-              className="inline-flex items-center gap-3 bg-[#F0EFEA] px-9 py-5 font-mono text-xs uppercase tracking-[0.15em] text-[#07090E] transition-colors hover:bg-[#3D7BFF] hover:text-[#F0EFEA]"
+              className="inline-flex items-center gap-2.5 bg-accent px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-[#1E44D6]"
             >
-              Start a project <ArrowUpRight className="h-4 w-4" />
+              {button}
+              <ArrowUpRight className="h-4 w-4" />
             </Link>
           </Magnetic>
         </div>

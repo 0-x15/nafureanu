@@ -15,18 +15,19 @@ export default function LanguageSwitch({ lang, className }) {
         ? "/"
         : pathname.replace(/^\/en/, "") || "/";
 
-  const onCls = "text-[#3D7BFF]";
-  const offCls = "text-[#8A93A6] transition-colors hover:text-[#F0EFEA]";
-
   return (
     <Link
       to={target}
       aria-label={lang === "es" ? "Switch to English" : "Cambiar a español"}
-      className={`inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.15em] ${className || ""}`}
+      className={`inline-flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.15em] ${className || ""}`}
     >
-      <span className={lang === "es" ? onCls : offCls}>ES</span>
-      <span aria-hidden="true" className="text-[#2A3550]">/</span>
-      <span className={lang === "en" ? onCls : offCls}>EN</span>
+      <span className={lang === "es" ? "text-accent" : "text-muted-foreground transition-colors hover:text-foreground"}>
+        ES
+      </span>
+      <span aria-hidden="true" className="text-border">/</span>
+      <span className={lang === "en" ? "text-accent" : "text-muted-foreground transition-colors hover:text-foreground"}>
+        EN
+      </span>
     </Link>
   );
 }

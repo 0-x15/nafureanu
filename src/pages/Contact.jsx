@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { ArrowUpRight, Check, Copy } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/data/site";
 import { STRINGS, langPath, otherLang } from "@/i18n";
+import Reveal from "@/components/Reveal";
 import { usePageMeta } from "@/lib/seo";
 
-const inputCls =
-  "border-b border-[#8A93A6] bg-transparent px-1 py-0.5 font-heading font-medium text-[#F0EFEA] placeholder:text-[#55607A] focus:border-[#3D7BFF] focus:outline-none";
+const fieldCls =
+  "w-full rounded-lg border border-border bg-card px-4 py-3 text-sm text-foreground placeholder:text-[#9A94A6] outline-none transition-colors focus:border-accent";
 
 export default function Contact({ lang = "es" }) {
   const s = STRINGS[lang];
@@ -18,15 +19,17 @@ export default function Contact({ lang = "es" }) {
     alternatePath: langPath(otherLang(lang), "/contact"),
   });
 
-  const [form, setForm] = useState({ name: "", need: "", outcome: "", email: "" });
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    email: "",
+    need: "",
+    problem: "",
+    result: "",
+  });
   const [error, setError] = useState("");
-  const [copied, setCopied] = useState(false);
 
   const set = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
-
-  const statement = `${c.s1a} ${form.name || "…"} ${c.s1b} ${form.need || "…"} ${c.s1c} ${
-    form.outcome || "…"
-  }. ${c.s2} ${form.email || "…"}.`;
 
   const submit = (e) => {
     e.preventDefault();
@@ -35,147 +38,174 @@ export default function Contact({ lang = "es" }) {
       return;
     }
     setError("");
-    const subject = `${c.subjectPrefix} — ${form.name}`;
+    const body = [
+      `${c.fields.name}: ${form.name}`,
+      `${c.fields.company}: ${form.company || "—"}`,
+      `${c.fields.email}: ${form.email}`,
+      "",
+      `${c.fields.need}:`,
+      form.need || "—",
+      "",
+      `${c.fields.problem}:`,
+      form.problem || "—",
+      "",
+      `${c.fields.result}:`,
+      form.result || "—",
+    ].join("\n");
     window.location.href = `mailto:${SITE.email}?subject=${encodeURIComponent(
-      subject
-    )}&body=${encodeURIComponent(statement)}`;
-  };
-
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(statement);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      setError(c.errorCopy);
-    }
+      c.subjectPrefix + form.name
+    )}&body=${encodeURIComponent(body)}`;
   };
 
   return (
-    <>
-      <section className="px-5 pt-36 md:px-10 md:pt-48" aria-labelledby="contact-title">
-        <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
-          <span className="text-[#3D7BFF]">{c.kicker.split(" — ")[0]}</span> —{" "}
-          {c.kicker.split(" — ")[1]}
-        </p>
-        <h1
-          id="contact-title"
-          className="mt-8 font-heading text-6xl font-bold uppercase tracking-[-0.02em] text-[#F0EFEA] md:text-8xl"
-        >
-          {c.h1}
-        </h1>
-        <p className="mt-8 max-w-xl text-base leading-relaxed text-[#A6AEBD] md:text-lg">
-          {c.sub}
-        </p>
+    <section className="bg-background px-5 pt-36 md:px-10 md:pt-48" aria-labelledby="contact-heading">
+      <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
+        {c.kicker}
+      </p>
+      <h1
+        id="contact-heading"
+        className="mt-5 max-w-3xl font-heading text-4xl font-bold leading-[1.08] tracking-[-0.02em] text-foreground md:text-6xl"
+      >
+        {c.h1}
+      </h1>
+      <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
+        {c.sub}
+      </p>
 
-        <div className="mt-20 grid gap-16 md:mt-28 md:grid-cols-12">
-          <form onSubmit={submit} noValidate className="md:col-span-8">
-            <p className="font-heading text-2xl font-medium leading-[1.7] text-[#F0EFEA] md:text-4xl">
-              {c.s1a}{" "}
+      <div className="mt-16 grid gap-16 pb-24 md:mt-24 md:grid-cols-12">
+        {/* Form */}
+        <form onSubmit={submit} noValidate className="md:col-span-7 lg:col-span-8">
+          <div className="grid gap-5 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-foreground">
+                {c.fields.name}
+              </span>
               <input
                 type="text"
                 value={form.name}
                 onChange={set("name")}
-                placeholder={c.phName}
-                aria-label={c.phName}
+                placeholder={c.ph.name}
                 autoComplete="name"
-                className={`w-44 ${inputCls}`}
-              />{" "}
-              {c.s1b}{" "}
+                className={fieldCls}
+              />
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-foreground">
+                {c.fields.company}
+              </span>
               <input
                 type="text"
-                value={form.need}
-                onChange={set("need")}
-                placeholder={c.phNeed}
-                aria-label={c.ariaNeed}
-                className={`w-64 ${inputCls}`}
-              />{" "}
-              {c.s1c}{" "}
-              <input
-                type="text"
-                value={form.outcome}
-                onChange={set("outcome")}
-                placeholder={c.phOutcome}
-                aria-label={c.ariaOutcome}
-                className={`w-64 ${inputCls}`}
+                value={form.company}
+                onChange={set("company")}
+                placeholder={c.ph.company}
+                autoComplete="organization"
+                className={fieldCls}
               />
-              .
-            </p>
-            <p className="mt-8 font-heading text-2xl font-medium leading-[1.7] text-[#F0EFEA] md:text-4xl">
-              {c.s2}{" "}
-              <input
-                type="email"
-                value={form.email}
-                onChange={set("email")}
-                placeholder={c.phEmail}
-                aria-label={c.ariaEmail}
-                autoComplete="email"
-                className={`w-64 ${inputCls}`}
+            </label>
+          </div>
+
+          <label className="mt-5 block">
+            <span className="mb-2 block text-sm font-medium text-foreground">
+              {c.fields.email}
+            </span>
+            <input
+              type="email"
+              value={form.email}
+              onChange={set("email")}
+              placeholder={c.ph.email}
+              autoComplete="email"
+              className={fieldCls}
+            />
+          </label>
+
+          <label className="mt-5 block">
+            <span className="mb-2 block text-sm font-medium text-foreground">
+              {c.fields.need}
+            </span>
+            <textarea
+              rows={4}
+              value={form.need}
+              onChange={set("need")}
+              placeholder={c.ph.need}
+              className={fieldCls}
+            />
+          </label>
+
+          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-foreground">
+                {c.fields.problem}
+              </span>
+              <textarea
+                rows={3}
+                value={form.problem}
+                onChange={set("problem")}
+                placeholder={c.ph.problem}
+                className={fieldCls}
               />
-              .
+            </label>
+            <label className="block">
+              <span className="mb-2 block text-sm font-medium text-foreground">
+                {c.fields.result}
+              </span>
+              <textarea
+                rows={3}
+                value={form.result}
+                onChange={set("result")}
+                placeholder={c.ph.result}
+                className={fieldCls}
+              />
+            </label>
+          </div>
+
+          {error && (
+            <p role="alert" className="mt-5 text-sm font-medium text-destructive">
+              {error}
             </p>
+          )}
 
-            {error && (
-              <p role="alert" className="mt-6 font-mono text-xs text-[#FF8E8E]">
-                {error}
-              </p>
-            )}
+          <button
+            type="submit"
+            className="mt-8 inline-flex items-center gap-2 bg-accent px-8 py-4 text-sm font-medium text-accent-foreground transition-colors hover:bg-[#1E44D6]"
+          >
+            {c.submit}
+            <ArrowUpRight className="h-4 w-4" />
+          </button>
+        </form>
 
-            <div className="mt-14 flex flex-wrap items-center gap-8">
-              <button
-                type="submit"
-                data-cursor="start"
-                className="inline-flex items-center gap-2 bg-[#F0EFEA] px-8 py-4 font-mono text-xs uppercase tracking-[0.15em] text-[#07090E] transition-colors hover:bg-[#3D7BFF] hover:text-[#F0EFEA]"
-              >
-                {c.send} <ArrowUpRight className="h-4 w-4" />
-              </button>
-              <button
-                type="button"
-                onClick={copy}
-                className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-[#8A93A6] transition-colors hover:text-[#F0EFEA]"
-              >
-                {copied ? (
-                  <Check className="h-3.5 w-3.5 text-[#3D7BFF]" />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" />
-                )}
-                {copied ? c.copied : c.copy}
-              </button>
-            </div>
-          </form>
-
-          <aside className="md:col-span-4">
-            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
+        {/* Aside */}
+        <aside className="md:col-span-5 lg:col-span-4">
+          <Reveal>
+            <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
               {c.nextKicker}
             </p>
             <ol className="mt-6 space-y-4">
               {c.steps.map((step, i) => (
                 <li key={step} className="flex items-baseline gap-4">
-                  <span className="font-mono text-[10px] text-[#3D7BFF]">
+                  <span className="font-mono text-[10px] text-accent">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <span className="text-sm text-[#A6AEBD]">{step}</span>
+                  <span className="text-sm text-[#5A6070]">{step}</span>
                 </li>
               ))}
             </ol>
-            <p className="mt-10 font-mono text-[11px] uppercase tracking-[0.25em] text-[#8A93A6]">
-              {c.emailKicker}
-            </p>
-            <a
-              href={`mailto:${SITE.email}`}
-              className="mt-3 inline-block font-mono text-sm text-[#F0EFEA] underline underline-offset-4 transition-colors hover:text-[#3D7BFF]"
-            >
-              {SITE.email}
-            </a>
-          </aside>
-        </div>
-      </section>
-
-      <section className="mt-24 border-t border-[#1E2530] px-5 py-16 md:px-10 md:py-24" aria-label="Studio note">
-        <p className="max-w-2xl font-heading text-2xl font-bold leading-[1.4] tracking-[-0.02em] text-[#F0EFEA] md:text-4xl">
-          {c.studioTitle}
-        </p>
-      </section>
-    </>
+            <div className="mt-10 border-t border-border pt-8">
+              <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                {c.emailKicker}
+              </p>
+              <a
+                href={`mailto:${SITE.email}`}
+                className="mt-3 inline-block text-sm font-medium text-foreground underline underline-offset-4 transition-colors hover:text-accent"
+              >
+                {SITE.email}
+              </a>
+              <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+                {c.note}
+              </p>
+            </div>
+          </Reveal>
+        </aside>
+      </div>
+    </section>
   );
 }

@@ -1,44 +1,73 @@
 import { CAPABILITIES } from "@/data/capabilities";
 import Reveal from "@/components/Reveal";
+import { STRINGS } from "@/i18n";
 
+/**
+ * Commercial service presentation — what we build, what problem it
+ * solves, and when a company needs it.
+ */
 export default function CapabilityList({ lang = "es" }) {
+  const s = STRINGS[lang].servicesPage;
+
   return (
-    <section className="px-5 md:px-10" aria-label="Capabilities">
-      {CAPABILITIES.map((cap, i) => {
-        const c = cap.copy[lang];
-        return (
-          <Reveal
-            key={cap.id}
-            variant={i % 2 === 0 ? "up" : "left"}
-            className="grid gap-6 border-t border-[#1E2530] py-14 md:grid-cols-12 md:py-20"
-          >
-            <div className="md:col-span-3">
-              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[#8A93A6]">
-                <span className="text-[#3D7BFF]">{cap.num}</span> / 07
-              </p>
-            </div>
-            <div id={cap.id} className="md:col-span-9 md:scroll-mt-32">
-              <h2 className="font-heading text-3xl font-bold tracking-[-0.02em] text-[#F0EFEA] md:text-5xl">
-                {c.title}
-              </h2>
-              <p className="mt-5 max-w-2xl text-base leading-[1.7] text-[#A6AEBD]">
-                {c.detail}
-              </p>
-              <ul className="mt-6 flex flex-wrap gap-2">
-                {cap.tech.map((t) => (
-                  <li
-                    key={t}
-                    className="border border-[#2A3550] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-[#8A93A6]"
+    <section className="bg-background px-5 md:px-10" aria-label={s.h1}>
+      <div className="mx-auto max-w-[1440px]">
+        {CAPABILITIES.map((cap, i) => {
+          const c = cap.copy[lang];
+          return (
+            <Reveal
+              key={cap.id}
+              variant={i % 2 === 0 ? "up" : "left"}
+              className="border-t border-border py-14 md:py-20"
+            >
+              <div className="grid gap-8 md:grid-cols-12">
+                <div className="md:col-span-4">
+                  <p className="font-mono text-[11px] text-accent">{cap.num}</p>
+                  <h2
+                    id={cap.id}
+                    className="mt-2 font-heading text-2xl font-bold tracking-[-0.02em] text-foreground md:scroll-mt-32 md:text-4xl"
                   >
-                    {t}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        );
-      })}
-      <div className="border-t border-[#1E2530]" />
+                    {c.title}
+                  </h2>
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {cap.tech.map((t) => (
+                      <li
+                        key={t}
+                        className="rounded-full border border-border px-3 py-1 font-mono text-[10px] text-muted-foreground"
+                      >
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="md:col-span-8">
+                  <p className="max-w-2xl text-base leading-[1.7] text-[#3F4656] md:text-lg">
+                    {c.detail}
+                  </p>
+                  <p className="mt-8 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
+                    {s.when}
+                  </p>
+                  <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+                    {cap.needs[lang].map((need) => (
+                      <li
+                        key={need}
+                        className="flex items-start gap-2.5 text-sm leading-relaxed text-[#5A6070]"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-accent"
+                        />
+                        {need}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </Reveal>
+          );
+        })}
+      </div>
+      <div className="border-t border-border" />
     </section>
   );
 }
