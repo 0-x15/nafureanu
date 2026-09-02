@@ -30,6 +30,11 @@ export default function StatsBand({ lang = "es" }) {
   });
   const f = useTransform(scrollYProgress, [0, 1], [0, 3]);
   const introY = useTransform(scrollYProgress, [0, 1], ["0vh", "-2vh"]);
+  /* glass architecture — much slower than the stage parallax */
+  const plane1Y = useTransform(scrollYProgress, [0, 1], [10, -22]);
+  const plane2X = useTransform(scrollYProgress, [0, 1], [-10, 10]);
+  const plane2Y = useTransform(scrollYProgress, [0, 1], [-8, 14]);
+  const plane3R = useTransform(scrollYProgress, [0, 1], [-6, -3]);
 
   useMotionValueEvent(f, "change", (v) => {
     const idx = Math.max(0, Math.min(3, Math.round(v)));
@@ -50,20 +55,38 @@ export default function StatsBand({ lang = "es" }) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[420vh] bg-background"
+      className="relative h-[420vh] bg-[#F2F5FA]"
       aria-label={s.title}
     >
       <div className="sticky top-0 h-screen overflow-hidden">
-        {/* Quiet neutral base bloom under the per-state atmosphere */}
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.05),transparent)]"
-        />
+        {/* Ambient light — cobalt bloom around the stage, cyan reflection,
+            warm counterpoint so the canvas never turns cold */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+          <span className="absolute right-[2%] top-[6%] h-[78%] w-[56%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.10),transparent)]" />
+          <span className="absolute bottom-[0%] left-[4%] h-[46%] w-[40%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.07),transparent)]" />
+          <span className="absolute left-[8%] top-[16%] h-[44%] w-[30%] rounded-full bg-[radial-gradient(closest-side,rgba(255,252,244,0.6),transparent)]" />
+        </div>
 
         {/* Per-state atmospheric tint */}
         {s.states.map((state, i) => (
           <StateAtmosphere key={state.headline} index={i} f={f} />
         ))}
+
+        {/* Architectural glass planes — environmental depth behind the story */}
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1]">
+          <motion.div
+            style={{ y: plane1Y }}
+            className="absolute right-[-2%] top-[18%] h-[34vh] w-[54vw] -rotate-3 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(43,89,255,0.35)] backdrop-blur-[28px]"
+          />
+          <motion.div
+            style={{ x: plane2X, y: plane2Y }}
+            className="absolute bottom-[2%] left-[-4%] h-[36vh] w-[48vw] rotate-2 rounded-[42px] border border-white/60 bg-[linear-gradient(130deg,rgba(255,255,255,0.45),rgba(43,89,255,0.06),rgba(255,255,255,0.12))] backdrop-blur-[30px]"
+          />
+          <motion.div
+            style={{ rotate: plane3R }}
+            className="absolute left-[30%] top-[44%] h-[12vh] w-[46vw] rounded-full border border-white/50 bg-white/20 backdrop-blur-[18px]"
+          />
+        </div>
 
         {/* Intro zone */}
         <motion.div
