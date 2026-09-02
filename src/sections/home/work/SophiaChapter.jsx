@@ -9,9 +9,10 @@ const EASE = [0.22, 1, 0.36, 1];
 
 /**
  * Chapter 01 — SophIA. A disciplined editorial case-study composition:
- * executive introduction → evidence line → one contained, art-directed
- * product stage with the matching demo inside it → commercial conclusion.
- * Nothing overlaps; the narrative leads and the dashboard proves it.
+ * executive introduction, then a single side-by-side block — proof and
+ * capabilities on the left, the art-directed product stage on the right —
+ * and a commercial conclusion. Nothing overlaps; the narrative leads and
+ * the dashboard proves it.
  */
 export default function SophiaChapter({ lang = "es" }) {
   const s = STRINGS[lang].workSection.sophia;
@@ -46,45 +47,47 @@ export default function SophiaChapter({ lang = "es" }) {
           </div>
         </div>
 
-        {/* evidence line — proof and system capabilities */}
-        <div className="mt-14 grid gap-10 border-t border-[#171C29]/10 pt-10 md:mt-20 md:grid-cols-12 md:pt-12">
-          <Reveal className="md:col-span-5 lg:col-span-4">
-            <ProofRow items={s.proof} />
-          </Reveal>
-          <Reveal
-            delay={0.08}
-            className="md:col-span-7 md:border-l md:border-[#171C29]/10 md:pl-10 lg:col-span-8"
-          >
-            <CapLine items={s.caps} />
-          </Reveal>
-        </div>
-
-        {/* product stage — one large, contained art-directed visual */}
-        <motion.div
-          initial={{ opacity: 0, y: 24, scale: 0.985 }}
-          whileInView={{ opacity: 1, y: 0, scale: 1 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.9, ease: EASE }}
-          className="relative mt-16 md:ml-auto md:mt-24 md:w-[72%]"
-        >
-          {/* soft cobalt reflection under the stage */}
-          <span
-            aria-hidden="true"
-            className="pointer-events-none absolute -bottom-10 right-[6%] h-[45%] w-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.12),transparent)]"
-          />
-          {/* warm glass surface hosting the product */}
-          <div
-            aria-hidden="true"
-            className="absolute -inset-x-4 -top-4 -bottom-4 rounded-[24px] border border-white/70 bg-white/40 shadow-[0_48px_90px_-48px_rgba(12,18,32,0.28)] backdrop-blur-[6px] md:-inset-x-6 md:-top-6 md:-bottom-16"
-          />
-          <div className="relative">
-            <SophIADashboard lang={lang} bare />
-            {/* the system reacting — a product moment inside the stage */}
-            <div className="absolute -bottom-11 right-3 hidden w-60 md:block lg:right-8">
-              <MatchingScene lang={lang} />
-            </div>
+        {/* proof + product — one visual block, side by side */}
+        <div className="mt-16 grid items-center gap-12 md:mt-24 md:grid-cols-12 md:gap-10">
+          {/* left — proof and capabilities */}
+          <div className="md:col-span-5 lg:col-span-4">
+            <Reveal>
+              <ProofRow items={s.proof} />
+            </Reveal>
+            <Reveal delay={0.08}>
+              <div className="mt-9 md:border-l md:border-[#171C29]/10 md:pl-6">
+                <CapLine items={s.caps} />
+              </div>
+            </Reveal>
           </div>
-        </motion.div>
+
+          {/* right — product stage, one contained art-directed visual */}
+          <motion.div
+            initial={{ opacity: 0, y: 24, scale: 0.985 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.9, ease: EASE }}
+            className="relative md:col-span-7 lg:col-span-8"
+          >
+            {/* soft cobalt reflection under the stage */}
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute -bottom-10 right-[6%] h-[45%] w-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.12),transparent)]"
+            />
+            {/* warm glass surface hosting the product */}
+            <div
+              aria-hidden="true"
+              className="absolute -inset-x-4 -top-4 -bottom-4 rounded-[24px] border border-white/70 bg-white/40 shadow-[0_48px_90px_-48px_rgba(12,18,32,0.28)] backdrop-blur-[6px] md:-inset-x-6 md:-top-6 md:-bottom-16"
+            />
+            <div className="relative">
+              <SophIADashboard lang={lang} bare />
+              {/* the system reacting — a product moment inside the stage */}
+              <div className="absolute -bottom-11 right-3 hidden w-60 md:block lg:right-8">
+                <MatchingScene lang={lang} />
+              </div>
+            </div>
+          </motion.div>
+        </div>
 
         {/* mobile — the system reacting, below the stage */}
         <div className="mt-6 md:hidden">
