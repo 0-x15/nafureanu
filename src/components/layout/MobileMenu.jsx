@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import LanguageSwitch from "@/components/LanguageSwitch";
@@ -10,14 +10,13 @@ const LINKS = [
   { path: "/about", key: "about" },
 ];
 
-export default function MobileMenu({ lang = "es" }) {
-  const [open, setOpen] = useState(false);
+export default function MobileMenu({ lang = "es", open = false, onOpenChange = () => {} }) {
   const { pathname } = useLocation();
   const s = STRINGS[lang];
 
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    onOpenChange(false);
+  }, [pathname, onOpenChange]);
 
   useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
@@ -30,7 +29,7 @@ export default function MobileMenu({ lang = "es" }) {
     <>
       <button
         type="button"
-        onClick={() => setOpen(true)}
+        onClick={() => onOpenChange(true)}
         aria-label={lang === "es" ? "Abrir menú" : "Open menu"}
         aria-expanded={open}
         className="-mr-2 p-2 text-foreground"
@@ -51,7 +50,7 @@ export default function MobileMenu({ lang = "es" }) {
             </span>
             <button
               type="button"
-              onClick={() => setOpen(false)}
+              onClick={() => onOpenChange(false)}
               aria-label={lang === "es" ? "Cerrar menú" : "Close menu"}
               className="-mr-2 p-2 text-foreground"
             >
