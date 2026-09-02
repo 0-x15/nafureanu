@@ -24,8 +24,8 @@ export default function ProblemFragment({ text, index, progress }) {
   const rotate = useTransform(progress, [0, 0.45], [cfg.r, 0]);
   const opacity = useTransform(
     progress,
-    [0, 0.16, 0.3, cfg.fade],
-    [0, cfg.dim, cfg.peak, 0]
+    [0, 0.08, 0.3, cfg.fade],
+    [cfg.dim * 0.65, cfg.dim, cfg.peak, 0]
   );
   const blurV = useTransform(progress, [0, 0.18], [cfg.blur, 0]);
   const filter = useMotionTemplate`blur(${blurV}px)`;
