@@ -23,10 +23,41 @@ export default function Hero({ lang = "es" }) {
   const yMain = useTransform(scrollYProgress, [0, 1], [0, -50]);
   const yCard = useTransform(scrollYProgress, [0, 1], [0, -110]);
   const ySide = useTransform(scrollYProgress, [0, 1], [0, -30]);
+  /* glass architecture — slower, subtler than the product parallax */
+  const plane1Y = useTransform(scrollYProgress, [0, 1], [0, -20]);
+  const plane2Y = useTransform(scrollYProgress, [0, 1], [10, -10]);
+  const plane2X = useTransform(scrollYProgress, [0, 1], [-8, 8]);
+  const plane3R = useTransform(scrollYProgress, [0, 1], [-6, -3]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden px-5 pt-32 md:px-10 md:pt-44">
-      <div className="mx-auto grid max-w-[1440px] items-center gap-14 lg:grid-cols-12">
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-[#F2F5FA] px-5 pt-32 md:px-10 md:pt-44"
+    >
+      {/* ambient light — cobalt bloom, cyan reflection, warm counterpoint */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
+        <span className="absolute right-[2%] top-[6%] h-[70%] w-[56%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.10),transparent)]" />
+        <span className="absolute bottom-[2%] left-[6%] h-[40%] w-[38%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.07),transparent)]" />
+        <span className="absolute left-[10%] top-[30%] h-[46%] w-[34%] rounded-full bg-[radial-gradient(closest-side,rgba(255,251,240,0.5),transparent)]" />
+      </div>
+
+      {/* architectural glass planes */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-[1]">
+        <motion.div
+          style={{ y: plane1Y }}
+          className="absolute right-[1%] top-[16%] h-[32vh] w-[54vw] -rotate-3 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(43,89,255,0.35)] backdrop-blur-[28px]"
+        />
+        <motion.div
+          style={{ y: plane2Y, x: plane2X }}
+          className="absolute bottom-[4%] left-[-6%] h-[30vh] w-[46vw] rotate-2 rounded-[42px] border border-white/60 bg-[linear-gradient(130deg,rgba(255,255,255,0.45),rgba(43,89,255,0.05),rgba(255,255,255,0.12))] backdrop-blur-[30px]"
+        />
+        <motion.div
+          style={{ rotate: plane3R }}
+          className="absolute bottom-[10%] right-[8%] h-[10vh] w-[44vw] rounded-full border border-white/50 bg-white/25 backdrop-blur-[18px]"
+        />
+      </div>
+
+      <div className="relative z-10 mx-auto grid max-w-[1440px] items-center gap-14 lg:grid-cols-12">
         {/* Copy */}
         <div className="lg:col-span-6">
           <motion.p
@@ -90,6 +121,11 @@ export default function Hero({ lang = "es" }) {
               className="hidden [transform:perspective(1600px)_rotateY(-8deg)] sm:block"
             />
             <SophIADashboard lang={lang} className="sm:hidden" />
+            {/* faint cobalt reflection beneath the main mockup */}
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-8 left-1/2 h-20 w-[70%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.14),transparent)] blur-md"
+            />
           </motion.div>
           <motion.div
             style={{ y: ySide }}
