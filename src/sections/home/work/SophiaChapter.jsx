@@ -9,10 +9,10 @@ const EASE = [0.22, 1, 0.36, 1];
 
 /**
  * Chapter 01 — SophIA. A disciplined editorial case-study composition:
- * executive introduction, then a single side-by-side block — proof and
- * capabilities on the left, the art-directed product stage on the right —
- * and a commercial conclusion. Nothing overlaps; the narrative leads and
- * the dashboard proves it.
+ * the introduction (headline + summary) sits above everything, and below
+ * it one continuous left column carries the whole narrative — project
+ * identity, proof, capabilities, commercial takeaway and technology —
+ * paired with the art-directed product stage on the right.
  */
 export default function SophiaChapter({ lang = "es" }) {
   const s = STRINGS[lang].workSection.sophia;
@@ -28,36 +28,36 @@ export default function SophiaChapter({ lang = "es" }) {
       </div>
 
       <div className="relative mx-auto max-w-[1440px] px-5 pb-24 pt-12 md:px-10 md:pb-28 md:pt-16">
-        {/* executive case-study introduction */}
-        <div className="grid gap-10 md:grid-cols-12 md:gap-8">
-          <Reveal variant="left" className="md:col-span-4 lg:col-span-3">
-            <ProjectTag index={s.index} name={s.name} role={s.role} />
-          </Reveal>
-          <div className="md:col-span-8 lg:col-span-9 lg:col-start-5">
-            <Reveal>
-              <h3 className="font-heading text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
-                {s.headlineA}
-              </h3>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#5A6070] md:text-lg">
-                {s.copy}
-              </p>
-            </Reveal>
-          </div>
-        </div>
+        {/* section introduction — headline + summary, above the composition */}
+        <Reveal>
+          <h3 className="max-w-4xl font-heading text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground md:text-5xl lg:text-6xl">
+            {s.headlineA}
+          </h3>
+        </Reveal>
+        <Reveal delay={0.06}>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-[#5A6070] md:text-lg">
+            {s.copy}
+          </p>
+        </Reveal>
 
-        {/* proof + product — one visual block, side by side */}
-        <div className="mt-16 grid items-center gap-12 md:mt-24 md:grid-cols-12 md:gap-10">
-          {/* left — proof and capabilities */}
-          <div className="md:col-span-5 lg:col-span-4">
-            <Reveal>
+        {/* one two-column composition — narrative left, product right */}
+        <div className="mt-10 flex flex-col md:mt-14 md:flex-row md:items-start md:gap-12">
+          {/* left — the complete SophIA narrative, one continuous column */}
+          <div className="contents md:block md:w-[36%] md:shrink-0">
+            <Reveal variant="left" className="order-1">
+              <ProjectTag index={s.index} name={s.name} role={s.role} />
+            </Reveal>
+            <Reveal className="order-2 mt-6 md:mt-7">
               <ProofRow items={s.proof} />
             </Reveal>
-            <Reveal delay={0.08}>
-              <div className="mt-9 md:border-l md:border-[#171C29]/10 md:pl-6">
-                <CapLine items={s.caps} />
-              </div>
+            <Reveal className="order-3 mt-6">
+              <CapLine items={s.caps} />
+            </Reveal>
+            <Reveal className="order-5 mt-9 md:mt-10">
+              <Takeaway kicker={s.showsKicker} text={s.shows} to={to} cta={s.cta} />
+            </Reveal>
+            <Reveal className="order-6 mt-5">
+              <TechLine>{s.tech}</TechLine>
             </Reveal>
           </div>
 
@@ -67,7 +67,7 @@ export default function SophiaChapter({ lang = "es" }) {
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true, margin: "-80px" }}
             transition={{ duration: 0.9, ease: EASE }}
-            className="relative md:col-span-7 lg:col-span-8"
+            className="relative order-4 mt-12 md:mt-0 md:flex-1"
           >
             {/* soft cobalt reflection under the stage */}
             <span
@@ -92,19 +92,6 @@ export default function SophiaChapter({ lang = "es" }) {
         {/* mobile — the system reacting, below the stage */}
         <div className="mt-6 md:hidden">
           <MatchingScene lang={lang} />
-        </div>
-
-        {/* commercial conclusion */}
-        <div className="mt-24 grid gap-12 md:mt-32 md:grid-cols-12">
-          <Reveal className="md:col-span-6 lg:col-span-5">
-            <Takeaway kicker={s.showsKicker} text={s.shows} to={to} cta={s.cta} />
-          </Reveal>
-          <Reveal
-            delay={0.06}
-            className="flex items-end md:col-span-6 lg:col-span-7"
-          >
-            <TechLine>{s.tech}</TechLine>
-          </Reveal>
         </div>
       </div>
     </div>
