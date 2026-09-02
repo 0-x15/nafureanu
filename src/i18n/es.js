@@ -41,12 +41,47 @@ export const ES = {
     ctaSecondary: "Ver proyectos",
   },
   stats: {
-    kicker: "Nafureanu en producción",
-    items: [
-      { value: "50+", label: "Proyectos entregados" },
-      { value: "40K+", label: "Propiedades gestionadas" },
-      { value: "20+", label: "Módulos Odoo personalizados" },
-      { value: "9", label: "Redes blockchain" },
+    kicker: "Métricas verificadas",
+    title: "Nafureanu en producción",
+    intro:
+      "Experiencia aplicada en proyectos reales de software, automatización, sistemas de negocio e infraestructura digital.",
+    metrics: [
+      {
+        value: 50,
+        suffix: "+",
+        label: "Proyectos entregados",
+        copy: "Software, automatización y productos digitales desarrollados para empresas y clientes.",
+        context: "NAFUREANU",
+        to: "/work",
+        hint: "Ver proyectos",
+      },
+      {
+        value: 40,
+        suffix: "K+",
+        label: "Propiedades gestionadas",
+        copy: "SophIA opera sobre un entorno inmobiliario de más de 40.000 propiedades.",
+        context: "SOPHIA",
+        to: "/work/sophia",
+        hint: "Ver SophIA",
+      },
+      {
+        value: 20,
+        suffix: "+",
+        label: "Módulos Odoo personalizados",
+        copy: "Lógica de negocio, automatizaciones e integraciones desarrolladas a medida en Python y Odoo.",
+        context: "ODOO ENGINEERING",
+        to: "/work/odoo-engineering",
+        hint: "Ver ingeniería Odoo",
+      },
+      {
+        value: 9,
+        suffix: "",
+        label: "Redes blockchain",
+        copy: "Liquidación cross-chain de USDC y EURC en Fivo mediante Circle CCTP.",
+        context: "FIVO",
+        to: "/work/fivo",
+        hint: "Ver Fivo",
+      },
     ],
   },
   build: {

@@ -41,12 +41,47 @@ export const EN = {
     ctaSecondary: "View projects",
   },
   stats: {
-    kicker: "Nafureanu in production",
-    items: [
-      { value: "50+", label: "Projects delivered" },
-      { value: "40K+", label: "Properties managed" },
-      { value: "20+", label: "Custom Odoo modules" },
-      { value: "9", label: "Blockchain networks" },
+    kicker: "Verified metrics",
+    title: "Nafureanu in production",
+    intro:
+      "Experience applied to real software, automation, business systems and digital infrastructure projects.",
+    metrics: [
+      {
+        value: 50,
+        suffix: "+",
+        label: "Projects delivered",
+        copy: "Software, automation and digital products built for companies and clients.",
+        context: "NAFUREANU",
+        to: "/work",
+        hint: "View projects",
+      },
+      {
+        value: 40,
+        suffix: "K+",
+        label: "Properties managed",
+        copy: "SophIA operates across a real estate environment of more than 40,000 properties.",
+        context: "SOPHIA",
+        to: "/work/sophia",
+        hint: "View SophIA",
+      },
+      {
+        value: 20,
+        suffix: "+",
+        label: "Custom Odoo modules",
+        copy: "Business logic, automations and integrations built to measure in Python and Odoo.",
+        context: "ODOO ENGINEERING",
+        to: "/work/odoo-engineering",
+        hint: "View Odoo engineering",
+      },
+      {
+        value: 9,
+        suffix: "",
+        label: "Blockchain networks",
+        copy: "Cross-chain USDC and EURC settlement in Fivo via Circle CCTP.",
+        context: "FIVO",
+        to: "/work/fivo",
+        hint: "View Fivo",
+      },
     ],
   },
   build: {
