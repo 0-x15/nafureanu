@@ -1,13 +1,22 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { STRINGS, langPath } from "@/i18n";
+import CapabilityNav from "./capabilities/CapabilityNav";
+import CapabilityScene from "./capabilities/CapabilityScene";
+import CapabilityChapter from "./capabilities/CapabilityChapter";
 
 /**
- * What we build — six commercial areas, presented editorially.
+ * What we build — an interactive capability experience. The six
+ * capabilities are a large typographic navigation (left); selecting
+ * one transforms the art-directed scene (right). On mobile it
+ * becomes a vertical story of full-width chapters.
  */
 export default function WhatWeBuild({ lang = "es" }) {
   const s = STRINGS[lang].build;
+  const [active, setActive] = useState(0);
+  const labels = { when: s.whenLabel, build: s.buildLabel };
 
   return (
     <section
@@ -15,49 +24,73 @@ export default function WhatWeBuild({ lang = "es" }) {
       aria-labelledby="build-heading"
     >
       <div className="mx-auto max-w-[1440px]">
-        <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
-          {s.kicker}
-        </p>
-        <div className="mt-4 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <Reveal>
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
+            {s.kicker}
+          </p>
           <h2
             id="build-heading"
-            className="max-w-xl font-heading text-3xl font-bold tracking-[-0.02em] text-foreground md:text-5xl"
+            className="mt-5 font-heading text-3xl font-bold tracking-[-0.03em] text-foreground md:text-6xl"
           >
             {s.title}
           </h2>
-          <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:text-base">
+          <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground md:text-lg">
             {s.intro}
           </p>
+        </Reveal>
+
+        {/* Desktop — typographic navigation + capability scene */}
+        <div className="mt-14 hidden gap-14 md:grid md:grid-cols-[32%_1fr] lg:gap-20">
+          <Reveal variant="left">
+            <CapabilityNav
+              capabilities={s.capabilities}
+              active={active}
+              onSelect={setActive}
+              ariaLabel={s.title}
+            />
+          </Reveal>
+          <CapabilityScene
+            capabilities={s.capabilities}
+            active={active}
+            lang={lang}
+            labels={labels}
+          />
         </div>
 
-        <div className="mt-14 border-t border-border">
-          {s.groups.map((g, i) => (
-            <Reveal key={g.name} delay={i * 0.04} variant={i % 2 === 0 ? "up" : "left"}>
-              <Link
-                to={langPath(lang, "/services")}
-                className="group grid gap-2 border-b border-border px-2 py-7 transition-colors hover:bg-[#F1EEE6] md:grid-cols-12 md:items-baseline"
-              >
-                <h3 className="font-heading text-2xl font-bold tracking-[-0.02em] text-foreground transition-colors group-hover:text-accent md:col-span-4 md:text-3xl">
-                  {g.name}
-                </h3>
-                <p className="text-sm text-[#5A6070] md:col-span-5 md:text-base">
-                  {g.desc}
-                </p>
-                <p className="font-mono text-[11px] text-muted-foreground md:col-span-3 md:text-right">
-                  {g.items}
-                </p>
-              </Link>
+        {/* Mobile — vertical storytelling chapters */}
+        <div className="mt-12 space-y-16 md:hidden">
+          {s.capabilities.map((cap, i) => (
+            <Reveal key={cap.name}>
+              <CapabilityChapter cap={cap} index={i} lang={lang} labels={labels} />
             </Reveal>
           ))}
         </div>
 
-        <Link
-          to={langPath(lang, "/services")}
-          className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-accent"
-        >
-          {s.all}
-          <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-        </Link>
+        {/* Closing CTA */}
+        <Reveal className="mt-16 border-t border-border pt-12 md:mt-24">
+          <p className="font-heading text-xl font-bold tracking-[-0.02em] text-foreground md:text-2xl">
+            {s.close.note}
+          </p>
+          <p className="mt-2.5 max-w-lg text-sm leading-relaxed text-muted-foreground md:text-base">
+            {s.close.sub}
+          </p>
+          <div className="mt-7 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <Link
+              to={langPath(lang, "/contact")}
+              className="group inline-flex items-center gap-2 text-sm font-medium text-accent"
+            >
+              {s.close.cta}
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </Link>
+            <Link
+              to={langPath(lang, "/services")}
+              className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              {s.close.all}
+              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </Link>
+          </div>
+        </Reveal>
       </div>
     </section>
   );
