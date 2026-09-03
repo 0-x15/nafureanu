@@ -10,6 +10,7 @@ import RadialDiagram from "@/components/diagrams/RadialDiagram";
 import SophIADashboard from "@/components/mockups/SophIADashboard";
 import FivoCheckout from "@/components/mockups/FivoCheckout";
 import RealEstateCrmCaseStudy from "@/sections/work/crm/RealEstateCrmCaseStudy";
+import BackToProjects from "@/components/work/BackToProjects";
 import { usePageMeta } from "@/lib/seo";
 
 const MOCKUPS = { sophia: SophIADashboard, fivo: FivoCheckout };
@@ -67,6 +68,7 @@ export default function CaseStudy({ lang = "es" }) {
     <article className="bg-background">
       {/* Header */}
       <header className="px-5 pt-36 md:px-10 md:pt-48">
+        <BackToProjects lang={lang} className="mb-8" />
         <p className="text-sm font-medium text-accent">{c.type}</p>
         <h1 className="mt-4 font-heading text-6xl font-bold tracking-[-0.03em] text-foreground md:text-8xl">
           {pick(project.title, lang)}

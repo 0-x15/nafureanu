@@ -7,7 +7,7 @@ import ProjectCard from "@/components/work/ProjectCard";
 import CrmCardVisual from "@/components/work/visuals/CrmCardVisual";
 import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
-import FivoCheckout from "@/components/mockups/FivoCheckout";
+import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
 
 /**
  * The project index — an editorial catalogue of systems already at
@@ -15,14 +15,10 @@ import FivoCheckout from "@/components/mockups/FivoCheckout";
  * PROJECTS array order.
  */
 const ORDER = [
-  { slug: "sophia", span: "md:col-span-7", visual: (lang) => <CrmCardVisual lang={lang} /> },
-  {
-    slug: "fivo",
-    span: "md:col-span-5",
-    visual: (lang) => <FivoCheckout lang={lang} bare className="scale-105 md:scale-110" />,
-  },
-  { slug: "life-admin", span: "md:col-span-5", visual: () => <LifeAdminCardVisual /> },
-  { slug: "web-projects", span: "md:col-span-7", visual: () => <WebCardVisual /> },
+  { slug: "sophia", visual: (lang) => <CrmCardVisual lang={lang} /> },
+  { slug: "fivo", visual: (lang) => <FivoCardVisual lang={lang} /> },
+  { slug: "life-admin", visual: () => <LifeAdminCardVisual /> },
+  { slug: "web-projects", visual: () => <WebCardVisual /> },
 ];
 
 export default function Work({ lang = "es" }) {
@@ -58,9 +54,9 @@ export default function Work({ lang = "es" }) {
         aria-label={wp.kicker}
         className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20"
       >
-        <div className="grid gap-6 md:grid-cols-12">
+        <div className="mx-auto grid w-full max-w-[1280px] grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
           {ORDER.map((entry, i) => (
-            <Reveal key={entry.slug} delay={i * 0.05} className={entry.span}>
+            <Reveal key={entry.slug} delay={i * 0.05}>
               <ProjectCard
                 project={PROJECTS.find((p) => p.slug === entry.slug)}
                 index={String(i + 1).padStart(2, "0")}

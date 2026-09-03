@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import BackToProjects from "@/components/work/BackToProjects";
 import CrmHeroVisual from "./CrmHeroVisual";
 
 /** Case hero — positioning, verified proof and the demo product visual. */
@@ -6,6 +7,7 @@ export default function CrmHero({ lang, c }) {
   const h = c.hero;
   return (
     <header className="mx-auto max-w-[1440px] px-5 pt-36 md:px-10 md:pt-44">
+      <BackToProjects lang={lang} className="mb-8" />
       <Reveal>
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
           {h.kicker}

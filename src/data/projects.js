@@ -7,15 +7,14 @@ export const PROJECTS = [
     status: { es: "Producto en producción", en: "Live product" },
     discipline: { es: "Pagos / Blockchain", en: "Payments / Blockchain" },
     card: {
-      category: { es: "Pagos · Blockchain", en: "Payments · Blockchain" },
+      category: { es: "Pagos · Stablecoins", en: "Payments · Stablecoins" },
       description: {
-        es: "Pagos con stablecoins en 9 redes blockchain a través de una única integración.",
-        en: "Stablecoin payments across 9 blockchain networks through a single integration.",
+        es: "Infraestructura de pagos con USDC y EURC a través de múltiples redes blockchain.",
+        en: "Payment infrastructure with USDC and EURC across multiple blockchain networks.",
       },
       signals: [
-        { es: "Checkout embebible", en: "Embeddable checkout" },
+        { es: "9 redes", en: "9 networks" },
         { es: "REST API", en: "REST API" },
-        { es: "Webhooks", en: "Webhooks" },
         { es: "Circle CCTP", en: "Circle CCTP" },
       ],
     },
@@ -182,15 +181,14 @@ export const PROJECTS = [
     status: { es: "En producción", en: "In production" },
     discipline: { es: "Odoo / Operaciones", en: "Odoo / Operations" },
     card: {
-      category: { es: "CRM · Operaciones · Odoo", en: "CRM · Operations · Odoo" },
+      category: { es: "CRM · Odoo · Automatización", en: "CRM · Odoo · Automation" },
       description: {
-        es: "Una operación inmobiliaria convertida en un sistema conectado, automatizado y adaptado al negocio.",
-        en: "A real-estate operation turned into a connected, automated system adapted to the business.",
+        es: "CRM y plataforma de operaciones construidos alrededor del funcionamiento real de una inmobiliaria.",
+        en: "A CRM and operations platform built around how a real-estate agency actually works.",
       },
       signals: [
         { es: "Matching automático", en: "Automatic matching" },
-        { es: "20+ módulos Odoo a medida", en: "20+ custom Odoo modules" },
-        { es: "Automatización", en: "Automation" },
+        { es: "20+ módulos Odoo", en: "20+ Odoo modules" },
         { es: "Integraciones", en: "Integrations" },
       ],
     },
@@ -356,22 +354,21 @@ export const PROJECTS = [
   },
   {
     slug: "life-admin",
-    title: { es: "Life Admin", en: "Life Admin" },
+    title: { es: "CRM de gestión interna", en: "Internal management CRM" },
     featured: true,
     client: { es: "Interno / privado", en: "Internal / private" },
     status: { es: "Privado — no lanzado", en: "Private — not publicly launched" },
     discipline: { es: "CRM a medida", en: "Custom CRM" },
     card: {
-      category: { es: "Sistema interno de gestión", en: "Internal management system" },
+      category: { es: "CRM · Gestión · Automatización", en: "CRM · Management · Automation" },
       description: {
-        es: "Un sistema interno que modela la administración de un negocio de principio a fin — proyecto privado.",
-        en: "An internal system that models business administration end to end — a private project.",
+        es: "Sistema interno de gestión y CRM para centralizar clientes, estados y procesos administrativos.",
+        en: "An internal CRM and management system that centralizes clients, statuses and administrative processes.",
       },
       signals: [
         { es: "CRM a medida", en: "Custom CRM" },
         { es: "Gestión de flujos", en: "Workflow management" },
         { es: "Automatización", en: "Automation" },
-        { es: "Privado — no lanzado", en: "Private — not launched" },
       ],
     },
     stack: ["Arquitectura a medida", "Gestión de flujos", "CRM", "Administración", "Automatización"],
@@ -392,7 +389,7 @@ export const PROJECTS = [
           {
             label: "Sistema",
             body: [
-              "Life Admin es un CRM y sistema de gestión a medida construido alrededor de esa realidad: arquitectura de software propia, gestión de flujos, administración y automatización en un solo lugar.",
+              "El sistema es un CRM y sistema de gestión a medida construido alrededor de esa realidad: arquitectura de software propia, gestión de flujos, administración y automatización en un solo lugar.",
             ],
           },
           {
@@ -418,7 +415,7 @@ export const PROJECTS = [
           {
             label: "System",
             body: [
-              "Life Admin is a custom CRM and management system built around that administrative reality: custom software architecture, workflow management, business administration and automation in one place.",
+              "The system is a custom CRM and management system built around that administrative reality: custom software architecture, workflow management, business administration and automation in one place.",
             ],
           },
           {
@@ -519,22 +516,21 @@ export const PROJECTS = [
   },
   {
     slug: "web-projects",
-    title: { es: "Web Projects", en: "Web Projects" },
+    title: { es: "Web y productos digitales", en: "Web & digital products" },
     featured: false,
     client: { es: "Clientes pymes", en: "SME clients" },
     status: { es: "Entregado", en: "Delivered" },
     discipline: { es: "Web", en: "Web" },
     card: {
-      category: { es: "Web · Productos digitales", en: "Web · Digital products" },
+      category: { es: "Web · Producto digital", en: "Web · Digital product" },
       description: {
-        es: "Webs corporativas y experiencias interactivas construidas con el mismo criterio que nuestro software.",
-        en: "Corporate websites and interactive experiences built with the same discipline as our software.",
+        es: "Webs y experiencias digitales diseñadas y desarrolladas con criterio de producto e ingeniería.",
+        en: "Websites and digital experiences designed and built with product and engineering discipline.",
       },
       signals: [
         { es: "React", en: "React" },
-        { es: "Webs corporativas", en: "Corporate websites" },
-        { es: "Experiencias interactivas", en: "Interactive experiences" },
-        { es: "Rendimiento", en: "Performance" },
+        { es: "Responsive", en: "Responsive" },
+        { es: "Performance", en: "Performance" },
       ],
     },
     stack: ["React", "Webs corporativas", "Experiencias interactivas", "Rendimiento"],
