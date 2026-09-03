@@ -34,9 +34,9 @@ export default function CrmAutomationLane({
       onFocus={onEngage}
       onBlur={onRelease}
       className={cn(
-        "relative grid gap-5 border-t border-border px-5 py-6 outline-none transition-[opacity,background-color] duration-300 first:border-t-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/40 md:px-6 md:py-7 lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] lg:gap-10",
-        active && "bg-accent/[0.04]",
-        state === "dim" && "opacity-75"
+        "relative grid gap-5 border-t border-accent/15 px-5 py-6 outline-none transition-[opacity,background-color] duration-300 first:border-t-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/40 md:px-6 md:py-7 lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] lg:gap-10",
+        active && "bg-white/60",
+        state === "dim" && "opacity-85"
       )}
     >
       <div className="flex items-start gap-4">
@@ -45,8 +45,8 @@ export default function CrmAutomationLane({
           className={cn(
             "relative z-10 mt-0.5 flex h-6 min-w-6 shrink-0 items-center justify-center rounded-full border bg-white px-1.5 font-mono text-[10px] transition-colors duration-300",
             active
-              ? "border-accent text-accent-deep"
-              : "border-border text-accent"
+              ? "border-accent bg-[#EDF2FF] text-accent"
+              : "border-accent/40 text-accent"
           )}
         >
           {module.num}
@@ -61,7 +61,7 @@ export default function CrmAutomationLane({
           <p
             className={cn(
               "mt-2 max-w-md text-sm leading-relaxed transition-colors duration-300",
-              active ? "text-foreground/80" : "text-muted-foreground"
+              active ? "text-foreground/90" : "text-foreground/70"
             )}
           >
             {module.text}

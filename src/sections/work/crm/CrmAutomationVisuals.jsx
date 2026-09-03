@@ -42,16 +42,16 @@ function useSequence({ active, reduce, steps, stepMs = 420 }) {
 /* ── light atoms ──────────────────────────────────────────────── */
 
 const TONES = {
-  muted: "border-border bg-white text-muted-foreground",
-  accent: "border-accent/50 bg-[#EDF2FF] text-accent",
-  cyan: "border-[#17B4CD]/50 bg-[#E6F7FA] text-[#0E8DA3]",
-  warn: "border-[#D9A441]/50 bg-[#FBF3E2] text-[#B45309]",
-  attention: "border-[#E3735E]/50 bg-[#FCEDE9] text-[#B43F2B]",
+  muted: "border-accent/30 bg-white text-foreground/80",
+  accent: "border-accent/60 bg-[#EDF2FF] text-accent",
+  cyan: "border-[#17B4CD]/60 bg-[#E6F7FA] text-[#0B7D91]",
+  warn: "border-[#D9A441]/60 bg-[#FBF3E2] text-[#9A4A07]",
+  attention: "border-[#E3735E]/60 bg-[#FCEDE9] text-[#A8351F]",
 };
 
 function Surface({ className = "", children }) {
   return (
-    <div className={cn("rounded-md border border-border bg-[#F8FAFD] p-3.5 md:p-4", className)}>
+    <div className={cn("rounded-md border border-accent/20 bg-white/85 p-3.5 shadow-[0_12px_30px_-22px_rgba(49,87,246,0.35)] backdrop-blur-sm md:p-4", className)}>
       {children}
     </div>
   );
@@ -59,7 +59,7 @@ function Surface({ className = "", children }) {
 
 function Label({ className = "", children }) {
   return (
-    <p className={cn("font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground/80", className)}>
+    <p className={cn("font-mono text-[9px] uppercase tracking-[0.14em] text-foreground/60", className)}>
       {children}
     </p>
   );
@@ -69,7 +69,7 @@ function Label({ className = "", children }) {
 function Node({ tone = "muted", on = true, className = "", children }) {
   return (
     <motion.span
-      animate={{ opacity: on ? 1 : 0.28 }}
+      animate={{ opacity: on ? 1 : 0.35 }}
       transition={{ duration: 0.35, ease: EASE }}
       className={cn(
         "inline-flex shrink-0 items-center gap-1.5 rounded-sm border px-2 py-1 font-mono text-[9px] uppercase leading-none tracking-[0.1em]",
@@ -103,7 +103,7 @@ function Arrow({ on = true, pulse = false, delay = 0, dir = "auto", className = 
         className={cn(
           "block transition-colors duration-300",
           lineClass,
-          on ? "bg-[#3157F6]/70" : "bg-border"
+          on ? "bg-[#3157F6]/80" : "bg-accent/25"
         )}
       />
       {pulse && (
@@ -134,7 +134,7 @@ function Check({ done, on = true }) {
       transition={{ duration: 0.3, ease: EASE }}
       className={cn(
         "flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border transition-colors duration-300",
-        done ? "border-[#3157F6] bg-[#3157F6]" : "border-foreground/25 bg-white"
+        done ? "border-[#3157F6] bg-[#3157F6]" : "border-accent/40 bg-white"
       )}
     >
       {done && <CheckIcon className="h-2 w-2 text-white" strokeWidth={3} />}
@@ -175,14 +175,14 @@ function MatchingVisual({ ui, active, reduce, lane }) {
             <span className="h-1 w-1 rounded-full bg-accent" />
             {ui.engine}
           </Node>
-          <span className="font-mono text-[8.5px] uppercase tracking-[0.12em] text-muted-foreground/80">
+          <span className="font-mono text-[8.5px] uppercase tracking-[0.12em] text-foreground/60">
             {ui.pair}
           </span>
         </span>
         <Arrow on={phase >= 2} />
         <ul className="grid grid-cols-2 gap-x-5 gap-y-1.5">
           {ui.criteria.map((criterion, i) => (
-            <li key={criterion} className="flex items-center gap-1.5 text-[10.5px] text-foreground/80">
+            <li key={criterion} className="flex items-center gap-1.5 text-[10.5px] text-foreground/85">
               <Check done={phase >= 2 + i} />
               {criterion}
             </li>
@@ -213,7 +213,7 @@ function LeadsVisual({ ui, active, reduce, lane }) {
           <Node tone="accent" on={phase >= 2}>
             {ui.steps[2]}
           </Node>
-          <span className="block h-1 w-full overflow-hidden rounded-full bg-foreground/10">
+          <span className="block h-1 w-full overflow-hidden rounded-full bg-accent/15">
             <motion.span
               className="block h-full rounded-full bg-[#3157F6]"
               animate={{ width: phase >= 2 ? "72%" : "0%" }}
@@ -226,13 +226,13 @@ function LeadsVisual({ ui, active, reduce, lane }) {
           {ui.steps[3]}
         </Node>
       </div>
-      <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-border pt-2.5 font-mono text-[8.5px] uppercase tracking-[0.12em] text-muted-foreground/80">
+      <p className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-accent/15 pt-2.5 font-mono text-[8.5px] uppercase tracking-[0.12em] text-foreground/60">
         <span>{ui.noContact}</span>
-        <span className="text-muted-foreground/50">→</span>
-        <span className={cn("transition-colors duration-300", phase >= 3 && "text-[#B45309]")}>
+        <span className="text-accent/60">→</span>
+        <span className={cn("transition-colors duration-300", phase >= 3 && "text-[#9A4A07]")}>
           ! {ui.alert}
         </span>
-        <span className="text-muted-foreground/50">→</span>
+        <span className="text-accent/60">→</span>
         <span>{ui.queue}</span>
       </p>
     </Surface>
@@ -255,7 +255,7 @@ function ChecklistVisual({ ui, active, reduce, lane }) {
             return (
               <li key={label} className="flex items-center gap-2 text-[11px]">
                 <Check done={isDone} />
-                <span className={isDone ? "text-foreground/85" : "text-muted-foreground"}>{label}</span>
+                <span className={isDone ? "text-foreground/90" : "text-foreground/55"}>{label}</span>
                 {auto && (
                   <motion.span
                     animate={{ opacity: phase >= 3 ? 1 : 0 }}
@@ -287,9 +287,9 @@ function ChecklistVisual({ ui, active, reduce, lane }) {
 /* ── 04 Alerts & reminders ───────────────────────────────────── */
 
 const STATE_GLYPH = {
-  ok: "border-[#17B4CD]/50 bg-[#E6F7FA] text-[#0E8DA3]",
-  warn: "border-[#D9A441]/50 bg-[#FBF3E2] text-[#B45309]",
-  attention: "border-[#E3735E]/50 bg-[#FCEDE9] text-[#B43F2B]",
+  ok: "border-[#17B4CD]/60 bg-[#E6F7FA] text-[#0B7D91]",
+  warn: "border-[#D9A441]/60 bg-[#FBF3E2] text-[#9A4A07]",
+  attention: "border-[#E3735E]/60 bg-[#FCEDE9] text-[#A8351F]",
 };
 
 function AlertsVisual({ ui, active, reduce }) {
@@ -303,13 +303,13 @@ function AlertsVisual({ ui, active, reduce }) {
           {ui.live}
         </span>
       </div>
-      <ul className="mt-2 divide-y divide-border">
+      <ul className="mt-2 divide-y divide-accent/10">
         {ui.items.map(([label, tone], i) => (
           <motion.li
             key={label}
             animate={{ opacity: phase > i ? 1 : 0.18, x: phase > i ? 0 : -6 }}
             transition={{ duration: 0.35, ease: EASE }}
-            className="flex items-center justify-between gap-3 py-1.5 text-[11px] text-foreground/80"
+            className="flex items-center justify-between gap-3 py-1.5 text-[11px] text-foreground/85"
           >
             <span>{label}</span>
             <span
@@ -348,7 +348,7 @@ function SyncVisual({ ui, active, reduce, lane }) {
           key={row.label}
           className={cn(
             flowClass,
-            r > 0 && "border-t border-border pt-3 sm:border-0 sm:pt-0"
+            r > 0 && "border-t border-accent/15 pt-3 sm:border-0 sm:pt-0"
           )}
         >
           <Node tone="cyan" on={phase >= row.start}>
@@ -382,7 +382,7 @@ function AiVisual({ ui, active, reduce, lane }) {
           <span className="h-1.5 w-1.5 rounded-full bg-[#17B4CD]" />
           {ui.source}
         </Label>
-        <p className="mt-2 rounded-md rounded-tl-sm border border-border bg-white px-3 py-2 text-[11.5px] leading-snug text-foreground/85">
+        <p className="mt-2 rounded-md rounded-tl-sm border border-accent/25 bg-white px-3 py-2 text-[11.5px] leading-snug text-foreground/90">
           “{ui.message}”
         </p>
       </div>
@@ -403,10 +403,10 @@ function AiVisual({ ui, active, reduce, lane }) {
               transition={{ duration: 0.3, ease: EASE }}
               className="contents"
             >
-              <dt className="font-mono text-[8.5px] uppercase tracking-[0.12em] text-muted-foreground/80">
+              <dt className="font-mono text-[8.5px] uppercase tracking-[0.12em] text-foreground/60">
                 {key}
               </dt>
-              <dd className="border-b border-border pb-1 text-[11px] text-foreground/85">{value}</dd>
+              <dd className="border-b border-accent/10 pb-1 text-[11px] text-foreground/90">{value}</dd>
             </motion.div>
           ))}
         </dl>

@@ -23,8 +23,15 @@ export default function CrmAutomation({ c }) {
   };
 
   return (
-    <section className="bg-[#F2F5FA] px-5 py-16 text-foreground md:px-10 md:py-24">
-      <div className="mx-auto max-w-[1440px]">
+    <section className="relative overflow-hidden bg-[#F2F5FA] px-5 py-16 text-foreground md:px-10 md:py-24">
+      {/* atmosphere — restrained cobalt bloom and cyan reflection; the
+          engine panel sits on it as a glass plane */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+        <span className="absolute left-[14%] top-[8%] h-[70%] w-[66%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.11),transparent)]" />
+        <span className="absolute bottom-[-6%] right-[0%] h-[48%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.09),transparent)]" />
+        <span className="absolute left-[-8%] bottom-[10%] h-[36%] w-[34%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.07),transparent)]" />
+      </div>
+      <div className="relative mx-auto max-w-[1440px]">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             {a.kicker}
@@ -38,14 +45,14 @@ export default function CrmAutomation({ c }) {
         </Reveal>
 
         <Reveal delay={0.08} className="mt-12 md:mt-16">
-          <div className="relative overflow-hidden rounded-xl border border-border bg-white shadow-[0_1px_2px_rgba(12,18,32,0.04),0_36px_80px_-48px_rgba(49,87,246,0.22)]">
+          <div className="relative overflow-hidden rounded-xl border border-white/90 bg-white/65 shadow-[0_1px_2px_rgba(12,18,32,0.04),0_48px_100px_-56px_rgba(49,87,246,0.38)] backdrop-blur-[24px]">
             {/* Top bar — the engine's identity and its state */}
-            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-border px-5 py-3 md:px-6">
-              <p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/70">
+            <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-b border-accent/15 px-5 py-3 md:px-6">
+              <p className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/85">
                 <span aria-hidden="true" className="h-1.5 w-1.5 bg-[#3157F6]" />
                 {a.engine}
               </p>
-              <p className="hidden items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground/80 md:flex">
+              <p className="hidden items-center gap-2 font-mono text-[9px] uppercase tracking-[0.18em] text-foreground/60 md:flex">
                 {a.stages.map((stage, i) => (
                   <span key={stage} className="flex items-center gap-2">
                     {i > 0 && <span className="text-accent/60">→</span>}
@@ -63,7 +70,7 @@ export default function CrmAutomation({ c }) {
             <div className="relative">
               <span
                 aria-hidden="true"
-                className="pointer-events-none absolute bottom-6 top-6 hidden w-px bg-foreground/10 md:left-[35px] md:block"
+                className="pointer-events-none absolute bottom-6 top-6 hidden w-px bg-accent/25 md:left-[35px] md:block"
               >
                 {!reduce && (
                   <motion.span
@@ -94,7 +101,7 @@ export default function CrmAutomation({ c }) {
             </div>
 
             {/* Conceptual conclusion */}
-            <p className="flex items-start gap-3 border-t border-border px-5 py-6 md:px-6 md:py-7">
+            <p className="flex items-start gap-3 border-t border-accent/15 px-5 py-6 md:px-6 md:py-7">
               <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 shrink-0 bg-[#3157F6]" />
               <span className="max-w-3xl font-heading text-base font-semibold leading-snug tracking-[-0.01em] text-foreground md:text-lg">
                 {a.closing}
