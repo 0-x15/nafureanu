@@ -8,6 +8,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { projectSlug } from "@/data/projects";
 import { langPath, pick } from "@/i18n";
 import { cn } from "@/lib/utils";
 
@@ -68,11 +69,11 @@ export default function ProjectCard({
       className={cn("h-full", className)}
     >
       <Link
-        to={langPath(lang, `/work/${project.slug}`)}
+        to={langPath(lang, `/work/${projectSlug(project, lang)}`)}
         className="group flex h-[420px] flex-col overflow-hidden rounded-xl border border-border bg-card p-5 shadow-[0_1px_2px_rgba(20,30,50,0.05),0_10px_28px_-16px_rgba(20,30,50,0.16),inset_0_1px_0_rgba(255,255,255,0.7)] transition-[border-color,box-shadow] duration-300 hover:border-accent/40 hover:shadow-[0_2px_4px_rgba(20,30,50,0.06),0_16px_34px_-16px_rgba(49,87,246,0.22),inset_0_1px_0_rgba(255,255,255,0.85)]"
       >
         <div className="flex items-baseline justify-between gap-2">
-          <span className="font-mono text-[10px] text-muted-foreground/70">
+          <span className="font-mono text-[10px] text-accent">
             {index}
           </span>
           <span className="text-right font-mono text-[9px] uppercase leading-snug tracking-[0.12em] text-muted-foreground">

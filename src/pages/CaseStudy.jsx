@@ -1,27 +1,27 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
-import { PROJECTS } from "@/data/projects";
+import { PROJECTS, projectSlug } from "@/data/projects";
 import { STRINGS, langPath, otherLang, pick } from "@/i18n";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import FlowDiagram from "@/components/diagrams/FlowDiagram";
 import RadialDiagram from "@/components/diagrams/RadialDiagram";
-import SophIADashboard from "@/components/mockups/SophIADashboard";
 import FivoCheckout from "@/components/mockups/FivoCheckout";
-import RealEstateCrmCaseStudy from "@/sections/work/crm/RealEstateCrmCaseStudy";
+import CrmCaseStudy from "@/sections/work/crm/CrmCaseStudy";
 import BackToProjects from "@/components/work/BackToProjects";
 import { usePageMeta } from "@/lib/seo";
 
-const MOCKUPS = { sophia: SophIADashboard, fivo: FivoCheckout };
+const MOCKUPS = { fivo: FivoCheckout };
 
 export default function CaseStudy({ lang = "es" }) {
   const { slug } = useParams();
-  const project = PROJECTS.find((p) => p.slug === slug);
+  const project = PROJECTS.find((p) => p.slug === slug || p.slugEn === slug);
   const reduced = useReducedMotion();
   const s = STRINGS[lang];
   const c = project?.copy?.[lang];
   const cs = s.caseStudy;
+  const canonicalSlug = project ? projectSlug(project, lang) : slug;
 
   usePageMeta({
     lang,
@@ -29,8 +29,11 @@ export default function CaseStudy({ lang = "es" }) {
       ? `${pick(project.title, lang)} — Nafureanu`
       : s.meta.work.title,
     description: c?.summary,
-    path: langPath(lang, `/work/${slug}`),
-    alternatePath: langPath(otherLang(lang), `/work/${slug}`),
+    path: langPath(lang, `/work/${canonicalSlug}`),
+    alternatePath: langPath(
+      otherLang(lang),
+      `/work/${project ? projectSlug(project, otherLang(lang)) : slug}`
+    ),
   });
 
   if (!project || !c) {
@@ -47,8 +50,13 @@ export default function CaseStudy({ lang = "es" }) {
     );
   }
 
-  if (slug === "sophia") {
-    return <RealEstateCrmCaseStudy lang={lang} />;
+  /* Legacy and cross-language aliases resolve to the canonical route. */
+  if (slug !== canonicalSlug) {
+    return <Navigate to={langPath(lang, `/work/${canonicalSlug}`)} replace />;
+  }
+
+  if (project.slug === "crm-inmobiliario") {
+    return <CrmCaseStudy lang={lang} />;
   }
 
   const idx = PROJECTS.indexOf(project);
@@ -66,9 +74,13 @@ export default function CaseStudy({ lang = "es" }) {
 
   return (
     <article className="bg-background">
+      <div className="px-5 pt-24 md:px-10 md:pt-28">
+        <div className="mx-auto max-w-[1440px]">
+          <BackToProjects lang={lang} />
+        </div>
+      </div>
       {/* Header */}
-      <header className="px-5 pt-36 md:px-10 md:pt-48">
-        <BackToProjects lang={lang} className="mb-8" />
+      <header className="px-5 pt-8 md:px-10 md:pt-10">
         <p className="text-sm font-medium text-accent">{c.type}</p>
         <h1 className="mt-4 font-heading text-6xl font-bold tracking-[-0.03em] text-foreground md:text-8xl">
           {pick(project.title, lang)}
@@ -210,7 +222,7 @@ export default function CaseStudy({ lang = "es" }) {
 
       {/* Next project */}
       <Link
-        to={langPath(lang, `/work/${next.slug}`)}
+        to={langPath(lang, `/work/${projectSlug(next, lang)}`)}
         className="group block border-t border-border px-5 py-16 md:px-10 md:py-24"
       >
         <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">

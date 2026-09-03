@@ -174,7 +174,8 @@ export const PROJECTS = [
     },
   },
   {
-    slug: "sophia",
+    slug: "crm-inmobiliario",
+    slugEn: "real-estate-crm",
     title: { es: "CRM inmobiliario a medida", en: "Custom real-estate CRM" },
     featured: true,
     client: { es: "Empresa del sector inmobiliario", en: "Real-estate company" },
@@ -592,3 +593,7 @@ export const PROJECTS = [
     },
   },
 ];
+
+/** Public per-language project slug — English uses slugEn when defined. */
+export const projectSlug = (project, lang) =>
+  lang === "en" && project.slugEn ? project.slugEn : project.slug;

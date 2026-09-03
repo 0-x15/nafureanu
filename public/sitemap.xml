@@ -50,16 +50,16 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/fivo"/>
   </url>
   <url>
-    <loc>https://nafureanu.com/work/sophia</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/sophia"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/sophia"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/sophia"/>
+    <loc>https://nafureanu.com/work/crm-inmobiliario</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/crm-inmobiliario"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/real-estate-crm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/crm-inmobiliario"/>
   </url>
   <url>
-    <loc>https://nafureanu.com/en/work/sophia</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/sophia"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/sophia"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/sophia"/>
+    <loc>https://nafureanu.com/en/work/real-estate-crm</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work/crm-inmobiliario"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work/real-estate-crm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/work/crm-inmobiliario"/>
   </url>
   <url>
     <loc>https://nafureanu.com/work/life-admin</loc>

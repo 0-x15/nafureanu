@@ -16,7 +16,10 @@ const EASE = [0.22, 1, 0.36, 1];
  */
 export default function SophiaChapter({ lang = "es" }) {
   const s = STRINGS[lang].workSection.sophia;
-  const to = langPath(lang, "/work/sophia");
+  const to = langPath(
+    lang,
+    `/work/${lang === "en" ? "real-estate-crm" : "crm-inmobiliario"}`
+  );
 
   return (
     <div className="relative overflow-hidden">

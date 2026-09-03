@@ -8,7 +8,7 @@ import CrmCardVisual from "@/components/work/visuals/CrmCardVisual";
 import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
 import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
-import WorkSystemsOverview from "@/components/work/WorkSystemsOverview";
+import WorkSystemsBoard from "@/components/work/WorkSystemsBoard";
 import BackToPrevious from "@/components/work/BackToPrevious";
 
 /**
@@ -17,7 +17,7 @@ import BackToPrevious from "@/components/work/BackToPrevious";
  * PROJECTS array order.
  */
 const ORDER = [
-  { slug: "sophia", visual: (lang) => <CrmCardVisual lang={lang} /> },
+  { slug: "crm-inmobiliario", visual: (lang) => <CrmCardVisual lang={lang} /> },
   { slug: "fivo", visual: (lang) => <FivoCardVisual lang={lang} /> },
   { slug: "life-admin", visual: () => <LifeAdminCardVisual /> },
   { slug: "web-projects", visual: () => <WebCardVisual /> },
@@ -37,7 +37,12 @@ export default function Work({ lang = "es" }) {
 
   return (
     <div className="bg-[#F2F5FA]">
-      <header className="relative overflow-hidden px-5 pt-32 md:px-10 md:pt-40">
+      <div className="px-5 pt-24 md:px-10 md:pt-28">
+        <div className="mx-auto max-w-[1280px]">
+          <BackToPrevious lang={lang} />
+        </div>
+      </div>
+      <header className="relative overflow-hidden px-5 pt-8 md:px-10 md:pt-12">
         {/* atmosphere — restrained cobalt bloom, cyan reflection, one glass plane */}
         <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
           <span className="absolute right-[6%] top-[4%] h-[76%] w-[64%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.08),transparent)]" />
@@ -46,7 +51,6 @@ export default function Work({ lang = "es" }) {
         </div>
         <div className="relative z-10 mx-auto max-w-[1280px] md:grid md:grid-cols-12 md:items-center md:gap-10">
           <div className="md:col-span-6">
-            <BackToPrevious lang={lang} className="mb-6" />
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
               {wp.kicker}
             </p>
@@ -61,7 +65,7 @@ export default function Work({ lang = "es" }) {
             </p>
           </div>
           <div className="mt-14 md:col-span-6 md:mt-0">
-            <WorkSystemsOverview lang={lang} />
+            <WorkSystemsBoard lang={lang} />
           </div>
         </div>
         {/* Room for the overlapping product surfaces */}

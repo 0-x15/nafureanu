@@ -46,7 +46,10 @@ export default function Footer({ lang = "es" }) {
 
   const workLinks = [
     { to: "/work", label: s.nav.work },
-    { to: "/work/sophia", label: f.crm },
+    {
+      to: `/work/${lang === "en" ? "real-estate-crm" : "crm-inmobiliario"}`,
+      label: f.crm,
+    },
     { to: "/work/fivo", label: "Fivo" },
   ];
 
