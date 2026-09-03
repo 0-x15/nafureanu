@@ -77,12 +77,18 @@ export default function CrmProblem({ c, lang = "es" }) {
     const rR = row.getBoundingClientRect();
     const rowCenter = rR.top - cR.top + rR.height / 2;
 
-    const x = active >= 4 ? 14 : cW - bW - 14;
+    const rowIdx = active % 4;
+    const drift = [0, 26, 12, 40][rowIdx];
+    const x = active >= 4 ? 14 + drift : cW - bW - 14 - drift;
     const y = Math.min(
       Math.max(rowCenter - bH * 0.4, 10),
       Math.max(cH - bH - 10, 10)
     );
-    setAnchor({ x, y, w: bW });
+    setAnchor({
+      x: Math.max(10, Math.min(x, cW - bW - 10)),
+      y,
+      w: bW,
+    });
   }, [active]);
 
   return (
@@ -119,7 +125,7 @@ export default function CrmProblem({ c, lang = "es" }) {
           onBlurCapture={(e) => {
             if (!e.currentTarget.contains(e.relatedTarget)) setActive(null);
           }}
-          className="relative overflow-hidden rounded-xl border border-border bg-card/80 shadow-[0_28px_64px_-32px_rgba(12,18,32,0.2)]"
+          className="relative overflow-hidden rounded-xl border border-border bg-card/80 shadow-[0_1px_2px_rgba(12,18,32,0.05),0_24px_60px_-24px_rgba(12,18,32,0.22)]"
         >
           {/* The 8 problems — 2 columns of 4 */}
           <div className="grid p-5 sm:p-8 md:grid-cols-2 md:gap-x-16 md:p-10">
@@ -149,24 +155,29 @@ export default function CrmProblem({ c, lang = "es" }) {
 
           {/* The solution bubble — inside the same container, over the list */}
           <motion.div
-            id="crm-solutions"
-            aria-live="polite"
             ref={bubbleRef}
             className="pointer-events-none absolute left-0 top-0 z-20"
             style={{ width: anchor.w }}
             initial={false}
-            animate={{
-              x: anchor.x,
-              y: anchor.y,
-              opacity: active === null ? 0 : 1,
-              scale: active === null ? 0.97 : 1,
-            }}
-            transition={{ duration: 0.45, ease: EASE }}
+            animate={{ x: anchor.x, y: anchor.y }}
+            transition={{ duration: 0.55, ease: EASE }}
           >
-            <CrmSolutionBubble
-              pain={p.pains[active ?? lastRef.current]}
-              howLabel={p.howLabel}
-            />
+            <motion.div
+              id="crm-solutions"
+              aria-live="polite"
+              initial={false}
+              animate={{
+                opacity: active === null ? 0 : 1,
+                scale: active === null ? 0.97 : 1,
+                y: active === null ? 12 : 0,
+              }}
+              transition={{ duration: 0.5, ease: EASE }}
+            >
+              <CrmSolutionBubble
+                pain={p.pains[active ?? lastRef.current]}
+                howLabel={p.howLabel}
+              />
+            </motion.div>
           </motion.div>
         </div>
       </Reveal>
