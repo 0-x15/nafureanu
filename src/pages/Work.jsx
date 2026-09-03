@@ -9,7 +9,7 @@ import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
 import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
 import WorkSystemsBoard from "@/components/work/WorkSystemsBoard";
-import BackToPrevious from "@/components/work/BackToPrevious";
+import BackToHome from "@/components/work/BackToHome";
 
 /**
  * The project index — an editorial catalogue of systems already at
@@ -39,7 +39,7 @@ export default function Work({ lang = "es" }) {
     <div className="bg-[#F2F5FA]">
       <div className="px-5 pt-24 md:px-10 md:pt-28">
         <div className="mx-auto max-w-[1280px]">
-          <BackToPrevious lang={lang} />
+          <BackToHome lang={lang} />
         </div>
       </div>
       <header className="relative overflow-hidden px-5 pt-8 md:px-10 md:pt-12">

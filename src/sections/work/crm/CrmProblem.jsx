@@ -57,6 +57,7 @@ export default function CrmProblem({ c, lang = "es" }) {
 
   /* Continuous horizontal follow — a spring-smoothed X motion value
      driven by pointer movement, starting from the per-item anchor. */
+  const CURSOR_GAP = 48;
   const xMotion = useMotionValue(16);
   const xSpring = useSpring(xMotion, { stiffness: 450, damping: 42 });
 
@@ -75,8 +76,9 @@ export default function CrmProblem({ c, lang = "es" }) {
     const cR = cEl.getBoundingClientRect();
     const bW = bEl.offsetWidth || anchor.w;
     const localX = e.clientX - cR.left;
-    const target = localX + 46;
-    xMotion.set(Math.max(10, Math.min(target, cR.width - bW - 10)));
+    const targetX =
+      active < 4 ? localX + CURSOR_GAP : localX - bW - CURSOR_GAP;
+    xMotion.set(Math.max(10, Math.min(targetX, cR.width - bW - 10)));
   };
 
   /* Per-item anchor: the bubble follows the hovered row's column and
@@ -91,7 +93,7 @@ export default function CrmProblem({ c, lang = "es" }) {
 
     const cW = cEl.offsetWidth;
     const cH = cEl.offsetHeight;
-    const bW = Math.min(620, cW * (cW < 900 ? 0.88 : 0.46));
+    const bW = Math.min(620, cW * (cW < 900 ? 0.88 : 0.5));
     const bH = bEl.offsetHeight;
     const cR = cEl.getBoundingClientRect();
     const rR = row.getBoundingClientRect();
@@ -191,7 +193,7 @@ export default function CrmProblem({ c, lang = "es" }) {
                 scale: active === null ? 0.97 : 1,
                 y: active === null ? 12 : 0,
               }}
-              transition={{ duration: 0.5, ease: EASE }}
+              transition={{ duration: 0.35, ease: EASE }}
             >
               <CrmSolutionBubble
                 pain={p.pains[active ?? lastRef.current]}
