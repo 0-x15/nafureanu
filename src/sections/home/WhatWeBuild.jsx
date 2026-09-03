@@ -4,7 +4,6 @@ import { STRINGS } from "@/i18n";
 import CapabilityNav from "./capabilities/CapabilityNav";
 import CapabilityScene from "./capabilities/CapabilityScene";
 import CapabilityChapter from "./capabilities/CapabilityChapter";
-import BuildAtmosphere from "./BuildAtmosphere";
 import ProblemCanvas from "./ProblemCanvas";
 
 /**
@@ -21,11 +20,10 @@ export default function WhatWeBuild({ lang = "es" }) {
   return (
     <>
     <section
-      className="relative overflow-hidden bg-[#F2F5FA] px-5 pt-20 md:px-10 md:pt-32"
+      className="bg-background px-5 pt-20 md:px-10 md:pt-32"
       aria-labelledby="build-heading"
     >
-      <BuildAtmosphere />
-      <div className="relative z-10 mx-auto max-w-[1440px]">
+      <div className="mx-auto max-w-[1440px]">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             {s.kicker}
