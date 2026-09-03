@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
+import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import CrmProblemVisual from "./CrmProblemVisual";
 import CrmSolutionBubble from "./CrmSolutionBubble";
+
+const EASE = [0.22, 1, 0.36, 1];
 
 function ProblemRow({ pain, i, active, onSelect }) {
   return (
     <li className="border-t border-border first:border-t-0">
       <button
         type="button"
-        onMouseEnter={onSelect}
-        onFocus={onSelect}
-        onClick={onSelect}
         aria-controls="crm-solutions"
+        onMouseEnter={(e) => onSelect(i, e.currentTarget)}
+        onFocus={(e) => onSelect(i, e.currentTarget)}
+        onClick={(e) => onSelect(i, e.currentTarget)}
         className={cn(
-          "flex w-full items-baseline gap-4 px-2 py-4 text-left transition-colors duration-300 md:py-5",
+          "flex w-full items-baseline gap-4 px-2 py-5 text-left transition-colors duration-300 md:py-6",
           active ? "bg-accent/[0.05]" : "hover:bg-accent/[0.04]"
         )}
       >
@@ -36,19 +39,57 @@ function ProblemRow({ pain, i, active, onSelect }) {
 
 /**
  * The problem — supporting visual LEFT, two-part headline RIGHT, then
- * ONE shared framed container holding the 8 problems in 2 columns of
- * 4, with the organic solution bubble overlaid INSIDE the same
- * container, floating OVER the problem list on hover / focus / tap.
+ * ONE shared framed container with the 8 problems in 2 columns of 4.
+ * The organic solution bubble lives INSIDE the same container as a
+ * real hover overlay: it appears on hover/focus, disappears when the
+ * state is left, and relocates — per-item anchors derived from the
+ * hovered row — whenever a different problem is engaged.
  */
 export default function CrmProblem({ c, lang = "es" }) {
   const p = c.problem;
   const [active, setActive] = useState(null);
+  const [anchor, setAnchor] = useState({ x: 16, y: 10, w: 620 });
+  const containerRef = useRef(null);
+  const bubbleRef = useRef(null);
+  const hoveredRef = useRef(null);
+  const lastRef = useRef(0);
+
+  const select = (i, el) => {
+    hoveredRef.current = el;
+    setActive(i);
+  };
+
+  /* Per-item anchor: the bubble follows the hovered row's column and
+     height, clamped so it never leaves the shared container. */
+  useLayoutEffect(() => {
+    if (active === null) return;
+    lastRef.current = active;
+    const cEl = containerRef.current;
+    const bEl = bubbleRef.current;
+    const row = hoveredRef.current;
+    if (!cEl || !bEl || !row) return;
+
+    const cW = cEl.offsetWidth;
+    const cH = cEl.offsetHeight;
+    const bW = Math.min(620, cW * (cW < 900 ? 0.88 : 0.46));
+    const bH = bEl.offsetHeight;
+    const cR = cEl.getBoundingClientRect();
+    const rR = row.getBoundingClientRect();
+    const rowCenter = rR.top - cR.top + rR.height / 2;
+
+    const x = active >= 4 ? 14 : cW - bW - 14;
+    const y = Math.min(
+      Math.max(rowCenter - bH * 0.4, 10),
+      Math.max(cH - bH - 10, 10)
+    );
+    setAnchor({ x, y, w: bW });
+  }, [active]);
 
   return (
     <section className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-24">
-      {/* Top — visual left, text right */}
+      {/* Intro — visual LEFT, text RIGHT */}
       <div className="md:grid md:grid-cols-12 md:items-center md:gap-16">
-        <Reveal className="md:col-span-7 md:col-start-7 md:row-start-1">
+        <Reveal className="md:col-span-7 md:col-start-6 md:row-start-1">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             {p.kicker}
           </p>
@@ -73,7 +114,11 @@ export default function CrmProblem({ c, lang = "es" }) {
       {/* ONE shared framed container — problems + bubble overlay */}
       <Reveal className="mt-16 md:mt-24">
         <div
+          ref={containerRef}
           onMouseLeave={() => setActive(null)}
+          onBlurCapture={(e) => {
+            if (!e.currentTarget.contains(e.relatedTarget)) setActive(null);
+          }}
           className="relative overflow-hidden rounded-xl border border-border bg-card/80 shadow-[0_28px_64px_-32px_rgba(12,18,32,0.2)]"
         >
           {/* The 8 problems — 2 columns of 4 */}
@@ -85,7 +130,7 @@ export default function CrmProblem({ c, lang = "es" }) {
                   pain={pain}
                   i={idx}
                   active={active === idx}
-                  onSelect={() => setActive(idx)}
+                  onSelect={select}
                 />
               ))}
             </ul>
@@ -96,29 +141,33 @@ export default function CrmProblem({ c, lang = "es" }) {
                   pain={pain}
                   i={idx + 4}
                   active={active === idx + 4}
-                  onSelect={() => setActive(idx + 4)}
+                  onSelect={select}
                 />
               ))}
             </ul>
           </div>
 
-          {/* Solution bubble — overlay INSIDE the same container, over the list */}
-          <div
+          {/* The solution bubble — inside the same container, over the list */}
+          <motion.div
             id="crm-solutions"
             aria-live="polite"
-            className={cn(
-              "pointer-events-none absolute top-[5%] z-20 w-[88%] transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] sm:w-[72%] md:w-[52%]",
-              active === null
-                ? "left-[6%] translate-y-3 opacity-0"
-                : active <= 3
-                  ? "left-[6%] translate-y-0 opacity-100 md:left-[43%]"
-                  : "left-[6%] translate-y-0 opacity-100 md:left-[5%]"
-            )}
+            ref={bubbleRef}
+            className="pointer-events-none absolute left-0 top-0 z-20"
+            style={{ width: anchor.w }}
+            initial={false}
+            animate={{
+              x: anchor.x,
+              y: anchor.y,
+              opacity: active === null ? 0 : 1,
+              scale: active === null ? 0.97 : 1,
+            }}
+            transition={{ duration: 0.45, ease: EASE }}
           >
-            {active !== null && (
-              <CrmSolutionBubble pain={p.pains[active]} howLabel={p.howLabel} />
-            )}
-          </div>
+            <CrmSolutionBubble
+              pain={p.pains[active ?? lastRef.current]}
+              howLabel={p.howLabel}
+            />
+          </motion.div>
         </div>
       </Reveal>
     </section>
