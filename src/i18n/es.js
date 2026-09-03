@@ -41,9 +41,10 @@ export const ES = {
     ctaSecondary: "Ver proyectos",
   },
   stats: {
-    title: "Nafureanu en producción",
+    title: "Sistemas en producción",
+    subtitle: "Lo que ya hemos puesto a trabajar.",
     intro:
-      "No hablamos solo de capacidades. Estas son algunas de las cosas que ya hemos construido y puesto a trabajar.",
+      "No hablamos solo de lo que podemos construir. Aquí hay sistemas que ya hemos diseñado, desarrollado y puesto a funcionar.",
     states: [
       {
         headline: "De la idea a producción.",

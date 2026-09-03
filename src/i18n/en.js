@@ -41,9 +41,10 @@ export const EN = {
     ctaSecondary: "View projects",
   },
   stats: {
-    title: "Nafureanu in production",
+    title: "Systems in production",
+    subtitle: "What we've already put to work.",
     intro:
-      "We don't only talk about capabilities. These are some of the systems we have already built and put to work.",
+      "We don't just talk about what we can build. These are systems we've already designed, developed and put into operation.",
     states: [
       {
         headline: "From idea to production.",

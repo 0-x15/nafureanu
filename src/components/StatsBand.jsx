@@ -73,6 +73,9 @@ export default function StatsBand({ lang = "es" }) {
           <h2 className="font-heading text-2xl font-bold tracking-[-0.02em] text-foreground md:text-3xl">
             {s.title}
           </h2>
+          <p className="mt-2 font-heading text-base font-semibold tracking-[-0.01em] text-foreground md:text-lg">
+            {s.subtitle}
+          </p>
           <p className="mt-3 hidden max-w-sm text-sm leading-relaxed text-muted-foreground md:block">
             {s.intro}
           </p>
