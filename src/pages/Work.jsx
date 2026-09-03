@@ -8,7 +8,7 @@ import CrmCardVisual from "@/components/work/visuals/CrmCardVisual";
 import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
 import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
-import ProjectDeckIntro from "@/components/work/ProjectDeckIntro";
+import WorkHeroVisual from "@/components/work/WorkHeroVisual";
 
 /**
  * The project index — an editorial catalogue of systems already at
@@ -43,8 +43,8 @@ export default function Work({ lang = "es" }) {
           <span className="absolute bottom-[0%] left-[6%] h-[48%] w-[44%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.06),transparent)]" />
           <div className="absolute right-[-8%] top-[12%] h-[32vh] w-[46vw] -rotate-2 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(49,87,246,0.3)] backdrop-blur-[26px]" />
         </div>
-        <div className="relative z-10 mx-auto max-w-[1280px] md:grid md:grid-cols-12 md:items-center md:gap-8">
-          <div className="md:col-span-7">
+        <div className="relative z-10 mx-auto max-w-[1280px] md:grid md:grid-cols-12 md:items-center md:gap-10">
+          <div className="md:col-span-6">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
               {wp.kicker}
             </p>
@@ -58,10 +58,12 @@ export default function Work({ lang = "es" }) {
               {wp.secondary}
             </p>
           </div>
-          <div className="mt-12 md:col-span-5 md:mt-0">
-            <ProjectDeckIntro lang={lang} />
+          <div className="mt-14 md:col-span-6 md:mt-0">
+            <WorkHeroVisual lang={lang} />
           </div>
         </div>
+        {/* Room for the overlapping product surfaces */}
+        <div aria-hidden="true" className="h-16 md:h-24" />
       </header>
 
       <section

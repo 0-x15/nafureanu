@@ -12,7 +12,7 @@ export default function BackToProjects({ lang = "es", className = "" }) {
     <Link
       to={langPath(lang, "/work")}
       className={cn(
-        "inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors duration-300 hover:text-accent",
+        "inline-flex items-center gap-2 text-sm font-medium text-foreground/70 transition-colors duration-300 hover:text-accent",
         className
       )}
     >
