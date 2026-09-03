@@ -689,18 +689,94 @@ export const EN = {
       ],
     },
     matching: {
+      kicker: "Matching",
       title: "The CRM doesn't just store data. It uses it to find opportunities.",
       paras: [
         "The matching system compares property supply with buyer and renter demand: it evaluates relevant criteria and surfaces compatible opportunities without manual searching.",
         "It works in both directions: from a client toward compatible properties, and from a property toward likely interested parties.",
       ],
-      demo: {
-        demand: "Demand",
-        criteria: ["3 bedrooms", "Area", "Budget", "Features"],
-        engine: "Matching",
-        results: "Matches",
-        resultRow: "Compatible property",
-      },
+      workspace: "Matching",
+      relation: "Supply ↔ Demand",
+      axis: { demand: "Demand", supply: "Supply" },
+      engine: "Matching",
+      compatible: "Compatible",
+      criteriaTitle: "Compatible criteria",
+      closing:
+        "Finding opportunities no longer depends on someone remembering which client might fit which property.",
+      modes: [
+        {
+          id: "demand",
+          tab: "Demand → Properties",
+          direction: ["Demand", "Supply"],
+          source: {
+            label: "Demand",
+            kind: "Purchase · Home",
+            fields: [
+              ["Area", "City centre"],
+              ["Budget", "≤ €300,000"],
+              ["Type", "Apartment"],
+              ["Bedrooms", "3"],
+              ["Surface", "≥ 80 m²"],
+            ],
+          },
+          criteria: ["Area", "Price", "Type", "Bedrooms", "Surface"],
+          resultsLabel: "Compatible properties",
+          results: [
+            {
+              title: "Apartment · 3 bedrooms",
+              meta: ["92 m²", "€285,000", "City centre"],
+              criteria: ["Area", "Price", "Type", "Bedrooms", "Surface"],
+            },
+            {
+              title: "Apartment · 3 bedrooms",
+              meta: ["88 m²", "€298,000", "City centre"],
+              criteria: ["Area", "Price", "Type", "Bedrooms", "Surface"],
+            },
+            {
+              title: "Apartment · 3 bedrooms",
+              meta: ["84 m²", "€279,000", "City centre"],
+              criteria: ["Area", "Price", "Type", "Bedrooms", "Surface"],
+            },
+          ],
+          actions: ["View property", "Prepare visit"],
+        },
+        {
+          id: "property",
+          tab: "Property → Interested clients",
+          direction: ["Supply", "Demand"],
+          source: {
+            label: "Property",
+            kind: "Apartment · Available",
+            fields: [
+              ["Price", "€285,000"],
+              ["Bedrooms", "3"],
+              ["Surface", "92 m²"],
+              ["Area", "City centre"],
+              ["Status", "Available"],
+            ],
+          },
+          criteria: ["Area", "Price", "Type", "Bedrooms"],
+          resultsLabel: "Interested clients",
+          results: [
+            {
+              title: "Demand A",
+              meta: ["Purchase · Apartment", "3 bedrooms", "City centre"],
+              criteria: ["Area", "Price", "Type", "Bedrooms"],
+            },
+            {
+              title: "Demand B",
+              meta: ["Purchase", "Up to €300,000", "3 bedrooms"],
+              criteria: ["Area", "Price", "Type", "Bedrooms"],
+            },
+            {
+              title: "Demand C",
+              meta: ["Purchase · Apartment", "Up to €320,000", "City centre"],
+              criteria: ["Area", "Price", "Type", "Bedrooms"],
+            },
+          ],
+          actions: ["View demand", "Prepare visit"],
+        },
+      ],
     },
     documents: {
       title: "Documents are part of the process, not just attachments.",

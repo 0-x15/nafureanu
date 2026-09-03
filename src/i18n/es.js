@@ -690,18 +690,94 @@ export const ES = {
       ],
     },
     matching: {
+      kicker: "Matching",
       title: "El CRM no solo guarda datos. Los utiliza para encontrar oportunidades.",
       paras: [
         "El sistema de matching compara la oferta de inmuebles con la demanda de compradores e inquilinos: evalúa criterios relevantes y detecta oportunidades compatibles sin búsqueda manual.",
         "Funciona en las dos direcciones: desde un cliente hacia los inmuebles compatibles, y desde un inmueble hacia los posibles interesados.",
       ],
-      demo: {
-        demand: "Demanda",
-        criteria: ["3 dormitorios", "Zona", "Presupuesto", "Características"],
-        engine: "Matching",
-        results: "Coincidencias",
-        resultRow: "Inmueble compatible",
-      },
+      workspace: "Matching",
+      relation: "Oferta ↔ Demanda",
+      axis: { demand: "Demanda", supply: "Oferta" },
+      engine: "Matching",
+      compatible: "Compatible",
+      criteriaTitle: "Criterios compatibles",
+      closing:
+        "La búsqueda deja de depender de que alguien recuerde qué cliente podía encajar con qué inmueble.",
+      modes: [
+        {
+          id: "demand",
+          tab: "Demanda → Inmuebles",
+          direction: ["Demanda", "Oferta"],
+          source: {
+            label: "Demanda",
+            kind: "Compra · Vivienda",
+            fields: [
+              ["Zona", "Centro"],
+              ["Presupuesto", "≤ 300.000 €"],
+              ["Tipo", "Piso"],
+              ["Habitaciones", "3"],
+              ["Superficie", "≥ 80 m²"],
+            ],
+          },
+          criteria: ["Zona", "Precio", "Tipo", "Habitaciones", "Superficie"],
+          resultsLabel: "Inmuebles compatibles",
+          results: [
+            {
+              title: "Piso · 3 habitaciones",
+              meta: ["92 m²", "285.000 €", "Centro"],
+              criteria: ["Zona", "Precio", "Tipo", "Habitaciones", "Superficie"],
+            },
+            {
+              title: "Piso · 3 habitaciones",
+              meta: ["88 m²", "298.000 €", "Centro"],
+              criteria: ["Zona", "Precio", "Tipo", "Habitaciones", "Superficie"],
+            },
+            {
+              title: "Piso · 3 habitaciones",
+              meta: ["84 m²", "279.000 €", "Centro"],
+              criteria: ["Zona", "Precio", "Tipo", "Habitaciones", "Superficie"],
+            },
+          ],
+          actions: ["Ver inmueble", "Preparar visita"],
+        },
+        {
+          id: "property",
+          tab: "Inmueble → Interesados",
+          direction: ["Oferta", "Demanda"],
+          source: {
+            label: "Inmueble",
+            kind: "Piso · Disponible",
+            fields: [
+              ["Precio", "285.000 €"],
+              ["Habitaciones", "3"],
+              ["Superficie", "92 m²"],
+              ["Zona", "Centro"],
+              ["Estado", "Disponible"],
+            ],
+          },
+          criteria: ["Zona", "Precio", "Tipo", "Habitaciones"],
+          resultsLabel: "Posibles interesados",
+          results: [
+            {
+              title: "Demanda A",
+              meta: ["Compra · Piso", "3 habitaciones", "Zona centro"],
+              criteria: ["Zona", "Precio", "Tipo", "Habitaciones"],
+            },
+            {
+              title: "Demanda B",
+              meta: ["Compra", "Hasta 300.000 €", "3 habitaciones"],
+              criteria: ["Zona", "Precio", "Tipo", "Habitaciones"],
+            },
+            {
+              title: "Demanda C",
+              meta: ["Compra · Piso", "Hasta 320.000 €", "Centro"],
+              criteria: ["Zona", "Precio", "Tipo", "Habitaciones"],
+            },
+          ],
+          actions: ["Ver demanda", "Preparar visita"],
+        },
+      ],
     },
     documents: {
       title: "Los documentos forman parte del proceso, no son simples archivos adjuntos.",
