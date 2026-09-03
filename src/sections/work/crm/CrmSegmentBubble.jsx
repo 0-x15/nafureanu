@@ -1,13 +1,20 @@
 import { motion } from "framer-motion";
-import { CRM_BLOB } from "./CrmSolutionBubble";
 
 const EASE = [0.22, 1, 0.36, 1];
 
+/*
+ * The organic blob — uneven flowing curves on every edge: waves on
+ * top, a bulging right flank, a rippled bottom and an asymmetric
+ * left side with an inward pinch. No straight runs anywhere.
+ */
+const CRM_BLOB =
+  "M88 44 C120 12 180 30 232 18 C268 10 258 34 312 14 C376 -8 448 6 518 32 C572 52 606 92 590 148 C578 194 602 240 556 284 C506 328 420 296 342 318 C268 338 170 330 100 296 C42 266 8 218 24 156 C36 106 0 64 46 40 C60 32 76 52 88 44 Z";
+
 /**
  * The small segment bubble for the conceptual "El problema" visual —
- * the same organic silhouette as the big solution bubble, scaled
- * down: translucent white with a soft cobalt tint, and a shadow cast
- * by the blurred duplicate of the real blob contour (never a box).
+ * an organic silhouette in translucent white with a soft cobalt tint,
+ * and a shadow cast by the blurred duplicate of the real blob contour
+ * (never a box).
  */
 export default function CrmSegmentBubble({ text }) {
   return (

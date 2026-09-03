@@ -7,13 +7,20 @@ import { STRINGS, langPath } from "@/i18n";
  * CRM case hero — two-column: positioning, verified proof and
  * capability tags on the left; the sanitized operational CRM
  * surface on the right. No empty right side.
+ *
+ * Both grid columns are min-w-0: the operational mockup's tab strip
+ * is wider than a phone screen, and without it the column (and the
+ * whole page) would grow to the strip's intrinsic width. The header
+ * clips horizontal overflow only, so the rotated backdrop plane of
+ * the composition can't push a horizontal scrollbar at any width
+ * while everything that overlaps vertically stays visible.
  */
 export default function CrmCaseHero({ lang, c }) {
   const h = c.hero;
 
   return (
-    <header className="mx-auto grid max-w-[1440px] items-center gap-12 px-5 pb-16 pt-8 md:grid-cols-2 md:gap-16 md:px-10 md:pb-24 md:pt-12">
-      <div>
+    <header className="mx-auto grid max-w-[1440px] items-center gap-12 overflow-x-clip px-5 pb-8 pt-8 md:grid-cols-2 md:gap-16 md:px-10 md:pb-10 md:pt-12">
+      <div className="min-w-0">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             {h.kicker}
@@ -57,7 +64,7 @@ export default function CrmCaseHero({ lang, c }) {
         </Reveal>
       </div>
 
-      <Reveal variant="scale" delay={0.1}>
+      <Reveal variant="scale" delay={0.1} className="min-w-0">
         <CrmHeroComposition lang={lang} />
       </Reveal>
     </header>

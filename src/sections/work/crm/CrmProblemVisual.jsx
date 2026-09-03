@@ -1,5 +1,11 @@
-import { useState, useRef, useLayoutEffect } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { useState, useRef, useCallback, useLayoutEffect } from "react";
+import {
+  easeInOut,
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion";
 import { cn } from "@/lib/utils";
 import CrmSegmentBubble from "./CrmSegmentBubble";
 
@@ -63,13 +69,84 @@ const TONES = {
 const AMP_TONE = [0, 12, 24, 9, 0];
 const AMP_NEUTRAL = [0, 5, 13, 4, 0];
 
+/* Position along a looping, per-segment eased keyframe drift after
+   `elapsed` ms of motion (an initial `delay` holds the first value). */
+function driftAt(elapsed, keyframes, duration, delay) {
+  const t = elapsed - delay;
+  if (t <= 0) return keyframes[0];
+  const segments = keyframes.length - 1;
+  const p = ((t % duration) / duration) * segments;
+  const i = Math.min(Math.floor(p), segments - 1);
+  return keyframes[i] + (keyframes[i + 1] - keyframes[i]) * easeInOut(p - i);
+}
+
+/**
+ * One slice of a rail. Its drift is computed every frame from a clock
+ * that only advances while the rail is not engaged, so on hover it
+ * freezes exactly where it is and afterwards continues from that same
+ * point — no jump either way. (framer-motion's own pause() misplaces
+ * delayed keyframe animations, which is why the clock is ours.) Only
+ * the coloured slice of a rail is interactive; neutral slices are
+ * inert.
+ */
+function Slice({ w, tone, rail, index, still, reduce, label, onEngage, onRelease }) {
+  const x = useMotionValue(0);
+  const elapsed = useRef(0);
+  const stillRef = useRef(still);
+  stillRef.current = still;
+
+  const keyframes = tone ? AMP_TONE : AMP_NEUTRAL;
+  const duration = (5.5 + rail * 0.8 + index * 0.9) * 1000;
+  const delay = (rail * 0.6 + index * 0.4) * 1000;
+
+  const tick = useCallback(
+    (_time, delta) => {
+      if (reduce || stillRef.current) return;
+      elapsed.current += delta;
+      x.set(driftAt(elapsed.current, keyframes, duration, delay));
+    },
+    [reduce, x, keyframes, duration, delay]
+  );
+  useAnimationFrame(tick);
+
+  const base = cn(
+    "block h-3.5 shadow-[0_6px_14px_-8px_rgba(12,18,32,0.3)]",
+    tone ? TONES[tone] : "bg-[#E9E4D8]"
+  );
+
+  if (!tone) {
+    return <motion.span aria-hidden="true" className={base} style={{ width: w, x }} />;
+  }
+
+  return (
+    <motion.button
+      type="button"
+      aria-label={label}
+      aria-describedby="crm-segment-bubble"
+      onMouseEnter={onEngage}
+      onMouseLeave={onRelease}
+      onFocus={onEngage}
+      onBlur={onRelease}
+      onClick={(e) => (still ? onRelease() : onEngage(e))}
+      className={cn(
+        base,
+        "cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3157F6]"
+      )}
+      style={{ width: w, x }}
+    />
+  );
+}
+
 /**
  * "El problema" supporting visual — the segmented composition with
  * continuous life: the slices drift slowly along each rail (data
  * moving through the process), the interrupted connectors flow
  * toward the generic CRM and stop, the endpoint dots pulse, and the
- * generic block shows quiet internal storage activity. Hovering a
- * segment rail still reveals its small organic bubble.
+ * generic block shows quiet internal storage activity. Hovering or
+ * focusing the coloured slice of a rail reveals its small organic
+ * bubble; leaving that slice clears it at once, so the neutral slices,
+ * the labels, the connectors and the muted generic block never show
+ * or inherit a bubble.
  */
 export default function CrmProblemVisual({ lang = "es", className = "" }) {
   const t = T[lang];
@@ -79,6 +156,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
   const stageRef = useRef(null);
   const miniRef = useRef(null);
   const railRef = useRef(null);
+  const lastRef = useRef(0);
 
   const engage = (i, el) => {
     railRef.current = el;
@@ -88,6 +166,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
   /* Anchor the mini bubble to the engaged segment's row, clamped. */
   useLayoutEffect(() => {
     if (hover === null) return;
+    lastRef.current = hover;
     const stage = stageRef.current;
     const bubble = miniRef.current;
     const rail = railRef.current;
@@ -129,45 +208,27 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           {RAILS.map((rail, i) => {
             const still = hover === i;
             return (
-              <button
+              <div
                 key={t.nodes[i]}
-                type="button"
-                aria-describedby="crm-segment-bubble"
-                onMouseEnter={(e) => engage(i, e.currentTarget)}
-                onFocus={(e) => engage(i, e.currentTarget)}
-                onClick={(e) =>
-                  hover === i ? setHover(null) : engage(i, e.currentTarget)
-                }
                 style={{ marginLeft: rail.ml }}
-                className="flex items-center gap-3 rounded-sm text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3157F6]"
+                className="flex items-center gap-3"
               >
                 <span className="w-16 shrink-0 font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#4A5164]">
                   {t.nodes[i]}
                 </span>
                 <span className="flex items-center gap-1.5">
                   {rail.slices.map(([w, tone], j) => (
-                    <motion.span
+                    <Slice
                       key={j}
-                      aria-hidden="true"
-                      className={cn(
-                        "block h-3.5 shadow-[0_6px_14px_-8px_rgba(12,18,32,0.3)]",
-                        tone ? TONES[tone] : "bg-[#E9E4D8]"
-                      )}
-                      style={{ width: w }}
-                      animate={{
-                        x:
-                          still || reduce
-                            ? 0
-                            : tone
-                              ? AMP_TONE
-                              : AMP_NEUTRAL,
-                      }}
-                      transition={{
-                        duration: 5.5 + i * 0.8 + j * 0.9,
-                        repeat: Infinity,
-                        ease: "easeInOut",
-                        delay: i * 0.6 + j * 0.4,
-                      }}
+                      w={w}
+                      tone={tone}
+                      rail={i}
+                      index={j}
+                      still={still}
+                      reduce={reduce}
+                      label={t.nodes[i]}
+                      onEngage={(e) => engage(i, e.currentTarget)}
+                      onRelease={() => setHover(null)}
                     />
                   ))}
                 </span>
@@ -213,7 +274,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
                     }}
                   />
                 </span>
-              </button>
+              </div>
             );
           })}
         </div>
@@ -286,7 +347,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           }}
           transition={{ duration: 0.4, ease: EASE }}
         >
-          <CrmSegmentBubble text={t.segments[hover ?? 0]} />
+          <CrmSegmentBubble text={t.segments[hover ?? lastRef.current]} />
         </motion.div>
       </div>
 
