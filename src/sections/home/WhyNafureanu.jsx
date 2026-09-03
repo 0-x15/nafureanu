@@ -21,7 +21,7 @@ export default function WhyNafureanu({ lang = "es" }) {
 
   return (
     <section
-      className="bg-background px-5 py-16 md:px-10 md:pt-16 md:pb-32"
+      className="bg-background px-5 py-16 md:px-10 md:pt-16 md:pb-20"
       aria-labelledby="why-heading"
     >
       <div className="mx-auto max-w-[1440px]">

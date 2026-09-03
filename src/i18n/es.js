@@ -304,6 +304,28 @@ export const ES = {
     title: "¿Qué necesitas construir?",
     note: "Cuéntanos tu proceso y te diremos cómo convertirlo en sistema.",
     button: "Hablar del proyecto",
+    reassurance: "No necesitas llegar con una solución definida.",
+    explain:
+      "Cuéntanos qué ocurre hoy. Nosotros hacemos las preguntas necesarias para entender qué conviene construir.",
+    briefKicker: "Empieza por aquí",
+    brief: [
+      {
+        num: "01",
+        title: "Qué ocurre hoy",
+        text: "¿Qué proceso, tarea o sistema no está funcionando como debería?",
+      },
+      {
+        num: "02",
+        title: "Qué quieres cambiar",
+        text: "¿Qué consume tiempo, crea errores o depende demasiado de personas?",
+      },
+      {
+        num: "03",
+        title: "Qué resultado buscas",
+        text: "¿Qué debería ocurrir automáticamente o funcionar mejor?",
+      },
+    ],
+    trust: "Respondemos con preguntas reales, no con una propuesta genérica.",
   },
   servicesPage: {
     kicker: "Servicios",

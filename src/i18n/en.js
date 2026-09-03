@@ -303,6 +303,28 @@ export const EN = {
     title: "What do you need to build?",
     note: "Tell us about your process and we'll tell you how to turn it into a system.",
     button: "Talk about your project",
+    reassurance: "You don't need to arrive with the solution already defined.",
+    explain:
+      "Tell us what happens today. We'll ask the questions needed to understand what should be built.",
+    briefKicker: "Start here",
+    brief: [
+      {
+        num: "01",
+        title: "What happens today",
+        text: "What process, task or system isn't working the way it should?",
+      },
+      {
+        num: "02",
+        title: "What you want to change",
+        text: "What consumes time, creates errors or depends too much on people?",
+      },
+      {
+        num: "03",
+        title: "What result you seek",
+        text: "What should happen automatically or work better?",
+      },
+    ],
+    trust: "We reply with real questions, not a generic proposal.",
   },
   servicesPage: {
     kicker: "Services",

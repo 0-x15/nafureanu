@@ -6,7 +6,7 @@ import WhatWeBuild from "@/sections/home/WhatWeBuild";
 import FeaturedWork from "@/sections/home/FeaturedWork";
 import HomeProcess from "@/sections/home/HomeProcess";
 import WhyNafureanu from "@/sections/home/WhyNafureanu";
-import CtaBand from "@/components/CtaBand";
+import HomeCta from "@/sections/home/HomeCta";
 
 export default function Home({ lang = "es" }) {
   const s = STRINGS[lang];
@@ -26,13 +26,7 @@ export default function Home({ lang = "es" }) {
       <FeaturedWork lang={lang} />
       <HomeProcess lang={lang} />
       <WhyNafureanu lang={lang} />
-      <CtaBand
-        lang={lang}
-        kicker={s.homeCta.kicker}
-        title={s.homeCta.title}
-        note={s.homeCta.note}
-        button={s.homeCta.button}
-      />
+      <HomeCta lang={lang} />
     </>
   );
 }
