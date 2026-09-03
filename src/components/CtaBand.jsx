@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
+import ActionLink from "@/components/ActionLink";
 import Magnetic from "@/components/Magnetic";
 import { langPath } from "@/i18n";
 
@@ -34,13 +33,12 @@ export default function CtaBand({
             {note}
           </p>
           <Magnetic className="mt-10 inline-block">
-            <Link
+            <ActionLink
               to={langPath(lang, "/contact")}
-              className="inline-flex items-center gap-2.5 bg-accent px-8 py-4 text-sm font-medium text-white transition-colors hover:bg-[#1E44D6]"
+              className="px-8 py-4"
             >
               {button}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            </ActionLink>
           </Magnetic>
         </div>
       </div>

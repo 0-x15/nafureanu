@@ -76,7 +76,7 @@ export default function Footer({ lang = "es" }) {
             </p>
             <Link
               to={langPath(lang, "/contact")}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-[#1E44D6]"
+              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-deep"
             >
               {s.nav.start}
               <ArrowUpRight className="h-4 w-4" />

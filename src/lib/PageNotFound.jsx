@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import ActionLink from "@/components/ActionLink";
 
 export default function PageNotFound() {
   return (
@@ -14,12 +14,9 @@ export default function PageNotFound() {
           La dirección que buscas no existe o ha cambiado. · The address you are
           looking for does not exist or has changed.
         </p>
-        <Link
-          to="/"
-          className="mt-8 inline-flex items-center gap-2 bg-accent px-6 py-3 text-sm font-medium text-accent-foreground transition-colors hover:bg-[#1E44D6]"
-        >
+        <ActionLink to="/" className="mt-8">
           Nafureanu — inicio / home
-        </Link>
+        </ActionLink>
       </div>
     </div>
   );

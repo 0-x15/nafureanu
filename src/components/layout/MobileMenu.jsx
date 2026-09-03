@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, ArrowUpRight } from "lucide-react";
+import { Menu, X } from "lucide-react";
+import ActionLink from "@/components/ActionLink";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import { STRINGS, langPath } from "@/i18n";
 
@@ -67,13 +68,12 @@ export default function MobileMenu({ lang = "es", open = false, onOpenChange = (
                 {s.nav[l.key]}
               </Link>
             ))}
-            <Link
+            <ActionLink
               to={langPath(lang, "/contact")}
-              className="mt-10 inline-flex items-center justify-center gap-2 bg-accent px-6 py-4 text-sm font-medium text-accent-foreground"
+              className="mt-10 w-full justify-center px-6 py-4"
             >
               {s.nav.start}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            </ActionLink>
             <div className="mt-8 pt-2">
               <LanguageSwitch lang={lang} />
             </div>

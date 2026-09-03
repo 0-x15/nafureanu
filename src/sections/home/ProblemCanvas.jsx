@@ -6,7 +6,8 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
+import ActionLink from "@/components/ActionLink";
 import { STRINGS, langPath } from "@/i18n";
 import ProblemFragment from "./ProblemFragment";
 
@@ -140,13 +141,13 @@ export default function ProblemCanvas({ lang = "es" }) {
           </p>
           <motion.div style={{ opacity: cOp, y: cY }} className="mt-10">
             <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-10">
-              <Link
+              <ActionLink
                 to={langPath(lang, "/contact")}
-                className="group inline-flex items-center gap-2.5 bg-accent px-7 py-3.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-[#1E44D6] md:text-base"
+                icon="right"
+                className="md:text-base"
               >
                 {c.cta}
-                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </Link>
+              </ActionLink>
               <Link
                 to={langPath(lang, "/services")}
                 className="group inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"

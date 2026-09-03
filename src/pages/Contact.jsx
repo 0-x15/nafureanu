@@ -166,10 +166,10 @@ export default function Contact({ lang = "es" }) {
 
           <button
             type="submit"
-            className="mt-8 inline-flex items-center gap-2 bg-accent px-8 py-4 text-sm font-medium text-accent-foreground transition-colors hover:bg-[#1E44D6]"
+            className="action-primary group mt-8 inline-flex items-center gap-2 rounded-[6px] px-8 py-4 text-sm font-medium text-accent-foreground"
           >
             {c.submit}
-            <ArrowUpRight className="h-4 w-4" />
+            <ArrowUpRight className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[2px] group-hover:translate-x-[2px]" />
           </button>
         </form>
 

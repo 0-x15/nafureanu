@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import ActionLink from "@/components/ActionLink";
 import Reveal from "@/components/Reveal";
 import { STRINGS, langPath } from "@/i18n";
 
@@ -95,13 +94,12 @@ export default function HomeCta({ lang = "es" }) {
                 transition={{ duration: 0.6, delay: 0.8, ease: EASE }}
                 className="mt-8"
               >
-                <Link
+                <ActionLink
                   to={langPath(lang, "/contact")}
-                  className="inline-flex items-center gap-2.5 bg-accent px-8 py-4 text-sm font-medium text-accent-foreground transition-colors hover:bg-[#1E44D6]"
+                  className="px-8 py-4"
                 >
                   {t.button}
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
+                </ActionLink>
                 <p className="mt-4 text-xs text-muted-foreground">{t.trust}</p>
               </motion.div>
             </div>

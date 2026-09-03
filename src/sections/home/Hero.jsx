@@ -1,6 +1,5 @@
 import { useRef } from "react";
-import { Link } from "react-router-dom";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
+import ActionLink from "@/components/ActionLink";
 import { motion, useScroll, useTransform } from "framer-motion";
 import SophIADashboard from "@/components/mockups/SophIADashboard";
 import FivoCheckout from "@/components/mockups/FivoCheckout";
@@ -59,20 +58,16 @@ export default function Hero({ lang = "es" }) {
             transition={{ duration: 0.8, delay: 0.24, ease: EASE }}
             className="mt-10 flex flex-wrap items-center gap-4"
           >
-            <Link
-              to={langPath(lang, "/contact")}
-              className="inline-flex items-center gap-2 bg-accent px-7 py-3.5 text-sm font-medium text-accent-foreground transition-colors hover:bg-[#1E44D6]"
-            >
+            <ActionLink to={langPath(lang, "/contact")}>
               {s.ctaPrimary}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
-            <Link
+            </ActionLink>
+            <ActionLink
               to={langPath(lang, "/work")}
-              className="inline-flex items-center gap-2 border border-foreground/20 px-7 py-3.5 text-sm font-medium text-foreground transition-colors hover:border-foreground"
+              variant="secondary"
+              icon="right"
             >
               {s.ctaSecondary}
-              <ArrowRight className="h-4 w-4" />
-            </Link>
+            </ActionLink>
           </motion.div>
         </div>
 

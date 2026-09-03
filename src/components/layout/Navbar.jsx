@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { ArrowUpRight } from "lucide-react";
+import ActionLink from "@/components/ActionLink";
 import MobileMenu from "@/components/layout/MobileMenu";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
@@ -99,16 +99,16 @@ export default function Navbar({ lang = "es" }) {
           ))}
           <span aria-hidden="true" className="h-4 w-px bg-border" />
           <LanguageSwitch lang={lang} />
-          <Link
+          <ActionLink
             to={langPath(lang, "/contact")}
+            size="sm"
             className={cn(
-              "ml-2 inline-flex items-center gap-1.5 bg-accent text-sm font-medium text-accent-foreground transition-all duration-500 hover:bg-[#1E44D6]",
-              compact ? "px-5 py-2" : "px-5 py-2.5"
+              "action-quiet ml-2 transition-transform duration-500",
+              compact ? "py-2" : "py-2.5"
             )}
           >
             {s.nav.start}
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
+          </ActionLink>
         </div>
         <div className="md:hidden">
           <MobileMenu lang={lang} open={menuOpen} onOpenChange={setMenuOpen} />
