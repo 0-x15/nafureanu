@@ -457,8 +457,10 @@ export const ES = {
     tagline: "Software, IA y automatización para empresas.",
     nav: "Navegación",
     services: "Servicios",
+    work: "Trabajo",
     contact: "Contacto",
     home: "Inicio",
     rights: "Todos los derechos reservados",
+    ctaQuestion: "¿Tienes un proceso que debería funcionar mejor?",
   },
 };

@@ -456,8 +456,10 @@ export const EN = {
     tagline: "Custom software, AI and automation for companies.",
     nav: "Navigation",
     services: "Services",
+    work: "Work",
     contact: "Contact",
     home: "Home",
     rights: "All rights reserved",
+    ctaQuestion: "Do you have a process that should work better?",
   },
 };
