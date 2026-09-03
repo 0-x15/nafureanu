@@ -443,17 +443,117 @@ export const ES = {
       title: "Toda la operación vive en el mismo sistema.",
       intro:
         "Información, personas y procesos que antes vivían repartidos entre herramientas.",
-      list: [
-        "Inmuebles",
-        "Clientes",
-        "Demandas",
-        "Prospectos",
-        "Leads",
-        "Visitas",
-        "Operaciones",
-        "Documentación",
-        "Comunicación",
-        "Agenda",
+      closing:
+        "La información no solo está centralizada. Cada parte del sistema conoce su relación con las demás.",
+      items: [
+        {
+          id: "properties",
+          num: "01",
+          title: "Inmuebles",
+          descriptor: "Ficha operativa del activo",
+          tags: ["Estado", "Precio", "Imágenes", "Documentación", "Disponibilidad"],
+          detail:
+            "La ficha del inmueble conecta datos, documentación, alertas, matching, visitas, portales y operaciones desde un único registro.",
+          ui: {
+            status: "Disponible",
+            availability: "Inmediata",
+            portals: ["Idealista", "Fotocasa"],
+            published: "Publicado",
+            linksLabel: "Conectado con",
+            links: ["Matching", "Visitas", "Operaciones", "Alertas"],
+          },
+        },
+        {
+          id: "clients",
+          num: "02",
+          title: "Clientes",
+          descriptor: "Relación completa con cada contacto",
+          tags: ["Comprador", "Vendedor", "Propietario", "Inquilino"],
+          detail:
+            "Cada contacto reúne actividad, demandas, llamadas, WhatsApp, visitas y operaciones relacionadas.",
+          ui: { activity: ["Demanda activa", "Llamada registrada", "Visita programada"] },
+        },
+        {
+          id: "demand",
+          num: "03",
+          title: "Demandas",
+          descriptor: "Lo que busca cada comprador o inquilino",
+          tags: ["Zona", "Precio", "Tipo", "Habitaciones", "Superficie", "Financiación"],
+          detail:
+            "El motor de matching utiliza estos criterios para encontrar inmuebles compatibles automáticamente.",
+          ui: { matches: "Coincidencias" },
+        },
+        {
+          id: "prospects",
+          num: "04",
+          title: "Prospectos",
+          descriptor: "Captación antes de incorporar el inmueble",
+          detail:
+            "El sistema controla evolución, actividad y tareas pendientes, y permite detectar captaciones que llevan demasiado tiempo sin avanzar.",
+          ui: { stage: "Evolución de la captación", tasks: "Tareas pendientes", activity: "Última actividad" },
+        },
+        {
+          id: "leads",
+          num: "05",
+          title: "Leads",
+          descriptor: "Entrada y seguimiento de oportunidades",
+          detail:
+            "Asignación, primer contacto, tiempos de respuesta, actividad y alertas ayudan a evitar oportunidades abandonadas.",
+          ui: { assigned: "Asignado", first: "Primer contacto", contacted: "Contactado" },
+        },
+        {
+          id: "visits",
+          num: "06",
+          title: "Visitas",
+          descriptor: "Todo el ciclo de una visita",
+          statuses: ["Programada", "Confirmada", "Realizada", "No-show", "Cancelada"],
+          detail:
+            "La visita queda vinculada con inmueble, cliente, demanda, responsable, calendario, feedback y posible operación posterior.",
+          ui: { linksLabel: "Vinculada con", links: ["Inmueble", "Cliente", "Demanda", "Responsable"] },
+        },
+        {
+          id: "operations",
+          num: "07",
+          title: "Operaciones",
+          descriptor: "El cierre comercial completo",
+          flow: ["Negociación", "Oferta", "Arras", "Financiación", "Escritura", "Postventa"],
+          detail:
+            "Cada fase mantiene estados, tareas, documentación y dependencias dentro del mismo proceso.",
+          ui: { meters: ["Tareas", "Documentación", "Dependencias"] },
+        },
+        {
+          id: "documents",
+          num: "08",
+          title: "Documentación",
+          descriptor: "Documentos dentro del workflow",
+          flow: ["Pendiente", "Revisión", "Aprobado", "Firmado"],
+          detail:
+            "Requisitos, estados, validaciones, firma y checklists forman parte del proceso operativo.",
+          ui: { docs: ["Contrato de arrendamiento", "Ficha energética"], checklist: "Checklist del expediente" },
+        },
+        {
+          id: "communication",
+          num: "09",
+          title: "Comunicación",
+          descriptor: "Conversaciones dentro del contexto del cliente",
+          tags: ["WhatsApp", "Llamadas", "Seguimiento"],
+          detail:
+            "Mensajes y llamadas quedan asociados al contacto y a su contexto operativo dentro del CRM.",
+          ui: { incoming: "Entrante", linked: "Vinculado al contacto y a su operación" },
+        },
+        {
+          id: "calendar",
+          num: "10",
+          title: "Agenda",
+          descriptor: "La operación diaria del equipo",
+          tags: ["Tareas", "Visitas", "Llamadas", "Recordatorios"],
+          detail:
+            "Fechas, responsables, vencimientos y sincronización con Google Calendar mantienen la actividad conectada con el CRM.",
+          ui: {
+            rows: [["09:30", "Visita"], ["12:00", "Llamada"], ["16:15", "Recordatorio"]],
+            sync: "Sincronizado con Google Calendar",
+          },
+        },
       ],
     },
     system: {
