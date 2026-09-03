@@ -8,7 +8,8 @@ import CrmCardVisual from "@/components/work/visuals/CrmCardVisual";
 import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
 import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
-import WorkHeroVisual from "@/components/work/WorkHeroVisual";
+import WorkSystemsOverview from "@/components/work/WorkSystemsOverview";
+import BackToPrevious from "@/components/work/BackToPrevious";
 
 /**
  * The project index — an editorial catalogue of systems already at
@@ -45,6 +46,7 @@ export default function Work({ lang = "es" }) {
         </div>
         <div className="relative z-10 mx-auto max-w-[1280px] md:grid md:grid-cols-12 md:items-center md:gap-10">
           <div className="md:col-span-6">
+            <BackToPrevious lang={lang} className="mb-6" />
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
               {wp.kicker}
             </p>
@@ -59,7 +61,7 @@ export default function Work({ lang = "es" }) {
             </p>
           </div>
           <div className="mt-14 md:col-span-6 md:mt-0">
-            <WorkHeroVisual lang={lang} />
+            <WorkSystemsOverview lang={lang} />
           </div>
         </div>
         {/* Room for the overlapping product surfaces */}
