@@ -18,7 +18,7 @@ import CrmDocsFragment from "@/components/work/crm/CrmDocsFragment";
  */
 export default function CrmHeroComposition({ lang }) {
   return (
-    <div className="relative pt-16 pb-32 lg:pb-36">
+    <div className="relative pt-10 pb-32 lg:pb-36">
       <div className="relative">
         {/* Shared backdrop plane — the group's common ground */}
         <div
@@ -27,7 +27,7 @@ export default function CrmHeroComposition({ lang }) {
         />
 
         {/* SMALL 1 — communication / follow-up, drifting in the top area */}
-        <div className="absolute -top-16 -left-[7%] z-0 hidden lg:block">
+        <div className="absolute -top-20 -left-[7%] z-0 hidden lg:block">
           <CrmCommsFragment lang={lang} className="-rotate-[1.6deg]" />
         </div>
 

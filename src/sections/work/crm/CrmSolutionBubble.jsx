@@ -3,30 +3,28 @@ import { motion } from "framer-motion";
 const EASE = [0.22, 1, 0.36, 1];
 
 /*
- * A genuinely irregular organic blob — uneven, flowing curves on
- * every edge, no straight runs, no rectangular base. The whole
- * silhouette undulates: waves on top, a bulging right flank, a
- * rippled bottom and an asymmetric left side.
+ * The organic blob — uneven flowing curves on every edge: waves on
+ * top, a bulging right flank, a rippled bottom and an asymmetric
+ * left side with an inward pinch. No straight runs anywhere.
  */
-const BLOB =
-  "M84 38 C150 8 230 32 300 16 C370 0 452 8 522 30 C576 48 604 96 588 152 C576 198 600 246 552 286 C502 326 414 298 338 316 C262 334 162 328 98 294 C44 266 6 216 22 158 C36 110 2 66 52 42 C62 36 74 44 84 38 Z";
+export const CRM_BLOB =
+  "M88 44 C120 12 180 30 232 18 C268 10 258 34 312 14 C376 -8 448 6 518 32 C572 52 606 92 590 148 C578 194 602 240 556 284 C506 328 420 296 342 318 C268 338 170 330 100 296 C42 266 8 218 24 156 C36 106 0 64 46 40 C60 32 76 52 88 44 Z";
 
 /**
- * The solution bubble — a real organic bubble: the shape, its edge
- * and its shadow are all the same SVG path, so the depth is cast by
- * the actual silhouette (no rectangular wrapper, no box shadow).
- * Generous interior padding keeps label, title and explanation
- * safely inside the flowing contour.
+ * The big solution bubble — a real organic bubble: the shape, its
+ * edge and its shadow are all the same SVG path. The shadow layer is
+ * a blurred, slightly offset duplicate of the exact silhouette, so
+ * the depth follows the contour and never reads as a rectangle.
+ * Generous interior padding keeps everything comfortably inside.
  */
 export default function CrmSolutionBubble({ pain, howLabel }) {
   return (
     <div className="relative">
-      {/* Organic shape + contour-following shadow */}
       <svg
-        aria-hidden="true"
         viewBox="0 0 600 340"
         preserveAspectRatio="none"
         className="absolute inset-0 h-full w-full"
+        aria-hidden="true"
       >
         <defs>
           <linearGradient id="crm-blob-fill" x1="0" y1="0" x2="0.85" y2="1">
@@ -34,43 +32,34 @@ export default function CrmSolutionBubble({ pain, howLabel }) {
             <stop offset="100%" stopColor="#E7EDFB" stopOpacity="0.94" />
           </linearGradient>
           <filter
-            id="crm-blob-shadow"
-            x="-25%"
-            y="-25%"
-            width="150%"
-            height="160%"
+            id="crm-blob-soften"
+            x="-30%"
+            y="-30%"
+            width="160%"
+            height="170%"
           >
-            {/* ambient depth hugging the silhouette */}
-            <feDropShadow
-              dx="0"
-              dy="6"
-              stdDeviation="14"
-              floodColor="#3157F6"
-              floodOpacity="0.16"
-            />
-            {/* directional cobalt depth, also shape-matched */}
-            <feDropShadow
-              dx="0"
-              dy="18"
-              stdDeviation="22"
-              floodColor="#3157F6"
-              floodOpacity="0.24"
-            />
+            <feGaussianBlur stdDeviation="12" />
           </filter>
         </defs>
+        {/* Shape-true shadow — the same silhouette, blurred and offset */}
         <path
-          d={BLOB}
+          d={CRM_BLOB}
+          transform="translate(2,14)"
+          fill="rgba(49,87,246,0.3)"
+          filter="url(#crm-blob-soften)"
+        />
+        <path
+          d={CRM_BLOB}
           fill="url(#crm-blob-fill)"
           stroke="rgba(49,87,246,0.2)"
           strokeWidth="1"
-          filter="url(#crm-blob-shadow)"
         />
       </svg>
 
-      <div className="relative p-10 md:p-12">
+      <div className="relative p-12 md:p-14">
         <span
           aria-hidden="true"
-          className="absolute right-10 top-10 h-1.5 w-1.5 rounded-full bg-accent/50"
+          className="absolute right-11 top-11 h-1.5 w-1.5 rounded-full bg-accent/50"
         />
         <motion.div
           key={pain.title}

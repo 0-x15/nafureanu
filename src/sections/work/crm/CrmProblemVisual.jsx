@@ -1,15 +1,36 @@
+import { useState, useRef, useLayoutEffect } from "react";
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import CrmSegmentBubble from "./CrmSegmentBubble";
+
+const EASE = [0.22, 1, 0.36, 1];
 
 const T = {
   es: {
     center: "CRM genérico",
     nodes: ["Leads", "Inmuebles", "Agenda", "Portales", "Documentos", "WhatsApp"],
     annotation: "Datos dentro · operación fuera",
+    segments: [
+      "Control del primer contacto, seguimiento y alertas para que una oportunidad no quede sin atender.",
+      "La ficha del inmueble centraliza datos, estado, documentación, alertas y relación con portales y operaciones.",
+      "Tareas, visitas y devoluciones de llamada conectadas con la operativa diaria del CRM.",
+      "Publicación y actualización conectadas con la ficha del inmueble para evitar trabajo duplicado.",
+      "Estados, revisión, aprobación y requisitos documentales integrados en el proceso.",
+      "Mensajes vinculados al contacto y al contexto operativo dentro del propio CRM.",
+    ],
   },
   en: {
     center: "Generic CRM",
     nodes: ["Leads", "Properties", "Calendar", "Portals", "Documents", "WhatsApp"],
     annotation: "Data inside · operations outside",
+    segments: [
+      "First-contact SLA, follow-up and alerts so an opportunity is never left unattended.",
+      "The property record centralizes data, status, documentation, alerts and its relation to portals and operations.",
+      "Tasks, visits and call-backs connected to the CRM's daily operation.",
+      "Publishing and updates connected to the property record to avoid duplicated work.",
+      "Document states, review, approval and requirements built into the process.",
+      "Messages linked to the contact and the operational context inside the CRM itself.",
+    ],
   },
 };
 
@@ -34,17 +55,53 @@ const TONES = {
 };
 
 /**
- * "El problema" supporting visual — a premium segmented composition:
- * the six operational segments of a real-estate agency as modular
- * sliced rails, staggered and drifting apart, each connected to
- * nothing. Abstract, corporate, conceptual — not a dashboard.
+ * "El problema" supporting visual — the segmented composition, now
+ * interactive: hovering / focusing / tapping a segment rail shows a
+ * small organic bubble with the real CRM capability behind it,
+ * anchored to that segment's row.
  */
 export default function CrmProblemVisual({ lang = "es", className = "" }) {
   const t = T[lang];
+  const [hover, setHover] = useState(null);
+  const [pos, setPos] = useState({ y: 24, w: 232 });
+  const stageRef = useRef(null);
+  const miniRef = useRef(null);
+  const railRef = useRef(null);
+
+  const engage = (i, el) => {
+    railRef.current = el;
+    setHover(i);
+  };
+
+  /* Anchor the mini bubble to the engaged segment's row, clamped. */
+  useLayoutEffect(() => {
+    if (hover === null) return;
+    const stage = stageRef.current;
+    const bubble = miniRef.current;
+    const rail = railRef.current;
+    if (!stage || !bubble || !rail) return;
+
+    const sR = stage.getBoundingClientRect();
+    const rR = rail.getBoundingClientRect();
+    const bH = bubble.offsetHeight;
+    const bW = Math.min(232, sR.width * 0.88);
+    const y = Math.min(
+      Math.max(rR.top - sR.top + rR.height / 2 - bH / 2, 8),
+      Math.max(sR.height - bH - 8, 8)
+    );
+    setPos({ y, w: bW });
+  }, [hover]);
 
   return (
     <div className={cn("relative", className)}>
-      <div className="relative h-[380px] md:h-[400px]">
+      <div
+        ref={stageRef}
+        onMouseLeave={() => setHover(null)}
+        onBlurCapture={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) setHover(null);
+        }}
+        className="relative h-[380px] md:h-[400px]"
+      >
         {/* Atmosphere */}
         <div
           aria-hidden="true"
@@ -55,13 +112,20 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           className="absolute -bottom-4 -left-6 h-44 w-44 rounded-full bg-[#17B4CD]/[0.05] blur-3xl"
         />
 
-        {/* The segmented operational system */}
+        {/* The segmented operational system — interactive rails */}
         <div className="absolute inset-0 flex h-full flex-col justify-center gap-[26px] md:gap-[30px]">
           {RAILS.map((rail, i) => (
-            <div
+            <button
               key={t.nodes[i]}
-              className="flex items-center gap-3"
+              type="button"
+              aria-describedby="crm-segment-bubble"
+              onMouseEnter={(e) => engage(i, e.currentTarget)}
+              onFocus={(e) => engage(i, e.currentTarget)}
+              onClick={(e) =>
+                hover === i ? setHover(null) : engage(i, e.currentTarget)
+              }
               style={{ marginLeft: rail.ml }}
+              className="flex items-center gap-3 rounded-sm text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#3157F6]"
             >
               <span className="w-16 shrink-0 font-mono text-[8px] font-semibold uppercase tracking-[0.14em] text-[#4A5164]">
                 {t.nodes[i]}
@@ -84,7 +148,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
                 <span className="h-px w-7 border-t border-dashed border-[#C2BCAC]" />
                 <span className="ml-px h-1 w-1 rounded-full bg-[#9A94A6]" />
               </span>
-            </div>
+            </button>
           ))}
         </div>
 
@@ -98,6 +162,24 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
             className="mx-auto mt-2 block h-1 w-1/2 rounded-full bg-[#E3DFD2]"
           />
         </div>
+
+        {/* Mini organic bubble — anchored to the engaged segment's row */}
+        <motion.div
+          id="crm-segment-bubble"
+          aria-live="polite"
+          ref={miniRef}
+          className="pointer-events-none absolute right-[3%] top-0 z-30"
+          style={{ width: pos.w }}
+          initial={false}
+          animate={{
+            y: pos.y,
+            opacity: hover === null ? 0 : 1,
+            scale: hover === null ? 0.96 : 1,
+          }}
+          transition={{ duration: 0.4, ease: EASE }}
+        >
+          <CrmSegmentBubble text={t.segments[hover ?? 0]} />
+        </motion.div>
       </div>
 
       {/* Minimal annotation */}
