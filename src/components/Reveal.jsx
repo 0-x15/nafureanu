@@ -31,7 +31,7 @@ const VARIANTS = {
  */
 export default function Reveal({
   children,
-  className,
+  className = "",
   delay = 0,
   y = 28,
   variant = "up",

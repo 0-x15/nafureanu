@@ -4,7 +4,7 @@ import { Link, useLocation } from "react-router-dom";
  * ES / EN switch. Toggles the /en prefix while preserving the
  * current page (case studies included).
  */
-export default function LanguageSwitch({ lang, className }) {
+export default function LanguageSwitch({ lang, className = "" }) {
   const { pathname } = useLocation();
   const target =
     lang === "es"

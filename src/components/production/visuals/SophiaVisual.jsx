@@ -5,7 +5,7 @@
  */
 const ROWS = [
   ["P-4821", "€1.250K", null],
-  ["P-1094", "€890K", "match 98%"],
+  ["P-1094", "€890K", "match"],
   ["P-7650", "€2.400K", null],
 ];
 
@@ -30,7 +30,7 @@ export default function SophiaVisual() {
       <div className="absolute left-0 top-[14%] h-[68%] w-[88%] -rotate-1 rounded-xl border border-white/70 bg-white/80 p-4 shadow-[0_50px_90px_-35px_rgba(12,18,32,0.4)] backdrop-blur-md">
         <div className="flex items-center justify-between">
           <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/50">
-            SophIA
+            CRM
           </span>
           <span className="h-5 w-24 rounded bg-foreground/[0.06]" />
         </div>

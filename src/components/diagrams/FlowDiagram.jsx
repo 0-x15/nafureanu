@@ -63,7 +63,7 @@ export default function FlowDiagram({ steps, label, reduced }) {
                 width={NW}
                 height={NH}
                 rx="14"
-                fill={s.active ? "rgba(43,89,255,0.15)" : "rgba(255,255,255,0.04)"}
+                fill={s.active ? "rgba(49,87,246,0.15)" : "rgba(255,255,255,0.04)"}
                 stroke={s.active ? "#5B84FF" : "rgba(255,255,255,0.14)"}
                 strokeWidth="1"
               />

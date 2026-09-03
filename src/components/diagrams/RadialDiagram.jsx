@@ -65,7 +65,7 @@ export default function RadialDiagram({ centerLabel, nodes, label, reduced }) {
         transition={{ duration: 0.7, ease: EASE }}
         style={{ transformOrigin: `${CX}px ${CY}px` }}
       >
-        <circle cx={CX} cy={CY} r="52" fill="rgba(43,89,255,0.16)" stroke="#5B84FF" strokeWidth="1.5" />
+        <circle cx={CX} cy={CY} r="52" fill="rgba(49,87,246,0.16)" stroke="#5B84FF" strokeWidth="1.5" />
         <text
           x={CX}
           y={CY + 5}
@@ -95,7 +95,7 @@ export default function RadialDiagram({ centerLabel, nodes, label, reduced }) {
               width={NW}
               height={NH}
               rx={NH / 2}
-              fill={active ? "rgba(43,89,255,0.15)" : "rgba(255,255,255,0.04)"}
+              fill={active ? "rgba(49,87,246,0.15)" : "rgba(255,255,255,0.04)"}
               stroke={active ? "#5B84FF" : "rgba(255,255,255,0.14)"}
               strokeWidth="1"
             />

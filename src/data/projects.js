@@ -1,7 +1,7 @@
 export const PROJECTS = [
   {
     slug: "fivo",
-    title: "Fivo",
+    title: { es: "Fivo", en: "Fivo" },
     featured: true,
     client: { es: "Producto independiente", en: "Independent product" },
     status: { es: "Producto en producción", en: "Live product" },
@@ -163,9 +163,9 @@ export const PROJECTS = [
   },
   {
     slug: "sophia",
-    title: "SophIA",
+    title: { es: "CRM inmobiliario a medida", en: "Custom real-estate CRM" },
     featured: true,
-    client: { es: "Percent Servicios Inmobiliarios", en: "Percent Servicios Inmobiliarios" },
+    client: { es: "Empresa del sector inmobiliario", en: "Real-estate company" },
     status: { es: "En producción", en: "In production" },
     discipline: { es: "Odoo / Operaciones", en: "Odoo / Operations" },
     stack: [
@@ -187,7 +187,7 @@ export const PROJECTS = [
     diagram: {
       variant: "radial",
       title: { es: "Arquitectura del sistema", en: "System architecture" },
-      center: "SophIA",
+      center: "CRM",
       nodes: [
         { label: { es: "Propiedades", en: "Properties" } },
         { label: { es: "Clientes", en: "Clients" } },
@@ -205,21 +205,21 @@ export const PROJECTS = [
     },
     copy: {
       es: {
-        type: "Plataforma de operaciones inmobiliarias",
+        type: "CRM y plataforma de operaciones inmobiliarias",
         summary:
-          "Plataforma de operaciones inmobiliarias automatizada sobre Odoo: un entorno de más de 40.000 propiedades con matching automático, IA e integraciones.",
+          "CRM inmobiliario a medida y plataforma de operaciones sobre Odoo: un entorno de más de 40.000 propiedades con matching automático, IA e integraciones.",
         sections: [
           {
             label: "Contexto",
             body: [
-              "Percent Servicios Inmobiliarios opera en un entorno inmobiliario de más de 40.000 propiedades.",
+              "Una empresa del sector inmobiliario opera en un entorno inmobiliario de más de 40.000 propiedades.",
               "La información de propiedades y clientes, y las operaciones del negocio, vivían en procesos que exigían intervención manual constante.",
             ],
           },
           {
             label: "Plataforma",
             body: [
-              "SophIA es una plataforma de operaciones inmobiliarias construida sobre Odoo: lógica de negocio en Python, PostgreSQL y más de 20 módulos Odoo personalizados, diseñados alrededor de los flujos reales de la agencia — no de los valores por defecto del ERP.",
+              "El sistema es un CRM y plataforma de operaciones inmobiliarias construida sobre Odoo: lógica de negocio en Python, PostgreSQL y más de 20 módulos Odoo personalizados, diseñados alrededor de los flujos reales del negocio — no de los valores por defecto del ERP.",
             ],
             list: [
               "Entorno de más de 40.000 propiedades",
@@ -245,7 +245,7 @@ export const PROJECTS = [
           {
             label: "Integraciones y operaciones",
             body: [
-              "SophIA se conecta con los portales y sistemas que mueven el negocio inmobiliario y devuelve métricas operativas en tiempo real.",
+              "El CRM se conecta con los portales y sistemas que mueven el negocio inmobiliario y devuelve métricas operativas en tiempo real.",
             ],
             list: [
               "Idealista",
@@ -259,28 +259,28 @@ export const PROJECTS = [
           {
             label: "Impacto",
             body: [
-              "SophIA no es «un CRM de Odoo». Es un sistema operativo de negocio: análisis de procesos, ingeniería de flujos y desarrollo Odoo a medida, con un resultado claro — operaciones inmobiliarias que se ejecutan sin trabajo manual repetitivo.",
+              "No es «un CRM de Odoo» estándar: es un sistema de negocio completo — análisis de procesos, ingeniería de flujos y desarrollo Odoo a medida, con un resultado claro: operaciones inmobiliarias que se ejecutan sin trabajo manual repetitivo.",
               "El resultado se nota en cómo trabaja la agencia cada día.",
             ],
           },
         ],
       },
       en: {
-        type: "Real-estate operations platform",
+        type: "Real-estate CRM and operations platform",
         summary:
-          "An automated real-estate operations platform on Odoo: an environment of more than 40,000 properties with automated matching, AI and integrations.",
+          "A custom real-estate CRM and operations platform on Odoo: an environment of more than 40,000 properties with automated matching, AI and integrations.",
         sections: [
           {
             label: "Context",
             body: [
-              "Percent Servicios Inmobiliarios operates inside a real-estate environment involving more than 40,000 properties.",
+              "A real-estate company operates inside a real-estate environment involving more than 40,000 properties.",
               "Property and client information, and the operations of the business, lived in processes that demanded constant manual intervention.",
             ],
           },
           {
             label: "Platform",
             body: [
-              "SophIA is a real-estate operations platform built on Odoo: Python business logic, PostgreSQL and more than 20 custom Odoo modules, designed around the agency's real workflows — not the ERP's defaults.",
+              "The system is a custom real-estate CRM and operations platform built on Odoo: Python business logic, PostgreSQL and more than 20 custom Odoo modules, designed around the business's real workflows — not the ERP's defaults.",
             ],
             list: [
               "Environment of 40,000+ properties",
@@ -306,7 +306,7 @@ export const PROJECTS = [
           {
             label: "Integrations & operations",
             body: [
-              "SophIA connects to the portals and systems that move the real-estate business, and returns operational metrics in real time.",
+              "The CRM connects to the portals and systems that move the real-estate business, and returns operational metrics in real time.",
             ],
             list: [
               "Idealista",
@@ -320,7 +320,7 @@ export const PROJECTS = [
           {
             label: "Business impact",
             body: [
-              "SophIA is not “an Odoo CRM”. It is a business operating system: process analysis, workflow engineering and custom Odoo development, with one clear result — real-estate operations that run without repetitive manual work.",
+              "This is not “an Odoo CRM” off the shelf. It is a complete business system: process analysis, workflow engineering and custom Odoo development, with one clear result — real-estate operations that run without repetitive manual work.",
               "The change is visible in how the agency works every day.",
             ],
           },
@@ -330,7 +330,7 @@ export const PROJECTS = [
   },
   {
     slug: "life-admin",
-    title: "Life Admin",
+    title: { es: "Life Admin", en: "Life Admin" },
     featured: true,
     client: { es: "Interno / privado", en: "Internal / private" },
     status: { es: "Privado — no lanzado", en: "Private — not publicly launched" },
@@ -395,7 +395,7 @@ export const PROJECTS = [
   },
   {
     slug: "odoo-engineering",
-    title: "Odoo Engineering",
+    title: { es: "Odoo Engineering", en: "Odoo Engineering" },
     featured: true,
     client: { es: "Múltiples proyectos", en: "Multiple engagements" },
     status: { es: "Práctica activa", en: "Ongoing practice" },
@@ -420,7 +420,7 @@ export const PROJECTS = [
           {
             label: "Capacidades",
             body: [
-              "A lo largo de múltiples proyectos hemos diseñado y construido funcionalidad Odoo a medida de principio a fin — la misma disciplina visible en SophIA, aplicada a una gama de negocios.",
+              "A lo largo de múltiples proyectos hemos diseñado y construido funcionalidad Odoo a medida de principio a fin — la misma disciplina visible en nuestro CRM inmobiliario a medida, aplicada a una gama de negocios.",
             ],
             list: [
               "Módulos a medida",
@@ -455,7 +455,7 @@ export const PROJECTS = [
           {
             label: "Capabilities",
             body: [
-              "Across multiple engagements we have designed and built custom Odoo functionality end to end — the same discipline visible in the SophIA case study, applied to a range of businesses.",
+              "Across multiple engagements we have designed and built custom Odoo functionality end to end — the same discipline visible in our custom real-estate CRM, applied to a range of businesses.",
             ],
             list: [
               "Custom modules",
@@ -480,7 +480,7 @@ export const PROJECTS = [
   },
   {
     slug: "web-projects",
-    title: "Web Projects",
+    title: { es: "Web Projects", en: "Web Projects" },
     featured: false,
     client: { es: "Clientes pymes", en: "SME clients" },
     status: { es: "Entregado", en: "Delivered" },

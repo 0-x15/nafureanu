@@ -27,12 +27,12 @@ export default function FivoChapter({ lang = "es" }) {
     >
       {/* light architectural atmosphere — cobalt bloom, cyan reflection, glass planes */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-        <span className="absolute left-[22%] top-[4%] h-[72%] w-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.09),transparent)]" />
+        <span className="absolute left-[22%] top-[4%] h-[72%] w-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.09),transparent)]" />
         <span className="absolute bottom-[0%] right-[2%] h-[44%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.07),transparent)]" />
         {/* glass plane 1 — broad, upper right, catching light */}
-        <div className="absolute right-[-7%] top-[8%] h-[30vh] w-[52vw] -rotate-2 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(43,89,255,0.35)] backdrop-blur-[28px]" />
+        <div className="absolute right-[-7%] top-[8%] h-[30vh] w-[52vw] -rotate-2 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(49,87,246,0.35)] backdrop-blur-[28px]" />
         {/* glass plane 2 — lower left, faint cobalt within the material */}
-        <div className="absolute bottom-[4%] left-[-9%] h-[34vh] w-[48vw] rotate-2 rounded-[42px] border border-white/60 bg-[linear-gradient(130deg,rgba(255,255,255,0.45),rgba(43,89,255,0.06),rgba(255,255,255,0.12))] backdrop-blur-[32px]" />
+        <div className="absolute bottom-[4%] left-[-9%] h-[34vh] w-[48vw] rotate-2 rounded-[42px] border border-white/60 bg-[linear-gradient(130deg,rgba(255,255,255,0.45),rgba(49,87,246,0.06),rgba(255,255,255,0.12))] backdrop-blur-[32px]" />
         {/* glass plane 3 — narrow diagonal catcher of light */}
         <div className="absolute left-[36%] top-[48%] h-[12vh] w-[46vw] -rotate-6 rounded-full border border-white/50 bg-white/25 backdrop-blur-[18px]" />
       </div>
@@ -64,7 +64,7 @@ export default function FivoChapter({ lang = "es" }) {
             whileInView={{ opacity: 1, scaleX: 1 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1.6, delay: 0.9, ease: EASE }}
-            className="absolute left-0 right-0 top-1/2 z-0 hidden h-[2px] origin-left bg-gradient-to-r from-transparent via-[#2B59FF]/45 to-transparent blur-[0.4px] md:block"
+            className="absolute left-0 right-0 top-1/2 z-0 hidden h-[2px] origin-left bg-gradient-to-r from-transparent via-[#3157F6]/45 to-transparent blur-[0.4px] md:block"
           />
 
           {/* proof anchor on the flow — cross-chain settlement time */}
@@ -75,7 +75,7 @@ export default function FivoChapter({ lang = "es" }) {
             transition={{ duration: 0.6, delay: 2.1, ease: EASE }}
             className="absolute left-[60%] top-1/2 z-20 hidden -translate-y-1/2 lg:block"
           >
-            <div className="rounded-md border border-white/80 bg-white/70 px-3.5 py-2 text-left shadow-[0_18px_36px_-22px_rgba(43,89,255,0.45)] backdrop-blur-md">
+            <div className="rounded-md border border-white/80 bg-white/70 px-3.5 py-2 text-left shadow-[0_18px_36px_-22px_rgba(49,87,246,0.45)] backdrop-blur-md">
               <p className="font-heading text-sm font-bold text-foreground">{"<2 min"}</p>
               <p className="text-[10px] text-muted-foreground">{s.proof[2].label}</p>
             </div>
@@ -94,12 +94,12 @@ export default function FivoChapter({ lang = "es" }) {
                 {/* glass plane beneath the product */}
                 <div
                   aria-hidden="true"
-                  className="absolute left-1/2 top-1/2 h-[112%] w-[116%] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-white/70 bg-white/45 shadow-[0_80px_130px_-70px_rgba(43,89,255,0.4)] backdrop-blur-xl"
+                  className="absolute left-1/2 top-1/2 h-[112%] w-[116%] -translate-x-1/2 -translate-y-1/2 rounded-lg border border-white/70 bg-white/45 shadow-[0_80px_130px_-70px_rgba(49,87,246,0.4)] backdrop-blur-xl"
                 />
                 {/* faint cobalt reflection beneath */}
                 <span
                   aria-hidden="true"
-                  className="absolute -bottom-9 left-1/2 h-20 w-[82%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.16),transparent)] blur-md"
+                  className="absolute -bottom-9 left-1/2 h-20 w-[82%] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.16),transparent)] blur-md"
                 />
                 {/* floating detail — the stablecoins proof */}
                 <motion.div
@@ -109,7 +109,7 @@ export default function FivoChapter({ lang = "es" }) {
                   transition={{ duration: 0.6, delay: 1.5, ease: EASE }}
                   className="absolute -top-9 right-1 z-20 hidden md:block"
                 >
-                  <div className="rounded-md border border-white/80 bg-white/70 px-3.5 py-2 text-left shadow-[0_18px_36px_-22px_rgba(43,89,255,0.45)] backdrop-blur-md">
+                  <div className="rounded-md border border-white/80 bg-white/70 px-3.5 py-2 text-left shadow-[0_18px_36px_-22px_rgba(49,87,246,0.45)] backdrop-blur-md">
                     <p className="font-heading text-sm font-bold text-foreground">
                       {s.proof[1].value}
                     </p>

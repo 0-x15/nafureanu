@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 /* Shared glass atoms for the capability visuals. */
 
-export function Panel({ className, children }) {
+export function Panel({ className = "", children }) {
   return (
     <div
       className={cn(
@@ -16,11 +16,11 @@ export function Panel({ className, children }) {
   );
 }
 
-export function Line({ className }) {
+export function Line({ className = "" }) {
   return <span className={cn("rounded-full bg-foreground/[0.07]", className)} />;
 }
 
-export function Dot({ accent, className }) {
+export function Dot({ accent = false, className = "" }) {
   return (
     <span
       className={cn(
@@ -43,7 +43,7 @@ export function Chrome({ lineW = "w-20" }) {
   );
 }
 
-export function Chip({ className, children }) {
+export function Chip({ className = "", children }) {
   return (
     <span
       className={cn(
@@ -56,7 +56,7 @@ export function Chip({ className, children }) {
   );
 }
 
-export function Bars({ heights, accentIndex = 5, className }) {
+export function Bars({ heights, accentIndex = 5, className = "" }) {
   return (
     <div className={cn("flex items-end gap-1.5", className)}>
       {heights.map((h, i) => (
@@ -73,7 +73,7 @@ export function Bars({ heights, accentIndex = 5, className }) {
   );
 }
 
-export function FlowDot({ travel = 44, duration = 2.4, className }) {
+export function FlowDot({ travel = 44, duration = 2.4, className = "" }) {
   return (
     <motion.span
       animate={{ x: [0, travel], opacity: [0, 1, 1, 0] }}

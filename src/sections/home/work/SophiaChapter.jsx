@@ -22,7 +22,7 @@ export default function SophiaChapter({ lang = "es" }) {
     <div className="relative overflow-hidden">
       {/* warm environment — richer than plain white */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute right-[-10%] top-[14%] h-[72%] w-[68%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.10),transparent)]" />
+        <span className="absolute right-[-10%] top-[14%] h-[72%] w-[68%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.10),transparent)]" />
         <span className="absolute left-[-14%] top-[-10%] h-[58%] w-[58%] rounded-full bg-[radial-gradient(closest-side,rgba(214,197,163,0.4),transparent)]" />
         <span className="absolute bottom-[-18%] left-[22%] h-[46%] w-[55%] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.75),transparent)]" />
       </div>
@@ -72,7 +72,7 @@ export default function SophiaChapter({ lang = "es" }) {
             {/* soft cobalt reflection under the stage */}
             <span
               aria-hidden="true"
-              className="pointer-events-none absolute -bottom-10 right-[6%] h-[45%] w-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.12),transparent)]"
+              className="pointer-events-none absolute -bottom-10 right-[6%] h-[45%] w-[70%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.12),transparent)]"
             />
             {/* warm glass surface hosting the product */}
             <div

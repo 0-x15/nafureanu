@@ -39,7 +39,7 @@ export default function ProjectBlock({
             {pick(project.discipline, lang)}
           </p>
           <h3 className="mt-3 font-heading text-4xl font-bold tracking-[-0.02em] md:text-6xl">
-            {project.title}
+            {pick(project.title, lang)}
           </h3>
           <p
             className={cn(

@@ -33,7 +33,7 @@ export default function MatchingScene({ lang = "es" }) {
         {t.request}
       </motion.p>
       <motion.div {...step(1)} className="mt-2 flex flex-wrap gap-1.5">
-        <span className="rounded-full bg-[#EDF2FF] px-2.5 py-1 text-[10px] font-medium text-[#2B59FF]">
+        <span className="rounded-full bg-[#EDF2FF] px-2.5 py-1 text-[10px] font-medium text-[#3157F6]">
           {t.matching}
         </span>
         <span className="rounded-full bg-[#171C29] px-2.5 py-1 text-[10px] font-medium text-white">
@@ -42,7 +42,7 @@ export default function MatchingScene({ lang = "es" }) {
       </motion.div>
       <motion.p
         {...step(1.8)}
-        className="mt-2 rounded-lg rounded-tl-sm bg-[#2B59FF] px-3 py-2 text-[11px] leading-snug text-white"
+        className="mt-2 rounded-lg rounded-tl-sm bg-[#3157F6] px-3 py-2 text-[11px] leading-snug text-white"
       >
         {t.answer}
       </motion.p>

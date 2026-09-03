@@ -26,7 +26,7 @@ export default function ActionLink({
   variant = "primary",
   icon = variant === "secondary" ? "right" : "upRight",
   size = "lg",
-  className,
+  className = "",
 }) {
   const Icon = ICONS[icon];
   return (

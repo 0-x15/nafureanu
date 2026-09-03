@@ -69,7 +69,7 @@ export default function ProblemCanvas({ lang = "es" }) {
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 z-0"
         >
-          <span className="absolute left-1/2 top-1/2 h-[80vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.17),transparent)]" />
+          <span className="absolute left-1/2 top-1/2 h-[80vh] w-[120vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.17),transparent)]" />
           <span className="absolute right-[2%] top-[6%] h-[48vh] w-[44vw] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.16),transparent)]" />
           <span className="absolute bottom-[4%] left-[6%] h-[44vh] w-[42vw] rounded-full bg-[radial-gradient(closest-side,rgba(139,124,246,0.13),transparent)]" />
         </motion.div>
@@ -85,15 +85,15 @@ export default function ProblemCanvas({ lang = "es" }) {
             style={{ y: p1Y, rotate: p1R }}
             className="absolute right-[-8%] top-[6%] h-[32vh] w-[56vw] rounded-[40px] border border-white/45 bg-white/[0.18] shadow-[0_70px_130px_-65px_rgba(12,18,32,0.35)] backdrop-blur-[30px]"
           >
-            <span className="absolute left-[8%] top-[16%] h-px w-[72%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.9),rgba(43,89,255,0.5),transparent)] blur-[1px]" />
+            <span className="absolute left-[8%] top-[16%] h-px w-[72%] bg-[linear-gradient(to_right,transparent,rgba(255,255,255,0.9),rgba(49,87,246,0.5),transparent)] blur-[1px]" />
           </motion.div>
 
           {/* plane 2 — distant, bottom-left, faint cobalt within the material */}
           <motion.div
             style={{ y: p2Y, x: p2X }}
-            className="absolute bottom-[0%] left-[-7%] h-[38vh] w-[55vw] rounded-[48px] border border-white/30 bg-[linear-gradient(130deg,rgba(255,255,255,0.19),rgba(43,89,255,0.09),rgba(255,255,255,0.07))] backdrop-blur-[40px]"
+            className="absolute bottom-[0%] left-[-7%] h-[38vh] w-[55vw] rounded-[48px] border border-white/30 bg-[linear-gradient(130deg,rgba(255,255,255,0.19),rgba(49,87,246,0.09),rgba(255,255,255,0.07))] backdrop-blur-[40px]"
           >
-            <span className="absolute bottom-[22%] right-[10%] h-px w-[55%] bg-[linear-gradient(to_right,transparent,rgba(43,89,255,0.38),transparent)] blur-[2px]" />
+            <span className="absolute bottom-[22%] right-[10%] h-px w-[55%] bg-[linear-gradient(to_right,transparent,rgba(49,87,246,0.38),transparent)] blur-[2px]" />
           </motion.div>
 
           {/* plane 3 — narrow diagonal catcher of light, mid-right */}

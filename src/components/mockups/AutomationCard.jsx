@@ -25,8 +25,8 @@ export default function AutomationCard({ lang = "es", className }) {
     >
       <div className="flex items-center justify-between">
         <p className="text-xs font-semibold text-[#171C29]">{t.title}</p>
-        <span className="flex items-center gap-1.5 rounded-full bg-[#EDF2FF] px-2 py-0.5 text-[9px] font-medium text-[#2B59FF]">
-          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-[#2B59FF]" />
+        <span className="flex items-center gap-1.5 rounded-full bg-[#EDF2FF] px-2 py-0.5 text-[9px] font-medium text-[#3157F6]">
+          <span aria-hidden="true" className="h-1 w-1 rounded-full bg-[#3157F6]" />
           {t.status}
         </span>
       </div>
@@ -37,7 +37,7 @@ export default function AutomationCard({ lang = "es", className }) {
               className={cn(
                 "flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[8px]",
                 i === t.steps.length - 1
-                  ? "bg-[#2B59FF] text-white"
+                  ? "bg-[#3157F6] text-white"
                   : "border border-[#D9D5C8] text-[#9A94A6]"
               )}
             >

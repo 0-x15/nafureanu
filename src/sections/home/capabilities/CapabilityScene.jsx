@@ -7,7 +7,7 @@ const EASE = [0.22, 1, 0.36, 1];
 
 /* Subtle light field per capability — same ivory, one quiet accent. */
 const TINTS = [
-  "bg-[radial-gradient(closest-side,rgba(43,89,255,0.09),transparent)]",
+  "bg-[radial-gradient(closest-side,rgba(49,87,246,0.09),transparent)]",
   "bg-[radial-gradient(closest-side,rgba(20,160,190,0.10),transparent)]",
   "bg-[radial-gradient(closest-side,rgba(24,40,90,0.10),transparent)]",
   "bg-[radial-gradient(closest-side,rgba(14,165,190,0.10),transparent)]",

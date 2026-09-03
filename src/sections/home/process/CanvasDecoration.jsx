@@ -61,12 +61,12 @@ export default function CanvasDecoration() {
         <rect x={628} y={356} width={72} height={18} fill="white" fillOpacity={0.45} stroke="currentColor" strokeOpacity={0.2} />
         <rect x={600} y={414} width={58} height={14} fill="white" fillOpacity={0.4} stroke="currentColor" strokeOpacity={0.16} />
         {/* 04 — external tools join the same structure */}
-        <g stroke="#2B59FF" strokeOpacity={0.35} strokeWidth={1}>
+        <g stroke="#3157F6" strokeOpacity={0.35} strokeWidth={1}>
           <line x1={742} y1={252} x2={771} y2={320} />
           <line x1={792} y1={222} x2={771} y2={320} />
           <line x1={818} y1={262} x2={771} y2={320} />
         </g>
-        <g fill="#2B59FF" fillOpacity={0.5}>
+        <g fill="#3157F6" fillOpacity={0.5}>
           <circle cx={742} cy={252} r={2.2} />
           <circle cx={792} cy={222} r={2.2} />
           <circle cx={818} cy={262} r={2.2} />
@@ -84,13 +84,13 @@ export default function CanvasDecoration() {
         transition={{ duration: 0.8, delay: 1.3, ease: EASE }}
       >
         {PULSE_X.map((x) => (
-          <circle key={x} cx={x} cy={320} r={2} fill="#2B59FF" fillOpacity={0.3} />
+          <circle key={x} cx={x} cy={320} r={2} fill="#3157F6" fillOpacity={0.3} />
         ))}
         <motion.circle
           cx={880}
           cy={320}
           r={2.6}
-          fill="#2B59FF"
+          fill="#3157F6"
           animate={reduce ? undefined : { cx: [880, 1040] }}
           transition={{ duration: 4.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
         />

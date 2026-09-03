@@ -11,7 +11,11 @@ const LINKS = [
   { path: "/about", key: "about" },
 ];
 
-export default function MobileMenu({ lang = "es", open = false, onOpenChange = () => {} }) {
+export default function MobileMenu({
+  lang = "es",
+  open = false,
+  onOpenChange = (_open) => {},
+}) {
   const { pathname } = useLocation();
   const s = STRINGS[lang];
 

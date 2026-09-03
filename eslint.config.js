@@ -6,13 +6,10 @@ import pluginUnusedImports from "eslint-plugin-unused-imports";
 
 export default [
   {
-    files: [
-      "src/components/**/*.{js,mjs,cjs,jsx}",
-      "src/pages/**/*.{js,mjs,cjs,jsx}",
-      "src/Layout.jsx",
-    ],
+    // The real application source — all site code lives under src/
+    files: ["src/**/*.{js,mjs,cjs,jsx}"],
     ignores: [
-      "src/lib/**/*",
+      // Generated / vendor-style UI primitives
       "src/components/ui/**/*",
       // react-three-fiber JSX uses three.js props (args, position, wireframe…)
       // which eslint-plugin-react misreads as unknown DOM properties.
@@ -61,6 +58,7 @@ export default [
         { ignore: ["cmdk-input-wrapper", "toast-close"] },
       ],
       "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
 ];

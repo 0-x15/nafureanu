@@ -57,7 +57,7 @@ export default function StatsBand({ lang = "es" }) {
         {/* Quiet neutral base bloom under the per-state atmosphere */}
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(43,89,255,0.05),transparent)]"
+          className="pointer-events-none absolute left-1/2 top-1/2 z-0 h-[60vh] w-[80vw] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.05),transparent)]"
         />
 
         {/* Per-state atmospheric tint */}
@@ -146,7 +146,7 @@ export default function StatsBand({ lang = "es" }) {
                   className={cn(
                     "h-1.5 w-1.5 rounded-full transition-all duration-500",
                     active === i
-                      ? "bg-accent shadow-[0_0_10px_rgba(43,89,255,0.6)]"
+                      ? "bg-accent shadow-[0_0_10px_rgba(49,87,246,0.6)]"
                       : "bg-foreground/20 group-hover:bg-foreground/40"
                   )}
                 />

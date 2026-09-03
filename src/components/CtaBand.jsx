@@ -18,7 +18,7 @@ export default function CtaBand({
       <div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-2xl bg-[#0B1220] px-6 py-16 text-center md:px-10 md:py-24">
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-44 left-1/2 h-[440px] w-[760px] -translate-x-1/2 rounded-full bg-[#2B59FF]/25 blur-[120px]"
+          className="pointer-events-none absolute -top-44 left-1/2 h-[440px] w-[760px] -translate-x-1/2 rounded-full bg-[#3157F6]/25 blur-[120px]"
         />
         <div className="relative">
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-[#8FA5E8]">

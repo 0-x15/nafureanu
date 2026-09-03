@@ -128,7 +128,7 @@ export default function ProcessCanvas({ t, steps }) {
           {t.outputLine}
         </p>
         <div className="mt-3 flex items-center justify-end gap-1.5">
-          <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(43,89,255,0.55)]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(49,87,246,0.55)]" />
           <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-foreground/80">
             {t.status}
           </span>

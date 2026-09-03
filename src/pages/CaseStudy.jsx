@@ -23,7 +23,9 @@ export default function CaseStudy({ lang = "es" }) {
 
   usePageMeta({
     lang,
-    title: project ? `${project.title} — Nafureanu` : s.meta.work.title,
+    title: project
+      ? `${pick(project.title, lang)} — Nafureanu`
+      : s.meta.work.title,
     description: c?.summary,
     path: langPath(lang, `/work/${slug}`),
     alternatePath: langPath(otherLang(lang), `/work/${slug}`),
@@ -62,7 +64,7 @@ export default function CaseStudy({ lang = "es" }) {
       <header className="px-5 pt-36 md:px-10 md:pt-48">
         <p className="text-sm font-medium text-accent">{c.type}</p>
         <h1 className="mt-4 font-heading text-6xl font-bold tracking-[-0.03em] text-foreground md:text-8xl">
-          {project.title}
+          {pick(project.title, lang)}
         </h1>
         <p className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground">
           {c.summary}
@@ -165,7 +167,7 @@ export default function CaseStudy({ lang = "es" }) {
                   active: n.active,
                 }))}
                 reduced={reduced}
-                label={`${project.title} — ${diagramTitle}`}
+                label={`${pick(project.title, lang)} — ${diagramTitle}`}
               />
             ) : (
               <RadialDiagram
@@ -175,7 +177,7 @@ export default function CaseStudy({ lang = "es" }) {
                   active: n.active,
                 }))}
                 reduced={reduced}
-                label={`${project.title} — ${diagramTitle}`}
+                label={`${pick(project.title, lang)} — ${diagramTitle}`}
               />
             )}
           </div>
@@ -208,7 +210,7 @@ export default function CaseStudy({ lang = "es" }) {
           {cs.next}
         </p>
         <span className="mt-4 inline-flex items-baseline gap-4 font-heading text-4xl font-bold tracking-[-0.02em] text-foreground transition-colors group-hover:text-accent md:text-6xl">
-          {next.title}
+          {pick(next.title, lang)}
           <ArrowUpRight className="h-8 w-8 self-center md:h-12 md:w-12" />
         </span>
       </Link>

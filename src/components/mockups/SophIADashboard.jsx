@@ -2,14 +2,15 @@ import { cn } from "@/lib/utils";
 
 const T = {
   es: {
-    url: "sophia — panel de operaciones",
+    url: "crm-inmobiliario — panel de operaciones",
+    brand: "CRM Inmobiliario",
     panel: "Panel de operaciones",
     nav: ["Panel", "Propiedades", "Clientes", "Matching", "Marketing"],
     kpis: [
-      ["40.218", "Propiedades activas"],
-      ["132", "Matches automáticos hoy"],
-      ["48", "Clientes nuevos"],
-      ["17", "Operaciones cerradas"],
+      ["Propiedades", "Catálogo centralizado"],
+      ["Clientes", "Cartera y seguimiento"],
+      ["Matching", "Automático oferta-demanda"],
+      ["Operaciones", "Seguimiento continuo"],
     ],
     chart: "Actividad semanal",
     rows: [
@@ -19,17 +20,18 @@ const T = {
     ],
     chatTitle: "Asistente IA · WhatsApp",
     chatQ: "Busco un piso de 3 habitaciones en Ruzafa",
-    chatA: "He encontrado 24 propiedades que encajan. Te envío las 5 mejores ahora mismo.",
+    chatA: "He encontrado coincidencias que encajan. Te envío las mejores ahora mismo.",
   },
   en: {
-    url: "sophia — operations dashboard",
+    url: "real-estate-crm — operations dashboard",
+    brand: "Real-estate CRM",
     panel: "Operations dashboard",
     nav: ["Dashboard", "Properties", "Clients", "Matching", "Marketing"],
     kpis: [
-      ["40,218", "Active properties"],
-      ["132", "Automatic matches today"],
-      ["48", "New clients"],
-      ["17", "Closed operations"],
+      ["Properties", "Centralized catalogue"],
+      ["Clients", "Pipeline and tracking"],
+      ["Matching", "Automatic supply-demand"],
+      ["Operations", "Continuous pipeline"],
     ],
     chart: "Weekly activity",
     rows: [
@@ -39,7 +41,7 @@ const T = {
     ],
     chatTitle: "AI assistant · WhatsApp",
     chatQ: "I'm looking for a 3-bedroom apartment in Ruzafa",
-    chatA: "I found 24 properties that match. Sending you the 5 best right now.",
+    chatA: "I found matches that fit. Sending you the best ones right now.",
   },
 };
 
@@ -51,7 +53,7 @@ const BARS = [34, 46, 40, 55, 48, 62, 58, 70, 66, 78, 74, 88, 82, 96];
  */
 export default function SophIADashboard({
   lang = "es",
-  className,
+  className = "",
   bare = false,
 }) {
   const t = T[lang];
@@ -75,7 +77,7 @@ export default function SophIADashboard({
           {/* Sidebar */}
           <aside className="hidden w-40 shrink-0 border-r border-[#EFEBE0] p-4 sm:block">
             <p className="font-heading text-sm font-bold tracking-tight text-[#171C29]">
-              SophIA
+              {t.brand}
             </p>
             <nav className="mt-4 space-y-1">
               {t.nav.map((item, i) => (
@@ -84,7 +86,7 @@ export default function SophIADashboard({
                   className={cn(
                     "block rounded-md px-2.5 py-1.5 text-xs",
                     i === 0
-                      ? "bg-[#EDF2FF] font-medium text-[#2B59FF]"
+                      ? "bg-[#EDF2FF] font-medium text-[#3157F6]"
                       : "text-[#8A8FA0]"
                   )}
                 >
@@ -100,7 +102,7 @@ export default function SophIADashboard({
               <p className="font-heading text-sm font-bold text-[#171C29]">
                 {t.panel}
               </p>
-              <span className="rounded-full bg-[#EDF2FF] px-2.5 py-1 text-[10px] font-medium text-[#2B59FF]">
+              <span className="rounded-full bg-[#EDF2FF] px-2.5 py-1 text-[10px] font-medium text-[#3157F6]">
                 40K+ {lang === "es" ? "propiedades" : "properties"}
               </span>
             </div>
@@ -131,7 +133,7 @@ export default function SophIADashboard({
                     key={i}
                     className={cn(
                       "flex-1 rounded-sm",
-                      i === BARS.length - 1 ? "bg-[#2B59FF]" : "bg-[#B9CDFB]"
+                      i === BARS.length - 1 ? "bg-[#3157F6]" : "bg-[#B9CDFB]"
                     )}
                     style={{ height: `${h}%` }}
                   />
@@ -165,7 +167,7 @@ export default function SophIADashboard({
                         "rounded-full px-2 py-0.5 text-[10px]",
                         status === "Reservado" || status === "Reserved"
                           ? "bg-[#F1EEE7] text-[#8A8FA0]"
-                          : "bg-[#EDF2FF] text-[#2B59FF]"
+                          : "bg-[#EDF2FF] text-[#3157F6]"
                       )}
                     >
                       {status}
@@ -188,7 +190,7 @@ export default function SophIADashboard({
         <p className="mt-2.5 rounded-lg rounded-tl-sm bg-[#F4F2EB] px-3 py-2 text-[11px] leading-snug text-[#4A5164]">
           {t.chatQ}
         </p>
-        <p className="mt-1.5 rounded-lg rounded-tl-sm bg-[#2B59FF] px-3 py-2 text-[11px] leading-snug text-white">
+        <p className="mt-1.5 rounded-lg rounded-tl-sm bg-[#3157F6] px-3 py-2 text-[11px] leading-snug text-white">
           {t.chatA}
         </p>
       </div>

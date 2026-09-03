@@ -54,12 +54,12 @@ export const ES = {
         cta: "Ver proyectos",
       },
       {
-        headline: "Operaciones reales, a escala.",
-        copy: "SophIA centraliza procesos inmobiliarios, automatiza operaciones y conecta datos, clientes, portales e inteligencia artificial dentro de un mismo sistema.",
-        context: "SophIA · Business systems · AI · Automation",
+        headline: "Operaciones inmobiliarias, convertidas en sistema.",
+        copy: "Un CRM inmobiliario a medida centraliza propiedades, clientes y operaciones, automatiza procesos y adapta Odoo a la forma real de trabajar del negocio.",
+        context: "CRM inmobiliario · Odoo · Automatización · Integraciones",
         proof: { value: 40, suffix: "K+", label: "Propiedades gestionadas" },
         to: "/work/sophia",
-        cta: "Explorar SophIA",
+        cta: "Explorar CRM inmobiliario",
       },
       {
         headline: "Software que se adapta al negocio.",
@@ -171,10 +171,10 @@ export const ES = {
     moreLink: "Ver todos los proyectos",
     sophia: {
       index: "01",
-      name: "SophIA",
-      role: "Plataforma de operaciones inmobiliarias",
+      name: "CRM inmobiliario a medida",
+      role: "CRM y plataforma de operaciones inmobiliarias",
       headlineA: "Una operación inmobiliaria convertida en sistema.",
-      copy: "SophIA centraliza propiedades, clientes, matching, inteligencia artificial e integraciones dentro de una plataforma construida alrededor de la operación real.",
+      copy: "Un CRM inmobiliario a medida centraliza propiedades, clientes, matching, inteligencia artificial e integraciones dentro de una plataforma construida alrededor de la operación real.",
       proof: [
         { value: "40K+", label: "Propiedades gestionadas" },
         { value: "20+", label: "Módulos Odoo personalizados" },
@@ -194,9 +194,9 @@ export const ES = {
         title: "Asistente IA · WhatsApp",
         request: "Busco un piso de 3 habitaciones en Ruzafa",
         matching: "Matching automático",
-        found: "24 propiedades encontradas",
+        found: "Coincidencias encontradas",
         answer:
-          "He encontrado 24 propiedades que encajan. Te envío las 5 mejores ahora mismo.",
+          "He encontrado coincidencias que encajan. Te envío las mejores ahora mismo.",
       },
     },
     fivo: {
@@ -455,6 +455,7 @@ export const ES = {
   },
   footer: {
     tagline: "Software, IA y automatización para empresas.",
+    crm: "CRM inmobiliario a medida",
     nav: "Navegación",
     services: "Servicios",
     work: "Trabajo",

@@ -14,7 +14,7 @@ export default function DigitalProductsVisual() {
           <Line className="h-1.5 w-full" />
           <Line className="h-1.5 w-4/5" />
         </div>
-        <div className="mt-4 h-[42%] rounded-lg bg-[linear-gradient(135deg,rgba(43,89,255,0.14),rgba(139,124,246,0.12))]" />
+        <div className="mt-4 h-[42%] rounded-lg bg-[linear-gradient(135deg,rgba(49,87,246,0.14),rgba(139,124,246,0.12))]" />
       </Panel>
 
       {/* mobile experience */}
@@ -24,14 +24,14 @@ export default function DigitalProductsVisual() {
           <Line className="h-1.5 w-full" />
           <Line className="h-1.5 w-2/3" />
         </div>
-        <div className="mt-3 h-[26%] rounded-md bg-[linear-gradient(135deg,rgba(43,89,255,0.16),rgba(139,124,246,0.14))]" />
+        <div className="mt-3 h-[26%] rounded-md bg-[linear-gradient(135deg,rgba(49,87,246,0.16),rgba(139,124,246,0.14))]" />
         <Bars heights={[40, 65, 50, 85]} accentIndex={3} className="mt-3 h-8" />
       </Panel>
 
       {/* product view — front */}
       <Panel className="absolute right-[2%] top-[18%] h-[54%] w-[50%] rotate-2">
         <Chrome lineW="w-14" />
-        <div className="mt-3 h-[40%] rounded-lg bg-[linear-gradient(135deg,rgba(43,89,255,0.15),rgba(139,124,246,0.13))]" />
+        <div className="mt-3 h-[40%] rounded-lg bg-[linear-gradient(135deg,rgba(49,87,246,0.15),rgba(139,124,246,0.13))]" />
         <div className="mt-3 space-y-2">
           <Line className="h-2 w-2/3 bg-foreground/20" />
           <Line className="h-1.5 w-1/2" />

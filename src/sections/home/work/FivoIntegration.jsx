@@ -18,7 +18,7 @@ export default function FivoIntegration({ lang = "es" }) {
       transition={{ duration: 0.8, ease: EASE }}
       className="w-full max-w-[300px]"
     >
-      <div className="rounded-lg border border-white/75 bg-white/55 p-4 shadow-[0_26px_52px_-30px_rgba(43,89,255,0.35)] backdrop-blur-xl">
+      <div className="rounded-lg border border-white/75 bg-white/55 p-4 shadow-[0_26px_52px_-30px_rgba(49,87,246,0.35)] backdrop-blur-xl">
         <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-[#8A8FA0]">
           {LABEL[lang]}
         </p>
@@ -26,16 +26,16 @@ export default function FivoIntegration({ lang = "es" }) {
           <code>
             <span className="text-[#A7AEBF]">{"<script async"}</span>
             {" src="}
-            <span className="text-[#2B59FF]/90">"checkout.fivo.finance"</span>
+            <span className="text-[#3157F6]/90">"checkout.fivo.finance"</span>
             <span className="text-[#A7AEBF]">{" />"}</span>
             {"\n"}
             <span className="text-[#A7AEBF]">{"<fivo-button"}</span>
             {"\n  merchant-id="}
-            <span className="text-[#2B59FF]/90">"fivo_live_•••"</span>
+            <span className="text-[#3157F6]/90">"fivo_live_•••"</span>
             {"\n  amount="}
-            <span className="text-[#2B59FF]/90">"29.99"</span>
+            <span className="text-[#3157F6]/90">"29.99"</span>
             {"\n  currency="}
-            <span className="text-[#2B59FF]/90">"USDC"</span>
+            <span className="text-[#3157F6]/90">"USDC"</span>
             {"\n"}
             <span className="text-[#A7AEBF]">{"/>"}</span>
           </code>
@@ -44,7 +44,7 @@ export default function FivoIntegration({ lang = "es" }) {
       {/* thin glass strip — the material continuing toward the flow */}
       <span
         aria-hidden="true"
-        className="mt-4 block h-[3px] w-[72%] rounded-full bg-[linear-gradient(to_right,rgba(43,89,255,0.35),transparent)]"
+        className="mt-4 block h-[3px] w-[72%] rounded-full bg-[linear-gradient(to_right,rgba(49,87,246,0.35),transparent)]"
       />
     </motion.div>
   );

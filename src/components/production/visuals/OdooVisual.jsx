@@ -42,7 +42,7 @@ export default function OdooVisual() {
         ))}
       </div>
       <div className="absolute right-[4%] bottom-[12%] rotate-2">
-        <span className="rounded-md border border-accent/40 bg-accent/10 px-3 py-1.5 font-mono text-[9px] text-accent shadow-[0_16px_30px_-16px_rgba(43,89,255,0.35)] backdrop-blur-sm">
+        <span className="rounded-md border border-accent/40 bg-accent/10 px-3 py-1.5 font-mono text-[9px] text-accent shadow-[0_16px_30px_-16px_rgba(49,87,246,0.35)] backdrop-blur-sm">
           custom
         </span>
       </div>

@@ -54,12 +54,12 @@ export const EN = {
         cta: "View projects",
       },
       {
-        headline: "Real operations, at scale.",
-        copy: "SophIA centralizes real-estate processes, automates operations and connects data, clients, portals and artificial intelligence within a single system.",
-        context: "SophIA · Business systems · AI · Automation",
+        headline: "Real-estate operations, turned into a system.",
+        copy: "A custom real-estate CRM centralizes properties, clients and operations, automates processes and adapts Odoo to the way the business actually works.",
+        context: "Custom real-estate CRM · Odoo · Automation · Integrations",
         proof: { value: 40, suffix: "K+", label: "Properties managed" },
         to: "/work/sophia",
-        cta: "Explore SophIA",
+        cta: "Explore the real-estate CRM",
       },
       {
         headline: "Software that adapts to the business.",
@@ -171,10 +171,10 @@ export const EN = {
     moreLink: "View all projects",
     sophia: {
       index: "01",
-      name: "SophIA",
-      role: "Real-estate operations platform",
+      name: "Custom real-estate CRM",
+      role: "Real-estate CRM and operations platform",
       headlineA: "A real-estate operation turned into a system.",
-      copy: "SophIA centralizes properties, clients, matching, artificial intelligence and integrations within a platform built around the real operation.",
+      copy: "A custom real-estate CRM centralizes properties, clients, matching, artificial intelligence and integrations within a platform built around the real operation.",
       proof: [
         { value: "40K+", label: "Properties managed" },
         { value: "20+", label: "Custom Odoo modules" },
@@ -194,8 +194,8 @@ export const EN = {
         title: "AI assistant · WhatsApp",
         request: "I'm looking for a 3-bedroom apartment in Ruzafa",
         matching: "Automatic matching",
-        found: "24 properties found",
-        answer: "I found 24 properties that match. Sending you the 5 best right now.",
+        found: "Matches found",
+        answer: "I found matches that fit. Sending you the best ones right now.",
       },
     },
     fivo: {
@@ -454,6 +454,7 @@ export const EN = {
   },
   footer: {
     tagline: "Custom software, AI and automation for companies.",
+    crm: "Custom real-estate CRM",
     nav: "Navigation",
     services: "Services",
     work: "Work",

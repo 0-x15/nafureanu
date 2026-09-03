@@ -85,9 +85,9 @@ export default function WhyNafureanu({ lang = "es" }) {
               viewport={{ once: true, margin: "-60px" }}
               transition={{ duration: 0.9, delay: 1.1 }}
             >
-              <line x1="58" y1="28" x2="72" y2="46" stroke="#2B59FF" strokeOpacity="0.25" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+              <line x1="58" y1="28" x2="72" y2="46" stroke="#3157F6" strokeOpacity="0.25" strokeWidth="1" vectorEffect="non-scaling-stroke" />
               <line x1="62" y1="50" x2="72" y2="50" stroke="currentColor" strokeOpacity="0.18" strokeWidth="1" vectorEffect="non-scaling-stroke" />
-              <line x1="58" y1="72" x2="72" y2="54" stroke="#2B59FF" strokeOpacity="0.25" strokeWidth="1" vectorEffect="non-scaling-stroke" />
+              <line x1="58" y1="72" x2="72" y2="54" stroke="#3157F6" strokeOpacity="0.25" strokeWidth="1" vectorEffect="non-scaling-stroke" />
             </motion.g>
           </svg>
 

@@ -47,7 +47,7 @@ export default function InfrastructureVisual() {
             <span className="font-mono text-[10px] text-muted-foreground">USDC</span>
           </div>
         </div>
-        <div className="mt-5 flex h-9 items-center justify-center gap-2 rounded-md bg-accent text-white shadow-[0_12px_24px_-10px_rgba(43,89,255,0.6)]">
+        <div className="mt-5 flex h-9 items-center justify-center gap-2 rounded-md bg-accent text-white shadow-[0_12px_24px_-10px_rgba(49,87,246,0.6)]">
           <Lock className="h-3.5 w-3.5" />
           <span className="h-1.5 w-14 rounded-full bg-white/60" />
         </div>
