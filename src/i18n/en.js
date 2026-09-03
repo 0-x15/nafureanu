@@ -239,6 +239,18 @@ export const EN = {
   homeProcess: {
     kicker: "How we work",
     title: "From process to system.",
+    intro:
+      "We don't start by writing code. First we understand how the operation works; then we design the system that should run it.",
+    inputLabel: "Input",
+    inputName: "Real process",
+    inputFragments: ["Client", "Excel", "CRM", "Email", "Team", "Data"],
+    outputLabel: "Output",
+    outputName: "System in production",
+    outputLine:
+      "A connected, automated system ready to evolve with the company.",
+    status: "In production",
+    ops: "Operate · maintain · evolve",
+    movements: ["Understand", "Build", "Operate"],
   },
   process: [
     { num: "01", title: "Understand", text: "We study how your business works and where time is lost." },

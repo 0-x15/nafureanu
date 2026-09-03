@@ -240,6 +240,18 @@ export const ES = {
   homeProcess: {
     kicker: "Cómo trabajamos",
     title: "De proceso a sistema.",
+    intro:
+      "No empezamos escribiendo código. Primero entendemos cómo funciona la operación; después diseñamos el sistema que debe ejecutarla.",
+    inputLabel: "Entrada",
+    inputName: "Proceso real",
+    inputFragments: ["Cliente", "Excel", "CRM", "Email", "Equipo", "Datos"],
+    outputLabel: "Salida",
+    outputName: "Sistema en producción",
+    outputLine:
+      "Un sistema conectado, automatizado y preparado para evolucionar con la empresa.",
+    status: "En producción",
+    ops: "Operar · mantener · evolucionar",
+    movements: ["Comprender", "Construir", "Operar"],
   },
   process: [
     { num: "01", title: "Entender", text: "Estudiamos cómo funciona tu negocio y dónde se pierde el tiempo." },
