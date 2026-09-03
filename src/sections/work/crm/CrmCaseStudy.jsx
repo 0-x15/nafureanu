@@ -28,7 +28,7 @@ export default function CrmCaseStudy({ lang = "es" }) {
       </div>
 
       <CrmCaseHero lang={lang} c={c} />
-      <CrmProblem c={c} />
+      <CrmProblem lang={lang} c={c} />
       <CrmCentralizes c={c} />
       <CrmAutomation c={c} />
       <CrmMatching c={c} />

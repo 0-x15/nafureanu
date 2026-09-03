@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 
 const T = {
   es: {
-    brand: "Nafureanu CRM",
+    brand: "CRM Inmobiliario",
     nav: ["Inicio", "Inmuebles", "Clientes", "Operaciones"],
     search: "Buscar inmueble, cliente o referencia",
     tabs: ["Cruces", "Visitas", "Operación", "Alertas", "WhatsApp"],
@@ -34,7 +34,7 @@ const T = {
     ],
   },
   en: {
-    brand: "Nafureanu CRM",
+    brand: "Real Estate CRM",
     nav: ["Home", "Properties", "Clients", "Operations"],
     search: "Search property, client or reference",
     tabs: ["Matches", "Visits", "Operation", "Alerts", "WhatsApp"],

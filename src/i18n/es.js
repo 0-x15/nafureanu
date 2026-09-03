@@ -386,15 +386,56 @@ export const ES = {
       title:
         "Un CRM genérico almacena información. Una inmobiliaria necesita que el sistema entienda cómo trabaja.",
       intro: "Tipos de problemas que este tipo de sistema está construido para eliminar:",
+      howLabel: "Cómo lo resuelve el CRM",
       pains: [
-        "Leads que nadie atiende a tiempo.",
-        "Matching entre clientes e inmuebles hecho manualmente.",
-        "Información duplicada entre herramientas.",
-        "Portales que hay que actualizar por separado.",
-        "Visitas y calendario desconectados del CRM.",
-        "Documentación que depende de revisión manual.",
-        "Seguimientos que dependen de que alguien los recuerde.",
-        "WhatsApp y llamadas fuera del contexto del cliente.",
+        {
+          title: "Leads que nadie atiende a tiempo.",
+          solutionTitle: "SLA de primer contacto",
+          solution:
+            "Cuando un lead se asigna, el CRM inicia el control del primer contacto en horas laborables. El sistema puede avisar antes de que venza el plazo, marcar el SLA como vencido y liberar la oportunidad a la cola si continúa sin atenderse. Al registrar el primer contacto, el reloj se detiene.",
+        },
+        {
+          title: "Matching entre clientes e inmuebles hecho manualmente.",
+          solutionTitle: "Motor de cruces automático",
+          solution:
+            "El CRM cruza automáticamente la demanda con los inmuebles compatibles y también trabaja en sentido inverso: desde un inmueble puede detectar posibles interesados. Filtra por criterios esenciales y puntúa la compatibilidad según las características de cada caso. Desde un cruce se puede continuar directamente hacia acciones como una visita.",
+        },
+        {
+          title: "Información duplicada entre herramientas.",
+          solutionTitle: "Contacto unificado y deduplicación",
+          solution:
+            "El sistema utiliza el teléfono normalizado como control de unicidad y detecta contactos existentes antes de crear duplicados. Las entradas procedentes de canales conectados pueden reutilizar el contacto existente y existe una herramienta de fusión que archiva duplicados conservando la trazabilidad.",
+        },
+        {
+          title: "Portales que hay que actualizar por separado.",
+          solutionTitle: "Publicación conectada al inmueble",
+          solution:
+            "Idealista y Fotocasa están conectados directamente con la ficha del inmueble. El CRM permite publicar, actualizar y retirar anuncios desde el propio sistema y detecta cambios relevantes para que la información del portal pueda mantenerse sincronizada sin volver a introducirla manualmente.",
+        },
+        {
+          title: "Visitas y calendario desconectados del CRM.",
+          solutionTitle: "Agenda operativa unificada",
+          solution:
+            "El CRM reúne tareas, visitas y devoluciones de llamada dentro de una misma agenda. Las tareas generan un evento espejo en Google Calendar y los cambios relevantes pueden sincronizarse en ambos sentidos, manteniendo la planificación conectada con el registro real del CRM.",
+        },
+        {
+          title: "Documentación que depende de revisión manual.",
+          solutionTitle: "Documentación convertida en workflow",
+          solution:
+            "El CRM no elimina la validación humana cuando es necesaria: la convierte en un proceso controlado. Cada documento tiene estados, permisos y requisitos; los documentos obligatorios pueden bloquear avances como la publicación, y su aprobación o firma puede actualizar automáticamente el checklist y las alertas asociadas.",
+        },
+        {
+          title: "Seguimientos que dependen de que alguien los recuerde.",
+          solutionTitle: "Agenda, tareas y alertas automáticas",
+          solution:
+            "Llamadas, revisitas, seguimientos, documentación y recordatorios se convierten en tareas con fecha, responsable y estado. El sistema detecta tareas vencidas y también puede generar avisos por inactividad, prospectos sin avance o mandatos próximos a vencer, reduciendo la dependencia de la memoria del equipo.",
+        },
+        {
+          title: "WhatsApp y llamadas fuera del contexto del cliente.",
+          solutionTitle: "Comunicación vinculada al CRM",
+          solution:
+            "Los mensajes de WhatsApp se registran y vinculan con los contactos y procesos del CRM; los mensajes entrantes pueden localizar o crear el contacto correspondiente y notificar al agente responsable. Las llamadas también se registran con su contexto — contacto, demanda, prospecto o inmueble — para que la conversación forme parte del historial operativo.",
+        },
       ],
     },
     centralizes: {

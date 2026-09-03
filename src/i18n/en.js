@@ -385,15 +385,56 @@ export const EN = {
       title:
         "A generic CRM stores information. An agency needs a system that understands how it works.",
       intro: "Types of problems this kind of system is built to remove:",
+      howLabel: "How the CRM solves it",
       pains: [
-        "Leads nobody answers in time.",
-        "Client-property matching done by hand.",
-        "Information duplicated across tools.",
-        "Portals that have to be updated one by one.",
-        "Visits and calendar disconnected from the CRM.",
-        "Documentation that depends on manual review.",
-        "Follow-ups that depend on someone remembering them.",
-        "WhatsApp and calls outside the client's context.",
+        {
+          title: "Leads nobody answers in time.",
+          solutionTitle: "First-contact SLA",
+          solution:
+            "When a lead is assigned, the CRM starts tracking the first contact in business hours. It can warn before the deadline, mark the SLA as overdue and release the opportunity back to the queue if it remains unattended. Recording the first contact stops the clock.",
+        },
+        {
+          title: "Client-property matching done by hand.",
+          solutionTitle: "Automatic matching engine",
+          solution:
+            "The CRM automatically matches demand with compatible properties and also works in reverse, identifying potential interested clients from a property. It filters by essential criteria and scores compatibility using the relevant characteristics. A match can lead directly into actions such as scheduling a visit.",
+        },
+        {
+          title: "Information duplicated across tools.",
+          solutionTitle: "Unified contacts and deduplication",
+          solution:
+            "The system uses the normalized phone number as a uniqueness control and detects existing contacts before creating duplicates. Records arriving through connected channels can reuse an existing contact, and a merge tool archives duplicates while preserving traceability.",
+        },
+        {
+          title: "Portals that have to be updated separately.",
+          solutionTitle: "Publishing connected to the property",
+          solution:
+            "Idealista and Fotocasa are connected directly to the property record. The CRM supports publishing, updating and withdrawing listings from the system and detects relevant changes so portal information can stay synchronized without being entered again manually.",
+        },
+        {
+          title: "Visits and calendar disconnected from the CRM.",
+          solutionTitle: "Unified operational calendar",
+          solution:
+            "The CRM brings tasks, visits and call-backs into one agenda. Tasks create a mirrored Google Calendar event, and relevant changes can synchronize in both directions, keeping the schedule connected to the actual CRM record.",
+        },
+        {
+          title: "Documentation that depends on manual review.",
+          solutionTitle: "Documentation turned into a workflow",
+          solution:
+            "The CRM does not remove human validation when it is required; it turns it into a controlled process. Documents have states, permissions and requirements; mandatory documents can block progression such as publishing, while approval or signature can automatically update the related checklist and alerts.",
+        },
+        {
+          title: "Follow-ups that depend on someone remembering them.",
+          solutionTitle: "Calendar, tasks and automated alerts",
+          solution:
+            "Calls, revisits, follow-ups, documentation and reminders become tasks with an owner, date and status. The system detects overdue tasks and can also generate alerts for inactivity, stalled prospects or approaching mandate deadlines, reducing dependence on the team's memory.",
+        },
+        {
+          title: "WhatsApp and calls outside the client's context.",
+          solutionTitle: "Communication connected to the CRM",
+          solution:
+            "WhatsApp messages are recorded and linked to contacts and CRM processes; incoming messages can locate or create the corresponding contact and notify the responsible agent. Calls are also recorded with their context — contact, demand, prospect or property — so the conversation becomes part of the operational history.",
+        },
       ],
     },
     centralizes: {
