@@ -127,7 +127,7 @@ export default function CrmCentralizes({ c }) {
   };
 
   return (
-    <section className="px-5 pb-16 pt-8 md:px-10 md:pb-24 md:pt-12">
+    <section className="border-t border-border px-5 py-16 md:px-10 md:py-24">
       <div className="mx-auto max-w-[1440px]">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">

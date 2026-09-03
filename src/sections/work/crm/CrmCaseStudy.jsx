@@ -12,7 +12,7 @@ import CrmFinalCta from "./CrmFinalCta";
 
 /**
  * CRM case-study page — a corporate product page in eight scannable
- * movements: qué centraliza, qué resuelve, automatizaciones,
+ * movements: qué resuelve, qué centraliza, automatizaciones,
  * matching, integraciones, Odoo a medida, superficies del sistema
  * and a light final CTA. Back navigation sits at the very top.
  */
@@ -28,8 +28,8 @@ export default function CrmCaseStudy({ lang = "es" }) {
       </div>
 
       <CrmCaseHero lang={lang} c={c} />
-      <CrmCentralizes c={c} />
       <CrmProblem lang={lang} c={c} />
+      <CrmCentralizes c={c} />
       <CrmAutomation c={c} />
       <CrmMatching c={c} />
       <CrmIntegrations c={c} />
