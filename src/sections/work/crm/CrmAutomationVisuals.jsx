@@ -242,25 +242,28 @@ function LeadsVisual({ ui, active, reduce, lane }) {
 /* ── 03 Smart checklists ─────────────────────────────────────── */
 
 function ChecklistVisual({ ui, active, reduce, lane }) {
+  /* event → the file's checklist reacts → file updated */
   const phase = useSequence({ active, reduce, steps: 3, stepMs: 520 });
   const ambient = !active && !reduce;
   return (
-    <Surface className="grid gap-4 sm:grid-cols-[auto_auto_auto] sm:items-center sm:justify-start sm:gap-5">
-      <div className="order-3 sm:order-1">
+    <Surface className="grid gap-4 sm:grid-cols-[auto_auto_auto_auto_auto] sm:items-center sm:justify-start sm:gap-5">
+      <Node tone="cyan">{ui.event}</Node>
+      <Arrow on={phase >= 1} pulse={ambient} delay={lane * 0.9} />
+      <div>
         <Label>{ui.file}</Label>
         <ul className="mt-2 space-y-1.5">
           {ui.items.map(([label, done], i) => {
             const auto = i === ui.autoIndex;
-            const isDone = auto ? phase >= 3 : done;
+            const isDone = auto ? phase >= 2 : done;
             return (
               <li key={label} className="flex items-center gap-2 text-[11px]">
                 <Check done={isDone} />
                 <span className={isDone ? "text-foreground/90" : "text-foreground/55"}>{label}</span>
                 {auto && (
                   <motion.span
-                    animate={{ opacity: phase >= 3 ? 1 : 0 }}
+                    animate={{ opacity: phase >= 2 ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
-                    className="ml-1 font-mono text-[8px] uppercase tracking-[0.12em] text-accent"
+                    className="ml-1.5 font-mono text-[8px] uppercase tracking-[0.12em] text-accent"
                   >
                     {ui.autoTag}
                   </motion.span>
@@ -270,15 +273,9 @@ function ChecklistVisual({ ui, active, reduce, lane }) {
           })}
         </ul>
       </div>
-      {/* The event flows INTO the file: line pointing left on sm+ */}
-      <Arrow
-        on={phase >= 2}
-        pulse={ambient}
-        delay={lane * 0.9}
-        className="order-2 rotate-180"
-      />
-      <Node tone="cyan" on={phase >= 1} className="order-1 sm:order-3">
-        {ui.event}
+      <Arrow on={phase >= 3} />
+      <Node tone="accent" on={phase >= 3}>
+        {ui.result}
       </Node>
     </Surface>
   );

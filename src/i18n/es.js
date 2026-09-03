@@ -636,6 +636,7 @@ export const ES = {
             autoIndex: 2,
             event: "Documento aprobado",
             autoTag: "Automático",
+            result: "Expediente actualizado",
           },
         },
         {

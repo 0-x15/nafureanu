@@ -635,6 +635,7 @@ export const EN = {
             autoIndex: 2,
             event: "Document approved",
             autoTag: "Automatic",
+            result: "File updated",
           },
         },
         {
