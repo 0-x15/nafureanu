@@ -1,6 +1,9 @@
+import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import ActionLink from "@/components/ActionLink";
 import CrmOpsMockup from "@/components/work/crm/CrmOpsMockup";
+import CrmMatchingFragment from "@/components/work/crm/CrmMatchingFragment";
+import CrmCommsFragment from "@/components/work/crm/CrmCommsFragment";
 import { STRINGS, langPath } from "@/i18n";
 
 /**
@@ -58,7 +61,29 @@ export default function CrmCaseHero({ lang, c }) {
       </div>
 
       <Reveal variant="scale" delay={0.1}>
-        <CrmOpsMockup lang={lang} />
+        <div className="relative">
+          <CrmOpsMockup lang={lang} />
+
+          {/* Matching surface — overlaps the lower-left of the main image */}
+          <motion.div
+            initial={{ opacity: 0, y: 26 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute -bottom-10 -left-4 z-20 hidden lg:block xl:-left-10"
+          >
+            <CrmMatchingFragment lang={lang} className="-rotate-2" />
+          </motion.div>
+
+          {/* Communication surface — peeks over the top-right edge */}
+          <motion.div
+            initial={{ opacity: 0, y: -18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.42, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute -top-9 -right-3 z-0 hidden lg:block"
+          >
+            <CrmCommsFragment lang={lang} className="rotate-2" />
+          </motion.div>
+        </div>
       </Reveal>
     </header>
   );

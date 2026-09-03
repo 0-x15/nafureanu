@@ -15,35 +15,32 @@ const T = {
   },
 };
 
-/* Chip positions — three above the block, three below */
-const CHIPS = [
-  { x: 84, y: 14 },
-  { x: 240, y: 14 },
-  { x: 396, y: 14 },
-  { x: 84, y: 256 },
-  { x: 240, y: 256 },
-  { x: 396, y: 256 },
+/* Misaligned, slightly rotated system fragments */
+const FRAGMENTS = [
+  { cx: 74, cy: 52, w: 108, rot: -3, accent: "#3157F6" },
+  { cx: 322, cy: 66, w: 116, rot: 2, accent: null },
+  { cx: 62, cy: 186, w: 104, rot: 1.5, accent: null },
+  { cx: 336, cy: 200, w: 108, rot: -2, accent: null },
+  { cx: 96, cy: 322, w: 118, rot: 2.5, accent: null },
+  { cx: 306, cy: 334, w: 112, rot: -1.5, accent: "#17B4CD" },
 ];
+const H = 52;
 
-/*
- * Interrupted connectors — dashed lines that stop short of the
- * central block. Two carry a small amber friction dot (the manual
- * handoff); the rest simply never reach the system.
- */
+/* Interrupted connectors toward the muted central block */
 const LINKS = [
-  { from: [84, 46], to: [160, 128], amber: false },
-  { from: [240, 46], to: [240, 104], amber: true },
-  { from: [396, 46], to: [320, 128], amber: false },
-  { from: [84, 256], to: [160, 172], amber: false },
-  { from: [240, 256], to: [240, 196], amber: false },
-  { from: [396, 256], to: [320, 172], amber: true },
+  { from: [86, 84], to: [168, 178], amber: true },
+  { from: [300, 98], to: [232, 178], amber: false },
+  { from: [118, 186], to: [140, 198], amber: false },
+  { from: [282, 202], to: [262, 204], amber: false },
+  { from: [88, 292], to: [180, 246], amber: true },
+  { from: [298, 302], to: [224, 242], amber: false },
 ];
 
 /**
- * The "El problema" visual — one clean architectural diagram: a
- * generic CRM block holding data while the surrounding operation
- * (leads, properties, calendar, portals, documents, WhatsApp)
- * stays disconnected, joined only by dashed, interrupted lines.
+ * "El problema" visual — an abstract operational-tension
+ * composition: six scattered, slightly misaligned system fragments
+ * around a muted generic-CRM block, joined only by thin interrupted
+ * dashed lines. Conceptual, not a dashboard.
  */
 export default function CrmProblemVisual({ lang = "es", className = "" }) {
   const t = T[lang];
@@ -62,68 +59,59 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           </p>
         </div>
 
-        {/* Diagram */}
+        {/* Composition */}
         <svg
-          viewBox="0 0 480 300"
+          viewBox="0 0 400 380"
           className="block w-full"
           role="img"
           aria-label={t.kicker}
         >
           <defs>
             <filter
-              id="crm-problem-shadow"
-              x="-20%"
-              y="-20%"
-              width="140%"
-              height="140%"
+              id="crm-tension-shadow"
+              x="-30%"
+              y="-30%"
+              width="160%"
+              height="160%"
             >
               <feDropShadow
                 dx="0"
-                dy="6"
-                stdDeviation="7"
+                dy="5"
+                stdDeviation="6"
                 floodColor="#0C1220"
-                floodOpacity="0.1"
+                floodOpacity="0.09"
               />
             </filter>
-            <radialGradient id="crm-problem-cyan" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#17B4CD" stopOpacity="0.1" />
+            <radialGradient id="crm-tension-cyan" cx="50%" cy="50%" r="50%">
+              <stop offset="0%" stopColor="#17B4CD" stopOpacity="0.09" />
               <stop offset="100%" stopColor="#17B4CD" stopOpacity="0" />
             </radialGradient>
           </defs>
 
-          {/* Very subtle cyan reflection */}
-          <circle cx="424" cy="64" r="96" fill="url(#crm-problem-cyan)" />
+          {/* Subtle atmosphere */}
+          <circle cx="348" cy="58" r="86" fill="url(#crm-tension-cyan)" />
 
-          {/* Operational chips */}
-          {t.nodes.map((node, i) => {
-            const { x, y } = CHIPS[i];
-            return (
-              <g key={node}>
-                <rect
-                  x={x - 56}
-                  y={y}
-                  width="112"
-                  height="30"
-                  rx="6"
-                  fill="#FCFBF8"
-                  stroke="#DCD7CB"
-                  strokeWidth="1"
-                />
-                <text
-                  x={x}
-                  y={y + 19}
-                  textAnchor="middle"
-                  fontSize="8.5"
-                  fontWeight="500"
-                  letterSpacing="1.1"
-                  fill="#4A5164"
-                  fontFamily="JetBrains Mono, ui-monospace, monospace"
-                >
-                  {node}
-                </text>
-              </g>
-            );
-          })}
+          {/* Layered ghost planes — architectural depth */}
+          <rect
+            x="252"
+            y="8"
+            width="128"
+            height="164"
+            rx="14"
+            fill="#F6F8FD"
+            opacity="0.65"
+            transform="rotate(5 316 90)"
+          />
+          <rect
+            x="18"
+            y="214"
+            width="128"
+            height="148"
+            rx="14"
+            fill="#F3FAFB"
+            opacity="0.55"
+            transform="rotate(-4 82 288)"
+          />
 
           {/* Interrupted dashed connectors */}
           {LINKS.map((l) => (
@@ -140,44 +128,86 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
               <circle
                 cx={l.to[0]}
                 cy={l.to[1]}
-                r={l.amber ? 3 : 2.5}
+                r={l.amber ? 2.8 : 2.3}
                 fill={l.amber ? "#D97706" : "#9A94A6"}
               />
             </g>
           ))}
 
-          {/* Central generic-CRM block — data inside */}
-          <g>
+          {/* Muted central block — data inside, dashed generic shell */}
+          <g opacity="0.92">
             <rect
-              x="168"
-              y="120"
-              width="144"
-              height="60"
-              rx="8"
-              fill="#FFFFFF"
+              x="152"
+              y="186"
+              width="96"
+              height="44"
+              rx="10"
+              fill="#F5F3ED"
               stroke="#D8D3C6"
               strokeWidth="1"
-              filter="url(#crm-problem-shadow)"
+              strokeDasharray="4 4"
             />
             <text
-              x="240"
-              y="141"
+              x="200"
+              y="212"
               textAnchor="middle"
-              fontSize="10"
+              fontSize="8"
               fontWeight="700"
-              letterSpacing="0.8"
-              fill="#171C29"
+              letterSpacing="1"
+              fill="#8A8FA0"
               fontFamily="JetBrains Mono, ui-monospace, monospace"
             >
               {t.center}
             </text>
-            <rect x="186" y="152" width="84" height="4" rx="2" fill="#3157F6" />
-            <rect x="186" y="160" width="58" height="4" rx="2" fill="#EAE6DA" />
-            <rect x="186" y="168" width="70" height="4" rx="2" fill="#EAE6DA" />
           </g>
 
-          {/* Subtle cyan presence in the WhatsApp chip */}
-          <circle cx="440" cy="271" r="2" fill="#17B4CD" />
+          {/* Scattered operational fragments */}
+          {FRAGMENTS.map((f, i) => {
+            const x = f.cx - f.w / 2;
+            const y = f.cy - H / 2;
+            return (
+              <g key={t.nodes[i]} transform={`rotate(${f.rot} ${f.cx} ${f.cy})`}>
+                <rect
+                  x={x}
+                  y={y}
+                  width={f.w}
+                  height={H}
+                  rx="7"
+                  fill="#FFFFFF"
+                  stroke="#DCD7CB"
+                  strokeWidth="1"
+                  filter="url(#crm-tension-shadow)"
+                />
+                <text
+                  x={x + 10}
+                  y={y + 17}
+                  fontSize="8"
+                  fontWeight="600"
+                  letterSpacing="1"
+                  fill="#4A5164"
+                  fontFamily="JetBrains Mono, ui-monospace, monospace"
+                >
+                  {t.nodes[i]}
+                </text>
+                <rect
+                  x={x + 10}
+                  y={y + 26}
+                  width={f.w * 0.56}
+                  height="3"
+                  rx="1.5"
+                  fill={f.accent || "#EAE6DA"}
+                />
+                <rect
+                  x={x + 10}
+                  y={y + 33}
+                  width={f.w * 0.38}
+                  height="3"
+                  rx="1.5"
+                  fill="#EAE6DA"
+                />
+              </g>
+            );
+          })}
         </svg>
 
         {/* Bottom annotation */}

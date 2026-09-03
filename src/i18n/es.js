@@ -383,8 +383,8 @@ export const ES = {
     },
     problem: {
       kicker: "El problema",
-      title:
-        "Un CRM genérico almacena información. Una inmobiliaria necesita que el sistema entienda cómo trabaja.",
+      titleA: "Un CRM genérico almacena información.",
+      titleB: "Una inmobiliaria necesita que el sistema entienda cómo trabaja.",
       intro: "Tipos de problemas que este tipo de sistema está construido para eliminar:",
       howLabel: "Cómo lo resuelve el CRM",
       pains: [

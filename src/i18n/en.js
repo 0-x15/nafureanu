@@ -382,9 +382,9 @@ export const EN = {
     },
     problem: {
       kicker: "The problem",
-      title:
-        "A generic CRM stores information. An agency needs a system that understands how it works.",
-      intro: "Types of problems this kind of system is built to remove:",
+      titleA: "A generic CRM stores information.",
+      titleB: "A real-estate business needs a system that understands how it works.",
+      intro: "The kinds of problems this type of system is built to remove:",
       howLabel: "How the CRM solves it",
       pains: [
         {
