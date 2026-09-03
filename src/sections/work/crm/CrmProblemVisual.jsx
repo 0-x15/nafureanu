@@ -13,38 +13,39 @@ const T = {
   },
 };
 
-/* Free-floating operational fragments — staggered, slightly rotated */
+/* Fragments alternating along the broken central spine */
 const NODES = [
-  { pos: "left-[1%] top-[0%] w-[28%]", rot: "-rotate-2", bar: "#3157F6", lift: true },
-  { pos: "left-[62%] top-[3%] w-[30%]", rot: "rotate-[1.5deg]", bar: null, lift: false },
-  { pos: "left-[0%] top-[27%] w-[26%]", rot: "rotate-1", bar: null, lift: false },
-  { pos: "left-[66%] top-[31%] w-[29%]", rot: "-rotate-[1.5deg]", bar: null, lift: true },
-  { pos: "left-[2%] top-[58%] w-[29%]", rot: "rotate-2", bar: null, lift: false },
-  { pos: "left-[60%] top-[64%] w-[29%]", rot: "-rotate-1", bar: "#17B4CD", lift: false },
+  { pos: "left-[3%] top-[2%] w-[35%]", rot: "-rotate-1", bar: "#3157F6" },
+  { pos: "left-[62%] top-[13%] w-[35%]", rot: "rotate-[1.5deg]", bar: null },
+  { pos: "left-[3%] top-[35%] w-[35%]", rot: "rotate-[1.5deg]", bar: null },
+  { pos: "left-[62%] top-[46%] w-[35%]", rot: "-rotate-1", bar: null },
+  { pos: "left-[3%] top-[68%] w-[35%]", rot: "-rotate-[1.5deg]", bar: null },
+  { pos: "left-[62%] top-[79%] w-[35%]", rot: "rotate-1", bar: "#17B4CD" },
 ];
 
-/* Interrupted connectors toward the muted central block */
+/* Interrupted stubs toward the spine — the workflow never connects */
 const LINKS = [
-  { from: [15, 13], to: [41, 32], amber: true },
-  { from: [77, 16], to: [58, 31], amber: false },
-  { from: [26, 33], to: [33, 38], amber: false },
-  { from: [68, 42], to: [62, 47], amber: false },
-  { from: [16, 57], to: [44, 50], amber: true },
-  { from: [74, 63], to: [59, 49], amber: false },
+  { from: [38, 8], to: [46, 8], amber: true },
+  { from: [62, 19], to: [54, 19], amber: false },
+  { from: [36, 36], to: [46, 32], amber: false },
+  { from: [62, 53], to: [54, 53], amber: false },
+  { from: [38, 74], to: [46, 76], amber: true },
+  { from: [62, 85], to: [54, 87], amber: false },
 ];
 
 /**
- * "El problema" supporting visual — a free-form operational-tension
- * field: six displaced mini-surfaces around a muted generic-CRM
- * block, joined only by thin interrupted dashed lines. No frame, no
- * dashboard — a scattered workflow that never connects.
+ * "El problema" supporting visual — a broken-pipeline composition:
+ * one central vertical spine, severed where the muted "CRM genérico"
+ * block sits, with the six operational fragments alternating left
+ * and right, attached by nothing but short interrupted stubs.
+ * Conceptual and corporate, not a dashboard.
  */
 export default function CrmProblemVisual({ lang = "es", className = "" }) {
   const t = T[lang];
 
   return (
     <div className={cn("relative", className)}>
-      <div className="relative h-[420px] md:h-[440px]">
+      <div className="relative h-[440px] md:h-[460px]">
         {/* Atmosphere */}
         <div
           aria-hidden="true"
@@ -55,13 +56,36 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           className="absolute -bottom-6 -left-8 h-52 w-52 rounded-full bg-[#3157F6]/[0.07] blur-3xl"
         />
 
-        {/* Interrupted dashed connectors */}
+        {/* Spine + interrupted stubs */}
         <svg
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
           aria-hidden="true"
           className="absolute inset-0 h-full w-full"
         >
+          {/* The severed spine */}
+          <line
+            x1="50"
+            y1="2"
+            x2="50"
+            y2="37"
+            stroke="#A9A4B5"
+            strokeWidth="1"
+            strokeDasharray="3 4"
+            vectorEffect="non-scaling-stroke"
+          />
+          <line
+            x1="50"
+            y1="55"
+            x2="50"
+            y2="98"
+            stroke="#A9A4B5"
+            strokeWidth="1"
+            strokeDasharray="3 4"
+            vectorEffect="non-scaling-stroke"
+          />
+
+          {/* Stubs that never reach the spine */}
           {LINKS.map((l) => (
             <g key={`${l.from[0]}-${l.from[1]}`}>
               <line
@@ -84,8 +108,8 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           ))}
         </svg>
 
-        {/* Muted central block — the generic CRM nothing connects to */}
-        <div className="absolute left-[34%] top-[34%] w-[30%] -rotate-1 rounded-lg border border-dashed border-[#D8D3C6] bg-[#F5F3ED]/90 px-3 py-2.5">
+        {/* Muted central block — where the pipeline breaks */}
+        <div className="absolute left-[39.5%] top-[40%] w-[21%] -rotate-1 rounded-lg border border-dashed border-[#D8D3C6] bg-[#F5F3ED]/90 px-3 py-2.5">
           <p className="text-center font-mono text-[8px] font-bold uppercase tracking-[0.12em] text-[#8A8FA0]">
             {t.center}
           </p>
@@ -95,17 +119,14 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           />
         </div>
 
-        {/* Displaced operational fragments */}
+        {/* Alternating operational fragments */}
         {NODES.map((n, i) => (
           <div
             key={t.nodes[i]}
             className={cn(
-              "absolute rounded-lg border border-[#E2DDD0] bg-white/90 px-3 py-2.5 backdrop-blur-[2px]",
+              "absolute rounded-lg border border-[#E2DDD0] bg-white/90 px-3 py-2.5 shadow-[0_10px_24px_-12px_rgba(12,18,32,0.16)] backdrop-blur-[2px]",
               n.pos,
-              n.rot,
-              n.lift
-                ? "shadow-[0_18px_40px_-16px_rgba(12,18,32,0.24)]"
-                : "shadow-[0_8px_20px_-10px_rgba(12,18,32,0.14)]"
+              n.rot
             )}
           >
             <p className="font-mono text-[8px] font-semibold uppercase tracking-[0.12em] text-[#4A5164]">
