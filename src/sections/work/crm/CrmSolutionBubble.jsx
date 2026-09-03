@@ -11,10 +11,8 @@ export const CRM_BLOB =
   "M88 44 C120 12 180 30 232 18 C268 10 258 34 312 14 C376 -8 448 6 518 32 C572 52 606 92 590 148 C578 194 602 240 556 284 C506 328 420 296 342 318 C268 338 170 330 100 296 C42 266 8 218 24 156 C36 106 0 64 46 40 C60 32 76 52 88 44 Z";
 
 /**
- * The big solution bubble — a real organic bubble: the shape, its
- * edge and its shadow are all the same SVG path. The shadow layer is
- * a blurred, slightly offset duplicate of the exact silhouette, so
- * the depth follows the contour and never reads as a rectangle.
+ * The big solution bubble — a real organic bubble: only the shape,
+ * its gradient fill and its subtle outline. No shadow of any kind.
  * Generous interior padding keeps everything comfortably inside.
  */
 export default function CrmSolutionBubble({ pain, howLabel }) {
@@ -31,23 +29,7 @@ export default function CrmSolutionBubble({ pain, howLabel }) {
             <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.97" />
             <stop offset="100%" stopColor="#E7EDFB" stopOpacity="0.94" />
           </linearGradient>
-          <filter
-            id="crm-blob-soften"
-            x="-30%"
-            y="-30%"
-            width="160%"
-            height="170%"
-          >
-            <feGaussianBlur stdDeviation="12" />
-          </filter>
         </defs>
-        {/* Shape-true shadow — the same silhouette, blurred and offset */}
-        <path
-          d={CRM_BLOB}
-          transform="translate(2,14)"
-          fill="rgba(49,87,246,0.3)"
-          filter="url(#crm-blob-soften)"
-        />
         <path
           d={CRM_BLOB}
           fill="url(#crm-blob-fill)"

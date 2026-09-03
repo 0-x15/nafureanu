@@ -1,5 +1,5 @@
 import { useState, useRef, useLayoutEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import CrmProblemVisual from "./CrmProblemVisual";
@@ -7,12 +7,13 @@ import CrmSolutionBubble from "./CrmSolutionBubble";
 
 const EASE = [0.22, 1, 0.36, 1];
 
-function ProblemRow({ pain, i, active, onSelect }) {
+function ProblemRow({ pain, i, active, onSelect, onTrack }) {
   return (
     <li className="border-t border-border first:border-t-0">
       <button
         type="button"
         aria-controls="crm-solutions"
+        onMouseMove={onTrack}
         onMouseEnter={(e) => onSelect(i, e.currentTarget)}
         onFocus={(e) => onSelect(i, e.currentTarget)}
         onClick={(e) => onSelect(i, e.currentTarget)}
@@ -54,9 +55,28 @@ export default function CrmProblem({ c, lang = "es" }) {
   const hoveredRef = useRef(null);
   const lastRef = useRef(0);
 
+  /* Continuous horizontal follow — a spring-smoothed X motion value
+     driven by pointer movement, starting from the per-item anchor. */
+  const xMotion = useMotionValue(16);
+  const xSpring = useSpring(xMotion, { stiffness: 450, damping: 42 });
+
   const select = (i, el) => {
     hoveredRef.current = el;
     setActive(i);
+  };
+
+  /* While the pointer travels inside an active row, the bubble tracks
+     its container-local X with a fixed stand-off, clamped so it never
+     leaves the shared container. Only used for mouse pointers. */
+  const trackPointer = (e) => {
+    const cEl = containerRef.current;
+    const bEl = bubbleRef.current;
+    if (!cEl || !bEl || active === null) return;
+    const cR = cEl.getBoundingClientRect();
+    const bW = bEl.offsetWidth || anchor.w;
+    const localX = e.clientX - cR.left;
+    const target = localX + 46;
+    xMotion.set(Math.max(10, Math.min(target, cR.width - bW - 10)));
   };
 
   /* Per-item anchor: the bubble follows the hovered row's column and
@@ -84,11 +104,9 @@ export default function CrmProblem({ c, lang = "es" }) {
       Math.max(rowCenter - bH * 0.4, 10),
       Math.max(cH - bH - 10, 10)
     );
-    setAnchor({
-      x: Math.max(10, Math.min(x, cW - bW - 10)),
-      y,
-      w: bW,
-    });
+    const bx = Math.max(10, Math.min(x, cW - bW - 10));
+    setAnchor({ x: bx, y, w: bW });
+    xMotion.set(bx);
   }, [active]);
 
   return (
@@ -137,6 +155,7 @@ export default function CrmProblem({ c, lang = "es" }) {
                   i={idx}
                   active={active === idx}
                   onSelect={select}
+                  onTrack={trackPointer}
                 />
               ))}
             </ul>
@@ -148,6 +167,7 @@ export default function CrmProblem({ c, lang = "es" }) {
                   i={idx + 4}
                   active={active === idx + 4}
                   onSelect={select}
+                  onTrack={trackPointer}
                 />
               ))}
             </ul>
@@ -157,9 +177,9 @@ export default function CrmProblem({ c, lang = "es" }) {
           <motion.div
             ref={bubbleRef}
             className="pointer-events-none absolute left-0 top-0 z-20"
-            style={{ width: anchor.w }}
+            style={{ width: anchor.w, x: xSpring }}
             initial={false}
-            animate={{ x: anchor.x, y: anchor.y }}
+            animate={{ y: anchor.y }}
             transition={{ duration: 0.55, ease: EASE }}
           >
             <motion.div
