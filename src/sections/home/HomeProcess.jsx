@@ -15,7 +15,7 @@ export default function HomeProcess({ lang = "es" }) {
 
   return (
     <section
-      className="bg-background px-5 py-20 md:px-10 md:py-32"
+      className="bg-background px-5 py-20 md:px-10 md:pt-32 md:pb-16"
       aria-labelledby="home-process-heading"
     >
       <div className="mx-auto max-w-[1440px]">
