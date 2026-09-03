@@ -9,6 +9,7 @@ import FlowDiagram from "@/components/diagrams/FlowDiagram";
 import RadialDiagram from "@/components/diagrams/RadialDiagram";
 import SophIADashboard from "@/components/mockups/SophIADashboard";
 import FivoCheckout from "@/components/mockups/FivoCheckout";
+import RealEstateCrmCaseStudy from "@/sections/work/crm/RealEstateCrmCaseStudy";
 import { usePageMeta } from "@/lib/seo";
 
 const MOCKUPS = { sophia: SophIADashboard, fivo: FivoCheckout };
@@ -43,6 +44,10 @@ export default function CaseStudy({ lang = "es" }) {
         </Link>
       </div>
     );
+  }
+
+  if (slug === "sophia") {
+    return <RealEstateCrmCaseStudy lang={lang} />;
   }
 
   const idx = PROJECTS.indexOf(project);

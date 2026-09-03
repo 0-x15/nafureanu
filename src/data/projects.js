@@ -6,6 +6,19 @@ export const PROJECTS = [
     client: { es: "Producto independiente", en: "Independent product" },
     status: { es: "Producto en producción", en: "Live product" },
     discipline: { es: "Pagos / Blockchain", en: "Payments / Blockchain" },
+    card: {
+      category: { es: "Pagos · Blockchain", en: "Payments · Blockchain" },
+      description: {
+        es: "Pagos con stablecoins en 9 redes blockchain a través de una única integración.",
+        en: "Stablecoin payments across 9 blockchain networks through a single integration.",
+      },
+      signals: [
+        { es: "Checkout embebible", en: "Embeddable checkout" },
+        { es: "REST API", en: "REST API" },
+        { es: "Webhooks", en: "Webhooks" },
+        { es: "Circle CCTP", en: "Circle CCTP" },
+      ],
+    },
     stack: [
       "USDC / EURC",
       "Circle CCTP",
@@ -168,6 +181,19 @@ export const PROJECTS = [
     client: { es: "Empresa del sector inmobiliario", en: "Real-estate company" },
     status: { es: "En producción", en: "In production" },
     discipline: { es: "Odoo / Operaciones", en: "Odoo / Operations" },
+    card: {
+      category: { es: "CRM · Operaciones · Odoo", en: "CRM · Operations · Odoo" },
+      description: {
+        es: "Una operación inmobiliaria convertida en un sistema conectado, automatizado y adaptado al negocio.",
+        en: "A real-estate operation turned into a connected, automated system adapted to the business.",
+      },
+      signals: [
+        { es: "Matching automático", en: "Automatic matching" },
+        { es: "20+ módulos Odoo a medida", en: "20+ custom Odoo modules" },
+        { es: "Automatización", en: "Automation" },
+        { es: "Integraciones", en: "Integrations" },
+      ],
+    },
     stack: [
       "Odoo",
       "Python",
@@ -335,6 +361,19 @@ export const PROJECTS = [
     client: { es: "Interno / privado", en: "Internal / private" },
     status: { es: "Privado — no lanzado", en: "Private — not publicly launched" },
     discipline: { es: "CRM a medida", en: "Custom CRM" },
+    card: {
+      category: { es: "Sistema interno de gestión", en: "Internal management system" },
+      description: {
+        es: "Un sistema interno que modela la administración de un negocio de principio a fin — proyecto privado.",
+        en: "An internal system that models business administration end to end — a private project.",
+      },
+      signals: [
+        { es: "CRM a medida", en: "Custom CRM" },
+        { es: "Gestión de flujos", en: "Workflow management" },
+        { es: "Automatización", en: "Automation" },
+        { es: "Privado — no lanzado", en: "Private — not launched" },
+      ],
+    },
     stack: ["Arquitectura a medida", "Gestión de flujos", "CRM", "Administración", "Automatización"],
     stats: [],
     diagram: null,
@@ -485,6 +524,19 @@ export const PROJECTS = [
     client: { es: "Clientes pymes", en: "SME clients" },
     status: { es: "Entregado", en: "Delivered" },
     discipline: { es: "Web", en: "Web" },
+    card: {
+      category: { es: "Web · Productos digitales", en: "Web · Digital products" },
+      description: {
+        es: "Webs corporativas y experiencias interactivas construidas con el mismo criterio que nuestro software.",
+        en: "Corporate websites and interactive experiences built with the same discipline as our software.",
+      },
+      signals: [
+        { es: "React", en: "React" },
+        { es: "Webs corporativas", en: "Corporate websites" },
+        { es: "Experiencias interactivas", en: "Interactive experiences" },
+        { es: "Rendimiento", en: "Performance" },
+      ],
+    },
     stack: ["React", "Webs corporativas", "Experiencias interactivas", "Rendimiento"],
     stats: [],
     diagram: null,

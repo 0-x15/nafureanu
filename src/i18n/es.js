@@ -59,24 +59,24 @@ export const ES = {
         copy: "Un CRM inmobiliario a medida centraliza propiedades, clientes y operaciones, automatiza procesos y adapta Odoo a la forma real de trabajar del negocio.",
         context: "CRM inmobiliario · Odoo · Automatización · Integraciones",
         proof: { value: 40, suffix: "K+", label: "Propiedades gestionadas" },
-        to: "/work/sophia",
-        cta: "Explorar CRM inmobiliario",
+        to: "/work",
+        cta: "Ver proyectos",
       },
       {
         headline: "Software que se adapta al negocio.",
         copy: "Construimos lógica, módulos, automatizaciones e integraciones alrededor de los procesos reales de cada empresa — no al revés.",
         context: "Odoo · Python · PostgreSQL · Integrations",
         proof: { value: 20, suffix: "+", label: "Módulos Odoo personalizados" },
-        to: "/work/odoo-engineering",
-        cta: "Ver ingeniería Odoo",
+        to: "/work",
+        cta: "Ver proyectos",
       },
       {
         headline: "Infraestructura compleja. Experiencia simple.",
         copy: "Fivo conecta pagos con stablecoins, verificación on-chain y liquidación cross-chain para que la complejidad ocurra detrás del producto.",
         context: "Fivo · Payments · USDC / EURC · Circle CCTP",
         proof: { value: 9, suffix: "", label: "Redes blockchain" },
-        to: "/work/fivo",
-        cta: "Explorar Fivo",
+        to: "/work",
+        cta: "Ver proyectos",
       },
     ],
   },
@@ -358,14 +358,188 @@ export const ES = {
   ],
   workPage: {
     kicker: "Proyectos",
-    h1: "Trabajo seleccionado.",
+    h1: "Sistemas que ya están trabajando.",
     intro:
-      "Sistemas y productos que operan en producción — presentados por lo que hacen, no por lo que prometen.",
-    practiceKicker: "Más práctica de ingeniería",
+      "Software, automatización e infraestructura construidos alrededor de problemas reales de negocio.",
+    secondary:
+      "Explora cómo convertimos operaciones, procesos y productos en sistemas que funcionan.",
+    viewProject: "Ver proyecto",
+    close: {
+      line: "Cada proyecto empezó con un proceso que podía funcionar mejor.",
+      cta: "Hablar de un proyecto",
+    },
+  },
+  crm: {
+    hero: {
+      kicker: "CRM inmobiliario a medida",
+      title: "Cuando el CRM se adapta a la inmobiliaria. No al revés.",
+      support:
+        "Un sistema construido sobre Odoo para centralizar propiedades, clientes, demandas, visitas y operaciones — automatizando el trabajo que normalmente depende del equipo.",
+      proof: [
+        { value: "40K+", label: "Propiedades gestionadas" },
+        { value: "20+", label: "Módulos Odoo a medida" },
+      ],
+      tech: "Odoo · Python · PostgreSQL · Automatización · IA · APIs",
+    },
+    problem: {
+      kicker: "El problema",
+      title:
+        "Un CRM genérico almacena información. Una inmobiliaria necesita que el sistema entienda cómo trabaja.",
+      intro: "Tipos de problemas que este tipo de sistema está construido para eliminar:",
+      pains: [
+        "Leads que nadie atiende a tiempo.",
+        "Matching entre clientes e inmuebles hecho manualmente.",
+        "Información duplicada entre herramientas.",
+        "Portales que hay que actualizar por separado.",
+        "Visitas y calendario desconectados del CRM.",
+        "Documentación que depende de revisión manual.",
+        "Seguimientos que dependen de que alguien los recuerde.",
+        "WhatsApp y llamadas fuera del contexto del cliente.",
+      ],
+    },
+    system: {
+      kicker: "El sistema",
+      title: "Una operación inmobiliaria convertida en software.",
+      flow: {
+        intake: "Captación",
+        property: "Inmueble",
+        matching: "Matching",
+        demand: "Demanda / Cliente",
+        visit: "Visita",
+        negotiation: "Negociación",
+        deposit: "Arras",
+        financing: "Financiación",
+        deed: "Escritura",
+        afterSales: "Postventa",
+        note: "Oferta ↔ Demanda — cruzadas automáticamente",
+      },
+      layersLabel: "Capas del sistema",
+      layers: [
+        "Automatización",
+        "IA",
+        "WhatsApp",
+        "Calendario",
+        "Documentación",
+        "Portales",
+        "Reporting",
+      ],
+    },
+    automation: {
+      kicker: "Automatización",
+      title: "Trabajo que el CRM hace solo.",
+      modules: [
+        {
+          title: "Matching automático",
+          text: "Cruza demanda e inmuebles y detecta coincidencias sin búsqueda manual.",
+        },
+        {
+          title: "Seguimiento de leads",
+          text: "El sistema controla tiempos de respuesta, actividad y seguimientos pendientes.",
+        },
+        {
+          title: "Checklists inteligentes",
+          text: "Los requisitos del expediente avanzan conforme el propio sistema detecta que se han cumplido.",
+        },
+        {
+          title: "Alertas y recordatorios",
+          text: "Visitas, documentación, tareas, exclusivas y operaciones dejan de depender de la memoria.",
+        },
+        {
+          title: "Sincronización de operaciones",
+          text: "Los cambios se propagan entre CRM, agenda, portales y herramientas conectadas.",
+        },
+        {
+          title: "Cualificación asistida por IA",
+          text: "Conversaciones y llamadas pueden convertirse en información estructurada dentro del CRM.",
+        },
+      ],
+    },
+    matching: {
+      title: "El CRM no solo guarda datos. Los utiliza para encontrar oportunidades.",
+      paras: [
+        "El sistema de matching compara la oferta de inmuebles con la demanda de compradores e inquilinos: evalúa criterios relevantes y detecta oportunidades compatibles sin búsqueda manual.",
+        "Funciona en las dos direcciones: desde un cliente hacia los inmuebles compatibles, y desde un inmueble hacia los posibles interesados.",
+      ],
+      demo: {
+        demand: "Demanda",
+        criteria: ["3 dormitorios", "Zona", "Presupuesto", "Características"],
+        engine: "Matching",
+        results: "Coincidencias",
+        resultRow: "Inmueble compatible",
+      },
+    },
+    documents: {
+      title: "Los documentos forman parte del proceso, no son simples archivos adjuntos.",
+      paras: [
+        "Cada documento pertenece a una operación: tiene requisitos, estado, revisión y firma. El expediente avanza conforme el sistema detecta que se ha cumplido.",
+      ],
+      states: ["Pendiente", "Revisión", "Aprobado"],
+    },
+    operations: {
+      title: "De la visita al cierre, dentro del mismo sistema.",
+      paras: [
+        "El CRM puede modelar las etapas de la operación inmobiliaria — visita, seguimiento, negociación, arras, financiación, escritura y postventa — con sus estados, plazos y dependencias.",
+      ],
+      stages: ["Visita", "Seguimiento", "Negociación", "Arras", "Financiación", "Escritura", "Postventa"],
+    },
+    integrations: {
+      kicker: "Integraciones",
+      title: "El CRM forma parte del ecosistema de la inmobiliaria.",
+      note: "Herramientas y portales conectados con el sistema en este proyecto.",
+      list: ["Idealista", "Fotocasa", "MLS", "WhatsApp", "Google Calendar", "Odoo Sign"],
+    },
+    ai: {
+      title: "IA dentro del proceso, no encima del producto.",
+      paras: [
+        "La IA asiste donde el proceso lo necesita: conversación, cualificación de leads, extracción de información, flujos de llamadas y flujos de documentos.",
+      ],
+      key: "La IA trabaja sobre los datos y reglas del sistema. No sustituye la lógica del negocio.",
+    },
+    odoo: {
+      kicker: "Ingeniería Odoo",
+      title: "Odoo como base. La operación del cliente como diseño.",
+      copy: "Partimos de la infraestructura de Odoo, pero adaptamos modelos, lógica, automatizaciones e interfaz hasta que el sistema trabaja como trabaja la empresa.",
+      items: [
+        {
+          title: "Módulos propios",
+          text: "Creamos funcionalidad que Odoo no ofrece de serie.",
+        },
+        {
+          title: "Módulos adaptados",
+          text: "Extendemos y modificamos módulos existentes alrededor del proceso real.",
+        },
+        {
+          title: "Lógica de negocio",
+          text: "Implementamos reglas, validaciones y automatizaciones específicas en Python.",
+        },
+        {
+          title: "Interfaces propias",
+          text: "Cuando la experiencia estándar no encaja, construimos superficies de trabajo adaptadas al equipo.",
+        },
+        {
+          title: "Integraciones",
+          text: "Conectamos Odoo con las herramientas que ya participan en la operación.",
+        },
+      ],
+    },
+    gallery: {
+      kicker: "El sistema por dentro",
+      title: "Vistas del entorno de demostración.",
+      items: [
+        "Panel de operaciones",
+        "Ficha de inmueble",
+        "Matching",
+        "Gestión de demanda",
+        "Automatización / tareas",
+        "Integraciones",
+      ],
+    },
     cta: {
-      kicker: "Contacto",
-      title: "¿Quieres un sistema así?",
-      note: "Cada proyecto de esta página empezó con una conversación sobre un proceso que no funcionaba.",
+      kicker: "¿Tu CRM no encaja con tu operación?",
+      title: "No necesitas cambiar cómo trabaja tu empresa para adaptarte al software.",
+      copy: "Podemos diseñar el sistema alrededor de tus procesos, automatizaciones e integraciones.",
+      primary: "Hablar de un proyecto",
+      secondary: "Ver todos los proyectos",
     },
   },
   caseStudy: {
