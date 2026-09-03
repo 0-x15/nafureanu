@@ -34,8 +34,8 @@ export default function CrmAutomationLane({
       onFocus={onEngage}
       onBlur={onRelease}
       className={cn(
-        "relative grid gap-5 border-t border-white/[0.08] px-5 py-6 outline-none transition-[opacity,background-color] duration-300 first:border-t-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#3157F6]/60 md:px-6 md:py-7 lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] lg:gap-10",
-        active && "bg-white/[0.035]",
+        "relative grid gap-5 border-t border-border px-5 py-6 outline-none transition-[opacity,background-color] duration-300 first:border-t-0 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent/40 md:px-6 md:py-7 lg:grid-cols-[minmax(0,34%)_minmax(0,1fr)] lg:gap-10",
+        active && "bg-accent/[0.04]",
         state === "dim" && "opacity-75"
       )}
     >
@@ -43,10 +43,10 @@ export default function CrmAutomationLane({
         {/* The number sits on the automation spine */}
         <span
           className={cn(
-            "relative z-10 mt-0.5 flex h-6 min-w-6 shrink-0 items-center justify-center rounded-full border bg-[#121A29] px-1.5 font-mono text-[10px] transition-colors duration-300",
+            "relative z-10 mt-0.5 flex h-6 min-w-6 shrink-0 items-center justify-center rounded-full border bg-white px-1.5 font-mono text-[10px] transition-colors duration-300",
             active
-              ? "border-[#3157F6] text-[#8FA5E8]"
-              : "border-white/15 text-[#5B84FF]"
+              ? "border-accent text-accent-deep"
+              : "border-border text-accent"
           )}
         >
           {module.num}
@@ -54,20 +54,20 @@ export default function CrmAutomationLane({
         <div className="min-w-0">
           <h3
             id={titleId}
-            className="font-heading text-lg font-bold tracking-[-0.01em] text-white md:text-xl"
+            className="font-heading text-lg font-bold tracking-[-0.01em] text-foreground md:text-xl"
           >
             {module.title}
           </h3>
           <p
             className={cn(
               "mt-2 max-w-md text-sm leading-relaxed transition-colors duration-300",
-              active ? "text-white/80" : "text-white/60"
+              active ? "text-foreground/80" : "text-muted-foreground"
             )}
           >
             {module.text}
           </p>
           {module.note && (
-            <p className="mt-3 max-w-md border-l border-[#3157F6]/60 pl-3 text-[12.5px] leading-relaxed text-[#8FA5E8]">
+            <p className="mt-3 max-w-md border-l border-accent/60 pl-3 text-[12.5px] leading-relaxed text-accent-deep">
               {module.note}
             </p>
           )}
