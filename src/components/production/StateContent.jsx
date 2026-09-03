@@ -25,7 +25,7 @@ export default function StateContent({ state, index, f, lang }) {
   return (
     <motion.div
       style={{ opacity, y, filter, pointerEvents }}
-      className="absolute left-5 top-[26%] z-30 max-w-[54%] md:left-10 md:top-[30%] lg:max-w-[560px]"
+      className="absolute left-5 top-[42%] z-30 max-w-[54%] md:left-10 md:top-[43%] lg:max-w-[560px]"
     >
       <h3 className="font-heading text-4xl font-bold leading-[1.04] tracking-[-0.03em] text-foreground md:text-5xl">
         {state.headline}
