@@ -1000,20 +1000,6 @@ export const EN = {
       closing: "We don't start with the platform. We start with the operation.",
       closingSupport: "On Odoo when it adds value. From scratch when the system needs its own architecture.",
     },
-    gallery: {
-      kicker: "Inside the system",
-      title: "Views of the demo environment.",
-      items: [
-        "Operations dashboard",
-        "Property detail",
-        "Matching",
-        "Demand",
-        "Visits",
-        "Documentation",
-        "Automation",
-        "Integrations",
-      ],
-    },
     cta: {
       kicker: "Does your CRM not fit your operation?",
       title: "You don't need to change how your company works to fit the software.",

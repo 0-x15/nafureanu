@@ -1001,20 +1001,6 @@ export const ES = {
       closing: "No empezamos por la plataforma. Empezamos por la operación.",
       closingSupport: "Sobre Odoo cuando aporta valor. Desde cero cuando el sistema necesita arquitectura propia.",
     },
-    gallery: {
-      kicker: "El sistema por dentro",
-      title: "Vistas del entorno de demostración.",
-      items: [
-        "Panel de operaciones",
-        "Ficha de inmueble",
-        "Matching",
-        "Demanda",
-        "Visitas",
-        "Documentación",
-        "Automatización",
-        "Integraciones",
-      ],
-    },
     cta: {
       kicker: "¿Tu CRM no encaja con tu operación?",
       title: "No necesitas cambiar cómo trabaja tu empresa para adaptarte al software.",

@@ -7,14 +7,13 @@ import CrmAutomation from "./CrmAutomation";
 import CrmMatching from "./CrmMatching";
 import CrmIntegrations from "./CrmIntegrations";
 import CrmOdoo from "./CrmOdoo";
-import CrmGallery from "./CrmGallery";
 import CrmFinalCta from "./CrmFinalCta";
 
 /**
- * CRM case-study page — a corporate product page in eight scannable
+ * CRM case-study page — a corporate product page in seven scannable
  * movements: qué resuelve, qué centraliza, automatizaciones,
- * matching, integraciones, Odoo a medida, superficies del sistema
- * and a light final CTA. Back navigation sits at the very top.
+ * matching, integraciones, Odoo a medida and a light final CTA.
+ * Back navigation sits at the very top.
  */
 export default function CrmCaseStudy({ lang = "es" }) {
   const c = STRINGS[lang].crm;
@@ -34,7 +33,6 @@ export default function CrmCaseStudy({ lang = "es" }) {
       <CrmMatching c={c} />
       <CrmIntegrations c={c} />
       <CrmOdoo c={c} />
-      <CrmGallery c={c} />
       <CrmFinalCta lang={lang} c={c} />
     </article>
   );
