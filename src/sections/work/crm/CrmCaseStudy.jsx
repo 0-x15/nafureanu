@@ -13,8 +13,8 @@ import CrmFinalCta from "./CrmFinalCta";
 /**
  * CRM case-study page — a corporate product page in eight scannable
  * movements: qué resuelve, qué centraliza, automatizaciones,
- * matching, integraciones, Odoo a medida, the interactive CRM demo
- * invitation and a light final CTA. Back navigation sits at the very top.
+ * matching, integraciones, Odoo a medida, superficies del sistema
+ * and a light final CTA. Back navigation sits at the very top.
  */
 export default function CrmCaseStudy({ lang = "es" }) {
   const c = STRINGS[lang].crm;
@@ -34,7 +34,7 @@ export default function CrmCaseStudy({ lang = "es" }) {
       <CrmMatching c={c} />
       <CrmIntegrations c={c} />
       <CrmOdoo c={c} />
-      <CrmGallery lang={lang} c={c} />
+      <CrmGallery c={c} />
       <CrmFinalCta lang={lang} c={c} />
     </article>
   );
