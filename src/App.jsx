@@ -10,6 +10,7 @@ import CaseStudy from "./pages/CaseStudy";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SiteLayout from "./components/layout/SiteLayout";
+import CrmDemoApp from "./features/crm-demo/CrmDemoApp";
 
 function App() {
   return (
@@ -35,6 +36,9 @@ function App() {
             <Route path="/en/about" element={<About lang="en" />} />
             <Route path="/en/contact" element={<Contact lang="en" />} />
           </Route>
+          {/* Interactive CRM demo — its own application shell, outside SiteLayout */}
+          <Route path="/work/crm-inmobiliario/demo" element={<CrmDemoApp lang="es" />} />
+          <Route path="/en/work/real-estate-crm/demo" element={<CrmDemoApp lang="en" />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Router>
