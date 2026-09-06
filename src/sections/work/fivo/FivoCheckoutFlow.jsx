@@ -53,7 +53,7 @@ export default function FivoCheckoutFlow({ c }) {
               <p className="mt-1.5 text-[13px] leading-relaxed text-[#5A6070]">{s.text}</p>
               <div className="mt-4 max-w-[280px] md:max-w-none">
                 {s.image ? (
-                  <Shot id={s.image} alt={s.alt} className="rounded-xl border-[#2A3050]" />
+                  <Shot id={s.image} alt={s.alt} className="rounded-xl" />
                 ) : (
                   <StateCard state={s.state} />
                 )}

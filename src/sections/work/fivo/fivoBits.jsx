@@ -58,16 +58,18 @@ export function ChapterHead({ kicker, title, intro, wide = false, className = ""
 
 /* Intrinsic sizes of the sanitized assets in /public/work/fivo (for CLS). */
 export const SHOTS = {
-  "checkout-network": [640, 1350],
-  "checkout-confirm": [646, 924],
-  "checkout-processing": [652, 692],
-  "checkout-complete": [652, 690],
-  "product-button": [678, 1170],
-  "cart-checkout": [914, 1550],
-  "checkout-light": [772, 1528],
-  "crosschain-progress-light": [758, 812],
+  "checkout-network": [772, 1528],
+  "checkout-confirm": [756, 1092],
+  "checkout-processing": [758, 812],
+  "checkout-complete": [748, 820],
+  "cart-panel": [726, 1034],
+  "hosted-checkout": [716, 1540],
+  "crosschain-confirm": [712, 1088],
+  "crosschain-progress": [712, 794],
+  "connect-wallet": [712, 860],
+  "payment-complete-store": [2400, 1260],
   "demo-store-light": [2400, 1260],
-  "merchant-dashboard": [2400, 1200],
+  "merchant-dashboard": [642, 416],
   invoice: [1270, 760],
   "fivo-icon": [256, 256],
 };

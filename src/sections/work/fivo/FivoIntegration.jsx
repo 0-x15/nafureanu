@@ -86,8 +86,8 @@ export default function FivoIntegration({ c }) {
               <div>
                 <Mono>{t.resultLabel}</Mono>
                 <div className="mt-2">
-                  {m.id === "widget" && <Shot id="product-button" alt={m.result} className="rounded-xl border-[#2A3050]" />}
-                  {m.id === "session" && <Shot id="checkout-light" alt={m.result} />}
+                  {m.id === "widget" && <Shot id="cart-panel" alt={m.result} />}
+                  {m.id === "session" && <Shot id="hosted-checkout" alt={m.result} />}
                   {m.id === "api" && (
                     <ul className="divide-y divide-[#EEF1F7] overflow-hidden rounded-xl border border-[#E1E5EF] bg-white">
                       {m.endpoints.map(([verb, path]) => (

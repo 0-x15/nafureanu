@@ -5,11 +5,11 @@ import { Chapter, ChapterHead, Shot } from "./fivoBits";
 /* Editorial placement: [column span, portrait crop] per item id. */
 const LAYOUT = {
   "demo-store-light": { span: "md:col-span-4", crop: false },
-  "checkout-light": { span: "md:col-span-2", crop: true },
-  "merchant-dashboard": { span: "md:col-span-4", crop: false, dark: true },
-  "crosschain-progress-light": { span: "md:col-span-2", crop: true },
+  "connect-wallet": { span: "md:col-span-2", crop: true },
+  "merchant-dashboard": { span: "md:col-span-4", crop: false },
+  "crosschain-progress": { span: "md:col-span-2", crop: true },
   invoice: { span: "md:col-span-3", crop: false },
-  "cart-checkout": { span: "md:col-span-3", crop: true, dark: true },
+  "payment-complete-store": { span: "md:col-span-3", crop: true },
 };
 
 /** Inside the product — an art-directed sequence of real surfaces. */
@@ -25,7 +25,7 @@ export default function FivoProductSurfaces({ c }) {
             <li key={item.id} className={cn("flex flex-col", l.span)}>
               <Reveal variant="scale" delay={(i % 2) * 0.06} className="flex-1">
                 <figure className="flex h-full flex-col">
-                  <div className={cn("relative overflow-hidden rounded-2xl border shadow-[0_24px_60px_-28px_rgba(12,18,32,0.35)]", l.dark ? "border-[#2A3050]" : "border-[#E1E5EF]", l.crop && "aspect-[4/5] md:aspect-auto md:min-h-[280px] md:flex-1")}>
+                  <div className={cn("relative overflow-hidden rounded-2xl border shadow-[0_24px_60px_-28px_rgba(12,18,32,0.35)]", "border-[#E1E5EF]", l.crop && "aspect-[4/5] md:aspect-auto md:min-h-[280px] md:flex-1")}>
                     <Shot
                       id={item.id}
                       alt={`${item.title}. ${item.text}`}

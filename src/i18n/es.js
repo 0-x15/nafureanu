@@ -1031,7 +1031,7 @@ export const ES = {
       product: { label: "Producto en producción", host: "fivo.finance", url: "https://fivo.finance" },
       composition: {
         dashboard: "Panel del comercio de Fivo con saldos por wallet e ingresos en el tiempo",
-        checkout: "Checkout de Fivo: selección de red para un pago de 4,00 USDC",
+        checkout: "Checkout de Fivo en tema claro: selección de red para un pago de 0,01 USDC",
         complete: "Pago completado en el checkout de Fivo",
         settle: { label: "Liquidación", value: "USDC · Base", status: "Verificado en cadena" },
       },
@@ -1045,7 +1045,7 @@ export const ES = {
         { title: "Varias redes", text: "Cada red tiene sus contratos de USDC, sus nodos RPC y sus tiempos de confirmación." },
         { title: "Compatibilidad token y red", text: "EURC no existe en todas las redes: una cadena puede ser válida para un token y no para otro." },
         { title: "Interacción con la wallet", text: "Conectar, comprobar saldos en cada red y firmar la transacción correcta desde el navegador." },
-        { title: "Movimiento entre redes", text: "Si el cliente tiene fondos en Arbitrum y el comercio cobra en Base, alguien tiene que mover el valor." },
+        { title: "Movimiento entre redes", text: "Si el cliente tiene fondos en Polygon y el comercio cobra en Base, alguien tiene que mover el valor." },
         { title: "Confirmación y estado", text: "Verificar en cadena que el pago llegó, por el importe correcto, y reflejarlo en un estado fiable." },
         { title: "Integración y operación", text: "El desarrollador necesita una API; el comercio necesita ver, reembolsar, retirar y facturar." },
       ],
@@ -1091,7 +1091,7 @@ export const ES = {
   currency="USDC"
   data-reference="order_1042">
 </fivo-button>`,
-          result: "Botón de producto en una tienda de demostración",
+          result: "Botón de Fivo en el carrito de la tienda de demostración",
         },
         {
           id: "session",
@@ -1114,7 +1114,7 @@ export const ES = {
 { "success": true,
   "data": { "id": "cs_live_…", "url": "https://checkout.fivo.finance/…",
             "expires_at": "2026-09-06T10:30:00.000Z" } }`,
-          result: "Checkout alojado de Fivo",
+          result: "Checkout alojado de Fivo (entorno de pruebas)",
         },
         {
           id: "api",
@@ -1175,7 +1175,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
           title: "Revisar importe y comisiones",
           text: "Si la red del cliente no es la del comercio, el checkout desglosa producto, comisión de puente y gas antes de firmar.",
           image: "checkout-confirm",
-          alt: "Confirmación de pago cross-chain de Arbitrum a Base con desglose de comisiones",
+          alt: "Confirmación de pago cross-chain de Polygon a Base con desglose de comisiones",
         },
         {
           title: "Confirmar en la wallet",
@@ -1195,7 +1195,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
           alt: "Pantalla de pago completado con el importe y los hashes de la transacción",
         },
       ],
-      note: "Pantallas reales del checkout de Fivo. Importe de prueba: 4,00 USDC.",
+      note: "Pantallas reales del checkout de Fivo en tema claro. Importe de prueba: 0,01 USDC, de Polygon a Base.",
     },
     crosschain: {
       kicker: "Cross-chain",
@@ -1203,7 +1203,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       intro:
         "Cuando la red del cliente y la del comercio no coinciden, Fivo usa Circle Bridge Kit sobre CCTP v2 para mover USDC entre cadenas dentro del mismo pago. El comercio recibe el importe exacto en su wallet; el cliente asume la comisión de puente y el gas.",
       lanes: [
-        { id: "customer", label: "Cliente", name: "USDC · Arbitrum", sub: "Wallet del cliente" },
+        { id: "customer", label: "Cliente", name: "USDC · Polygon", sub: "Wallet del cliente" },
         { id: "checkout", label: "Checkout de Fivo", name: "Estimación y confirmación", sub: "Desglose de comisiones antes de firmar" },
         { id: "circle", label: "Capa cross-chain de Circle", name: "Bridge Kit · CCTP v2", sub: "approve → burn → attestation → mint" },
         { id: "merchant", label: "Comercio", name: "USDC · Base", sub: "Wallet del comercio" },
@@ -1230,8 +1230,8 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
         title: "EURC",
         text: "EURC se acepta en Ethereum, Avalanche y Base, siempre en la misma red: no se mueve entre cadenas.",
       },
-      imageAlt: "Progreso de un pago cross-chain en el checkout de Fivo: aprobación y quema completadas, verificación en curso",
-      imageCaption: "Pantalla real del checkout durante un pago cross-chain.",
+      imageAlt: "Confirmación de un pago cross-chain en el checkout de Fivo: producto, comisión de puente, gas y ruta entre redes",
+      imageCaption: "Pantalla real del checkout (entorno de pruebas): el cliente ve la ruta entre redes, las comisiones y cuánto ahorraría pagando desde la red del comercio.",
     },
     networks: {
       kicker: "Redes",
@@ -1386,14 +1386,14 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     surfaces: {
       kicker: "El producto por dentro",
       title: "Superficies reales del producto.",
-      intro: "Capturas del checkout, del panel y de las tiendas de demostración. Datos de prueba; ninguna información de comercios reales.",
+      intro: "Capturas del checkout, del panel y de la tienda de demostración, todas en tema claro. Datos de prueba; ninguna información de comercios reales.",
       items: [
         { id: "demo-store-light", size: "large", title: "Tienda de demostración", text: "El botón de Fivo conectado a un carrito: lee el total de la página y abre el checkout con ese importe." },
-        { id: "checkout-light", size: "medium", title: "Checkout en tema claro", text: "El mismo checkout adaptado al sitio del comercio: red seleccionada, saldo disponible y tipo de pago." },
-        { id: "merchant-dashboard", size: "large", title: "Panel del comercio", text: "Saldos por wallet, ingresos en el tiempo y acceso a transacciones, wallets, webhooks y claves de API." },
-        { id: "crosschain-progress-light", size: "medium", title: "Pago cross-chain en curso", text: "Aprobación, quema, verificación y entrega: el cliente ve cada paso hasta que llegan los fondos." },
+        { id: "connect-wallet", size: "medium", title: "Conexión de la wallet", text: "El checkout se abre con el importe y pide el email del recibo antes de conectar la wallet del cliente." },
+        { id: "merchant-dashboard", size: "large", title: "Panel del comercio", text: "Saldos por wallet, ingresos en el tiempo y acceso a transacciones, wallets, facturas, reembolsos, webhooks y claves de API." },
+        { id: "crosschain-progress", size: "medium", title: "Pago cross-chain en curso", text: "Aprobación, quema, verificación y entrega: el cliente ve cada paso hasta que llegan los fondos." },
         { id: "invoice", size: "medium", title: "Factura automática", text: "Generada tras cada retiro, con la comisión, el IVA aplicable y la referencia en cadena." },
-        { id: "cart-checkout", size: "large", title: "Carrito con pago en USDC", text: "Pago con tarjeta o con USDC en la misma tienda: el botón de Fivo convive con el resto del checkout." },
+        { id: "payment-complete-store", size: "large", title: "Pago completado sobre la tienda", text: "El estado final del checkout sobre la tienda de demostración: importe, transacción y entrega confirmadas." },
       ],
     },
     cta: {

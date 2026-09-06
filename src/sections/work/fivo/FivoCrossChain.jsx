@@ -119,7 +119,7 @@ export default function FivoCrossChain({ c }) {
         </Reveal>
         <Reveal variant="scale" delay={0.08} className="min-w-0 lg:col-span-5">
           <div className="mx-auto max-w-[360px] lg:ml-auto lg:mr-0">
-            <Shot id="crosschain-progress-light" alt={x.imageAlt} />
+            <Shot id="crosschain-confirm" alt={x.imageAlt} />
             <p className="mt-2 text-[11px] text-muted-foreground">{x.imageCaption}</p>
           </div>
         </Reveal>
