@@ -1,3 +1,5 @@
+import LifeAdminMark from "@/sections/work/life-admin/LifeAdminMark";
+
 /**
  * Abstract fragment for the Life Admin card — quiet structural
  * blocks and a single cobalt thread. No invented data or traction;
@@ -7,7 +9,8 @@ export default function LifeAdminCardVisual() {
   return (
     <div className="w-full max-w-[230px] rounded-lg border border-border bg-[#FCFBF8] p-3 text-left shadow-[0_12px_28px_-14px_rgba(12,18,32,0.2)]">
       <div className="flex items-center justify-between">
-        <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
+        <span className="flex items-center gap-1.5 font-mono text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
+          <LifeAdminMark className="h-3 w-3 text-foreground/70" />
           Life Admin
         </span>
         <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />

@@ -1,8 +1,8 @@
-import { LifeBuoy } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import ActionLink from "@/components/ActionLink";
 import { STRINGS, langPath } from "@/i18n";
 import { DISPLAY, Kicker, Mono, Shot, Window } from "./laBits";
+import LifeAdminMark from "./LifeAdminMark";
 
 /**
  * Life Admin hero — what it is, what it replaces, why it exists, and
@@ -20,9 +20,7 @@ export default function LifeAdminHero({ lang, c }) {
           <Reveal>
             <Kicker>{h.kicker}</Kicker>
             <div className="mt-5 flex items-center gap-4">
-              <span aria-hidden="true" className="flex h-11 w-11 items-center justify-center rounded-[12px] bg-[#201F1D] text-[#F9F8F4] shadow-[0_10px_24px_-12px_rgba(32,31,29,0.6)] md:h-12 md:w-12">
-                <LifeBuoy className="h-5 w-5" />
-              </span>
+              <LifeAdminMark className="h-11 w-11 shrink-0 text-[#201F1D] md:h-12 md:w-12" />
               <h1 className={`${DISPLAY} text-5xl font-medium tracking-[-0.02em] text-[#201F1D] md:text-6xl`}>{h.title}</h1>
             </div>
             <p className={`${DISPLAY} mt-7 max-w-3xl text-2xl font-medium leading-[1.16] tracking-[-0.01em] text-[#201F1D] md:text-4xl`}>{h.statement}</p>
