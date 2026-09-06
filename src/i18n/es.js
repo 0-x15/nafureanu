@@ -1423,7 +1423,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       title: "Life Admin",
       statement: "Un lugar tranquilo para no olvidar ninguna suscripción, factura, renovación ni plazo.",
       support:
-        "Life Admin convierte los documentos que ya recibes (facturas, recibos, contratos, confirmaciones) en obligaciones estructuradas. A partir de ahí el sistema deriva los ciclos, mantiene un estado de pago honesto, sigue las compras con sus derechos y solo te pregunta cuando de verdad falta un dato.",
+        "Life Admin es un sistema de administración personal para todo lo que normalmente tienes que recordar, revisar y controlar tú mismo. Facturas, recibos, contratos, renovaciones, compras, garantías y pagos dejan de estar repartidos entre emails, PDFs y notas. El sistema extrae la información de los documentos que ya recibes, organiza tus obligaciones, calcula qué viene después, mantiene el estado de cada pago y te avisa cuando algo requiere tu atención. Tú aportas los documentos; Life Admin se encarga de convertirlos en una vida administrativa organizada.",
       status: { label: "Estado verificado", value: "Producto privado · desplegado en Base44 · sin lanzamiento público" },
       proof: [
         { value: "22", label: "Entidades de datos" },
