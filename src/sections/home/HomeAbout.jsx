@@ -31,12 +31,10 @@ export default function HomeAbout({ lang = "es" }) {
         <Reveal>
           <h2
             id="home-about"
-            className="mt-8 font-heading font-bold leading-[1.02] tracking-[-0.03em] text-foreground md:mt-10 md:max-w-[12.5em]"
-            style={{ fontSize: "clamp(32px, 4.4vw, 66px)" }}
+            className="mt-8 font-heading font-bold leading-[1.02] tracking-[-0.03em] text-foreground [text-wrap:balance] md:mt-10"
+            style={{ fontSize: "clamp(34px, 5vw, 76px)" }}
           >
-            {a.titleLines.map((line, i) => (
-              <span key={line} className="md:block">{line}{i < a.titleLines.length - 1 ? " " : ""}</span>
-            ))}
+            {a.title}
           </h2>
         </Reveal>
 

@@ -37,7 +37,6 @@ export const ES = {
     kicker: "Sobre Nafureanu",
     identifier: "Ingeniería de software · IA · Automatización",
     title: "Diseñamos y construimos el software que hace funcionar mejor una empresa.",
-    titleLines: ["Diseñamos y construimos", "el software que hace", "funcionar mejor una empresa."],
     lead:
       "Nafureanu es una compañía de ingeniería de software para empresas. Diseñamos sistemas a medida cuando las herramientas existentes no encajan con la forma real de trabajar del negocio, cuando demasiadas operaciones siguen dependiendo de tareas manuales o cuando hace falta construir una tecnología que todavía no existe.",
     chapters: [

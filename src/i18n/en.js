@@ -37,7 +37,6 @@ export const EN = {
     kicker: "About Nafureanu",
     identifier: "Software engineering · AI · Automation",
     title: "We design and build the software that helps a company operate better.",
-    titleLines: ["We design and build", "the software that helps", "a company operate better."],
     lead:
       "Nafureanu is a software engineering company for businesses. We design custom systems when existing tools no longer fit the way the business actually works, when too many operations still depend on manual work, or when the technology a company needs simply does not exist yet.",
     chapters: [
