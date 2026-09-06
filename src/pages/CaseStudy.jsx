@@ -7,12 +7,10 @@ import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import FlowDiagram from "@/components/diagrams/FlowDiagram";
 import RadialDiagram from "@/components/diagrams/RadialDiagram";
-import FivoCheckout from "@/components/mockups/FivoCheckout";
 import CrmCaseStudy from "@/sections/work/crm/CrmCaseStudy";
+import FivoCaseStudy from "@/sections/work/fivo/FivoCaseStudy";
 import BackToProjects from "@/components/work/BackToProjects";
 import { usePageMeta } from "@/lib/seo";
-
-const MOCKUPS = { fivo: FivoCheckout };
 
 export default function CaseStudy({ lang = "es" }) {
   const { slug } = useParams();
@@ -23,12 +21,15 @@ export default function CaseStudy({ lang = "es" }) {
   const cs = s.caseStudy;
   const canonicalSlug = project ? projectSlug(project, lang) : slug;
 
+  /* Custom case studies carry their own page metadata. */
+  const customMeta = project?.slug === "fivo" ? s.fivo.meta : null;
+
   usePageMeta({
     lang,
-    title: project
+    title: customMeta?.title ?? (project
       ? `${pick(project.title, lang)} — Nafureanu`
-      : s.meta.work.title,
-    description: c?.summary,
+      : s.meta.work.title),
+    description: customMeta?.description ?? c?.summary,
     path: langPath(lang, `/work/${canonicalSlug}`),
     alternatePath: langPath(
       otherLang(lang),
@@ -58,6 +59,9 @@ export default function CaseStudy({ lang = "es" }) {
   if (project.slug === "crm-inmobiliario") {
     return <CrmCaseStudy lang={lang} />;
   }
+  if (project.slug === "fivo") {
+    return <FivoCaseStudy lang={lang} />;
+  }
 
   const idx = PROJECTS.indexOf(project);
   const next = PROJECTS[(idx + 1) % PROJECTS.length];
@@ -66,7 +70,6 @@ export default function CaseStudy({ lang = "es" }) {
     { key: cs.specs[1], value: pick(project.status, lang) },
     { key: cs.specs[2], value: pick(project.discipline, lang) },
   ];
-  const Visual = MOCKUPS[project.slug];
   const chips = project.diagram
     ? project.diagram.nodes.map((n) => pick(n.label, lang))
     : [];
@@ -101,32 +104,6 @@ export default function CaseStudy({ lang = "es" }) {
           ))}
         </dl>
       </header>
-
-      {/* Product band */}
-      {Visual && (
-        <section className="mt-20 bg-[#0B1220] px-5 py-20 text-white md:px-10 md:py-28" aria-label={cs.product}>
-          <div className="mx-auto max-w-[1440px]">
-            <p className="text-center text-xs font-medium uppercase tracking-[0.22em] text-[#8FA5E8]">
-              {cs.product}
-            </p>
-            <Reveal variant="scale" className="mx-auto mt-12 max-w-4xl pb-10">
-              <Visual lang={lang} />
-            </Reveal>
-            {chips.length > 0 && (
-              <ul className="mx-auto mt-8 flex max-w-3xl flex-wrap justify-center gap-2">
-                {chips.map((chip) => (
-                  <li
-                    key={chip}
-                    className="rounded-full border border-white/15 px-3.5 py-1.5 text-sm text-white/70"
-                  >
-                    {chip}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
-        </section>
-      )}
 
       {/* Narrative sections */}
       <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-24">

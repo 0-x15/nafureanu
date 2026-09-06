@@ -7,169 +7,31 @@ export const PROJECTS = [
     status: { es: "Producto en producción", en: "Live product" },
     discipline: { es: "Pagos / Blockchain", en: "Payments / Blockchain" },
     card: {
-      category: { es: "Pagos · Stablecoins", en: "Payments · Stablecoins" },
+      category: { es: "Infraestructura de pagos · Stablecoins", en: "Payment infrastructure · Stablecoins" },
       description: {
-        es: "Infraestructura de pagos con USDC y EURC a través de múltiples redes blockchain.",
-        en: "Payment infrastructure with USDC and EURC across multiple blockchain networks.",
+        es: "Infraestructura de pagos con USDC y EURC para comercios online, con checkout cross-chain en nueve redes.",
+        en: "USDC and EURC payment infrastructure for online merchants, with cross-chain checkout across nine networks.",
       },
       signals: [
         { es: "9 redes", en: "9 networks" },
         { es: "REST API", en: "REST API" },
-        { es: "Circle CCTP", en: "Circle CCTP" },
+        { es: "Circle CCTP v2", en: "Circle CCTP v2" },
       ],
     },
-    stack: [
-      "USDC / EURC",
-      "Circle CCTP",
-      "Circle Programmable Wallets",
-      "REST API",
-      "Webhooks",
-      "Alchemy",
-      "Vercel",
-    ],
-    stats: [
-      { value: "9", label: { es: "Redes blockchain", en: "Blockchain networks" } },
-    ],
-    diagram: {
-      variant: "flow",
-      title: { es: "Arquitectura de pagos", en: "Payment architecture" },
-      nodes: [
-        { label: { es: "Comercio", en: "Merchant" } },
-        { label: { es: "Checkout / enlace de pago", en: "Checkout / payment link" } },
-        { label: { es: "Motor de pagos Fivo", en: "Fivo payment engine" }, active: true },
-        { label: "USDC / EURC" },
-        { label: "Circle CCTP" },
-        { label: { es: "Red blockchain", en: "Blockchain network" } },
-        { label: { es: "Verificación on-chain", en: "On-chain verification" }, active: true },
-        {
-          label: { es: "Webhook / liquidación / factura", en: "Webhook / settlement / invoice" },
-        },
-      ],
-    },
+    /* The case study itself lives in src/sections/work/fivo (i18n: fivo.*);
+       this copy only feeds the generic project lookup and metadata. */
     copy: {
       es: {
         type: "Infraestructura de pagos",
         summary:
-          "Infraestructura de pagos con stablecoins — USDC y EURC — para comercios online, con liquidación entre 9 redes blockchain.",
-        sections: [
-          {
-            label: "Contexto",
-            body: [
-              "Los comercios que quieren aceptar stablecoins se enfrentan a un ecosistema fragmentado: múltiples redes blockchain, herramientas inconsistentes e integraciones que nunca se diseñaron para pagos.",
-              "Fivo elimina esa complejidad del lado del comercio.",
-            ],
-          },
-          {
-            label: "Sistema",
-            body: [
-              "Fivo es infraestructura de pagos con stablecoins para comercios online, construida dentro del ecosistema Circle, con liquidación entre 9 redes blockchain.",
-            ],
-            list: [
-              "USDC / EURC",
-              "Circle Alliance Member",
-              "Circle Programmable Wallets",
-              "Circle CCTP — transferencia cross-chain",
-              "Liquidación en 9 redes blockchain",
-            ],
-          },
-          {
-            label: "Producto",
-            body: [
-              "Todo lo que un comercio necesita para cobrar, integrado sin fricción para el desarrollador.",
-            ],
-            list: [
-              "API REST",
-              "Checkout embebible",
-              "Enlaces de pago",
-              "Webhooks y notificaciones",
-              "Facturación PDF automatizada multilingüe",
-              "Cálculo de impuestos",
-              "Reembolsos on-chain",
-              "Verificación de pagos on-chain",
-            ],
-          },
-          {
-            label: "Ingeniería y seguridad",
-            body: [
-              "La infraestructura está diseñada para operar con criterio: seguridad aplicada en cada capa del sistema.",
-            ],
-            list: [
-              "Autenticación 2FA",
-              "Rate limiting",
-              "Audit logs",
-              "Infraestructura en Vercel",
-              "Infraestructura RPC de Alchemy",
-            ],
-          },
-          {
-            label: "Impacto",
-            body: [
-              "Fivo demuestra ingeniería de tecnología financiera compleja: arquitectura multi-chain, automatización de pagos y una experiencia de integración pensada para desarrolladores.",
-            ],
-          },
-        ],
+          "Infraestructura de pagos con stablecoins — USDC y EURC — para comercios online, con aceptación en nueve redes y checkout cross-chain sobre Circle.",
+        sections: [],
       },
       en: {
         type: "Payment infrastructure",
         summary:
-          "Stablecoin payment infrastructure — USDC and EURC — for online merchants, with settlement across 9 blockchain networks.",
-        sections: [
-          {
-            label: "Context",
-            body: [
-              "Merchants who want to accept stablecoins face a fragmented ecosystem: multiple blockchain networks, inconsistent tooling, and integrations that were never designed for payments.",
-              "Fivo removes that complexity from the merchant's side.",
-            ],
-          },
-          {
-            label: "System",
-            body: [
-              "Fivo is stablecoin payment infrastructure for online merchants, built inside the Circle ecosystem, with settlement across 9 blockchain networks.",
-            ],
-            list: [
-              "USDC / EURC",
-              "Circle Alliance Member",
-              "Circle Programmable Wallets",
-              "Circle CCTP — cross-chain transfer",
-              "Settlement across 9 blockchain networks",
-            ],
-          },
-          {
-            label: "Product",
-            body: [
-              "Everything a merchant needs to charge, integrated without friction for the developer.",
-            ],
-            list: [
-              "REST API",
-              "Embeddable checkout",
-              "Payment links",
-              "Webhooks and notifications",
-              "Multilingual automated PDF invoicing",
-              "Tax calculations",
-              "On-chain refunds",
-              "On-chain payment verification",
-            ],
-          },
-          {
-            label: "Engineering & security",
-            body: [
-              "The infrastructure is engineered to operate deliberately: security applied at every layer of the system.",
-            ],
-            list: [
-              "2FA authentication",
-              "Rate limiting",
-              "Audit logs",
-              "Vercel infrastructure",
-              "Alchemy RPC infrastructure",
-            ],
-          },
-          {
-            label: "Business impact",
-            body: [
-              "Fivo demonstrates our ability to build complex financial technology: multi-chain architecture, payment automation, and a developer experience built for real integrations.",
-            ],
-          },
-        ],
+          "Stablecoin payment infrastructure — USDC and EURC — for online merchants, accepting payments across nine networks with cross-chain checkout on Circle.",
+        sections: [],
       },
     },
   },
