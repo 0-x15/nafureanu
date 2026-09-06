@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import ActionLink from "@/components/ActionLink";
@@ -42,7 +43,9 @@ export default function MobileMenu({
       >
         <Menu className="h-5 w-5" />
       </button>
-      {open && (
+      {/* Rendered through a portal: the header animates with transforms, which would otherwise make this fixed layer position itself inside the 64px header instead of the viewport. */}
+      {open &&
+        createPortal(
         <div
           className="fixed inset-0 z-[80] flex flex-col bg-background"
           role="dialog"
@@ -83,7 +86,8 @@ export default function MobileMenu({
               <LanguageSwitch lang={lang} />
             </div>
           </nav>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
