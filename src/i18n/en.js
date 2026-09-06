@@ -35,16 +35,29 @@ export const EN = {
   },
   homeAbout: {
     kicker: "About Nafureanu",
-    title: "Technology built around how your company actually works.",
-    primary:
-      "Nafureanu is a software engineering company. We design and build custom software, AI systems, automation and infrastructure for companies, always starting from real business processes.",
-    secondary:
-      "We don't start with a tool or a technology. We understand how the operation works, identify where time is being lost, and turn that complexity into systems built to operate and evolve.",
-    titleLines: ["Technology built around", "how your company", "actually works."],
     identifier: "Software engineering · AI · Automation",
+    title: "We design and build the software that helps a company operate better.",
+    titleLines: ["We design and build", "the software that helps", "a company operate better."],
+    lead:
+      "Nafureanu is a software engineering company for businesses. We design custom systems when existing tools no longer fit the way the business actually works, when too many operations still depend on manual work, or when the technology a company needs simply does not exist yet.",
+    chapters: [
+      {
+        label: "What we do",
+        text: "We turn business processes into software: internal platforms, management systems, automation, artificial intelligence, integrations, digital products and specialised infrastructure.",
+      },
+      {
+        label: "How we think",
+        text: "We don't start by choosing a technology. First we understand how the company operates, how information moves, which decisions repeat and where time is being lost. Then we design the architecture and technology that best fit that process.",
+      },
+      {
+        label: "How far we go",
+        text: "We work from analysis and architecture through development, integrations, deployment and the ongoing evolution of the system. The goal is not to deliver an interface; it is to leave behind technology that can become part of the company's daily operation.",
+      },
+    ],
+    closing: ["The business shouldn't adapt to the software.", "The software should adapt to the business."],
     visualLabel: "The operating layer: fragments of a real operation becoming a system",
     inputsLabel: "Real operation",
-    inputs: ["Client", "Data", "Email", "Document", "CRM", "Manual task"],
+    inputs: ["Client", "Data", "Document", "Manual task"],
     fieldLabel: "Engineering layer",
     statement: ["Process first.", "Technology second."],
     layersLabel: "System layers",

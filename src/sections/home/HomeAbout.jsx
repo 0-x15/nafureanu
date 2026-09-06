@@ -3,12 +3,13 @@ import { STRINGS } from "@/i18n";
 import { OperatingLayer, OperatingLayerCompact } from "./about/HomeAboutVisual";
 
 /**
- * About Nafureanu — the chapter right after the hero: who builds the
- * software that removes work, and how the company thinks. An editorial
- * composition around one idea, the operating layer: the business is
- * the input, the system is the result. The title is the visual anchor;
- * the definition sits to its right; the visual field carries the idea
- * with the secondary paragraph beside it. No cards, no capability grid.
+ * About Nafureanu — the chapter right after the hero, read as a
+ * premium company profile: what Nafureanu is, what it does, how it
+ * thinks about software and how far it takes a project. Content is
+ * the protagonist: the title, the company definition as the lead, three
+ * editorial chapters separated by fine rules, the operating layer as an
+ * explanatory object beside them, and a closing statement that hands
+ * off into "Qué construimos". No cards, no capability grid.
  */
 export default function HomeAbout({ lang = "es" }) {
   const a = STRINGS[lang].homeAbout;
@@ -26,11 +27,12 @@ export default function HomeAbout({ lang = "es" }) {
           <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{a.identifier}</p>
         </div>
 
+        {/* 1 · title */}
         <Reveal>
           <h2
             id="home-about"
-            className="mt-8 font-heading font-bold leading-[0.98] tracking-[-0.035em] text-foreground md:mt-12 md:max-w-[10.5em]"
-            style={{ fontSize: "clamp(38px, 5.6vw, 88px)" }}
+            className="mt-8 font-heading font-bold leading-[1.02] tracking-[-0.03em] text-foreground md:mt-10 md:max-w-[12.5em]"
+            style={{ fontSize: "clamp(32px, 4.4vw, 66px)" }}
           >
             {a.titleLines.map((line, i) => (
               <span key={line} className="md:block">{line}{i < a.titleLines.length - 1 ? " " : ""}</span>
@@ -38,21 +40,41 @@ export default function HomeAbout({ lang = "es" }) {
           </h2>
         </Reveal>
 
-        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
-          <Reveal delay={0.08} className="mt-8 max-w-2xl lg:col-start-7 lg:col-end-12 lg:mt-14 lg:max-w-none">
-            <p className="text-lg leading-relaxed text-foreground/85 md:text-xl">{a.primary}</p>
-          </Reveal>
+        {/* 2 · company definition */}
+        <Reveal delay={0.06}>
+          <p className="mt-8 max-w-[34em] text-[18px] leading-[1.6] text-foreground/90 md:mt-10 md:text-[21px]">{a.lead}</p>
+        </Reveal>
+
+        {/* 3 · three editorial chapters · 4 · the operating layer beside them */}
+        <div className="mt-14 md:mt-20 lg:grid lg:grid-cols-12 lg:gap-x-14">
+          <ol className="border-t border-border lg:col-span-7 xl:col-span-8">
+            {a.chapters.map((ch, i) => (
+              <li key={ch.label} className="border-b border-border">
+                <Reveal delay={0.05 * i}>
+                  <div className="grid gap-3 py-8 md:grid-cols-[3.5rem_1fr] md:gap-6 md:py-9">
+                    <span className="font-mono text-[11px] tracking-[0.18em] text-accent md:pt-1.5">0{i + 1}</span>
+                    <div>
+                      <h3 className="font-heading text-xl font-bold tracking-[-0.02em] text-foreground md:text-2xl">{ch.label}</h3>
+                      <p className="mt-3 max-w-[56ch] text-[15px] leading-[1.65] text-muted-foreground md:text-[17px]">{ch.text}</p>
+                    </div>
+                  </div>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+          <div className="mt-12 lg:col-span-5 lg:mt-0 lg:pt-8 xl:col-span-4">
+            <div className="mx-auto hidden max-w-[440px] lg:block"><OperatingLayer t={a} /></div>
+            <div className="md:mx-auto md:max-w-[560px] lg:hidden"><OperatingLayerCompact t={a} /></div>
+          </div>
         </div>
 
-        <div className="mt-12 md:mt-16 lg:grid lg:grid-cols-12 lg:items-end lg:gap-8">
-          <div className="md:max-w-[560px] lg:col-start-1 lg:col-end-10 lg:max-w-none xl:col-end-9">
-            <div className="hidden lg:block"><OperatingLayer t={a} /></div>
-            <div className="lg:hidden"><OperatingLayerCompact t={a} /></div>
-          </div>
-          <Reveal delay={0.1} className="mt-10 lg:col-start-10 lg:col-end-13 lg:mt-0 lg:pb-10 xl:col-start-9">
-            <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">{a.secondary}</p>
-          </Reveal>
-        </div>
+        {/* 5 · closing statement → hands off into "Qué construimos" */}
+        <Reveal delay={0.08}>
+          <p className="mt-16 max-w-4xl font-heading text-2xl font-bold leading-[1.15] tracking-[-0.025em] md:mt-24 md:text-4xl [text-wrap:balance]">
+            <span className="text-muted-foreground">{a.closing[0]}</span>{" "}
+            <span className="text-foreground">{a.closing[1]}</span>
+          </p>
+        </Reveal>
       </div>
     </section>
   );

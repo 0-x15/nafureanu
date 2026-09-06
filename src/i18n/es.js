@@ -35,16 +35,29 @@ export const ES = {
   },
   homeAbout: {
     kicker: "Sobre Nafureanu",
-    title: "Tecnología construida alrededor de cómo funciona tu empresa.",
-    primary:
-      "Nafureanu es una compañía de ingeniería de software. Diseñamos y construimos software a medida, sistemas de IA, automatización e infraestructura para empresas, partiendo siempre de procesos reales de negocio.",
-    secondary:
-      "No empezamos por una herramienta ni por una tecnología. Entendemos cómo funciona la operación, detectamos dónde se pierde tiempo y convertimos esa complejidad en sistemas preparados para operar y evolucionar.",
-    titleLines: ["Tecnología construida", "alrededor de cómo", "funciona tu empresa."],
     identifier: "Ingeniería de software · IA · Automatización",
+    title: "Diseñamos y construimos el software que hace funcionar mejor una empresa.",
+    titleLines: ["Diseñamos y construimos", "el software que hace", "funcionar mejor una empresa."],
+    lead:
+      "Nafureanu es una compañía de ingeniería de software para empresas. Diseñamos sistemas a medida cuando las herramientas existentes no encajan con la forma real de trabajar del negocio, cuando demasiadas operaciones siguen dependiendo de tareas manuales o cuando hace falta construir una tecnología que todavía no existe.",
+    chapters: [
+      {
+        label: "Qué hacemos",
+        text: "Convertimos procesos de negocio en software: plataformas internas, sistemas de gestión, automatizaciones, inteligencia artificial, integraciones, productos digitales e infraestructura especializada.",
+      },
+      {
+        label: "Cómo pensamos",
+        text: "No empezamos eligiendo una tecnología. Primero entendemos cómo funciona la empresa, cómo se mueve la información, qué decisiones se repiten y dónde se pierde tiempo. Después diseñamos la arquitectura y la tecnología que mejor encajan con ese proceso.",
+      },
+      {
+        label: "Hasta dónde llegamos",
+        text: "Trabajamos desde el análisis y la arquitectura hasta el desarrollo, las integraciones, el despliegue y la evolución del sistema. El objetivo no es entregar una interfaz: es dejar una tecnología que pueda formar parte de la operación diaria de la empresa.",
+      },
+    ],
+    closing: ["El negocio no debería adaptarse al software.", "El software debería adaptarse al negocio."],
     visualLabel: "La capa operativa: fragmentos de la operación real que se convierten en un sistema",
     inputsLabel: "Operación real",
-    inputs: ["Cliente", "Datos", "Email", "Documento", "CRM", "Tarea manual"],
+    inputs: ["Cliente", "Datos", "Documento", "Tarea manual"],
     fieldLabel: "Capa de ingeniería",
     statement: ["Primero el proceso.", "Después la tecnología."],
     layersLabel: "Capas del sistema",
