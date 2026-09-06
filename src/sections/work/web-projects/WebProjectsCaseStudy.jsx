@@ -1,37 +1,24 @@
+import { Suspense, lazy } from "react";
 import { STRINGS } from "@/i18n";
-import BackToProjects from "@/components/work/BackToProjects";
-import WebProjectsHero from "./WebProjectsHero";
-import WebProjectsIndex from "./WebProjectsIndex";
-import WebProjectChapter from "./WebProjectChapter";
-import WebProjectsPrinciples from "./WebProjectsPrinciples";
-import WebProjectsFinalCta from "./WebProjectsFinalCta";
+import Gallery from "./gallery/Gallery";
+import HeroStatic from "./HeroStatic";
+import useExperienceMode from "./useExperienceMode";
 
-const LAYOUTS = { "dd-evecom": "A", "dental-goya": "B", "reformas-octavian": "C", "mp-monitor": "D" };
+const Exhibition = lazy(() => import("./exhibition/Exhibition"));
 
 /**
- * Web & digital products — not one product but a curated collection:
- * a hero that states the positioning, a compact index, one editorial
- * chapter per live project (real captures, deliberate compositions),
- * the principles this work shares with the rest of the practice, and
- * the final CTA. Page metadata is set by CaseStudy.jsx from
- * webProjects.meta.
+ * Web & digital products — a digital exhibition of four live sites.
+ * Desktop pointers with WebGL get the immersive scroll-driven stage
+ * (loaded on demand so the rest of the site never pays for three.js);
+ * everything else gets the DOM gallery. Metadata is set by CaseStudy.jsx.
  */
 export default function WebProjectsCaseStudy({ lang = "es" }) {
   const c = STRINGS[lang].webProjects;
+  const [mode, forceGallery] = useExperienceMode();
+  if (mode === "gallery") return <Gallery lang={lang} c={c} />;
   return (
-    <article className="bg-background">
-      <div className="px-5 pt-24 md:px-10 md:pt-28">
-        <div className="mx-auto max-w-[1440px]">
-          <BackToProjects lang={lang} />
-        </div>
-      </div>
-      <WebProjectsHero c={c} />
-      <WebProjectsIndex c={c} />
-      {c.projects.map((p, i) => (
-        <WebProjectChapter key={p.id} n={i + 1} p={p} c={c} layout={LAYOUTS[p.id]} />
-      ))}
-      <WebProjectsPrinciples c={c} />
-      <WebProjectsFinalCta lang={lang} c={c} />
-    </article>
+    <Suspense fallback={<HeroStatic lang={lang} c={c} />}>
+      <Exhibition lang={lang} c={c} onFallback={forceGallery} />
+    </Suspense>
   );
 }

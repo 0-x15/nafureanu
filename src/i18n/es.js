@@ -1574,29 +1574,38 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     meta: {
       title: "Web y productos digitales — Nafureanu",
       description:
-        "Una selección de proyectos web diseñados y desarrollados por Nafureanu: webs de servicios, una experiencia 3D en el navegador y una aplicación de datos en tiempo real. Diseño, desarrollo y producto en la misma superficie.",
+        "Exposición interactiva de cuatro webs y productos digitales diseñados y desarrollados por Nafureanu: webs de servicios, una experiencia 3D en el navegador y una aplicación de datos en tiempo real.",
     },
-    hero: {
-      kicker: "Web · Producto digital",
-      title: "Webs construidas con criterio de producto.",
-      support:
-        "Una selección de experiencias web diseñadas y desarrolladas para negocios y productos reales. Es una parte de lo que hacemos, no lo único: la misma disciplina de producto e ingeniería que aplicamos a sistemas y software a medida, llevada a la web.",
-      meta: "4 proyectos · webs de servicios, una experiencia 3D y una aplicación en tiempo real",
-      composition: {
-        main: "Portada de DD Evecom Comfort en escritorio",
-        a: "Experiencia 3D de Reformas Octavian: pantalla de bienvenida",
-        b: "Vista de mercado de MP Monitor",
-        c: "Clínica Dental Goya 116 en móvil",
-      },
-    },
-    index: { kicker: "Selección", label: "Proyectos", hint: "Pulsa para ir al capítulo", preview: "Vista previa" },
     visit: "Visitar sitio",
     visitHint: "Se abre en una pestaña nueva",
     scope: "Diseño y desarrollo web",
+    exhibition: {
+      lines: ["Experiencias", "digitales", "seleccionadas"],
+      meta: ["04 proyectos", "Diseño + desarrollo", "Web / Producto digital"],
+      lead: "Cuatro webs y productos reales, presentados como una exposición. Desplázate para recorrerla.",
+      scroll: "Desplázate para entrar",
+      cursor: "Visitar",
+      stageLabel: "Exposición de proyectos",
+      railLabel: "Ir a un proyecto",
+      progressLabel: "Progreso de la exposición",
+      statement: ["Diseño y desarrollo", "no son dos entregables.", "Son el mismo producto."],
+      capability: "Diseño · Desarrollo · Web / Producto digital",
+      outro: {
+        question: "¿Qué debería existir después?",
+        copy: "Webs, productos y sistemas alrededor de lo que tu negocio necesita.",
+        primary: "Cuéntanos qué quieres construir",
+        secondary: "Ver todos los proyectos",
+      },
+      swipe: "Desliza para ver más vistas",
+    },
     projects: [
       {
         id: "dd-evecom",
         name: "DD Evecom Comfort",
+        short: "DD Evecom",
+        lines: ["DD Evecom", "Comfort"],
+        line:
+          "Web comercial de un instalador de ventanas acústicas en Madrid: explica un servicio técnico con claridad y lleva al presupuesto.",
         category: "Web de servicios · Aislamiento acústico y térmico",
         url: "https://dd-evecom-comfort.es",
         host: "dd-evecom-comfort.es",
@@ -1614,6 +1623,10 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       {
         id: "dental-goya",
         name: "Clínica Dental Goya, 116",
+        short: "Goya 116",
+        lines: ["Clínica", "Dental", "Goya 116"],
+        line:
+          "Web de una clínica dental de Madrid que ordena tratamientos, primera visita y tarifas, y lleva al paciente a reservar cita.",
         category: "Web sanitaria · Clínica dental",
         url: "https://clinicadentalgoya116.com/",
         host: "clinicadentalgoya116.com",
@@ -1631,6 +1644,10 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       {
         id: "reformas-octavian",
         name: "Reformas Octavian",
+        short: "Octavian",
+        lines: ["Reformas", "Octavian"],
+        line:
+          "Una web de reformas convertida en experiencia 3D: escenas modeladas por sección y navegación por pantallas.",
         category: "Experiencia web 3D · Empresa de reformas",
         url: "https://reformasoctavian.es/",
         host: "reformasoctavian.es",
@@ -1648,6 +1665,10 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       {
         id: "mp-monitor",
         name: "MP Monitor",
+        short: "MP Monitor",
+        lines: ["MP", "Monitor"],
+        line:
+          "Una aplicación que sigue decenas de activos en vivo, los puntúa con reglas fijas y explica cada cifra en lenguaje llano.",
         category: "Aplicación web · Panel de mercado en tiempo real",
         url: "https://mpmonitor.netlify.app",
         host: "mpmonitor.netlify.app",
@@ -1662,24 +1683,6 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
         captions: { desktop: "Mercado", detail: "Gráfico y evaluación", mobile: "Móvil" },
       },
     ],
-    principles: {
-      kicker: "Lo que demuestra este trabajo",
-      title: "No tratamos una web como una plantilla.",
-      intro: "Diseño, contenido, interacción y desarrollo se resuelven como partes del mismo producto. Es la misma forma de trabajar que aplicamos a los sistemas.",
-      items: [
-        { title: "Jerarquía clara", text: "Cada página tiene una cosa que decir y una acción que pedir. El resto se ordena alrededor." },
-        { title: "Responsive real", text: "La versión móvil no es la de escritorio encogida: se recompone el contenido y las llamadas a la acción." },
-        { title: "Rendimiento", text: "Imágenes, tipografías y scripts con un peso justificado; lo que no aporta, no se carga." },
-        { title: "Mantenibilidad", text: "Estructuras que el negocio puede seguir ampliando sin rehacer la web." },
-      ],
-    },
-    cta: {
-      kicker: "Siguiente paso",
-      title: "¿Necesitas algo más que una presencia online?",
-      copy: "Diseñamos y desarrollamos experiencias web, productos y sistemas alrededor de lo que tu negocio necesita.",
-      primary: "Cuéntanos qué quieres construir",
-      secondary: "Ver todos los proyectos",
-    },
   },
   caseStudy: {
     specs: ["Cliente", "Estado", "Disciplina"],
