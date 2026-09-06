@@ -8,7 +8,8 @@ import CrmCardVisual from "@/components/work/visuals/CrmCardVisual";
 import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
 import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
-import WorkSystemsBoard from "@/components/work/WorkSystemsBoard";
+import SystemsField, { FieldAtmosphere } from "@/components/work/SystemsField";
+import SystemsFieldCompact from "@/components/work/SystemsFieldCompact";
 import BackToHome from "@/components/work/BackToHome";
 
 /**
@@ -43,14 +44,10 @@ export default function Work({ lang = "es" }) {
         </div>
       </div>
       <header className="relative overflow-hidden px-5 pt-8 md:px-10 md:pt-12">
-        {/* atmosphere — restrained cobalt bloom, cyan reflection, one glass plane */}
-        <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-          <span className="absolute right-[6%] top-[4%] h-[76%] w-[64%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.08),transparent)]" />
-          <span className="absolute bottom-[0%] left-[6%] h-[48%] w-[44%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.06),transparent)]" />
-          <div className="absolute right-[-8%] top-[12%] h-[32vh] w-[46vw] -rotate-2 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(49,87,246,0.3)] backdrop-blur-[26px]" />
-        </div>
-        <div className="relative z-10 mx-auto max-w-[1280px] md:grid md:grid-cols-12 md:items-center md:gap-10">
-          <div className="md:col-span-6">
+        {/* atmosphere — the systems field's own: a technical grid fragment, a soft cobalt glow, a faint cyan reflection and thin traces leaving the map */}
+        <FieldAtmosphere />
+        <div className="relative mx-auto max-w-[1280px] xl:grid xl:grid-cols-12 xl:items-center xl:gap-6">
+          <div className="xl:col-span-5">
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
               {wp.kicker}
             </p>
@@ -64,12 +61,17 @@ export default function Work({ lang = "es" }) {
               {wp.secondary}
             </p>
           </div>
-          <div className="mt-14 md:col-span-6 md:mt-0">
-            <WorkSystemsBoard lang={lang} />
+          {/* The systems field begins around the centre and bleeds past the right edge */}
+          <div className="mt-12 lg:mx-auto lg:mt-14 lg:max-w-[1000px] xl:col-span-7 xl:-ml-4 xl:-mr-[3vw] xl:mt-0 xl:max-w-none 2xl:-mr-[5vw]">
+            <div className="hidden lg:block">
+              <SystemsField lang={lang} />
+            </div>
+            <div className="lg:hidden">
+              <SystemsFieldCompact lang={lang} />
+            </div>
           </div>
         </div>
-        {/* Room for the overlapping product surfaces */}
-        <div aria-hidden="true" className="h-16 md:h-24" />
+        <div aria-hidden="true" className="h-10 md:h-16" />
       </header>
 
       <section
