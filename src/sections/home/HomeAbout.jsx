@@ -1,60 +1,57 @@
 import Reveal from "@/components/Reveal";
 import { STRINGS } from "@/i18n";
-import { cn } from "@/lib/utils";
+import { OperatingLayer, OperatingLayerCompact } from "./about/HomeAboutVisual";
 
 /**
- * About Nafureanu — the calm chapter between the promise (Hero) and the
- * capabilities (What we build): who the company is, what it actually
- * does and how it thinks about technology. An asymmetric editorial
- * composition: identity on the left, the introduction on the right,
- * closed by one small structural annotation — process → technology →
- * operation. No cards, no diagram, no imagery.
+ * About Nafureanu — the chapter right after the hero: who builds the
+ * software that removes work, and how the company thinks. An editorial
+ * composition around one idea, the operating layer: the business is
+ * the input, the system is the result. The title is the visual anchor;
+ * the definition sits to its right; the visual field carries the idea
+ * with the secondary paragraph beside it. No cards, no capability grid.
  */
 export default function HomeAbout({ lang = "es" }) {
   const a = STRINGS[lang].homeAbout;
   return (
-    <section aria-labelledby="home-about" className="bg-background px-5 pt-16 md:px-10 md:pt-24">
-      <div className="mx-auto max-w-[1440px] border-t border-border pt-14 md:pt-20">
-        <div className="grid gap-10 md:grid-cols-12 md:gap-10">
-          {/* Identity */}
-          <Reveal className="md:col-span-4">
-            <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">{a.kicker}</p>
-            <div className="mt-8">
-              <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{a.identityLabel}</p>
-              <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2 md:flex-col md:gap-2">
-                {a.identity.map((item, i) => (
-                  <li key={item} className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.16em] text-foreground/80">
-                    <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0", i === 0 ? "bg-accent" : "border border-accent/50")} />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
+    <section aria-labelledby="home-about" className="relative overflow-hidden bg-background px-5 pt-16 md:px-10 md:pt-24">
+      {/* structural lines emerging from the hero's whitespace */}
+      <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 hidden h-48 w-full md:block" viewBox="0 0 1440 192" preserveAspectRatio="none" fill="none">
+        <path d="M0 34 H520 C560 34 580 54 620 54 H1440" stroke="#3157F6" strokeOpacity="0.14" />
+        <path d="M0 78 H300 C340 78 360 62 400 62 H900" stroke="#3157F6" strokeOpacity="0.09" />
+      </svg>
 
-          {/* The introduction */}
-          <div className="md:col-span-8">
-            <Reveal>
-              <h2 id="home-about" className="max-w-3xl font-heading text-3xl font-bold leading-[1.06] tracking-[-0.03em] text-foreground md:text-5xl [text-wrap:balance]">
-                {a.title}
-              </h2>
-            </Reveal>
-            <Reveal delay={0.06}>
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-foreground/85 md:text-xl">{a.primary}</p>
-              <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">{a.secondary}</p>
-            </Reveal>
-            <Reveal delay={0.12}>
-              <ol className="mt-12 flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
-                {a.annotation.map((step, i) => (
-                  <li key={step} className="flex items-center gap-3">
-                    {i > 0 && <span aria-hidden="true" className="h-px w-8 bg-foreground/20 md:w-14" />}
-                    <span className={i === a.annotation.length - 1 ? "text-foreground" : undefined}>{step}</span>
-                  </li>
-                ))}
-                <li aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-              </ol>
-            </Reveal>
+      <div className="relative mx-auto max-w-[1440px]">
+        <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
+          <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">{a.kicker}</p>
+          <p className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{a.identifier}</p>
+        </div>
+
+        <Reveal>
+          <h2
+            id="home-about"
+            className="mt-8 font-heading font-bold leading-[0.98] tracking-[-0.035em] text-foreground md:mt-12 md:max-w-[10.5em]"
+            style={{ fontSize: "clamp(38px, 5.6vw, 88px)" }}
+          >
+            {a.titleLines.map((line, i) => (
+              <span key={line} className="md:block">{line}{i < a.titleLines.length - 1 ? " " : ""}</span>
+            ))}
+          </h2>
+        </Reveal>
+
+        <div className="lg:grid lg:grid-cols-12 lg:gap-8">
+          <Reveal delay={0.08} className="mt-8 max-w-2xl lg:col-start-7 lg:col-end-12 lg:mt-14 lg:max-w-none">
+            <p className="text-lg leading-relaxed text-foreground/85 md:text-xl">{a.primary}</p>
+          </Reveal>
+        </div>
+
+        <div className="mt-12 md:mt-16 lg:grid lg:grid-cols-12 lg:items-end lg:gap-8">
+          <div className="md:max-w-[560px] lg:col-start-1 lg:col-end-10 lg:max-w-none xl:col-end-9">
+            <div className="hidden lg:block"><OperatingLayer t={a} /></div>
+            <div className="lg:hidden"><OperatingLayerCompact t={a} /></div>
           </div>
+          <Reveal delay={0.1} className="mt-10 lg:col-start-10 lg:col-end-13 lg:mt-0 lg:pb-10 xl:col-start-9">
+            <p className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg">{a.secondary}</p>
+          </Reveal>
         </div>
       </div>
     </section>

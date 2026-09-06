@@ -4,7 +4,6 @@ import { STRINGS } from "@/i18n";
 import CapabilityNav from "./capabilities/CapabilityNav";
 import CapabilityScene from "./capabilities/CapabilityScene";
 import CapabilityChapter from "./capabilities/CapabilityChapter";
-import ProblemCanvas from "./ProblemCanvas";
 
 /**
  * What we build — an interactive capability experience. The six
@@ -18,7 +17,6 @@ export default function WhatWeBuild({ lang = "es" }) {
   const labels = { when: s.whenLabel, build: s.buildLabel };
 
   return (
-    <>
     <section
       className="bg-background px-5 pt-20 md:px-10 md:pt-32"
       aria-labelledby="build-heading"
@@ -68,9 +66,5 @@ export default function WhatWeBuild({ lang = "es" }) {
 
       </div>
     </section>
-
-    {/* Conversion canvas — from confusion to clarity */}
-    <ProblemCanvas lang={lang} />
-    </>
   );
 }
