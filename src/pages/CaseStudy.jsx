@@ -9,6 +9,7 @@ import FlowDiagram from "@/components/diagrams/FlowDiagram";
 import RadialDiagram from "@/components/diagrams/RadialDiagram";
 import CrmCaseStudy from "@/sections/work/crm/CrmCaseStudy";
 import FivoCaseStudy from "@/sections/work/fivo/FivoCaseStudy";
+import LifeAdminCaseStudy from "@/sections/work/life-admin/LifeAdminCaseStudy";
 import BackToProjects from "@/components/work/BackToProjects";
 import { usePageMeta } from "@/lib/seo";
 
@@ -22,7 +23,7 @@ export default function CaseStudy({ lang = "es" }) {
   const canonicalSlug = project ? projectSlug(project, lang) : slug;
 
   /* Custom case studies carry their own page metadata. */
-  const customMeta = project?.slug === "fivo" ? s.fivo.meta : null;
+  const customMeta = project?.slug === "fivo" ? s.fivo.meta : project?.slug === "life-admin" ? s.lifeAdmin.meta : null;
 
   usePageMeta({
     lang,
@@ -61,6 +62,9 @@ export default function CaseStudy({ lang = "es" }) {
   }
   if (project.slug === "fivo") {
     return <FivoCaseStudy lang={lang} />;
+  }
+  if (project.slug === "life-admin") {
+    return <LifeAdminCaseStudy lang={lang} />;
   }
 
   const idx = PROJECTS.indexOf(project);

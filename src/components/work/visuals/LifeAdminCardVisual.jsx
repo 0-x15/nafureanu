@@ -1,14 +1,14 @@
 /**
- * Abstract internal-management fragment for the internal CRM card —
- * quiet structural blocks and a single cobalt thread. No invented
- * data or traction; language-neutral.
+ * Abstract fragment for the Life Admin card — quiet structural
+ * blocks and a single cobalt thread. No invented data or traction;
+ * language-neutral.
  */
 export default function LifeAdminCardVisual() {
   return (
     <div className="w-full max-w-[230px] rounded-lg border border-border bg-[#FCFBF8] p-3 text-left shadow-[0_12px_28px_-14px_rgba(12,18,32,0.2)]">
       <div className="flex items-center justify-between">
         <span className="font-mono text-[8px] uppercase tracking-[0.16em] text-muted-foreground">
-          CRM
+          Life Admin
         </span>
         <span aria-hidden="true" className="h-1 w-1 rounded-full bg-accent" />
       </div>

@@ -217,78 +217,37 @@ export const PROJECTS = [
   },
   {
     slug: "life-admin",
-    title: { es: "CRM de gestión interna", en: "Internal management CRM" },
+    title: { es: "Life Admin", en: "Life Admin" },
     featured: true,
-    client: { es: "Interno / privado", en: "Internal / private" },
-    status: { es: "Privado — no lanzado", en: "Private — not publicly launched" },
-    discipline: { es: "CRM a medida", en: "Custom CRM" },
+    client: { es: "Producto propio", en: "Own product" },
+    status: { es: "Privado · desplegado en Base44", en: "Private · deployed on Base44" },
+    discipline: { es: "Software de administración personal", en: "Personal administration software" },
     card: {
-      category: { es: "CRM · Gestión · Automatización", en: "CRM · Management · Automation" },
+      category: { es: "Administración personal · IA aplicada", en: "Personal admin · Applied AI" },
       description: {
-        es: "Sistema interno de gestión y CRM para centralizar clientes, estados y procesos administrativos.",
-        en: "An internal CRM and management system that centralizes clients, statuses and administrative processes.",
+        es: "Convierte facturas y contratos en obligaciones estructuradas: ciclos, estado de pago, compras, beneficios y privacidad en un solo sistema.",
+        en: "Turns invoices and contracts into structured obligations: cycles, payment state, purchases, benefits and privacy in one system.",
       },
       signals: [
-        { es: "CRM a medida", en: "Custom CRM" },
-        { es: "Gestión de flujos", en: "Workflow management" },
-        { es: "Automatización", en: "Automation" },
+        { es: "Extracción con IA", en: "AI extraction" },
+        { es: "Motor de recurrencia", en: "Recurrence engine" },
+        { es: "Base44 + Deno", en: "Base44 + Deno" },
       ],
     },
-    stack: ["Arquitectura a medida", "Gestión de flujos", "CRM", "Administración", "Automatización"],
-    stats: [],
-    diagram: null,
+    /* The case study lives in src/sections/work/life-admin (i18n: lifeAdmin.*);
+       this copy only feeds the generic project lookup and metadata. */
     copy: {
       es: {
-        type: "Sistema de gestión interno",
+        type: "Software de administración personal",
         summary:
-          "Sistema interno de gestión y CRM para la administración de un negocio — un proyecto de software privado.",
-        sections: [
-          {
-            label: "Contexto",
-            body: [
-              "La parte administrativa de un negocio está llena de coordinación repetitiva: información dispersa y procesos que solo avanzan si alguien los empuja.",
-            ],
-          },
-          {
-            label: "Sistema",
-            body: [
-              "El sistema es un CRM y sistema de gestión a medida construido alrededor de esa realidad: arquitectura de software propia, gestión de flujos, administración y automatización en un solo lugar.",
-            ],
-          },
-          {
-            label: "Impacto",
-            body: [
-              "El producto no se ha lanzado públicamente, así que se presenta como un proyecto interno y privado — sin tracción pública atribuida.",
-              "Lo que demuestra es arquitectónico: cómo un sistema a medida puede modelar un proceso administrativo de principio a fin y hacerlo ejecutarse solo.",
-            ],
-          },
-        ],
+          "Sistema personal de administración que convierte documentos en obligaciones estructuradas y deriva ciclos, estados de pago, compras y beneficios. Producto privado construido sobre Base44.",
+        sections: [],
       },
       en: {
-        type: "Internal management system",
+        type: "Personal administration software",
         summary:
-          "A custom CRM and management system for business administration — a private, internal software project.",
-        sections: [
-          {
-            label: "Context",
-            body: [
-              "The administrative side of running a business is full of repetitive coordination: information scattered across places, and processes that run only if someone remembers to push them.",
-            ],
-          },
-          {
-            label: "System",
-            body: [
-              "The system is a custom CRM and management system built around that administrative reality: custom software architecture, workflow management, business administration and automation in one place.",
-            ],
-          },
-          {
-            label: "Business impact",
-            body: [
-              "The product has not been publicly launched, so it is presented here as an internal, private software project — no public traction is claimed.",
-              "What it demonstrates is architectural: how a custom system can model an administrative process end to end and make it execute itself.",
-            ],
-          },
-        ],
+          "A personal administration system that turns documents into structured obligations and derives cycles, payment states, purchases and benefits. A private product built on Base44.",
+        sections: [],
       },
     },
   },
