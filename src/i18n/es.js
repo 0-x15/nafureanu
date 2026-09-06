@@ -27,10 +27,22 @@ export const ES = {
     },
   },
   nav: {
+    home: "Inicio",
     work: "Proyectos",
     services: "Servicios",
     about: "Estudio",
     start: "Hablar de un proyecto",
+  },
+  homeAbout: {
+    kicker: "Sobre Nafureanu",
+    title: "Tecnología construida alrededor de cómo funciona tu empresa.",
+    primary:
+      "Nafureanu es una compañía de ingeniería de software. Diseñamos y construimos software a medida, sistemas de IA, automatización e infraestructura para empresas, partiendo siempre de procesos reales de negocio.",
+    secondary:
+      "No empezamos por una herramienta ni por una tecnología. Entendemos cómo funciona la operación, detectamos dónde se pierde tiempo y convertimos esa complejidad en sistemas preparados para operar y evolucionar.",
+    identityLabel: "Compañía",
+    identity: ["Ingeniería de software", "Sistemas de IA", "Automatización", "Infraestructura"],
+    annotation: ["Proceso", "Tecnología", "Operación"],
   },
   hero: {
     eyebrow: "Software · IA · Automatización",

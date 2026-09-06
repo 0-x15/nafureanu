@@ -6,6 +6,7 @@ import LanguageSwitch from "@/components/LanguageSwitch";
 import { STRINGS, langPath } from "@/i18n";
 
 const LINKS = [
+  { path: "/", key: "home" },
   { path: "/services", key: "services" },
   { path: "/work", key: "work" },
   { path: "/about", key: "about" },

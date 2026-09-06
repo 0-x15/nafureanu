@@ -8,6 +8,7 @@ import { STRINGS, langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
 
 const LINKS = [
+  { path: "/", key: "home" },
   { path: "/services", key: "services" },
   { path: "/work", key: "work" },
   { path: "/about", key: "about" },
@@ -87,6 +88,7 @@ export default function Navbar({ lang = "es" }) {
             <NavLink
               key={l.path}
               to={langPath(lang, l.path)}
+              end={l.path === "/"}
               className={({ isActive }) =>
                 cn(
                   "text-sm font-medium transition-colors",

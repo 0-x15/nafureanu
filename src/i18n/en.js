@@ -27,10 +27,22 @@ export const EN = {
     },
   },
   nav: {
+    home: "Home",
     work: "Projects",
     services: "Services",
     about: "Studio",
     start: "Start a conversation",
+  },
+  homeAbout: {
+    kicker: "About Nafureanu",
+    title: "Technology built around how your company actually works.",
+    primary:
+      "Nafureanu is a software engineering company. We design and build custom software, AI systems, automation and infrastructure for companies, always starting from real business processes.",
+    secondary:
+      "We don't start with a tool or a technology. We understand how the operation works, identify where time is being lost, and turn that complexity into systems built to operate and evolve.",
+    identityLabel: "Company",
+    identity: ["Software engineering", "AI systems", "Automation", "Infrastructure"],
+    annotation: ["Process", "Technology", "Operation"],
   },
   hero: {
     eyebrow: "Software · AI · Automation",
