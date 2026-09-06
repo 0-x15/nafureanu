@@ -1029,7 +1029,7 @@ export const EN = {
       alliance: "Circle Alliance Member",
       product: { label: "Live product", host: "fivo.finance", url: "https://fivo.finance" },
       composition: {
-        dashboard: "Fivo merchant dashboard with balances per wallet and revenue over time",
+        store: "Demo store with the Fivo button in the cart",
         checkout: "Fivo light-theme checkout: network selection for a 0.01 USDC payment",
         complete: "Completed payment in the Fivo checkout",
         settle: { label: "Settlement", value: "USDC · Base", status: "Verified on-chain" },
@@ -1387,12 +1387,12 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       title: "Real product surfaces.",
       intro: "Screenshots of the checkout, the dashboard and the demo store, all in the light theme. Test data; no real merchant information.",
       items: [
-        { id: "demo-store-light", size: "large", title: "Demo store", text: "The Fivo button connected to a cart: it reads the page total and opens the checkout with that amount." },
+        { id: "checkout-store", size: "large", title: "Checkout over the store", text: "The button opens the Fivo checkout on top of the store itself: balances per network, payment type and the amount read from the cart." },
         { id: "connect-wallet", size: "medium", title: "Wallet connection", text: "The checkout opens with the amount and asks for the receipt email before connecting the customer's wallet." },
-        { id: "merchant-dashboard", size: "large", title: "Merchant dashboard", text: "Balances per wallet, revenue over time and access to transactions, wallets, invoices, refunds, webhooks and API keys." },
+        { id: "payment-complete-store", size: "large", title: "Payment completed over the store", text: "The checkout's final state: amount, transaction and delivery confirmed without leaving the store." },
         { id: "crosschain-progress", size: "medium", title: "Cross-chain payment in progress", text: "Approval, burn, verification and delivery: the customer sees each step until the funds arrive." },
         { id: "invoice", size: "medium", title: "Automatic invoice", text: "Generated after each withdrawal, with the fee, applicable VAT and the on-chain reference." },
-        { id: "payment-complete-store", size: "large", title: "Payment completed over the store", text: "The checkout's final state over the demo store: amount, transaction and delivery confirmed." },
+        { id: "merchant-dashboard", size: "medium", title: "Merchant dashboard", text: "Balances per wallet, revenue over time and access to transactions, invoices, refunds, webhooks and API keys." },
       ],
     },
     cta: {

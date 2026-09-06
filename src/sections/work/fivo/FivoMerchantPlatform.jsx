@@ -18,7 +18,7 @@ export default function FivoMerchantPlatform({ c }) {
 
       <div className="mt-12 grid gap-8 lg:grid-cols-12 lg:gap-10">
         <Reveal variant="scale" className="min-w-0 lg:col-span-7">
-          <div className="relative">
+          <div className="relative mx-auto max-w-[642px] lg:mx-0">
             <Shot id="merchant-dashboard" alt={m.imageAlt} className="rounded-2xl" />
             {Object.entries(MARKERS).map(([i, pos]) => (
               <span

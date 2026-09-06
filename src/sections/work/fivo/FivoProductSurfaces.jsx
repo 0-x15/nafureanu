@@ -4,12 +4,12 @@ import { Chapter, ChapterHead, Shot } from "./fivoBits";
 
 /* Editorial placement: [column span, portrait crop] per item id. */
 const LAYOUT = {
-  "demo-store-light": { span: "md:col-span-4", crop: false },
+  "checkout-store": { span: "md:col-span-4", crop: false },
   "connect-wallet": { span: "md:col-span-2", crop: true },
-  "merchant-dashboard": { span: "md:col-span-4", crop: false },
+  "payment-complete-store": { span: "md:col-span-4", crop: false },
   "crosschain-progress": { span: "md:col-span-2", crop: true },
   invoice: { span: "md:col-span-3", crop: false },
-  "payment-complete-store": { span: "md:col-span-3", crop: true },
+  "merchant-dashboard": { span: "md:col-span-3", crop: false },
 };
 
 /** Inside the product — an art-directed sequence of real surfaces. */

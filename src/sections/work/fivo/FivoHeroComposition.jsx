@@ -3,7 +3,7 @@ import { Shot } from "./fivoBits";
 /**
  * The hero visual — real Fivo surfaces on one controlled stage:
  *
- *   LARGE   merchant dashboard (light, sanitized; shown near its native size)
+ *   LARGE   the light demo store with the Fivo button in the cart (crisp 2x capture)
  *   MAIN    checkout with network selection, tall, front-left
  *   SMALL   completed-payment state, front-right
  *   CHIP    a settlement note, top-right of the dashboard
@@ -23,16 +23,16 @@ export default function FivoHeroComposition({ c }) {
 
       {/* Desktop composition */}
       <div className="relative hidden md:block md:aspect-[16/7.2]">
-        <div className="absolute left-[30%] top-[4%] w-[52%]">
-          <Shot id="merchant-dashboard" alt={alt.dashboard} priority className="rounded-2xl shadow-[0_40px_90px_-40px_rgba(12,18,32,0.35)]" />
+        <div className="absolute left-[27%] top-[4%] w-[56%]">
+          <Shot id="demo-store-light" alt={alt.store} priority className="rounded-2xl shadow-[0_40px_90px_-40px_rgba(12,18,32,0.35)]" />
         </div>
-        <div className="absolute left-[9%] top-[8%] w-[20%]">
+        <div className="absolute left-[8%] top-[8%] w-[20%]">
           <Shot id="checkout-network" alt={alt.checkout} priority className="rounded-2xl shadow-[0_44px_90px_-34px_rgba(12,18,32,0.4)]" />
         </div>
-        <div className="absolute right-[6%] top-[44%] w-[22%]">
+        <div className="absolute right-[6%] top-[46%] w-[22%]">
           <Shot id="checkout-complete" alt={alt.complete} priority className="rounded-2xl shadow-[0_40px_80px_-30px_rgba(12,18,32,0.4)]" />
         </div>
-        <div className="absolute right-[10%] -top-5 flex items-center gap-3 rounded-xl border border-[#E1E5EF] bg-white/95 px-4 py-2.5 shadow-[0_18px_40px_-20px_rgba(12,18,32,0.3)] backdrop-blur">
+        <div className="absolute right-[9%] -top-5 flex items-center gap-3 rounded-xl border border-[#E1E5EF] bg-white/95 px-4 py-2.5 shadow-[0_18px_40px_-20px_rgba(12,18,32,0.3)] backdrop-blur">
           <span aria-hidden="true" className="h-2 w-2 rounded-full bg-emerald-500" />
           <div>
             <p className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground">{alt.settle.label}</p>
@@ -45,7 +45,7 @@ export default function FivoHeroComposition({ c }) {
 
       {/* Phone / tablet-portrait composition */}
       <div className="relative space-y-4 pt-2 md:hidden">
-        <Shot id="merchant-dashboard" alt={alt.dashboard} priority className="rounded-xl" />
+        <Shot id="demo-store-light" alt={alt.store} priority className="rounded-xl" />
         <div className="grid grid-cols-2 items-start gap-4">
           <Shot id="checkout-network" alt={alt.checkout} className="rounded-xl" />
           <Shot id="checkout-complete" alt={alt.complete} className="rounded-xl" />

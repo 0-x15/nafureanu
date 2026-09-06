@@ -1030,7 +1030,7 @@ export const ES = {
       alliance: "Miembro de Circle Alliance",
       product: { label: "Producto en producción", host: "fivo.finance", url: "https://fivo.finance" },
       composition: {
-        dashboard: "Panel del comercio de Fivo con saldos por wallet e ingresos en el tiempo",
+        store: "Tienda de demostración con el botón de Fivo en el carrito",
         checkout: "Checkout de Fivo en tema claro: selección de red para un pago de 0,01 USDC",
         complete: "Pago completado en el checkout de Fivo",
         settle: { label: "Liquidación", value: "USDC · Base", status: "Verificado en cadena" },
@@ -1388,12 +1388,12 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       title: "Superficies reales del producto.",
       intro: "Capturas del checkout, del panel y de la tienda de demostración, todas en tema claro. Datos de prueba; ninguna información de comercios reales.",
       items: [
-        { id: "demo-store-light", size: "large", title: "Tienda de demostración", text: "El botón de Fivo conectado a un carrito: lee el total de la página y abre el checkout con ese importe." },
+        { id: "checkout-store", size: "large", title: "Checkout sobre la tienda", text: "El botón abre el checkout de Fivo sobre la propia tienda: saldos por red, tipo de pago y el importe leído del carrito." },
         { id: "connect-wallet", size: "medium", title: "Conexión de la wallet", text: "El checkout se abre con el importe y pide el email del recibo antes de conectar la wallet del cliente." },
-        { id: "merchant-dashboard", size: "large", title: "Panel del comercio", text: "Saldos por wallet, ingresos en el tiempo y acceso a transacciones, wallets, facturas, reembolsos, webhooks y claves de API." },
+        { id: "payment-complete-store", size: "large", title: "Pago completado sobre la tienda", text: "El estado final del checkout: importe, transacción y entrega confirmadas sin salir de la tienda." },
         { id: "crosschain-progress", size: "medium", title: "Pago cross-chain en curso", text: "Aprobación, quema, verificación y entrega: el cliente ve cada paso hasta que llegan los fondos." },
         { id: "invoice", size: "medium", title: "Factura automática", text: "Generada tras cada retiro, con la comisión, el IVA aplicable y la referencia en cadena." },
-        { id: "payment-complete-store", size: "large", title: "Pago completado sobre la tienda", text: "El estado final del checkout sobre la tienda de demostración: importe, transacción y entrega confirmadas." },
+        { id: "merchant-dashboard", size: "medium", title: "Panel del comercio", text: "Saldos por wallet, ingresos en el tiempo y acceso a transacciones, facturas, reembolsos, webhooks y claves de API." },
       ],
     },
     cta: {
