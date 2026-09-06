@@ -75,7 +75,9 @@ export default function CrmAutomation({ c }) {
                 {!reduce && (
                   <motion.span
                     className="absolute left-1/2 h-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-[#3157F6] to-transparent"
-                    animate={{ top: ["-10%", "100%"] }}
+                    initial={{ top: "-10%" }}
+                    whileInView={{ top: ["-10%", "100%"] }}
+                    viewport={{ margin: "-10% 0px" }}
                     transition={{ duration: 9, repeat: Infinity, ease: "linear" }}
                   />
                 )}

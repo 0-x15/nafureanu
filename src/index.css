@@ -51,11 +51,20 @@
   body {
     @apply bg-background font-body text-foreground antialiased;
     text-rendering: optimizeLegibility;
-    /* Soft ambient depth on the ivory canvas */
+  }
+
+  /* Soft ambient depth on the ivory canvas. A fixed layer instead of
+     background-attachment: fixed, which makes the browser repaint the
+     whole viewport on every scroll step. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-image:
       radial-gradient(48% 36% at 88% -4%, rgba(49, 87, 246, 0.06), transparent 60%),
       radial-gradient(40% 30% at 0% 100%, rgba(49, 87, 246, 0.04), transparent 55%);
-    background-attachment: fixed;
   }
 
   ::selection {

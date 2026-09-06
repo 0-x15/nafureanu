@@ -20,7 +20,9 @@ export default function OdooVisual() {
             {i < NODES.length - 1 && (
               <span className="relative mx-2 h-px flex-1 bg-foreground/15">
                 <motion.span
-                  animate={{ x: [0, 42], opacity: [0, 1, 1, 0] }}
+                  initial={{ x: 0, opacity: 0 }}
+                  whileInView={{ x: [0, 42], opacity: [0, 1, 1, 0] }}
+                  viewport={{ margin: "-10% 0px" }}
                   transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute -top-[3px] h-1.5 w-1.5 rounded-full bg-accent"
                 />

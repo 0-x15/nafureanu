@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import CrmIntegrationItem from "./CrmIntegrationItem";
@@ -62,7 +62,8 @@ function LiveDot({ reduce }) {
       {!reduce && (
         <motion.span
           className="absolute inset-0 rounded-full bg-[#17B4CD]"
-          animate={{ scale: [1, 2.4], opacity: [0.55, 0] }}
+          whileInView={{ scale: [1, 2.4], opacity: [0.55, 0] }}
+          viewport={{ margin: "-10% 0px" }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
         />
       )}
@@ -73,11 +74,12 @@ function LiveDot({ reduce }) {
 
 const Core = ({ core, event, reduce, coreRef }) => {
   const [tick, setTick] = useState(0);
+  const coreInView = useInView(coreRef, { margin: "-10% 0px" });
   useEffect(() => {
-    if (reduce) return undefined;
+    if (reduce || !coreInView) return undefined;
     const id = window.setInterval(() => setTick((t) => t + 1), ACTIVITY_MS);
     return () => window.clearInterval(id);
-  }, [reduce]);
+  }, [reduce, coreInView]);
   const highlighted = tick % core.activity.length;
 
   return (

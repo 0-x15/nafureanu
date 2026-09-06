@@ -36,7 +36,8 @@ export default function FivoCrossChain({ c }) {
                 <motion.span
                   className="absolute -top-[5px] h-[11px] w-[11px] rounded-full bg-accent shadow-[0_0_0_4px_rgba(49,87,246,0.15)]"
                   initial={{ left: "0%" }}
-                  animate={{ left: "100%" }}
+                  whileInView={{ left: "100%" }}
+                  viewport={{ margin: "-10% 0px" }}
                   transition={{ duration: 6, ease: "easeInOut", repeat: Infinity, repeatDelay: 1 }}
                 />
               )}

@@ -30,7 +30,9 @@ export default function AutomationVisual() {
           {[10, 20, 14, 24, 16, 28, 12].map((h, i) => (
             <motion.span
               key={i}
-              animate={{ height: [`${h}px`, `${h + 12}px`, `${h}px`] }}
+              style={{ height: h, transformOrigin: "bottom" }}
+              whileInView={{ scaleY: [1, (h + 12) / h, 1] }}
+              viewport={{ margin: "-10% 0px" }}
               transition={{ duration: 1.6, repeat: Infinity, delay: i * 0.12, ease: "easeInOut" }}
               className="w-1 rounded-full bg-accent/70"
             />

@@ -112,7 +112,9 @@ function Arrow({ on = true, pulse = false, delay = 0, dir = "auto", className = 
             "absolute h-1.5 w-1.5 rounded-full bg-[#3157F6] shadow-[0_0_6px_rgba(49,87,246,0.55)]",
             vertical ? "left-1/2 -ml-[3px] -mt-[3px]" : "hidden top-1/2 -ml-[3px] -mt-[3px] sm:block"
           )}
-          animate={{ ...travel, opacity: [0, 1, 1, 0] }}
+          initial={{ opacity: 0 }}
+          whileInView={{ ...travel, opacity: [0, 1, 1, 0] }}
+          viewport={{ margin: "-10% 0px" }}
           transition={{
             duration: 1.6,
             repeat: Infinity,
@@ -149,7 +151,8 @@ export function LiveDot({ reduce, className = "" }) {
       {!reduce && (
         <motion.span
           className="absolute inset-0 rounded-full bg-[#17B4CD]"
-          animate={{ scale: [1, 2.4], opacity: [0.55, 0] }}
+          whileInView={{ scale: [1, 2.4], opacity: [0.55, 0] }}
+          viewport={{ margin: "-10% 0px" }}
           transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut" }}
         />
       )}

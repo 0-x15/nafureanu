@@ -3,6 +3,7 @@ import {
   easeInOut,
   motion,
   useAnimationFrame,
+  useInView,
   useMotionValue,
   useReducedMotion,
 } from "framer-motion";
@@ -99,10 +100,16 @@ function Slice({ w, tone, rail, index, still, reduce, label, onEngage, onRelease
   const duration = (5.5 + rail * 0.8 + index * 0.9) * 1000;
   const delay = (rail * 0.6 + index * 0.4) * 1000;
 
+  const pending = useRef(0);
   const tick = useCallback(
     (_time, delta) => {
       if (reduce || stillRef.current) return;
       elapsed.current += delta;
+      /* The drift is slow, so 30 updates per second look identical and
+         halve the per-frame style work across all the slices. */
+      pending.current += delta;
+      if (pending.current < 32) return;
+      pending.current = 0;
       x.set(driftAt(elapsed.current, keyframes, duration, delay));
     },
     [reduce, x, keyframes, duration, delay]
@@ -154,6 +161,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
   const [hover, setHover] = useState(null);
   const [pos, setPos] = useState({ y: 24, w: 232 });
   const stageRef = useRef(null);
+  const stageInView = useInView(stageRef, { margin: "-10% 0px" });
   const miniRef = useRef(null);
   const railRef = useRef(null);
   const lastRef = useRef(0);
@@ -224,7 +232,7 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
                       tone={tone}
                       rail={i}
                       index={j}
-                      still={still}
+                      still={still || !stageInView}
                       reduce={reduce}
                       label={t.nodes[i]}
                       onEngage={(e) => engage(i, e.currentTarget)}
@@ -244,7 +252,8 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
                       stroke="#C2BCAC"
                       strokeWidth="1.5"
                       strokeDasharray="3 4"
-                      animate={
+                      viewport={{ margin: "-10% 0px" }}
+                      whileInView={
                         reduce
                           ? { strokeDashoffset: 0 }
                           : { strokeDashoffset: [0, -14] }
@@ -258,7 +267,8 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
                   </svg>
                   <motion.span
                     className="ml-px h-1 w-1 rounded-full bg-[#9A94A6]"
-                    animate={
+                    viewport={{ margin: "-10% 0px" }}
+                    whileInView={
                       reduce
                         ? { opacity: 0.6, scale: 1 }
                         : {
@@ -289,7 +299,8 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
               <motion.div
                 key={row}
                 className="flex items-center justify-between gap-1"
-                animate={
+                viewport={{ margin: "-10% 0px" }}
+                whileInView={
                   reduce || r !== 1
                     ? { opacity: 1 }
                     : { opacity: [1, 0.45, 1] }
@@ -315,7 +326,8 @@ export default function CrmProblemVisual({ lang = "es", className = "" }) {
           <div className="mt-2 flex items-center justify-center gap-1 border-t border-[#E3DFD2] pt-2">
             <motion.span
               className="h-1 w-1 rounded-full bg-[#9A94A6]"
-              animate={
+              viewport={{ margin: "-10% 0px" }}
+              whileInView={
                 reduce
                   ? { opacity: 0.6 }
                   : { opacity: [0.35, 1, 0.35] }

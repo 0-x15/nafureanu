@@ -1,3 +1,4 @@
+import { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/lib/AuthContext";
 import PageNotFound from "./lib/PageNotFound";
@@ -6,10 +7,17 @@ import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Work from "./pages/Work";
-import CaseStudy from "./pages/CaseStudy";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import SiteLayout from "./components/layout/SiteLayout";
+
+/* Case studies carry the interactive demos, so they load on demand. */
+const CaseStudyPage = lazy(() => import("./pages/CaseStudy"));
+const CaseStudy = (props) => (
+  <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
+    <CaseStudyPage {...props} />
+  </Suspense>
+);
 
 function App() {
   return (

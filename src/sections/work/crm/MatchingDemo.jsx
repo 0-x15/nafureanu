@@ -72,7 +72,9 @@ function Connector({ on, pulse }) {
       {pulse && (
         <motion.span
           className="absolute h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_6px_rgba(49,87,246,0.55)] max-lg:left-1/2 max-lg:-ml-[3px] lg:top-1/2 lg:-mt-[3px]"
-          animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+          initial={{ left: "0%", opacity: 0 }}
+          whileInView={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+          viewport={{ margin: "-10% 0px" }}
           transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 3.2, ease: "easeInOut" }}
         />
       )}
@@ -118,7 +120,8 @@ function Engine({ m, mode, phase, reduce }) {
           {!reduce && (
             <motion.span
               className="absolute inset-0 rounded-full bg-accent"
-              animate={{ scale: [1, 2.3], opacity: [0.5, 0] }}
+              whileInView={{ scale: [1, 2.3], opacity: [0.5, 0] }}
+              viewport={{ margin: "-10% 0px" }}
               transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
             />
           )}

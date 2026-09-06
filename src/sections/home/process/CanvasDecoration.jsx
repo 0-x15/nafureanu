@@ -91,7 +91,8 @@ export default function CanvasDecoration() {
           cy={320}
           r={2.6}
           fill="#3157F6"
-          animate={reduce ? undefined : { cx: [880, 1040] }}
+          whileInView={reduce ? undefined : { cx: [880, 1040] }}
+          viewport={{ margin: "-10% 0px" }}
           transition={{ duration: 4.5, repeat: Infinity, repeatType: "mirror", ease: "easeInOut" }}
         />
       </motion.g>

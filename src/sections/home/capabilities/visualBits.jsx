@@ -76,7 +76,9 @@ export function Bars({ heights, accentIndex = 5, className = "" }) {
 export function FlowDot({ travel = 44, duration = 2.4, className = "" }) {
   return (
     <motion.span
-      animate={{ x: [0, travel], opacity: [0, 1, 1, 0] }}
+      initial={{ x: 0, opacity: 0 }}
+      whileInView={{ x: [0, travel], opacity: [0, 1, 1, 0] }}
+      viewport={{ margin: "-10% 0px" }}
       transition={{ duration, repeat: Infinity, ease: "easeInOut" }}
       className={cn("absolute -top-[3px] h-1.5 w-1.5 rounded-full bg-accent", className)}
     />
