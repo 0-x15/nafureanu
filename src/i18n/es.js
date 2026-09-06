@@ -1570,6 +1570,117 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       status: { label: "Sobre el producto", text: "Life Admin es un producto privado de Nafureanu, desplegado en Base44 y sin lanzamiento público." },
     },
   },
+  webProjects: {
+    meta: {
+      title: "Web y productos digitales — Nafureanu",
+      description:
+        "Una selección de proyectos web diseñados y desarrollados por Nafureanu: webs de servicios, una experiencia 3D en el navegador y una aplicación de datos en tiempo real. Diseño, desarrollo y producto en la misma superficie.",
+    },
+    hero: {
+      kicker: "Web · Producto digital",
+      title: "Webs construidas con criterio de producto.",
+      support:
+        "Una selección de experiencias web diseñadas y desarrolladas para negocios y productos reales. Es una parte de lo que hacemos, no lo único: la misma disciplina de producto e ingeniería que aplicamos a sistemas y software a medida, llevada a la web.",
+      meta: "4 proyectos · webs de servicios, una experiencia 3D y una aplicación en tiempo real",
+      composition: {
+        main: "Portada de DD Evecom Comfort en escritorio",
+        a: "Experiencia 3D de Reformas Octavian: pantalla de bienvenida",
+        b: "Vista de mercado de MP Monitor",
+        c: "Clínica Dental Goya 116 en móvil",
+      },
+    },
+    index: { kicker: "Selección", label: "Proyectos", hint: "Pulsa para ir al capítulo", preview: "Vista previa" },
+    visit: "Visitar sitio",
+    visitHint: "Se abre en una pestaña nueva",
+    scope: "Diseño y desarrollo web",
+    projects: [
+      {
+        id: "dd-evecom",
+        name: "DD Evecom Comfort",
+        category: "Web de servicios · Aislamiento acústico y térmico",
+        url: "https://dd-evecom-comfort.es",
+        host: "dd-evecom-comfort.es",
+        description:
+          "Web comercial de un instalador de ventanas acústicas y aislamiento en Madrid, partner oficial de Kömmerling. La página tenía que explicar un servicio técnico con claridad y convertir: presupuesto, teléfono y WhatsApp siempre a mano, un simulador de ahorro y una sección de proyectos con casos reales.",
+        signals: ["Responsive", "Simulador de ahorro", "Flujo de presupuesto", "Página de proyectos"],
+        images: {
+          desktop: "Portada de DD Evecom Comfort: titular, comparativa antes/después en decibelios y llamada a presupuesto",
+          tall: "Portada de DD Evecom Comfort, desplazable para ver las secciones de ventajas y ventanas acústicas",
+          mobile: "Portada de DD Evecom Comfort en móvil",
+          detail: "Página de proyectos realizados de DD Evecom Comfort",
+        },
+        captions: { desktop: "Portada · escritorio", mobile: "Portada · móvil", detail: "Proyectos realizados" },
+      },
+      {
+        id: "dental-goya",
+        name: "Clínica Dental Goya, 116",
+        category: "Web sanitaria · Clínica dental",
+        url: "https://clinicadentalgoya116.com/",
+        host: "clinicadentalgoya116.com",
+        description:
+          "Web de una clínica dental del barrio de Salamanca, en Madrid. Tenía que ordenar mucha información (tratamientos, primera visita, tarifas orientativas, horarios) y llevar al paciente a un solo gesto: reservar cita o llamar. Identidad verde y cálida, fotografía real de la clínica y una arquitectura de contenidos sencilla.",
+        signals: ["Reserva de cita", "Catálogo de tratamientos", "Primera visita", "Responsive"],
+        images: {
+          desktop: "Portada de Clínica Dental Goya 116: titular, botón de reserva y fotografía de la fachada",
+          tall: "Portada de Clínica Dental Goya 116, desplazable para ver la galería y los tratamientos",
+          mobile: "Portada de Clínica Dental Goya 116 en móvil",
+          detail: "Página Tu primera visita de Clínica Dental Goya 116",
+        },
+        captions: { desktop: "Portada · escritorio", mobile: "Portada · móvil", detail: "Tu primera visita" },
+      },
+      {
+        id: "reformas-octavian",
+        name: "Reformas Octavian",
+        category: "Experiencia web 3D · Empresa de reformas",
+        url: "https://reformasoctavian.es/",
+        host: "reformasoctavian.es",
+        description:
+          "Una web de reformas que no se parece a una web de reformas: una experiencia 3D en el navegador, con escenas modeladas para cada sección (bienvenida, nosotros, servicios, proyectos) y navegación por pantallas en lugar de scroll. Tipografía display, mucho aire y contacto directo por WhatsApp, email o teléfono.",
+        signals: ["3D en el navegador", "Navegación por escenas", "Tipografía display", "Adaptada a móvil"],
+        images: {
+          desktop: "Pantalla de bienvenida de Reformas Octavian con herramientas modeladas en 3D",
+          detail: "Escena 3D de la sección Servicios de Reformas Octavian",
+          detail2: "Escena 3D de la sección Nosotros de Reformas Octavian",
+          mobile: "Pantalla de bienvenida de Reformas Octavian en móvil",
+        },
+        captions: { desktop: "Bienvenida", detail: "Servicios", detail2: "Nosotros", mobile: "Móvil" },
+      },
+      {
+        id: "mp-monitor",
+        name: "MP Monitor",
+        category: "Aplicación web · Panel de mercado en tiempo real",
+        url: "https://mpmonitor.netlify.app",
+        host: "mpmonitor.netlify.app",
+        description:
+          "No es una web: es una aplicación. Un panel que sigue decenas de activos en vivo, los puntúa con reglas fijas y explica cada cifra en lenguaje llano. Siete pantallas (panel, mercado, suelos y techos, gráfico, activo, riesgo, sistema), búsqueda, atajos de teclado y un gráfico interactivo integrado.",
+        signals: ["Datos en tiempo real", "Siete vistas", "Atajos de teclado", "Gráfico interactivo"],
+        images: {
+          desktop: "Vista de mercado de MP Monitor: tabla de activos con puntuación, señales y filtros",
+          detail: "Vista de gráfico de MP Monitor con velas y panel de evaluación del activo",
+          mobile: "Vista de mercado de MP Monitor en móvil",
+        },
+        captions: { desktop: "Mercado", detail: "Gráfico y evaluación", mobile: "Móvil" },
+      },
+    ],
+    principles: {
+      kicker: "Lo que demuestra este trabajo",
+      title: "No tratamos una web como una plantilla.",
+      intro: "Diseño, contenido, interacción y desarrollo se resuelven como partes del mismo producto. Es la misma forma de trabajar que aplicamos a los sistemas.",
+      items: [
+        { title: "Jerarquía clara", text: "Cada página tiene una cosa que decir y una acción que pedir. El resto se ordena alrededor." },
+        { title: "Responsive real", text: "La versión móvil no es la de escritorio encogida: se recompone el contenido y las llamadas a la acción." },
+        { title: "Rendimiento", text: "Imágenes, tipografías y scripts con un peso justificado; lo que no aporta, no se carga." },
+        { title: "Mantenibilidad", text: "Estructuras que el negocio puede seguir ampliando sin rehacer la web." },
+      ],
+    },
+    cta: {
+      kicker: "Siguiente paso",
+      title: "¿Necesitas algo más que una presencia online?",
+      copy: "Diseñamos y desarrollamos experiencias web, productos y sistemas alrededor de lo que tu negocio necesita.",
+      primary: "Cuéntanos qué quieres construir",
+      secondary: "Ver todos los proyectos",
+    },
+  },
   caseStudy: {
     specs: ["Cliente", "Estado", "Disciplina"],
     product: "El producto",

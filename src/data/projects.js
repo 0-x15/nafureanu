@@ -346,70 +346,29 @@ export const PROJECTS = [
     card: {
       category: { es: "Web · Producto digital", en: "Web · Digital product" },
       description: {
-        es: "Webs y experiencias digitales diseñadas y desarrolladas con criterio de producto e ingeniería.",
-        en: "Websites and digital experiences designed and built with product and engineering discipline.",
+        es: "Una selección de webs y productos digitales construidos con criterio de producto: webs de servicios, una experiencia 3D y una aplicación en tiempo real.",
+        en: "A selection of websites and digital products built with product thinking: service websites, a 3D experience and a real-time application.",
       },
       signals: [
-        { es: "React", en: "React" },
-        { es: "Responsive", en: "Responsive" },
-        { es: "Performance", en: "Performance" },
+        { es: "4 proyectos", en: "4 projects" },
+        { es: "Web responsive", en: "Responsive web" },
+        { es: "Diseño + desarrollo", en: "Design + development" },
       ],
     },
-    stack: ["React", "Webs corporativas", "Experiencias interactivas", "Rendimiento"],
-    stats: [],
-    diagram: null,
+    /* The showcase lives in src/sections/work/web-projects (i18n: webProjects.*);
+       this copy only feeds the generic project lookup and metadata. */
     copy: {
       es: {
         type: "Web y productos digitales",
         summary:
-          "Webs corporativas y experiencias interactivas para pequeñas y medianas empresas.",
-        sections: [
-          {
-            label: "Contexto",
-            body: [
-              "Nafureanu ha diseñado y desarrollado webs para pequeñas y medianas empresas — pero no nos posicionamos como una agencia de webs.",
-              "El desarrollo web es una parte de una capacidad de ingeniería de software más amplia.",
-            ],
-          },
-          {
-            label: "Sistema",
-            body: [
-              "Cada web se construye con criterio de ingeniería: rendimiento, accesibilidad y mantenibilidad se tratan igual que en nuestros sistemas internos.",
-            ],
-          },
-          {
-            label: "Enfoque",
-            body: [
-              "Diseño y desarrollo ocurren internamente, con una sola forma de pensar — por eso nuestro trabajo web se sostiene junto a nuestro trabajo de software.",
-            ],
-          },
-        ],
+          "Una selección de proyectos web diseñados y desarrollados para negocios y productos reales: webs de servicios, una experiencia 3D en el navegador y una aplicación de datos en tiempo real.",
+        sections: [],
       },
       en: {
         type: "Web & digital products",
         summary:
-          "Corporate websites and interactive web experiences for small and medium-sized businesses.",
-        sections: [
-          {
-            label: "Context",
-            body: [
-              "Nafureanu has designed and developed websites for small and medium-sized businesses — but we are not positioned as a website agency.",
-              "Web development is one part of a broader software engineering capability.",
-            ],
-          },
-          {
-            label: "System",
-            body: [
-              "Every website is engineered, not assembled: performance, accessibility and maintainability are treated the same way as in our internal systems.",
-            ],
-          },
-          {
-            label: "Approach",
-            body: [
-              "Design and development happen in-house, in one system of thinking — which is why our web work holds up next to our software work.",
-            ],
-          },
-        ],
+          "A selection of web projects designed and built for real businesses and products: service websites, a 3D experience in the browser and a real-time data application.",
+        sections: [],
       },
     },
   },
