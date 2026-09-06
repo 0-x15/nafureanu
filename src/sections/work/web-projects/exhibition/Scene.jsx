@@ -92,8 +92,9 @@ function Surface({ def, S, textures, stage, tilt, readyRef, onHover, onOpen }) {
   );
 }
 
-function Rig({ S, stage, onHover, onOpen, onReady }) {
+function Rig({ S, stage, onHover, onOpen, onReady, register }) {
   const gl = useThree((st) => st.gl);
+  const invalidate = useThree((st) => st.invalidate);
   const urls = useMemo(textureUrls, []);
   const list = useLoader(THREE.TextureLoader, urls);
   const textures = useMemo(() => {
@@ -117,6 +118,19 @@ function Rig({ S, stage, onHover, onOpen, onReady }) {
       useLoader.clear(THREE.TextureLoader, urls);
     };
   }, [list, urls, onReady]);
+  /* Demand rendering: the timeline asks for frames through `register`,
+     the pointer asks for one on every move, and the loop below keeps
+     asking only while the tilt, the bend or the fade-in are settling. */
+  useEffect(() => {
+    register?.(invalidate);
+    const move = () => invalidate();
+    window.addEventListener("pointermove", move, { passive: true });
+    invalidate();
+    return () => {
+      register?.(null);
+      window.removeEventListener("pointermove", move);
+    };
+  }, [register, invalidate]);
 
   const group = useRef(null);
   const tilt = useRef({ x: 0, y: 0 }).current;
@@ -133,6 +147,8 @@ function Rig({ S, stage, onHover, onOpen, onReady }) {
     const target = THREE.MathUtils.clamp(stage.velocity / 6000, -1, 1) * 0.06;
     stage.bend += (target - stage.bend) * (1 - Math.exp(-d * 6));
     readyRef.current = Math.min(1, readyRef.current + d * 1.4);
+    const settling = Math.abs(st.pointer.x - tilt.x) > 0.002 || Math.abs(st.pointer.y - tilt.y) > 0.002 || Math.abs(target - stage.bend) > 0.0005 || readyRef.current < 1;
+    if (settling) invalidate();
   });
 
   return (
@@ -147,22 +163,27 @@ function Rig({ S, stage, onHover, onOpen, onReady }) {
 /**
  * The exhibition's WebGL layer: real screenshots on planes at
  * different depths, driven by the scroll timeline through `S`, with a
- * subconscious pointer tilt. Pixel ratio is capped at 1.5 and the loop
- * stops when the stage is off screen.
+ * subconscious pointer tilt. Frames are rendered only on demand (scroll,
+ * pointer, settling), without MSAA (edges are anti-aliased in the shader),
+ * on the default GPU, with the pixel ratio capped at 1.5, and never while
+ * the stage is off screen.
  */
-export default function Scene({ S, stage, active = true, onHover, onOpen, onReady = undefined }) {
+export default function Scene({ S, stage, active = true, onHover, onOpen, onReady = undefined, register = undefined }) {
   return (
     <Canvas
       dpr={[1, 1.5]}
-      frameloop={active ? "always" : "never"}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance", stencil: false }}
+      frameloop={active ? "demand" : "never"}
+      gl={{ antialias: false, alpha: true, stencil: false }}
       camera={{ fov: 32, near: 0.1, far: 40, position: [0, 0, 6] }}
       resize={{ scroll: false, debounce: { scroll: 50, resize: 80 } }}
       style={{ position: "absolute", inset: 0 }}
-      onCreated={({ gl }) => gl.setClearColor(0x000000, 0)}
+      onCreated={({ gl }) => {
+        gl.setClearColor(0x000000, 0);
+        if (/** @type {any} */ (import.meta).env?.DEV) /** @type {any} */ (window).__wpxGL = gl;
+      }}
     >
       <Suspense fallback={null}>
-        <Rig S={S} stage={stage} onHover={onHover} onOpen={onOpen} onReady={onReady} />
+        <Rig S={S} stage={stage} onHover={onHover} onOpen={onOpen} onReady={onReady} register={register} />
       </Suspense>
     </Canvas>
   );

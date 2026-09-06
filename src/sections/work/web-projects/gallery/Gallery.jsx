@@ -4,8 +4,7 @@ import BackToProjects from "@/components/work/BackToProjects";
 import { cn } from "@/lib/utils";
 import KineticTitle from "../KineticTitle";
 import Outro from "../Outro";
-import { PALETTES, asset } from "../exhibition/data";
-import { cssVars } from "../exhibition/timeline";
+import { PALETTES, asset, cssVars } from "../exhibition/data";
 import "../webProjects.css";
 
 const SIZES = { desktop: [2400, 1500], detail: [2000, 1250], detail2: [2000, 1250], mobile: [780, 1688] };

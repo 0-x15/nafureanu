@@ -8,8 +8,8 @@ import { cn } from "@/lib/utils";
 import KineticTitle from "../KineticTitle";
 import Outro from "../Outro";
 import Scene from "./Scene";
-import { DURATION, PALETTES, activeIndex, projectAnchor } from "./data";
-import { buildTimeline, cssVars, initialStates } from "./timeline";
+import { DURATION, PALETTES, activeIndex, cssVars, projectAnchor } from "./data";
+import { buildTimeline, initialStates } from "./timeline";
 import "../webProjects.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -37,9 +37,11 @@ export default function Exhibition({ lang = "es", c, onFallback = undefined }) {
   const stage = useRef({ velocity: 0, bend: 0 }).current;
   const containerRef = useRef(null);
   const stageRef = useRef(null);
-  const atmoRef = useRef(null);
   const cursorRef = useRef(null);
   const lenisRef = useRef(null);
+  const invalidateRef = useRef(/** @type {null | (() => void)} */ (null));
+  const hoverRef = useRef(false);
+  const pointerRef = useRef({ x: 0, y: 0 });
   const [active, setActive] = useState(-1);
   const [canvasOn, setCanvasOn] = useState(true);
   const [hover, setHover] = useState(null);
@@ -55,7 +57,7 @@ export default function Exhibition({ lang = "es", c, onFallback = undefined }) {
     gsap.ticker.add(tick);
     gsap.ticker.lagSmoothing(0);
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ paused: true, defaults: { ease: "none" } });
+      const tl = gsap.timeline({ paused: true, defaults: { ease: "none" }, onUpdate: () => invalidateRef.current?.() });
       buildTimeline(tl, S, gsap.utils.selector(stageEl), stageEl);
       ScrollTrigger.create({
         trigger: container,
@@ -84,24 +86,23 @@ export default function Exhibition({ lang = "es", c, onFallback = undefined }) {
     };
   }, [S, stage]);
 
-  /* Pointer: the cursor label follows with inertia; the atmosphere drifts a little. */
+  /* Pointer: the cursor label follows with inertia, only while a surface is hovered. */
   useEffect(() => {
     const el = cursorRef.current;
-    const atmo = atmoRef.current;
-    if (!el || !atmo) return undefined;
+    if (!el) return undefined;
     const qx = gsap.quickTo(el, "x", { duration: 0.4, ease: "power3" });
     const qy = gsap.quickTo(el, "y", { duration: 0.4, ease: "power3" });
-    const ax = gsap.quickTo(atmo, "xPercent", { duration: 1.4, ease: "power2" });
-    const ay = gsap.quickTo(atmo, "yPercent", { duration: 1.4, ease: "power2" });
     const move = (e) => {
-      qx(e.clientX);
-      qy(e.clientY);
-      ax((e.clientX / window.innerWidth - 0.5) * -3);
-      ay((e.clientY / window.innerHeight - 0.5) * -2);
+      pointerRef.current = { x: e.clientX, y: e.clientY };
+      if (hoverRef.current) {
+        qx(e.clientX);
+        qy(e.clientY);
+      }
     };
     window.addEventListener("pointermove", move, { passive: true });
     return () => window.removeEventListener("pointermove", move);
   }, []);
+  const register = useCallback((fn) => { invalidateRef.current = fn; }, []);
 
   const goTo = useCallback((i) => {
     const container = containerRef.current;
@@ -114,6 +115,8 @@ export default function Exhibition({ lang = "es", c, onFallback = undefined }) {
   }, []);
 
   const handleHover = useCallback((def) => {
+    hoverRef.current = !!def;
+    if (def && cursorRef.current) gsap.set(cursorRef.current, { x: pointerRef.current.x, y: pointerRef.current.y });
     setHover(def ? def.id : null);
     document.body.style.cursor = def ? "pointer" : "";
   }, []);
@@ -130,8 +133,7 @@ export default function Exhibition({ lang = "es", c, onFallback = undefined }) {
     <>
       <div ref={containerRef} className="wpx" style={{ height: `${(1 + DURATION) * 100}vh` }}>
         <div ref={stageRef} className="wpx-stage" style={cssVars(PALETTES.hero)}>
-          <div ref={atmoRef} className="wpx-atmo" aria-hidden="true" />
-          <div className="wpx-noise" aria-hidden="true" />
+          <div className="wpx-atmo" aria-hidden="true" />
 
           {/* Back layer: monumental project names, partly behind the surfaces */}
           <div className="wpx-layer" aria-hidden="true">
@@ -142,7 +144,7 @@ export default function Exhibition({ lang = "es", c, onFallback = undefined }) {
 
           <div className="wpx-canvas">
             <SceneBoundary onFallback={onFallback}>
-              <Scene S={S} stage={stage} active={canvasOn} onHover={handleHover} onOpen={handleOpen} />
+              <Scene S={S} stage={stage} active={canvasOn} onHover={handleHover} onOpen={handleOpen} register={register} />
             </SceneBoundary>
           </div>
 

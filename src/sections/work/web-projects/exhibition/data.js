@@ -35,6 +35,9 @@ export const PALETTES = {
   end: { c1: "#F9F7F0", c2: "#F9F7F0", c3: "#F9F7F0", fg: "#171A24", acc: "#3157F6", line: "rgba(23,26,36,0.14)" },
 };
 
+/** Palette → CSS custom properties for a style attribute. @returns {any} */
+export const cssVars = (p) => ({ "--c1": p.c1, "--c2": p.c2, "--c3": p.c3, "--fg": p.fg, "--acc": p.acc, "--line": p.line });
+
 /* Choreography timing. 1 = 100vh of scroll. */
 export const T = { hold: 0.25, intro: 0.7, project: 1.9, ending: 1.2 };
 export const INTRO_END = T.hold + T.intro;

@@ -1,4 +1,4 @@
-import { ENDING, DURATION, IDS, INTRO_END, PALETTES, PLANES, T, projectStart } from "./data";
+import { ENDING, DURATION, IDS, INTRO_END, PALETTES, PLANES, T, cssVars, projectStart } from "./data";
 
 /**
  * The whole exhibition is one scrubbed GSAP timeline. It drives plain
@@ -33,9 +33,6 @@ const POSE_A = {
 };
 const PHONE_FROM = { x: 0.45, y: -0.55, z: -0.4, rx: 0, ry: -0.3, rz: 0.05, w: 0.115, o: 0, s: 0, m: 0 };
 const PHONE_B = { x: 0.34, y: -0.08, z: 0.7, ry: -0.18, rz: 0, o: 1 };
-
-/** Palette → CSS custom properties for a style attribute. @returns {any} */
-export const cssVars = (p) => ({ "--c1": p.c1, "--c2": p.c2, "--c3": p.c3, "--fg": p.fg, "--acc": p.acc, "--line": p.line });
 
 export function buildTimeline(tl, S, q, atmo) {
   const set = (key, props, at) => tl.set(S[key], props, at);

@@ -1,7 +1,6 @@
 import BackToProjects from "@/components/work/BackToProjects";
 import KineticTitle from "./KineticTitle";
-import { PALETTES } from "./exhibition/data";
-import { cssVars } from "./exhibition/timeline";
+import { PALETTES, cssVars } from "./exhibition/data";
 import "./webProjects.css";
 
 /** Instant first paint while the WebGL exhibition module loads: same typography, same place. */
