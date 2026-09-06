@@ -11,6 +11,7 @@ import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
 import SystemsField, { FieldAtmosphere } from "@/components/work/SystemsField";
 import SystemsFieldCompact from "@/components/work/SystemsFieldCompact";
 import BackToHome from "@/components/work/BackToHome";
+import WorkClosingFlow from "@/components/work/WorkClosingFlow";
 
 /**
  * The project index — an editorial catalogue of systems already at
@@ -94,17 +95,29 @@ export default function Work({ lang = "es" }) {
         </div>
       </section>
 
-      <section className="border-t border-border px-5 py-20 md:px-10 md:py-28">
-        <div className="mx-auto flex max-w-[1440px] flex-col gap-10 md:flex-row md:items-end md:justify-between">
-          <Reveal>
-            <h2 className="max-w-xl font-heading text-2xl font-bold leading-snug tracking-[-0.02em] text-foreground md:text-3xl">
+      {/* Closing — the projects just seen become the visitor's own question: a real process → understand · design → a system in production */}
+      <section aria-labelledby="work-close" className="relative overflow-hidden border-t border-border px-5 py-24 md:px-10 md:py-32">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          <span className="absolute bottom-[18%] right-[8%] h-px w-[26%] bg-gradient-to-r from-transparent via-[rgba(23,180,205,0.35)] to-transparent" />
+          <span className="absolute right-[26%] top-[16%] h-[50%] w-[26%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.07),transparent)]" />
+        </div>
+        {/* Mobile order: kicker · statement · support · process rail · action. Desktop: copy and action left, rail right. */}
+        <div className="relative mx-auto grid max-w-[1280px] gap-12 md:grid-cols-12 md:gap-x-10 md:gap-y-12">
+          <Reveal className="md:col-start-1 md:col-end-8">
+            <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">{wp.close.kicker}</p>
+            <h2 id="work-close" className="mt-5 max-w-2xl font-heading text-3xl font-bold leading-[1.06] tracking-[-0.03em] text-foreground md:text-5xl [text-wrap:balance]">
               {wp.close.line}
             </h2>
+            <p className="mt-7 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">{wp.close.support}</p>
           </Reveal>
-          <Reveal variant="left" delay={0.1} className="shrink-0">
-            <ActionLink to={langPath(lang, "/contact")} size="lg">
-              {wp.close.cta}
-            </ActionLink>
+          <div className="md:col-start-8 md:col-end-13 md:row-start-1 md:row-end-3 md:flex md:justify-end">
+            <div className="w-full max-w-[380px] md:pt-2">
+              <WorkClosingFlow labels={wp.close.stages} status={wp.close.status} title={wp.close.flowLabel} />
+            </div>
+          </div>
+          <Reveal delay={0.1} className="md:col-start-1 md:col-end-8 md:self-start">
+            <ActionLink to={langPath(lang, "/contact")} size="lg">{wp.close.cta}</ActionLink>
+            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.16em] text-muted-foreground">{wp.close.reassure}</p>
           </Reveal>
         </div>
       </section>

@@ -365,8 +365,15 @@ export const ES = {
       "Explora cómo convertimos operaciones, procesos y productos en sistemas que funcionan.",
     viewProject: "Ver proyecto",
     close: {
+      kicker: "El siguiente sistema",
       line: "Cada proyecto empezó con un proceso que podía funcionar mejor.",
+      support:
+        "Una tarea repetida, una herramienta que dejó de encajar o una operación demasiado dependiente del trabajo manual. Primero entendemos qué está frenando el proceso. Después diseñamos el sistema que debe resolverlo.",
       cta: "Hablar de un proyecto",
+      reassure: "Empieza por contarnos qué ocurre hoy.",
+      flowLabel: "De un proceso real a un sistema en producción",
+      stages: ["Proceso real", "Entender · Diseñar", "Sistema en producción"],
+      status: ["Manual", "En diseño", "En producción"],
     },
   },
   crm: {

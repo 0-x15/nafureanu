@@ -60,42 +60,48 @@ export default function Footer({ lang = "es" }) {
       }
     >
       <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20">
-        {/* Level 1 — company statement */}
-        <div className="grid gap-10 border-b border-border pb-14 md:grid-cols-12 md:items-end">
-          <div className="md:col-span-7">
-            <Link
-              to={langPath(lang, "/")}
-              className="inline-flex items-center gap-2.5 font-heading text-[28px] font-bold tracking-[-0.02em] text-foreground md:text-4xl"
-            >
-              <span
-                aria-hidden="true"
-                className="inline-block h-2 w-2 bg-accent"
-              />
-              Nafureanu
-            </Link>
-            <p className="mt-6 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
-              {SITE.description[lang]}
-            </p>
-            <p className="mt-5 font-heading text-sm font-bold tracking-[-0.01em] text-foreground">
+        {/* Level 1 — brand masthead: the company signature at the end of every page */}
+        <div className="border-b border-border pb-14 md:pb-16">
+          <Link
+            to={langPath(lang, "/")}
+            className="group inline-flex items-start gap-[0.22em] font-heading font-bold leading-[0.9] tracking-[-0.04em] text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-accent"
+            style={{ fontSize: "clamp(48px, 7vw, 104px)" }}
+            aria-label={`Nafureanu — ${f.home}`}
+          >
+            <span aria-hidden="true" className="mt-[0.34em] inline-block h-[0.18em] w-[0.18em] bg-accent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-125" />
+            <span>Nafureanu</span>
+          </Link>
+
+          <div className="mt-10 grid gap-8 md:mt-12 md:grid-cols-12 md:items-end md:gap-10">
+            <p className="max-w-[16ch] font-heading text-[30px] font-bold leading-[1.02] tracking-[-0.03em] text-foreground [text-wrap:balance] md:col-span-7 md:text-[clamp(32px,3.4vw,52px)]">
               {SITE.tagline[lang]}
             </p>
+            <p className="max-w-md text-sm leading-relaxed text-muted-foreground md:col-span-5 md:text-[15px]">
+              {SITE.description[lang]}
+            </p>
           </div>
-          <div className="md:col-span-4 md:col-start-9">
-            <p className="max-w-xs text-sm font-medium leading-relaxed text-foreground">
+
+          {/* the question and the action share one baseline */}
+          <div className="mt-12 border-t border-foreground/15 pt-6 md:mt-14 md:grid md:grid-cols-12 md:items-baseline md:gap-10">
+            <p className="max-w-md font-heading text-lg font-medium leading-snug tracking-[-0.01em] text-foreground md:col-span-7 md:text-2xl">
               {f.ctaQuestion}
             </p>
-            <Link
-              to={langPath(lang, "/contact")}
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-accent transition-colors hover:text-accent-deep"
-            >
-              {s.nav.start}
-              <ArrowUpRight className="h-4 w-4" />
-            </Link>
+            <div className="mt-5 md:col-span-5 md:mt-0 md:text-right">
+              <Link
+                to={langPath(lang, "/contact")}
+                className="group relative inline-flex items-center gap-2 pb-2 font-mono text-[12px] font-medium uppercase tracking-[0.2em] text-foreground transition-colors duration-300 hover:text-accent-deep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent md:text-[13px]"
+              >
+                {s.nav.start}
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[3px] group-hover:translate-x-[3px]" />
+                <span aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full bg-foreground/25" />
+                <span aria-hidden="true" className="absolute bottom-0 left-0 h-[2px] w-full origin-left scale-x-0 bg-accent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-x-100" />
+              </Link>
+            </div>
           </div>
         </div>
 
         {/* Level 2 — site architecture */}
-        <div className="grid gap-10 pt-12 sm:grid-cols-2 md:grid-cols-12">
+        <div className="grid gap-10 pt-12 sm:grid-cols-2 md:grid-cols-12 md:pt-14">
           <nav aria-label={f.nav} className="md:col-span-2">
             <p className={labelClass}>{f.nav}</p>
             <ul className="mt-5 space-y-2.5 text-[13px]">

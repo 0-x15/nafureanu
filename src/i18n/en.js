@@ -364,8 +364,15 @@ export const EN = {
       "Explore how we turn operations, processes and products into systems that work.",
     viewProject: "View project",
     close: {
+      kicker: "The next system",
       line: "Every project started with a process that could work better.",
+      support:
+        "A repeated task, a tool that no longer fits, or an operation that depends too heavily on manual work. First we understand what is holding the process back. Then we design the system that should solve it.",
       cta: "Start a conversation",
+      reassure: "Start by telling us what happens today.",
+      flowLabel: "From a real process to a system in production",
+      stages: ["Real process", "Understand · Design", "System in production"],
+      status: ["Manual", "In design", "In production"],
     },
   },
   crm: {
