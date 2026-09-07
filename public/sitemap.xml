@@ -26,6 +26,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services"/>
   </url>
   <url>
+    <loc>https://nafureanu.com/services/crm-inmobiliario</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/crm-inmobiliario"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/real-estate-crm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/crm-inmobiliario"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/services/real-estate-crm</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/crm-inmobiliario"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/real-estate-crm"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/crm-inmobiliario"/>
+  </url>
+  <url>
     <loc>https://nafureanu.com/work</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work"/>
