@@ -25,7 +25,7 @@ export default function CapabilityList({ lang = "es" }) {
                   <p className="font-mono text-[11px] text-accent">{cap.num}</p>
                   <h2
                     id={cap.id}
-                    className="mt-2 font-heading text-2xl font-bold tracking-[-0.02em] text-foreground md:scroll-mt-32 md:text-4xl"
+                    className="mt-2 scroll-mt-24 font-heading text-2xl font-bold tracking-[-0.02em] text-foreground md:scroll-mt-32 md:text-4xl"
                   >
                     {c.title}
                   </h2>

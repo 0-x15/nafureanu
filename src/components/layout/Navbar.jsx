@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ActionLink from "@/components/ActionLink";
 import MobileMenu from "@/components/layout/MobileMenu";
+import ServicesMenu from "@/components/layout/ServicesMenu";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
 import { STRINGS, langPath } from "@/i18n";
@@ -24,6 +25,7 @@ const LINKS = [
 export default function Navbar({ lang = "es" }) {
   const s = STRINGS[lang];
   const [menuOpen, setMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
   const menuOpenRef = useRef(false);
   const interactingRef = useRef(false);
   const { compact, hidden, reveal } = useHeaderScroll({
@@ -31,12 +33,13 @@ export default function Navbar({ lang = "es" }) {
     interactingRef,
   });
 
+  /* Any open overlay (mobile menu, services dropdown) keeps the header in place. */
   useEffect(() => {
-    menuOpenRef.current = menuOpen;
-    if (menuOpen) reveal();
-  }, [menuOpen, reveal]);
+    menuOpenRef.current = menuOpen || servicesOpen;
+    if (menuOpen || servicesOpen) reveal();
+  }, [menuOpen, servicesOpen, reveal]);
 
-  const visible = !hidden || menuOpen;
+  const visible = !hidden || menuOpen || servicesOpen;
 
   /* Publish the header's effective height so sticky elements below it
      (e.g. a page's local chapter rail) can sit flush against it and
@@ -71,7 +74,7 @@ export default function Navbar({ lang = "es" }) {
     >
       <nav
         className={cn(
-          "mx-auto flex max-w-[1440px] items-center justify-between px-5 transition-all duration-500 md:px-10",
+          "relative mx-auto flex max-w-[1440px] items-center justify-between px-5 transition-all duration-500 md:px-10",
           compact ? "h-[52px] md:h-[56px]" : "h-16 md:h-[72px]"
         )}
         aria-label={lang === "es" ? "Navegación principal" : "Main navigation"}
@@ -88,11 +91,13 @@ export default function Navbar({ lang = "es" }) {
         </Link>
         <div
           className={cn(
-            "hidden items-center transition-all duration-500 md:flex",
+            "hidden items-center transition-all duration-500 lg:flex",
             compact ? "gap-7" : "gap-9"
           )}
         >
-          {LINKS.map((l) => (
+          {LINKS.map((l) => l.key === "services" ? (
+            <ServicesMenu key={l.path} lang={lang} onOpenChange={setServicesOpen} />
+          ) : (
             <NavLink
               key={l.path}
               to={langPath(lang, l.path)}
@@ -120,7 +125,7 @@ export default function Navbar({ lang = "es" }) {
             {s.nav.start}
           </ActionLink>
         </div>
-        <div className="md:hidden">
+        <div className="lg:hidden">
           <MobileMenu lang={lang} open={menuOpen} onOpenChange={setMenuOpen} />
         </div>
       </nav>
