@@ -1,70 +1,56 @@
+import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
-import { Chapter, ChapterHead, MONO, Num } from "./serviceBits";
+import { Chapter, ChapterHead, MONO } from "./serviceBits";
 
 /**
- * Automation — what the system can do by itself, shown as lanes:
- * event → system logic → automatic action → result. Hover or focus
- * makes a lane definite; everything is readable without it.
+ * Automation — EVENT → RULE → ACTION → RESULT. Three groups of three
+ * lanes, each verified in the system already built. Cells light up
+ * left to right as the lane enters the viewport; none of it runs
+ * off-screen or under reduced motion.
  */
 export default function CrmServiceAutomation({ c }) {
   const a = c.automation;
+  const reduced = useReducedMotion();
   return (
-    <Chapter aria-labelledby="crm-service-automation">
-      <ChapterHead id="crm-service-automation" kicker={a.kicker} titleMuted={a.titleA} title={a.titleB} intro={a.intro} />
-
-      <div className="mt-12 md:mt-16">
-        <div className="hidden lg:grid lg:grid-cols-[minmax(0,32%)_1fr] lg:gap-10">
-          <span aria-hidden="true" />
-          <ol className={cn("grid grid-cols-4 gap-3 pb-3", MONO, "text-muted-foreground")} aria-hidden="true">
-            {a.stages.map((st) => <li key={st}>{st}</li>)}
-          </ol>
+    <Chapter id="crm-service-automation" tone="blue">
+      <ChapterHead id="crm-service-automation" kicker={a.kicker} title={a.titleB} titleMuted={a.titleA} intro={a.intro} />
+      <Reveal delay={0.06} className="mt-12 hidden md:block">
+        <div className="grid grid-cols-4 gap-3 border-b border-border pb-3">
+          {a.stages.map((s, i) => <p key={s} className={cn(MONO, i === 2 ? "text-accent" : "text-muted-foreground")}>{s}</p>)}
         </div>
-
-        <ol className="border-t border-border">
-          {a.lanes.map((lane, i) => (
-            <li key={lane.id} className="border-b border-border">
-              <Reveal delay={0.04 * i}>
-                <article tabIndex={0} aria-labelledby={`crm-lane-${lane.id}`} className="group grid gap-5 py-7 outline-none lg:grid-cols-[minmax(0,32%)_1fr] lg:gap-10 lg:py-8">
-                  <div className="flex items-start gap-4">
-                    <Num n={i + 1} className="pt-1.5" />
-                    <div>
-                      <h3 id={`crm-lane-${lane.id}`} className="font-heading text-lg font-bold tracking-[-0.015em] text-foreground md:text-xl">{lane.title}</h3>
-                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">{lane.text}</p>
-                    </div>
-                  </div>
-                  <ol className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
-                    {lane.flow.map((step, si) => {
-                      const last = si === lane.flow.length - 1;
-                      return (
-                        <li key={step} className="relative">
-                          <div className={cn(
-                            "h-full rounded-lg border px-3.5 py-3 text-[13px] leading-snug transition-colors duration-300",
-                            last ? "border-accent/40 bg-[#EDF2FF] text-foreground group-hover:border-accent group-focus-visible:border-accent" : "border-[#DCE2EE] bg-white text-foreground/85 group-hover:border-accent/50 group-focus-visible:border-accent/50"
-                          )}>
-                            <span className={cn(MONO, "block", last ? "text-accent" : "text-muted-foreground")}>{a.stages[si]}</span>
-                            <span className="mt-1.5 block">{step}</span>
-                          </div>
-                          {!last && (
-                            <span aria-hidden="true" className="absolute -right-2.5 top-1/2 hidden h-px w-2 -translate-y-1/2 bg-accent/50 lg:block" />
-                          )}
-                        </li>
-                      );
-                    })}
-                  </ol>
-                </article>
-              </Reveal>
-            </li>
-          ))}
-        </ol>
-      </div>
-
-      <Reveal delay={0.1}>
-        <p className="mt-8 flex max-w-3xl items-start gap-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-          <span aria-hidden="true" className="mt-[9px] h-1.5 w-1.5 shrink-0 bg-accent" />
-          {a.note}
-        </p>
       </Reveal>
+      <div className="mt-6 space-y-10">
+        {a.groups.map((g) => (
+          <Reveal key={g.title} delay={0.05}>
+            <p className="font-heading text-lg font-bold tracking-[-0.01em] text-foreground">{g.title}</p>
+            <ul className="mt-4 space-y-3">
+              {g.lanes.map((lane) => (
+                <li key={lane.title} className="rounded-[10px] border border-border bg-white p-4">
+                  <p className={cn(MONO, "mb-3 text-accent")}>{lane.title}</p>
+                  <ol className="grid gap-2 md:grid-cols-4 md:gap-3">
+                    {lane.flow.map((cell, i) => (
+                      <motion.li
+                        key={cell}
+                        initial={reduced ? false : { opacity: 0.35, x: -6 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 0.8 }}
+                        transition={{ duration: 0.45, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
+                        className={cn("relative rounded-[6px] border px-3 py-2.5 text-[13px] leading-snug", i === 2 ? "border-accent bg-[#EEF3FC] text-accent-deep" : i === 3 ? "border-border bg-[#FAFBFD] font-medium text-foreground" : "border-border bg-white text-foreground/85")}
+                      >
+                        <span className={cn(MONO, "mb-1 block text-muted-foreground md:hidden")}>{a.stages[i]}</span>
+                        {cell}
+                        {i < 3 && <span aria-hidden="true" className="absolute -right-[7px] top-1/2 hidden h-px w-3 bg-accent/60 md:block" />}
+                      </motion.li>
+                    ))}
+                  </ol>
+                </li>
+              ))}
+            </ul>
+          </Reveal>
+        ))}
+      </div>
+      <Reveal delay={0.08}><p className="mt-10 max-w-3xl text-[15px] leading-relaxed text-muted-foreground">{a.note}</p></Reveal>
     </Chapter>
   );
 }

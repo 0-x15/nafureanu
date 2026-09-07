@@ -5,7 +5,7 @@ import { Chapter, ChapterHead, Num } from "./serviceBits";
 export default function CrmServiceProcess({ c }) {
   const p = c.process;
   return (
-    <Chapter aria-labelledby="crm-service-process">
+    <Chapter id="crm-service-process">
       <ChapterHead id="crm-service-process" kicker={p.kicker} title={p.title} />
       <Reveal delay={0.06}>
         <ol className="relative mt-12 grid gap-8 md:mt-16 md:grid-cols-3 md:gap-x-8 md:gap-y-12 lg:grid-cols-6 lg:gap-x-6">
@@ -16,6 +16,7 @@ export default function CrmServiceProcess({ c }) {
               <Num n={i + 1} />
               <p className="mt-2 font-heading text-base font-bold leading-snug tracking-[-0.01em] text-foreground">{st.title}</p>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{st.text}</p>
+              <p className="mt-3 font-mono text-[10px] uppercase tracking-[0.16em] text-accent">→ {st.out}</p>
             </li>
           ))}
         </ol>

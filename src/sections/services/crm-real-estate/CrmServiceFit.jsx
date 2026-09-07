@@ -5,7 +5,7 @@ import { Chapter, ChapterHead } from "./serviceBits";
 export default function CrmServiceFit({ c }) {
   const f = c.fit;
   return (
-    <Chapter aria-labelledby="crm-service-fit">
+    <Chapter id="crm-service-fit">
       <ChapterHead id="crm-service-fit" kicker={f.kicker} title={f.title} />
       <Reveal delay={0.06}>
         <ul className="mt-10 grid gap-x-14 border-t border-border md:mt-14 md:grid-cols-2">

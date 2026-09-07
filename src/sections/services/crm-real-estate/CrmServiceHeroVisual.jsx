@@ -1,118 +1,101 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { MONO } from "./serviceBits";
 
-/* Node positions in a 100 × 80 field around the property record. */
-const POS = {
-  demand: { x: 14, y: 11 },
-  portals: { x: 56, y: 5 },
-  documents: { x: 88, y: 16 },
-  operation: { x: 90, y: 54 },
-  visit: { x: 66, y: 74 },
-  matching: { x: 24, y: 74 },
-  client: { x: 8, y: 42 },
-};
-const CENTER = { x: 50, y: 40 };
-
-function PropertyCard({ c, className = "" }) {
-  return (
-    <div className={cn("rounded-xl border border-[#DCE2EE] bg-white p-4 shadow-[0_28px_60px_-30px_rgba(12,18,32,0.35)]", className)}>
-      <div className="flex items-center justify-between">
-        <span className="font-mono text-[9.5px] uppercase tracking-[0.18em] text-muted-foreground">{c.label}</span>
-        <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.14em] text-accent">
-          <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
-          {c.status}
-        </span>
-      </div>
-      <p className="mt-2 font-heading text-[15px] font-bold tracking-[-0.01em] text-foreground">{c.title}</p>
-      <div className="mt-2 flex flex-wrap gap-1.5">
-        {c.meta.map((m) => (
-          <span key={m} className="rounded border border-[#E3E7F0] bg-[#F7F9FC] px-1.5 py-0.5 text-[10px] text-[#4A5164]">{m}</span>
-        ))}
-      </div>
-      <div className="mt-3 flex items-center gap-2 border-t border-[#EEF1F6] pt-2.5">
-        <span aria-hidden="true" className="h-1 w-6 rounded-full bg-accent/60" />
-        <span aria-hidden="true" className="h-1 w-3 rounded-full bg-[#C9D3EC]" />
-        <span className="ml-auto font-mono text-[9px] uppercase tracking-[0.14em] text-muted-foreground">{c.published}</span>
-      </div>
-    </div>
-  );
-}
+/* Which domain each live event lights up (indices into h.domains). */
+const EVENT_DOMAIN = [4, 3, 5, 7, 1, 9];
+const RADIUS = 43; // % of the square
 
 /**
- * The service hero visual: one property record at the centre of an
- * operation — demand, client, matching, visit, operation, documents and
- * portals connected to it. One node is active at a time and the cycle
- * only runs while the visual is on screen; reduced motion holds a
- * single state. Phones get the record and the nodes as a plain grid.
+ * The operating model: ten domains on a ring around the CRM core. Live
+ * events cycle only while the visual is on screen and never under
+ * reduced motion; below lg the ring becomes a grid with the same data.
  */
 export default function CrmServiceHeroVisual({ h }) {
-  const reduce = useReducedMotion();
   const ref = useRef(null);
-  const inView = useInView(ref, { margin: "-10% 0px" });
-  const [active, setActive] = useState(2);
-
+  const inView = useInView(ref, { amount: 0.35 });
+  const reduced = useReducedMotion();
+  const [ev, setEv] = useState(0);
   useEffect(() => {
-    if (reduce || !inView) return undefined;
-    const id = window.setInterval(() => setActive((i) => (i + 1) % h.nodes.length), 2400);
-    return () => window.clearInterval(id);
-  }, [reduce, inView, h.nodes.length]);
+    if (!inView || reduced) return undefined;
+    const id = setInterval(() => setEv((v) => (v + 1) % h.events.length), 2600);
+    return () => clearInterval(id);
+  }, [inView, reduced, h.events.length]);
+  const activeDomain = EVENT_DOMAIN[ev % EVENT_DOMAIN.length];
 
   return (
-    <div ref={ref} role="img" aria-label={h.visualLabel}>
-      {/* Desktop — the connected operation */}
-      <div className="relative hidden aspect-[5/4] w-full lg:block">
-        <div aria-hidden="true" className="absolute inset-[4%] rounded-[24px] bg-[radial-gradient(60%_60%_at_50%_45%,rgba(49,87,246,0.09),transparent)]" />
-        <svg aria-hidden="true" viewBox="0 0 100 80" preserveAspectRatio="none" className="absolute inset-0 h-full w-full overflow-visible">
-          {h.nodes.map((n, i) => {
-            const p = POS[n.id];
-            const on = i === active;
-            return (
-              <g key={n.id}>
-                <line x1={CENTER.x} y1={CENTER.y} x2={p.x} y2={p.y} vectorEffect="non-scaling-stroke" className="stroke-accent" strokeWidth={on ? 1.5 : 1} style={{ opacity: on ? 0.9 : 0.22, transition: "opacity 0.5s" }} />
-                {on && !reduce && inView && (
-                  <motion.line x1={CENTER.x} y1={CENTER.y} x2={p.x} y2={p.y} vectorEffect="non-scaling-stroke" className="stroke-white" strokeWidth="1.5" strokeDasharray="3 9" initial={{ strokeDashoffset: 0 }} animate={{ strokeDashoffset: -24 }} transition={{ duration: 1.4, repeat: Infinity, ease: "linear" }} />
-                )}
-              </g>
-            );
+    <figure ref={ref} aria-label={h.visualLabel} className="m-0">
+      {/* Ring — lg and up */}
+      <div className="relative mx-auto hidden aspect-square w-full max-w-[640px] lg:block">
+        <svg aria-hidden="true" viewBox="0 0 100 100" className="absolute inset-0 h-full w-full">
+          <circle cx="50" cy="50" r={RADIUS} fill="none" stroke="rgba(15,23,42,0.08)" strokeDasharray="0.6 1.4" />
+          {h.domains.map((d, i) => {
+            const a = ((i * 36 - 90) * Math.PI) / 180;
+            const x = 50 + RADIUS * Math.cos(a);
+            const y = 50 + RADIUS * Math.sin(a);
+            const on = i === activeDomain;
+            return <line key={d.id} x1="50" y1="50" x2={x} y2={y} stroke={on ? "#2563EB" : "rgba(15,23,42,0.12)"} strokeWidth={on ? 0.5 : 0.25} className="transition-[stroke] duration-500" />;
           })}
         </svg>
-
-        <div className="absolute left-1/2 top-1/2 w-[38%] -translate-x-1/2 -translate-y-1/2">
-          <PropertyCard c={h.center} />
+        <div className="absolute left-1/2 top-1/2 flex h-[128px] w-[128px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-accent/30 bg-white text-center shadow-[0_0_0_10px_rgba(37,99,235,0.05),0_24px_48px_-28px_rgba(37,99,235,0.45)]">
+          <span className="font-heading text-2xl font-bold tracking-[-0.03em] text-foreground">{h.core}</span>
+          <span aria-hidden="true" className="mt-1.5 h-[2px] w-6 rounded-full bg-accent" />
         </div>
-
-        {h.nodes.map((n, i) => {
-          const p = POS[n.id];
-          const on = i === active;
+        {h.domains.map((d, i) => {
+          const a = ((i * 36 - 90) * Math.PI) / 180;
+          const x = 50 + RADIUS * Math.cos(a);
+          const y = 50 + RADIUS * Math.sin(a);
+          const on = i === activeDomain;
           return (
-            <div key={n.id} className="absolute -translate-x-1/2 -translate-y-1/2" style={{ left: `${p.x}%`, top: `${(p.y / 80) * 100}%` }}>
-              <div className={cn("rounded-md border bg-white px-2.5 py-1.5 transition-[border-color,box-shadow,transform] duration-500", on ? "border-accent shadow-[0_18px_40px_-20px_rgba(49,87,246,0.5)] -translate-y-0.5" : "border-[#DCE2EE] shadow-[0_10px_24px_-18px_rgba(12,18,32,0.3)]")}>
-                <p className={cn("flex items-center gap-2 whitespace-nowrap font-heading text-[12px] font-bold tracking-[-0.01em] transition-colors duration-500", on ? "text-accent-deep" : "text-foreground")}>
-                  <span aria-hidden="true" className={cn("h-1.5 w-1.5 rounded-full transition-colors duration-500", on ? "bg-accent" : "bg-[#C9D3EC]")} />
-                  {n.label}
-                </p>
-                {on && <p className="mt-0.5 whitespace-nowrap font-mono text-[9px] uppercase tracking-[0.12em] text-accent">{n.detail}</p>}
-              </div>
+            <div
+              key={d.id}
+              className={cn(
+                "absolute w-[118px] -translate-x-1/2 -translate-y-1/2 rounded-[8px] border bg-white px-2.5 py-2 text-center transition-[border-color,box-shadow,transform] duration-500",
+                on ? "border-accent shadow-[0_12px_30px_-16px_rgba(37,99,235,0.6)] scale-[1.04]" : "border-border"
+              )}
+              style={{ left: `${x}%`, top: `${y}%` }}
+            >
+              <span className={cn("block text-[12px] font-semibold tracking-[-0.01em]", on ? "text-accent-deep" : "text-foreground")}>{d.label}</span>
+              <span className="mt-0.5 block text-[10px] leading-snug text-muted-foreground">{d.hint}</span>
             </div>
           );
         })}
+        <Ticker events={h.events} ev={ev} className="absolute left-1/2 top-[calc(50%+92px)] -translate-x-1/2" />
       </div>
-      <p className="mt-2 hidden font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground lg:block">{h.note}</p>
 
-      {/* Phones and tablets — the record and its connections as a plain grid */}
+      {/* Grid — below lg */}
       <div className="lg:hidden">
-        <PropertyCard c={h.center} />
-        <ul className="mt-3 grid grid-cols-2 gap-2">
-          {h.nodes.map((n, i) => (
-            <li key={n.id} className={cn("rounded-lg border bg-white px-3 py-2", i === 2 ? "border-accent" : "border-[#DCE2EE]")}>
-              <p className="font-heading text-[12.5px] font-bold text-foreground">{n.label}</p>
-              <p className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.12em] text-muted-foreground">{n.detail}</p>
-            </li>
-          ))}
+        <div className="flex items-center justify-between gap-3 rounded-[8px] border border-accent/30 bg-white px-4 py-3">
+          <span className="font-heading text-xl font-bold tracking-[-0.03em] text-foreground">{h.core}</span>
+          <Ticker events={h.events} ev={ev} />
+        </div>
+        <ul className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-5">
+          {h.domains.map((d, i) => {
+            const on = i === activeDomain;
+            return (
+              <li key={d.id} className={cn("rounded-[8px] border bg-white px-3 py-2.5 transition-colors duration-500", on ? "border-accent" : "border-border")}>
+                <span className={cn("block text-[12px] font-semibold", on ? "text-accent-deep" : "text-foreground")}>{d.label}</span>
+                <span className="mt-0.5 block text-[10px] leading-snug text-muted-foreground">{d.hint}</span>
+              </li>
+            );
+          })}
         </ul>
-        <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.16em] text-muted-foreground">{h.note}</p>
       </div>
+      <figcaption className={cn(MONO, "mt-4 text-muted-foreground")}>{h.note}</figcaption>
+    </figure>
+  );
+}
+
+function Ticker({ events, ev, className = "" }) {
+  return (
+    <div className={cn("flex h-8 items-center gap-2 overflow-hidden rounded-full border border-border bg-[#F6F8FB] px-3", className)} aria-live="off">
+      <span aria-hidden="true" className="relative flex h-1.5 w-1.5"><span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-60 motion-reduce:animate-none" /><span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" /></span>
+      <AnimatePresence mode="wait" initial={false}>
+        <motion.span key={ev} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.3 }} className={cn(MONO, "whitespace-nowrap text-foreground/80")}>
+          {events[ev]}
+        </motion.span>
+      </AnimatePresence>
     </div>
   );
 }

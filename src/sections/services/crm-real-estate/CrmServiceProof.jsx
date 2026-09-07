@@ -14,12 +14,12 @@ import { Chapter, KICKER, MONO } from "./serviceBits";
 export default function CrmServiceProof({ lang, c, proofPath }) {
   const p = c.proof;
   return (
-    <Chapter tone="white" aria-labelledby="crm-service-proof">
+    <Chapter id="crm-service-proof" tone="white">
       <div className="grid gap-12 md:grid-cols-12 md:items-center md:gap-10">
         <div className="md:col-span-6 lg:col-span-5">
           <Reveal>
             <p className={KICKER}>{p.kicker}</p>
-            <h2 id="crm-service-proof" className="mt-4 font-heading text-3xl font-bold leading-[1.08] tracking-[-0.025em] text-foreground md:text-5xl">{p.title}</h2>
+            <h2 id="crm-service-proof-title" className="mt-4 font-heading text-3xl font-bold leading-[1.08] tracking-[-0.025em] text-foreground md:text-5xl">{p.title}</h2>
           </Reveal>
           <Reveal delay={0.06} className="mt-10 flex flex-wrap gap-x-12 gap-y-6">
             {p.figures.map((f) => (
@@ -31,6 +31,7 @@ export default function CrmServiceProof({ lang, c, proofPath }) {
           </Reveal>
           <Reveal delay={0.08}>
             <p className="mt-8 max-w-xl text-base leading-[1.75] text-muted-foreground md:text-lg">{p.copy}</p>
+            <p className="mt-3 max-w-xl text-[13px] leading-relaxed text-muted-foreground/80">{p.scopeNote}</p>
           </Reveal>
           <Reveal delay={0.1}>
             <Link

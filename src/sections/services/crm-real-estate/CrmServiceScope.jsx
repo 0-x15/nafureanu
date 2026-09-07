@@ -5,7 +5,7 @@ import { Chapter, ChapterHead, Num } from "./serviceBits";
 export default function CrmServiceScope({ c }) {
   const s = c.scope;
   return (
-    <Chapter tone="white" aria-labelledby="crm-service-scope">
+    <Chapter id="crm-service-scope" tone="white">
       <ChapterHead id="crm-service-scope" kicker={s.kicker} title={s.title} intro={s.intro} />
       <Reveal delay={0.06}>
         <ol className="mt-10 grid border-t border-border sm:grid-cols-2 md:mt-14 lg:grid-cols-4">
