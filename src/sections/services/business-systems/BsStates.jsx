@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
-import { Chapter, ChapterHead, Closing, EASE, MONO, StateChip } from "./bsBits";
+import { Chapter, ChapterHead, Closing, MONO, StateChip } from "./bsBits";
 
 const POS = { new: [8, 25], review: [27, 25], approved: [46, 25], progress: [66, 13], blocked: [66, 38], done: [91, 25] };
 
@@ -43,17 +43,17 @@ export default function BsStates({ c }) {
           {/* diagram (sm and up) */}
           <div role="tablist" aria-label={s.kicker} className="relative mx-auto hidden aspect-[2/1] w-full max-w-[920px] sm:block">
             <svg aria-hidden="true" viewBox="0 0 100 50" className="absolute inset-0 h-full w-full overflow-visible">
-              <defs><marker id="bs-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="3" markerHeight="3" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563EB" /></marker></defs>
+              <defs><marker id="bs-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerUnits="userSpaceOnUse" markerWidth="1.6" markerHeight="1.6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#2563EB" /></marker></defs>
               {s.machine.transitions.map(([a, b]) => {
                 const on = a === id;
-                return <motion.path key={`${a}-${b}`} d={pathFor(a, b)} fill="none" stroke={on ? "#2563EB" : "rgba(15,23,42,0.28)"} strokeWidth={on ? 2 : 1.2} vectorEffect="non-scaling-stroke" markerEnd={on ? "url(#bs-arrow)" : undefined} initial={false} animate={{ pathLength: 1, opacity: 1 }} transition={{ duration: reduced ? 0 : 0.6, ease: EASE }} />;
+                return <path key={`${a}-${b}`} d={pathFor(a, b)} fill="none" stroke={on ? "#2563EB" : "rgba(15,23,42,0.28)"} strokeWidth={on ? 2 : 1.2} vectorEffect="non-scaling-stroke" markerEnd={on ? "url(#bs-arrow)" : undefined} className="transition-[stroke] duration-300" />;
               })}
             </svg>
             {s.machine.transitions.filter(([a]) => a === id).map(([a, b, t]) => {
               const [x1, y1] = POS[a]; const [x2, y2] = POS[b];
-              const off = a === "review" && b === "new" ? 14 : a === "progress" && b === "blocked" ? 0 : 0;
+              const off = a === "review" && b === "new" ? 11 : 0;
               const dx = a === "progress" && b === "blocked" ? -9 : a === "blocked" && b === "progress" ? 9 : 0;
-              return <motion.span key={`${a}-${b}-t`} aria-hidden="true" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }} className={cn(MONO, "absolute -translate-x-1/2 -translate-y-1/2 rounded-[3px] bg-white px-1.5 py-0.5 text-[9px] text-accent shadow-sm")} style={{ left: `${(x1 + x2) / 2 + dx}%`, top: `${(y1 + y2) / 2 + off}%` }}>{t}</motion.span>;
+              return <motion.span key={`${a}-${b}-t`} aria-hidden="true" initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3, delay: 0.2 }} className={cn(MONO, "absolute hidden -translate-x-1/2 -translate-y-1/2 rounded-[3px] bg-white px-1.5 py-0.5 text-[9px] text-accent shadow-sm lg:block")} style={{ left: `${(x1 + x2) / 2 + dx}%`, top: `${((y1 + y2) / 2 + off) * 2}%` }}>{t}</motion.span>;
             })}
             {s.machine.states.map((st, i) => {
               const on = st.id === id;
@@ -61,7 +61,7 @@ export default function BsStates({ c }) {
               return (
                 <button key={st.id} type="button" role="tab" id={`bs-state-${st.id}`} aria-selected={on} aria-controls="bs-state-panel" tabIndex={on ? 0 : -1} onClick={() => setId(st.id)} onKeyDown={(e) => onKey(e, i)}
                   className={cn("absolute -translate-x-1/2 -translate-y-1/2 rounded-[7px] border bg-white px-3 py-2 text-[12px] font-semibold tracking-[-0.01em] outline-none transition-[border-color,box-shadow,color] focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2", on ? "border-accent text-accent-deep shadow-[0_12px_28px_-18px_rgba(37,99,235,0.7)]" : next ? "border-accent/50 text-foreground" : "border-border text-foreground/80 hover:border-foreground/40")}
-                  style={{ left: `${POS[st.id][0]}%`, top: `${POS[st.id][1]}%` }}>
+                  style={{ left: `${POS[st.id][0]}%`, top: `${POS[st.id][1] * 2}%` }}>
                   <span aria-hidden="true" className={cn("mr-1.5 inline-block h-1.5 w-1.5 rounded-full", on ? "bg-accent" : next ? "bg-accent/50" : "bg-border")} />{st.label}
                 </button>
               );
