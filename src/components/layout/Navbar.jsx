@@ -38,6 +38,14 @@ export default function Navbar({ lang = "es" }) {
 
   const visible = !hidden || menuOpen;
 
+  /* Publish the header's effective height so sticky elements below it
+     (e.g. a page's local chapter rail) can sit flush against it and
+     follow it when it slides away. Desktop values: the only consumers
+     render at lg and up. */
+  useEffect(() => {
+    document.documentElement.style.setProperty("--header-offset", visible ? (compact ? "56px" : "72px") : "0px");
+  }, [visible, compact]);
+
   return (
     <header
       onPointerEnter={() => {
