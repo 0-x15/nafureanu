@@ -1,11 +1,14 @@
+import { Suspense, lazy } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import PageNotFound from "@/lib/PageNotFound";
 import { usePageMeta } from "@/lib/seo";
 import { STRINGS, otherLang } from "@/i18n";
 import { findService, servicePath, serviceSlug } from "@/data/services";
-import CrmRealEstateService from "@/sections/services/crm-real-estate/CrmRealEstateService";
-
-const PAGES = { "crm-real-estate": CrmRealEstateService };
+/* One lazy chunk per service: a visitor only downloads the page they open. */
+const PAGES = {
+  "crm-real-estate": lazy(() => import("@/sections/services/crm-real-estate/CrmRealEstateService")),
+  "business-systems": lazy(() => import("@/sections/services/business-systems/BusinessSystemsService")),
+};
 
 /**
  * /services/:slug — one dedicated, commercial page per service. The
@@ -28,5 +31,9 @@ export default function ServicePage({ lang = "es" }) {
   if (!service) return <PageNotFound />;
   if (slug !== serviceSlug(service, lang)) return <Navigate replace to={servicePath(service, lang)} />;
   const Page = PAGES[service.id];
-  return <Page lang={lang} service={service} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>
+      <Page lang={lang} service={service} />
+    </Suspense>
+  );
 }

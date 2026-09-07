@@ -13,6 +13,12 @@ export const SERVICES = [
     project: "crm-inmobiliario",
     strings: "crmService",
   },
+  {
+    id: "business-systems",
+    slug: { es: "crm-sistemas-gestion", en: "custom-crm-business-systems" },
+    project: "crm-inmobiliario",
+    strings: "businessSystemsService",
+  },
 ];
 
 export const findService = (slug) => SERVICES.find((s) => s.slug.es === slug || s.slug.en === slug);
