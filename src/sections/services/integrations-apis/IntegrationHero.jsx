@@ -91,7 +91,7 @@ export default function IntegrationHero({ lang, c, proofPath }) {
           <ActionLink to={proofPath} variant="secondary" icon="right" size="lg">{h.proof}</ActionLink>
         </Reveal>
       </div>
-      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[640px] lg:col-span-7 lg:max-w-none lg:pl-4">
+      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[640px] lg:col-span-7 lg:-mt-16 lg:max-w-none lg:pl-4">
         <Bridge v={h.visual} />
       </Reveal>
     </header>
