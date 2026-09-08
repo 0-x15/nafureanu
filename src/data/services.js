@@ -43,6 +43,12 @@ export const SERVICES = [
     project: "fivo",
     strings: "integrationsApiService",
   },
+  {
+    id: "web-digital",
+    slug: { es: "diseno-desarrollo-web", en: "web-design-development" },
+    project: "web-projects",
+    strings: "webDigitalService",
+  },
 ];
 
 export const findService = (slug) => SERVICES.find((s) => s.slug.es === slug || s.slug.en === slug);

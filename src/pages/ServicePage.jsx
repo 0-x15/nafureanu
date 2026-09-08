@@ -12,6 +12,7 @@ const PAGES = {
   "ai-automation": lazy(() => import("@/sections/services/ai-automation/AiAutomationService")),
   saas: lazy(() => import("@/sections/services/saas-product/SaasProductService")),
   "integrations-apis": lazy(() => import("@/sections/services/integrations-apis/IntegrationsApiService")),
+  "web-digital": lazy(() => import("@/sections/services/web-digital/WebDigitalService")),
 };
 
 /**

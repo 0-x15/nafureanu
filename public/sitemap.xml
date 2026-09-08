@@ -98,6 +98,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/integraciones-apis"/>
   </url>
   <url>
+    <loc>https://nafureanu.com/services/diseno-desarrollo-web</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/diseno-desarrollo-web"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/web-design-development"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/diseno-desarrollo-web"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/services/web-design-development</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/diseno-desarrollo-web"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/web-design-development"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/diseno-desarrollo-web"/>
+  </url>
+  <url>
     <loc>https://nafureanu.com/work</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work"/>

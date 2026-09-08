@@ -1,0 +1,88 @@
+/* Engineering overlay on the fictional page: regions outline themselves and name what they are. */
+.wd-surface[data-ov="on"] [data-ov-id] {
+  outline: 1px dashed rgba(37, 99, 235, 0.55);
+  outline-offset: 3px;
+}
+.wd-surface[data-ov="on"] [data-ov-id]::after {
+  content: attr(data-ov-label);
+  position: absolute;
+  left: 0;
+  top: -1px;
+  transform: translateY(-100%);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  padding: 3px 5px;
+  color: #ffffff;
+  background: #2563eb;
+  border-radius: 2px;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 5;
+}
+.wd-surface[data-ov="on"] [data-ov-id][data-ov-side="end"]::after {
+  left: auto;
+  right: 0;
+}
+.wd-surface[data-ov="on"] [data-ov-id][data-ov-inside]::after {
+  top: 0;
+  transform: none;
+}
+.wd-surface[data-ov="on"][data-ov-active] [data-ov-id] {
+  outline-color: rgba(37, 99, 235, 0.18);
+}
+.wd-surface[data-ov="on"][data-ov-active] [data-ov-id]::after {
+  background: rgba(37, 99, 235, 0.35);
+}
+.wd-surface[data-ov="on"][data-ov-active="html"] [data-ov-id="html"],
+.wd-surface[data-ov="on"][data-ov-active="grid"] [data-ov-id="grid"],
+.wd-surface[data-ov="on"][data-ov-active="images"] [data-ov-id="images"],
+.wd-surface[data-ov="on"][data-ov-active="a11y"] [data-ov-id="a11y"],
+.wd-surface[data-ov="on"][data-ov-active="seo"] [data-ov-id="seo"],
+.wd-surface[data-ov="on"][data-ov-active="interaction"] [data-ov-id="interaction"],
+.wd-surface[data-ov="on"][data-ov-active="content"] [data-ov-id="content"],
+.wd-surface[data-ov="on"][data-ov-active="measure"] [data-ov-id="measure"],
+.wd-surface[data-ov="on"][data-ov-active="perf"] [data-ov-id="perf"],
+.wd-surface[data-ov="on"][data-ov-active="motion"] [data-ov-id="motion"] {
+  outline: 2px solid #2563eb;
+  background-color: rgba(37, 99, 235, 0.07);
+}
+.wd-surface[data-ov="on"][data-ov-active="html"] [data-ov-id="html"]::after,
+.wd-surface[data-ov="on"][data-ov-active="grid"] [data-ov-id="grid"]::after,
+.wd-surface[data-ov="on"][data-ov-active="images"] [data-ov-id="images"]::after,
+.wd-surface[data-ov="on"][data-ov-active="a11y"] [data-ov-id="a11y"]::after,
+.wd-surface[data-ov="on"][data-ov-active="seo"] [data-ov-id="seo"]::after,
+.wd-surface[data-ov="on"][data-ov-active="interaction"] [data-ov-id="interaction"]::after,
+.wd-surface[data-ov="on"][data-ov-active="content"] [data-ov-id="content"]::after,
+.wd-surface[data-ov="on"][data-ov-active="measure"] [data-ov-id="measure"]::after,
+.wd-surface[data-ov="on"][data-ov-active="perf"] [data-ov-id="perf"]::after,
+.wd-surface[data-ov="on"][data-ov-active="motion"] [data-ov-id="motion"]::after {
+  background: #2563eb;
+}
+
+/* The fictional photograph: layered light, no stock imagery. */
+.wd-plate {
+  background:
+    radial-gradient(120% 80% at 20% 15%, rgba(255, 255, 255, 0.75), transparent 55%),
+    radial-gradient(90% 70% at 85% 90%, rgba(0, 0, 0, 0.35), transparent 60%),
+    linear-gradient(160deg, #cfd6df 0%, #8f9aa8 45%, #4d5866 100%);
+}
+.wd-plate::before {
+  content: "";
+  position: absolute;
+  inset: 12% 18% 20% 14%;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(255, 255, 255, 0.02));
+}
+.wd-plate::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 12%;
+  bottom: 20%;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.5);
+}
