@@ -78,7 +78,7 @@ function Bridge({ v }) {
 export default function IntegrationHero({ lang, c, proofPath }) {
   const h = c.hero;
   return (
-    <header id="in-hero" className="mx-auto grid max-w-[1440px] items-start gap-12 overflow-x-clip px-5 pb-16 pt-8 md:px-10 md:pb-24 md:pt-12 lg:grid-cols-12 lg:gap-8">
+    <header id="in-hero" className="mx-auto grid max-w-[1440px] items-start gap-12 overflow-x-clip px-5 pb-16 pt-8 md:px-10 md:pb-24 md:pt-12 lg:grid-cols-12 lg:items-center lg:gap-8">
       <div className="min-w-0 lg:col-span-5">
         <Reveal>
           <p className={KICKER}>{h.kicker}</p>
@@ -91,7 +91,7 @@ export default function IntegrationHero({ lang, c, proofPath }) {
           <ActionLink to={proofPath} variant="secondary" icon="right" size="lg">{h.proof}</ActionLink>
         </Reveal>
       </div>
-      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[640px] lg:col-span-7 lg:-mt-10 lg:max-w-none lg:pl-4">
+      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[640px] lg:col-span-7 lg:max-w-none lg:pl-4">
         <Bridge v={h.visual} />
       </Reveal>
     </header>
