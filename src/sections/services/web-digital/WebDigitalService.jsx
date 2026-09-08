@@ -4,7 +4,7 @@ import { PROJECTS, projectSlug } from "@/data/projects";
 import WebCanvasHero from "./WebCanvasHero";
 import StructureAct from "./StructureAct";
 import DirectionStudio from "./DirectionStudio";
-import ResponsiveAct from "./ResponsiveAct";
+import ResponsiveLab from "./ResponsiveLab";
 import BuildReveal from "./BuildReveal";
 import WebBrief from "./WebBrief";
 import WebCta from "./WebCta";
@@ -19,18 +19,15 @@ const workPath = (lang, slug) => {
 
 /**
  * Web design & development — a page that designs itself in front of the
- * visitor. Six acts: the blank canvas, structure before style (the page
- * drops its styling), design changes perception (this page's opening in
- * four directions), a website has to behave (the same surface across
- * contexts), design becomes software (the construction layer beneath),
- * and the brief that lets us start. The direction chosen in act three
- * carries through acts four and five. Fraunces, the editorial serif of
- * the demonstrations, loads only while this page is open.
+ * visitor. Six acts, each a designed object that fits one viewport: the
+ * canvas being composed, information becoming structure, one landing
+ * under three art directions (still or interactive), a responsive lab
+ * with a continuous resizer, the construction layer beneath a finished
+ * page, and the brief. Fraunces loads only while this page is open.
  */
 export default function WebDigitalService({ lang = "es" }) {
   const c = STRINGS[lang].webDigitalService;
-  const [mode, setMode] = useState("editorial");
-  const [wire, setWire] = useState(false);
+  const [dir, setDir] = useState("editorial");
   const paths = { work: workPath(lang, "web-projects") };
 
   useEffect(() => {
@@ -43,12 +40,12 @@ export default function WebDigitalService({ lang = "es" }) {
   }, []);
 
   return (
-    <article className="wd-article bg-background pt-24 md:pt-28" data-wire={wire ? "on" : "off"}>
+    <article className="bg-background pt-24 md:pt-28">
       <WebCanvasHero lang={lang} c={c} />
-      <StructureAct c={c} wire={wire} setWire={setWire} />
-      <DirectionStudio c={c} mode={mode} setMode={setMode} />
-      <ResponsiveAct c={c} mode={mode} />
-      <BuildReveal c={c} mode={mode} />
+      <StructureAct c={c} />
+      <DirectionStudio c={c} dir={dir} setDir={setDir} />
+      <ResponsiveLab c={c} />
+      <BuildReveal c={c} />
       <WebBrief c={c} />
       <WebCta lang={lang} c={c} paths={paths} />
     </article>

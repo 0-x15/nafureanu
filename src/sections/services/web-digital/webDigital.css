@@ -1,128 +1,106 @@
-/* ————— The wireframe state: the page stripped of style, structure kept ————— */
-.wd-act,
-.wd-act * {
-  transition-property: color, background-color, border-color, outline-color, box-shadow;
-  transition-duration: 0.55s;
-  transition-timing-function: ease;
+/* ————— Design canvas: dotted field, column guides, selection handles ————— */
+.wd-canvas {
+  background-color: #ffffff;
+  background-image: radial-gradient(rgba(27, 31, 42, 0.16) 0.8px, transparent 0.9px);
+  background-size: 16px 16px;
+  background-position: 8px 8px;
 }
-.wd-article[data-wire="on"] .wd-act {
-  background-color: #ffffff !important;
-  background-image: none !important;
-  color: #8a8f98 !important;
-}
-.wd-article[data-wire="on"] .wd-act *:not(.wd-keep):not(.wd-keep *) {
-  color: inherit !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: #d3d6db !important;
-  box-shadow: none !important;
-  text-decoration-color: #d3d6db !important;
-}
-.wd-article[data-wire="on"] .wd-act .action-primary,
-.wd-article[data-wire="on"] .wd-act .action-secondary {
-  outline: 1px solid #b9bdc5;
+.wd-sel {
+  outline: 1px solid #2563eb;
   outline-offset: 0;
 }
-.wd-article[data-wire="on"] .wd-act[data-wire-label] {
-  outline: 1px dashed #c4c8cf;
-  outline-offset: -14px;
-}
-.wd-article[data-wire="on"] .wd-act[data-wire-label]::before {
-  content: attr(data-wire-label);
+.wd-h {
   position: absolute;
-  left: 26px;
-  top: 22px;
-  z-index: 3;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: #6b7280;
+  z-index: 2;
+  width: 7px;
+  height: 7px;
   background: #ffffff;
-  padding: 0 6px;
+  border: 1px solid #2563eb;
 }
-@media (min-width: 768px) {
-  .wd-article[data-wire="on"] .wd-act[data-wire-label]::before {
-    left: 44px;
-  }
+.wd-h.tl { left: -4px; top: -4px; }
+.wd-h.tr { right: -4px; top: -4px; }
+.wd-h.bl { left: -4px; bottom: -4px; }
+.wd-h.br { right: -4px; bottom: -4px; }
+
+/* ————— Abstract photographs: layered light instead of stock imagery ————— */
+.wd-plate {
+  background:
+    radial-gradient(120% 80% at 20% 15%, rgba(255, 255, 255, 0.7), transparent 55%),
+    radial-gradient(90% 70% at 85% 90%, rgba(0, 0, 0, 0.35), transparent 60%),
+    linear-gradient(160deg, #d7dbe2 0%, #97a1ae 45%, #4f5968 100%);
+}
+.wd-plate-warm {
+  background:
+    radial-gradient(120% 80% at 20% 15%, rgba(255, 255, 255, 0.7), transparent 55%),
+    radial-gradient(90% 70% at 85% 90%, rgba(0, 0, 0, 0.3), transparent 60%),
+    linear-gradient(160deg, #e9dccd 0%, #b59c85 45%, #5c4738 100%);
+}
+.wd-plate-ink {
+  background:
+    radial-gradient(110% 80% at 28% 22%, rgba(107, 144, 255, 0.85), rgba(37, 99, 235, 0.25) 45%, transparent 62%),
+    radial-gradient(90% 70% at 85% 90%, rgba(255, 255, 255, 0.16), transparent 60%),
+    linear-gradient(160deg, #343947 0%, #1a1d26 55%, #101218 100%);
 }
 
-/* ————— The design grid that shows itself briefly on the blank canvas ————— */
-.wd-baseline {
-  background-image: repeating-linear-gradient(180deg, transparent 0, transparent 7px, rgba(37, 99, 235, 0.16) 7px, rgba(37, 99, 235, 0.16) 8px);
+/* ————— Blueprint layer of the build specimen ————— */
+.wd-blue {
+  background-color: #ffffff;
+  background-image: linear-gradient(rgba(37, 99, 235, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(37, 99, 235, 0.07) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
-/* ————— The construction layer of the page surface ————— */
-.wd-surface[data-build] {
-  background-color: #ffffff !important;
-  background-image: none !important;
-  color: #7c8390 !important;
+.wd-blue .wd-region {
+  outline: 1px solid rgba(37, 99, 235, 0.5);
+  outline-offset: -1px;
+  transition: background-color 0.3s ease, outline-color 0.3s ease;
 }
-.wd-surface[data-build] * {
-  color: inherit !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: #cfd3d9 !important;
-  box-shadow: none !important;
+.wd-blue .wd-region[data-hot="true"] {
+  outline: 1.5px solid #2563eb;
+  background-color: rgba(37, 99, 235, 0.06);
 }
-.wd-surface[data-build] [data-tag] {
-  outline: 1px dashed rgba(37, 99, 235, 0.6);
-  outline-offset: 4px;
+
+/* ————— Resizer grip ————— */
+.wd-grip {
+  cursor: ew-resize;
+  touch-action: none;
+  user-select: none;
 }
-.wd-surface[data-build] [data-tag]::after {
-  content: attr(data-tag);
-  position: absolute;
-  left: 0;
-  top: -4px;
-  transform: translateY(-100%);
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  line-height: 1;
-  padding: 3px 5px;
-  color: #2563eb !important;
-  background: #ffffff !important;
-  border: 1px solid rgba(37, 99, 235, 0.5);
-  border-radius: 2px;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: 4;
-}
-.wd-surface[data-build] [data-tag][data-tag-side="end"]::after {
-  left: auto;
-  right: 0;
-}
-.wd-surface[data-build] [data-tag][data-tag-inside]::after {
-  top: 6px;
-  transform: none;
-}
-.wd-surface[data-build] .wd-shape {
-  outline: 1px dashed rgba(37, 99, 235, 0.6);
-  outline-offset: 4px;
-}
-.wd-surface[data-build] .wd-shape::before {
+.wd-grip::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: linear-gradient(to top right, transparent calc(50% - 0.5px), #cfd3d9, transparent calc(50% + 0.5px)), linear-gradient(to top left, transparent calc(50% - 0.5px), #cfd3d9, transparent calc(50% + 0.5px));
+  left: 50%;
+  top: 50%;
+  width: 2px;
+  height: 22px;
+  transform: translate(-50%, -50%);
+  background: currentColor;
+  border-radius: 1px;
+  box-shadow: -4px 0 0 currentColor, 4px 0 0 currentColor;
 }
 
-/* ————— Interaction with purpose: ink that answers the pointer ————— */
-.wd-ink {
-  background-image: linear-gradient(#2563eb, #2563eb);
-  background-size: 0% 0.16em;
-  background-position: 0 94%;
-  background-repeat: no-repeat;
-  transition: background-size 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+/* ————— Native range over the build divider: invisible, keyboard-operable ————— */
+.wd-range {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: ew-resize;
 }
-.wd-ink-host:hover .wd-ink,
-.wd-ink[data-on="true"] {
-  background-size: 100% 0.16em;
+.wd-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 44px;
+  height: 100%;
+  background: transparent;
 }
+.wd-range::-moz-range-thumb {
+  width: 44px;
+  height: 100%;
+  background: transparent;
+  border: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .wd-act,
-  .wd-act *,
-  .wd-ink {
-    transition-duration: 0.01ms;
+  .wd-motion {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }
