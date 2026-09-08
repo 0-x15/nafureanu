@@ -11,7 +11,7 @@ export default function DecisionStandard({ a }) {
         <p className="max-w-[46ch] text-[15px] leading-[1.65] text-foreground/80 lg:col-span-5 lg:col-start-8">{t.intro}</p>
       </div>
       <div className="mt-8 overflow-hidden border border-foreground/12 bg-white">
-        <div className={cn(MONO, "hidden grid-cols-[48px_1.4fr_1fr_150px] gap-6 border-b border-foreground/12 px-6 py-3 text-muted-foreground md:grid")}>
+        <div className={cn(MONO, "hidden grid-cols-[48px_1.4fr_1fr_170px] gap-6 border-b border-foreground/12 px-6 py-3 text-muted-foreground md:grid")}>
           <span>{t.cols.n}</span><span>{t.cols.q}</span><span>{t.cols.d}</span><span>{t.cols.t}</span>
         </div>
         <ol className="divide-y divide-foreground/10">
