@@ -62,6 +62,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/software-a-medida"/>
   </url>
   <url>
+    <loc>https://nafureanu.com/services/ia-automatizacion</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/ia-automatizacion"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/ai-automation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/ia-automatizacion"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/services/ai-automation</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/ia-automatizacion"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/ai-automation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/ia-automatizacion"/>
+  </url>
+  <url>
     <loc>https://nafureanu.com/work</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work"/>
