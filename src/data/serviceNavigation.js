@@ -28,7 +28,7 @@ export const SERVICE_NAV = {
       id: "product",
       items: [
         { id: "ai-automation", service: "ai-automation" },
-        { id: "saas", anchor: "custom-software" },
+        { id: "saas", service: "saas" },
         { id: "integrations-apis", anchor: "integrations-apis" },
         { id: "web-digital", anchor: "web-digital" },
       ],

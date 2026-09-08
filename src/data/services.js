@@ -31,6 +31,12 @@ export const SERVICES = [
     project: "crm-inmobiliario",
     strings: "aiAutomationService",
   },
+  {
+    id: "saas",
+    slug: { es: "saas-productos-digitales", en: "saas-digital-products" },
+    project: "fivo",
+    strings: "saasProductService",
+  },
 ];
 
 export const findService = (slug) => SERVICES.find((s) => s.slug.es === slug || s.slug.en === slug);
