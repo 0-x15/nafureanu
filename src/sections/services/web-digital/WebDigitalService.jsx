@@ -1,15 +1,14 @@
 import { useEffect, useState } from "react";
 import { STRINGS, langPath } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
-import WebHero from "./WebHero";
-import FirstSeconds from "./FirstSeconds";
-import MessageStudio from "./MessageStudio";
-import ArtDirectionStudio from "./ArtDirectionStudio";
-import PageJourney from "./PageJourney";
-import WebProof from "./WebProof";
-import EngineeringOverlay from "./EngineeringOverlay";
-import CreativeBrief from "./CreativeBrief";
+import WebCanvasHero from "./WebCanvasHero";
+import StructureAct from "./StructureAct";
+import DirectionStudio from "./DirectionStudio";
+import ResponsiveAct from "./ResponsiveAct";
+import BuildReveal from "./BuildReveal";
+import WebBrief from "./WebBrief";
 import WebCta from "./WebCta";
+import "./webDigital.css";
 
 const FRAUNCES = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap";
 
@@ -19,19 +18,20 @@ const workPath = (lang, slug) => {
 };
 
 /**
- * Web design & digital experiences — the design page. Eight acts: a
- * typographic first impression, the first seconds, the message before
- * the look, one business art-directed four ways, the page as a journey,
- * four real websites presented editorially, the engineering beneath the
- * surface, the creative desk, and the door. The art direction chosen in
- * the studio carries into the engineering act. Fraunces, the editorial
- * serif used in the demonstrations, loads only while this page is open.
+ * Web design & development — a page that designs itself in front of the
+ * visitor. Six acts: the blank canvas, structure before style (the page
+ * drops its styling), design changes perception (this page's opening in
+ * four directions), a website has to behave (the same surface across
+ * contexts), design becomes software (the construction layer beneath),
+ * and the brief that lets us start. The direction chosen in act three
+ * carries through acts four and five. Fraunces, the editorial serif of
+ * the demonstrations, loads only while this page is open.
  */
 export default function WebDigitalService({ lang = "es" }) {
   const c = STRINGS[lang].webDigitalService;
-  const wp = STRINGS[lang].webProjects;
   const [mode, setMode] = useState("editorial");
-  const paths = { exhibition: workPath(lang, "web-projects") };
+  const [wire, setWire] = useState(false);
+  const paths = { work: workPath(lang, "web-projects") };
 
   useEffect(() => {
     if (document.querySelector(`link[href="${FRAUNCES}"]`)) return undefined;
@@ -43,15 +43,13 @@ export default function WebDigitalService({ lang = "es" }) {
   }, []);
 
   return (
-    <article className="bg-background pt-24 md:pt-28">
-      <WebHero lang={lang} c={c} proofPath="#wd-proof" />
-      <FirstSeconds c={c} />
-      <MessageStudio c={c} />
-      <ArtDirectionStudio c={c} mode={mode} setMode={setMode} />
-      <PageJourney c={c} />
-      <WebProof c={c} wp={wp} paths={paths} />
-      <EngineeringOverlay c={c} mode={mode} />
-      <CreativeBrief c={c} />
+    <article className="wd-article bg-background pt-24 md:pt-28" data-wire={wire ? "on" : "off"}>
+      <WebCanvasHero lang={lang} c={c} />
+      <StructureAct c={c} wire={wire} setWire={setWire} />
+      <DirectionStudio c={c} mode={mode} setMode={setMode} />
+      <ResponsiveAct c={c} mode={mode} />
+      <BuildReveal c={c} mode={mode} />
+      <WebBrief c={c} />
       <WebCta lang={lang} c={c} paths={paths} />
     </article>
   );
