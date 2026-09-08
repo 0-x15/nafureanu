@@ -10,6 +10,10 @@ import { SERVICES, servicePath } from "./services";
  * service later means replacing `anchor` with `service` on one entry.
  * Labels and microcopy live in i18n under `serviceNav.items[id]`.
  */
+/**
+ * @typedef {{ id: string, service?: string, anchor?: string }} ServiceNavItem
+ * @type {{ groups: { id: string, items: ServiceNavItem[] }[], specialities: ServiceNavItem[] }}
+ */
 export const SERVICE_NAV = {
   groups: [
     {
@@ -17,7 +21,7 @@ export const SERVICE_NAV = {
       items: [
         { id: "crm-real-estate", service: "crm-real-estate" },
         { id: "business-systems", service: "business-systems" },
-        { id: "custom-software", anchor: "custom-software" },
+        { id: "custom-software", service: "custom-software" },
       ],
     },
     {

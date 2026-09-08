@@ -50,6 +50,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/crm-sistemas-gestion"/>
   </url>
   <url>
+    <loc>https://nafureanu.com/services/software-a-medida</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/software-a-medida"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/custom-software"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/software-a-medida"/>
+  </url>
+  <url>
+    <loc>https://nafureanu.com/en/services/custom-software</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/services/software-a-medida"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/services/custom-software"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nafureanu.com/services/software-a-medida"/>
+  </url>
+  <url>
     <loc>https://nafureanu.com/work</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nafureanu.com/work"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nafureanu.com/en/work"/>

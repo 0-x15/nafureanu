@@ -8,6 +8,7 @@ import { findService, servicePath, serviceSlug } from "@/data/services";
 const PAGES = {
   "crm-real-estate": lazy(() => import("@/sections/services/crm-real-estate/CrmRealEstateService")),
   "business-systems": lazy(() => import("@/sections/services/business-systems/BusinessSystemsService")),
+  "custom-software": lazy(() => import("@/sections/services/custom-software/CustomSoftwareService")),
 };
 
 /**

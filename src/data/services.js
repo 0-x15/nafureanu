@@ -19,6 +19,12 @@ export const SERVICES = [
     project: "crm-inmobiliario",
     strings: "businessSystemsService",
   },
+  {
+    id: "custom-software",
+    slug: { es: "software-a-medida", en: "custom-software" },
+    project: "crm-inmobiliario",
+    strings: "customSoftwareService",
+  },
 ];
 
 export const findService = (slug) => SERVICES.find((s) => s.slug.es === slug || s.slug.en === slug);
