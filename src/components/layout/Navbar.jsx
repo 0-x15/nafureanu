@@ -91,7 +91,7 @@ export default function Navbar({ lang = "es" }) {
         </Link>
         <div
           className={cn(
-            "hidden items-center transition-all duration-500 lg:flex",
+            "hidden items-center self-stretch transition-all duration-500 lg:flex",
             compact ? "gap-7" : "gap-9"
           )}
         >

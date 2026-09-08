@@ -15,6 +15,12 @@ const CLOSE_DELAY = 140;
  * for keyboard and touch users; Escape and outside interaction close it.
  * The panel is positioned inside the header's <nav> so it aligns under
  * the trigger and is clamped to the header's width — never the viewport.
+ * The root is a static, full-height flex box (not `contents`): pointer
+ * enter/leave live there, so the hover region is one continuous corridor
+ * from the trigger text, through the rest of the header height and the
+ * panel's top padding, into the panel — which stays a DOM descendant, so
+ * moving into it never counts as leaving. The static root does not become
+ * the panel's containing block; that remains the positioned <nav>.
  */
 export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) {
   const s = STRINGS[lang];
@@ -75,8 +81,8 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
   const onTriggerFocus = () => { if (skipFocusOpen.current) { skipFocusOpen.current = false; return; } show(); };
 
   return (
-    <div ref={rootRef} className="contents" onBlur={onBlur}>
-      <span className="flex items-center gap-0.5" onPointerEnter={show} onPointerLeave={() => hide()}>
+    <div ref={rootRef} className="flex h-full items-center" onBlur={onBlur} onPointerEnter={show} onPointerLeave={() => hide()}>
+      <span className="flex items-center gap-0.5">
         <Link
           ref={triggerRef}
           to={base}
@@ -108,8 +114,6 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: reduced ? 0 : -4 }}
             transition={{ duration: reduced ? 0 : 0.18, ease: [0.22, 1, 0.36, 1] }}
-            onPointerEnter={show}
-            onPointerLeave={() => hide()}
             className="absolute top-full z-50 w-[min(880px,calc(100vw-80px))] pt-2"
             style={{ left }}
           >
