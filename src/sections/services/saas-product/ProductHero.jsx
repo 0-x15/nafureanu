@@ -96,7 +96,7 @@ export default function ProductHero({ lang, c, proofPath }) {
           <ActionLink to={proofPath} variant="secondary" icon="right" size="lg">{h.proof}</ActionLink>
         </Reveal>
       </div>
-      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[620px] lg:col-span-7 lg:max-w-none lg:pl-4 lg:pt-1">
+      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[620px] lg:col-span-7 lg:-mt-10 lg:max-w-none lg:pl-4">
         <Sketch h={h} />
       </Reveal>
     </header>
