@@ -8,7 +8,7 @@ import CsHeroVisual from "./CsHeroVisual";
 export default function CsHero({ lang, c, proofPath }) {
   const h = c.hero;
   return (
-    <header id="cs-hero" className="mx-auto grid max-w-[1440px] items-center gap-12 overflow-x-clip px-5 pb-12 pt-8 md:px-10 md:pb-16 md:pt-12 lg:grid-cols-12 lg:gap-8">
+    <header id="cs-hero" className="mx-auto grid max-w-[1440px] items-center gap-12 overflow-x-clip px-5 pb-12 pt-8 md:px-10 md:pb-16 md:pt-12 lg:grid-cols-12 lg:items-start lg:gap-8">
       <div className="min-w-0 lg:col-span-5">
         <Reveal>
           <p className={KICKER}>{h.kicker}</p>
@@ -21,7 +21,7 @@ export default function CsHero({ lang, c, proofPath }) {
           <ActionLink to={proofPath} variant="secondary" icon="right" size="lg">{h.proof}</ActionLink>
         </Reveal>
       </div>
-      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[620px] lg:col-span-7 lg:max-w-none lg:pl-4">
+      <Reveal variant="scale" delay={0.1} className="min-w-0 md:mx-auto md:w-full md:max-w-[620px] lg:col-span-7 lg:max-w-none lg:pl-4 lg:pt-1">
         <CsHeroVisual h={h} />
       </Reveal>
     </header>
