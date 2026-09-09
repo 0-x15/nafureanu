@@ -87,10 +87,10 @@
   .fivo-a {
     border-radius: 36px;
     border: 1px solid rgba(255, 255, 255, 0.85);
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.6), rgba(49, 87, 246, 0.09) 55%, rgba(23, 180, 205, 0.08));
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.55), rgba(49, 87, 246, 0.045) 55%, rgba(23, 180, 205, 0.035));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      0 70px 130px -60px rgba(49, 87, 246, 0.45);
+      0 70px 130px -60px rgba(49, 87, 246, 0.3);
     backdrop-filter: blur(28px);
   }
   /* plane 2 material — faint cobalt within the glass */
@@ -109,14 +109,14 @@
     box-shadow: 0 40px 90px -40px rgba(49, 87, 246, 0.4);
     backdrop-filter: blur(18px);
   }
-  .fp-1 { top: 8vh; left: -7vw; width: 52vw; height: 14vh; transform: rotate(2deg); }
+  .fp-1 { top: 8vh; left: -7vw; width: 38vw; height: 14vh; transform: rotate(2deg); }
   .fp-2 { top: 42vh; left: 36vw; width: 46vw; height: 12vh; transform: rotate(-6deg); }
   .fp-3 { bottom: 12vh; right: -9vw; width: 48vw; height: 16vh; transform: rotate(-5deg); }
   @media (max-width: 767px) {
     .site-canvas > span {
       backdrop-filter: none;
     }
-    .fp-1 { left: -22vw; width: 90vw; height: 12vh; }
+    .fp-1 { left: -22vw; width: 76vw; height: 12vh; }
     .fp-2 { display: none; }
     .fp-3 { right: -26vw; width: 88vw; height: 13vh; }
   }
