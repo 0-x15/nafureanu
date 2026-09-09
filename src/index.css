@@ -162,141 +162,143 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: the engineering plate ───────────── */
-  /* The button is one plate of the system drawing on the home: a glass
-     plate with a cobalt outline and a soft diagonal sheen, drawn with
-     real thickness in oblique projection — a bottom face and a right
-     face, the cobalt edges of the drawing. Inside, the label is called
-     out by a dashed leader with its dot, like the callouts of the
-     drawing; on hover the leader flows towards the label and the plate
-     lifts off its base, as the layers do when the drawing explodes.
-     Primary has cobalt faces, secondary graphite faces that turn cobalt. */
+  /* ── Nafureanu action system: the HUD ────────────────────────── */
+  /* Not a button: an instrument. At rest, a minimal light plate with
+     four corner marks. On hover it deploys: the corners open outwards,
+     segments grow out of two vertices — up from the top right, down
+     from the bottom left — bend, extend, and print a mono readout at
+     their end (the index and the action above, the real destination
+     below), while a scan line sweeps across the plate. Everything is
+     drawn from the site's own vocabulary: hairlines, mono labels,
+     cobalt on paper. */
+  .action-set {
+    position: relative;
+    display: inline-flex;
+    isolation: isolate;
+  }
   .action {
     position: relative;
+    overflow: hidden;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border-radius: 2px;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
     letter-spacing: -0.005em;
     white-space: nowrap;
-    background: var(--action-sheen);
+    border: 1px solid var(--action-outline);
+    background: var(--action-fill);
+    color: hsl(var(--foreground));
     transition:
-      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 300ms cubic-bezier(0.22, 1, 0.36, 1),
       border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  /* the thickness: a bottom face and a right face in oblique projection,
-     each a lamination of three thin layers with air between them */
-  .action::before,
-  .action::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
-    transition:
-      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      height 320ms cubic-bezier(0.22, 1, 0.36, 1),
-      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
       background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .action::before {
-    left: 0;
-    right: 0;
-    top: 100%;
-    height: var(--depth);
-    transform-origin: top left;
-    transform: skewX(45deg);
-    background: linear-gradient(180deg, var(--action-l1) 0 20%, transparent 20% 40%, var(--action-l2) 40% 60%, transparent 60% 80%, var(--action-l3) 80% 100%);
-  }
+  .action-set:hover .action,
+  .action-set:focus-within .action { color: var(--action-ink-hover); border-color: var(--action-ink); }
+  /* the scan line */
   .action::after {
-    top: 0;
-    bottom: 0;
-    left: 100%;
-    width: var(--depth);
-    transform-origin: top left;
-    transform: skewY(45deg);
-    background: linear-gradient(90deg, var(--action-l1) 0 20%, transparent 20% 40%, var(--action-l2) 40% 60%, transparent 60% 80%, var(--action-l3) 80% 100%);
-  }
-  /* the callout: a dashed leader and its dot, before the label */
-  .action__lead {
-    flex: none;
-    position: relative;
-    width: 18px;
-    height: 1px;
-    background-image: repeating-linear-gradient(90deg, var(--action-lead) 0 3px, transparent 3px 6px);
-    background-size: 24px 1px;
-  }
-  .action__lead::after {
     content: "";
     position: absolute;
-    right: -2px;
-    top: -2px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: var(--action-lead);
-    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    top: 0;
+    bottom: 0;
+    left: -2px;
+    width: 1px;
+    background: var(--action-ink);
+    opacity: 0;
+    pointer-events: none;
   }
-  .action:hover .action__lead,
-  .action:focus-visible .action__lead { animation: action-lead-flow 700ms linear infinite; }
-  .action:hover .action__lead::after { transform: scale(1.35); }
-  @keyframes action-lead-flow {
-    from { background-position: 0 0; }
-    to { background-position: 6px 0; }
+  .action-set:hover .action::after,
+  .action-set:focus-within .action::after { animation: action-scan 900ms cubic-bezier(0.4, 0, 0.2, 1) 1; }
+  @keyframes action-scan {
+    0% { transform: translateX(0); opacity: 0.9; }
+    100% { transform: translateX(calc(100% + 2px)); opacity: 0; }
   }
-  .action__label {
-    position: relative;
+  /* corner marks: small L shapes that open outwards */
+  .action__corner {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border: 0 solid var(--action-ink);
+    pointer-events: none;
+    transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .action:hover,
-  .action:focus-visible {
-    --depth: 9px;
-    transform: translate(-2px, -2px);
+  .action__corner-1 { top: -1px; left: -1px; border-top-width: 1px; border-left-width: 1px; }
+  .action__corner-2 { top: -1px; right: -1px; border-top-width: 1px; border-right-width: 1px; }
+  .action__corner-3 { bottom: -1px; right: -1px; border-bottom-width: 1px; border-right-width: 1px; }
+  .action__corner-4 { bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
+  .action-set:hover .action__corner-1, .action-set:focus-within .action__corner-1 { transform: translate(-5px, -5px); }
+  .action-set:hover .action__corner-2, .action-set:focus-within .action__corner-2 { transform: translate(5px, -5px); }
+  .action-set:hover .action__corner-3, .action-set:focus-within .action__corner-3 { transform: translate(5px, 5px); }
+  .action-set:hover .action__corner-4, .action-set:focus-within .action__corner-4 { transform: translate(-5px, 5px); }
+  /* the readouts: a segment out of a vertex, a bend, a line, a mono text */
+  .action__hud {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    height: 12px;
+    pointer-events: none;
+    color: var(--action-ink);
+    font-family: var(--font-mono);
+    font-size: 9px;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1;
+    white-space: nowrap;
   }
-  .action:active {
-    --depth: 3px;
-    transform: translate(1px, 1px);
+  /* above: from the top-right vertex, leftwards over the plate;
+     below: from the bottom-left vertex, rightwards under it */
+  .action__hud-1 { right: -2px; top: -13px; flex-direction: row-reverse; }
+  .action__hud-2 { left: -2px; top: calc(100% + 13px); }
+  .action__hud i {
+    display: block;
+    height: 1px;
+    background: var(--action-ink);
+    transform: scaleX(0);
+    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
   }
+  .action__hud .diag { width: 16px; }
+  .action__hud-1 .diag { transform-origin: left center; transform: rotate(45deg) scaleX(0); margin-left: -2px; }
+  .action__hud-2 .diag { transform-origin: right center; transform: rotate(-45deg) scaleX(0); margin-right: -2px; }
+  .action__hud .line { width: 34px; transition-delay: 160ms; }
+  .action__hud-1 .line { transform-origin: right center; }
+  .action__hud-2 .line { transform-origin: left center; }
+  .action__hud b {
+    font-weight: 500;
+    margin: 0 6px;
+    transition: clip-path 420ms cubic-bezier(0.22, 1, 0.36, 1) 300ms;
+  }
+  .action__hud-1 b { clip-path: inset(0 0 0 100%); }
+  .action__hud-2 b { clip-path: inset(0 100% 0 0); }
+  .action-set:hover .action__hud-1 .diag, .action-set:focus-within .action__hud-1 .diag { transform: rotate(45deg) scaleX(1); }
+  .action-set:hover .action__hud-2 .diag, .action-set:focus-within .action__hud-2 .diag { transform: rotate(-45deg) scaleX(1); }
+  .action-set:hover .action__hud .line, .action-set:focus-within .action__hud .line { transform: scaleX(1); }
+  .action-set:hover .action__hud b, .action-set:focus-within .action__hud b { clip-path: inset(0 0 0 0); }
   .action:focus-visible {
     outline: 2px solid hsl(var(--accent));
     outline-offset: 4px;
   }
 
-  /* primary — cobalt outline and faces */
-  .action-primary {
-    --action-sheen: linear-gradient(135deg, #ffffff 0%, #f4f6ff 55%, #e9eeff 100%);
-    --action-lead: #3157f6;
-    --action-l1: #3157f6;
-    --action-l2: rgba(49, 87, 246, 0.72);
-    --action-l3: rgba(49, 87, 246, 0.45);
-    color: hsl(var(--foreground));
-    border: 1px solid rgba(49, 87, 246, 0.7);
+  /* primary — cobalt instrument */
+  .action-set-primary {
+    --action-outline: rgba(49, 87, 246, 0.6);
+    --action-fill: linear-gradient(135deg, #ffffff 0%, #f3f6ff 60%, #e9eeff 100%);
+    --action-ink: #3157f6;
+    --action-ink-hover: hsl(var(--accent-deep));
   }
-  .action-primary:hover { color: hsl(var(--accent-deep)); border-color: hsl(var(--accent)); }
+  /* secondary — graphite instrument that wakes in cobalt */
+  .action-set-secondary {
+    --action-outline: rgba(25, 28, 41, 0.3);
+    --action-fill: linear-gradient(135deg, #fdfcfa 0%, #f7f5f0 100%);
+    --action-ink: rgba(25, 28, 41, 0.75);
+    --action-ink-hover: hsl(var(--foreground));
+  }
+  .action-set-secondary:hover { --action-ink: #3157f6; }
 
-  /* secondary — graphite outline, faces that turn cobalt */
-  .action-secondary {
-    --action-sheen: linear-gradient(135deg, #fdfcfa 0%, #f8f6f1 60%, #f1efe8 100%);
-    --action-lead: rgba(25, 28, 41, 0.7);
-    --action-l1: rgba(25, 28, 41, 0.55);
-    --action-l2: rgba(25, 28, 41, 0.38);
-    --action-l3: rgba(25, 28, 41, 0.22);
-    color: hsl(var(--foreground));
-    border: 1px solid rgba(25, 28, 41, 0.28);
-  }
-  .action-secondary:hover {
-    --action-lead: #3157f6;
-    --action-l1: #3157f6;
-    --action-l2: rgba(49, 87, 246, 0.72);
-    --action-l3: rgba(49, 87, 246, 0.45);
-    border-color: rgba(25, 28, 41, 0.5);
-  }
-
-  /* compact contexts (header): a thinner plate */
-  .action { --depth: 5px; }
-  .action-quiet { --depth: 5px; }
-  .action-quiet:hover { --depth: 7px; }
+  /* compact contexts (header): corners only, no readouts */
+  .action-set-quiet .action__hud { display: none; }
 
 }
 
