@@ -4,6 +4,7 @@ import { SITE } from "@/data/site";
 import { CAPABILITIES } from "@/data/capabilities";
 import { STRINGS, langPath } from "@/i18n";
 import LanguageSwitch from "@/components/LanguageSwitch";
+import { LogoLockup } from "@/components/brand/Logo";
 
 const linkClass =
   "text-muted-foreground transition-colors hover:text-foreground";
@@ -64,12 +65,10 @@ export default function Footer({ lang = "es" }) {
         <div className="border-b border-border pb-14 md:pb-16">
           <Link
             to={langPath(lang, "/")}
-            className="group inline-flex items-start gap-[0.22em] font-heading font-bold leading-[0.9] tracking-[-0.04em] text-foreground focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-accent"
-            style={{ fontSize: "clamp(48px, 7vw, 104px)" }}
+            className="inline-flex focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-8 focus-visible:outline-accent"
             aria-label={`Nafureanu — ${f.home}`}
           >
-            <span aria-hidden="true" className="mt-[0.34em] inline-block h-[0.18em] w-[0.18em] bg-accent transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-125" />
-            <span>Nafureanu</span>
+            <LogoLockup size="clamp(40px, 6vw, 88px)" />
           </Link>
 
           <div className="mt-10 grid gap-8 md:mt-12 md:grid-cols-12 md:items-end md:gap-10">

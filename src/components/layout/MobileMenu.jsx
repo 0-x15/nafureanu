@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import ActionLink from "@/components/ActionLink";
 import LanguageSwitch from "@/components/LanguageSwitch";
+import { LogoInline } from "@/components/brand/Logo";
 import ServicesMobileNav from "@/components/layout/ServicesMobileNav";
 import { STRINGS, langPath } from "@/i18n";
 
@@ -56,10 +57,7 @@ export default function MobileMenu({
           aria-label={lang === "es" ? "Menú" : "Menu"}
         >
           <div className="flex h-16 items-center justify-between px-5">
-            <span className="flex items-center gap-2.5 font-heading text-lg font-bold tracking-[-0.02em] text-foreground">
-              <span aria-hidden="true" className="inline-block h-2 w-2 bg-accent" />
-              Nafureanu
-            </span>
+            <LogoInline className="text-lg" />
             <button
               type="button"
               onClick={() => onOpenChange(false)}

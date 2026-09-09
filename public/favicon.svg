@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-labelledby="t">
+  <title id="t">Nafureanu</title>
+  <rect width="32" height="32" fill="#F9F7F0"/>
+  <g transform="translate(3 3) scale(0.41)"><path fill="#191C29" d="M0 0L19 0L29.71 15.24L17 24.18L17 64L0 64Z"/><path fill="#3159F6" d="M17 24.18L29.71 15.24L47 39.82L34.29 48.76Z"/><path fill="#191C29" d="M64 64L45 64L34.29 48.76L47 39.82L47 0L64 0Z"/></g>
+</svg>

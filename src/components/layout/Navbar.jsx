@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import ActionLink from "@/components/ActionLink";
 import MobileMenu from "@/components/layout/MobileMenu";
+import { LogoInline } from "@/components/brand/Logo";
 import ServicesMenu from "@/components/layout/ServicesMenu";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import useHeaderScroll from "@/hooks/useHeaderScroll";
@@ -81,13 +82,9 @@ export default function Navbar({ lang = "es" }) {
       >
         <Link
           to={langPath(lang, "/")}
-          className={cn(
-            "flex items-center gap-2.5 font-heading font-bold tracking-[-0.02em] text-foreground transition-all duration-500",
-            compact ? "text-[17px]" : "text-lg"
-          )}
+          className={cn("flex items-center transition-all duration-500", compact ? "text-[17px]" : "text-lg")}
         >
-          <span aria-hidden="true" className="inline-block h-2 w-2 bg-accent" />
-          Nafureanu
+          <LogoInline />
         </Link>
         <div
           className={cn(

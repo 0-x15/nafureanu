@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { LogoSymbol } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { EASE, H1, MONO } from "./studioBits";
 
@@ -73,7 +74,7 @@ export default function StudioHero({ a }) {
           </motion.div>
         </div>
         <motion.div {...up(4)} className="mt-12 flex items-center gap-4 md:mt-16">
-          <span aria-hidden="true" className="h-2 w-2 bg-accent" />
+          <LogoSymbol size={14} className="text-foreground" />
           <span className={cn(MONO, "text-foreground/70")}>{h.signature}</span>
           <span aria-hidden="true" className="h-px flex-1 bg-foreground/12" />
         </motion.div>
