@@ -107,16 +107,18 @@ export default function SophIADashboard({
               </span>
             </div>
 
-            {/* Module tiles. Two columns by default; four only when the panel
-                itself is wide enough (container query) for every title to sit
-                on one line with room to breathe. Grid rows keep the heights equal. */}
-            <div className="mt-3.5 grid grid-cols-2 gap-2.5 [@container(min-width:600px)]:grid-cols-4">
+            {/* Module tiles: one row of four, as the composition was designed.
+                The row is driven by the panel's own content width (container
+                query): four columns from 440px, where the title size follows
+                the panel (3.1cqw, 13.5–16px) so every name sits on one line;
+                narrower panels fall to two columns with a 16px title. */}
+            <div className="mt-4 grid grid-cols-2 gap-2 [@container(min-width:440px)]:grid-cols-4">
               {t.kpis.map(([value, label]) => (
                 <div
                   key={label}
-                  className="flex min-w-0 flex-col rounded-lg border border-[#EFEBE0] bg-[#FCFBF8] px-3 py-2.5"
+                  className="flex min-w-0 flex-col rounded-lg border border-[#EFEBE0] bg-[#FCFBF8] px-2.5 py-3"
                 >
-                  <p className="font-heading text-[15px] font-bold leading-tight tracking-tight text-[#171C29]">
+                  <p className="font-heading text-[16px] font-bold leading-[1.2] tracking-[-0.02em] text-[#171C29] [@container(min-width:440px)]:text-[clamp(13.5px,3.1cqw,16px)] [@container(min-width:440px)]:tracking-[-0.03em]">
                     {value}
                   </p>
                   <p className="mt-1 text-[10.5px] leading-snug text-[#8F8A99]">
