@@ -57,7 +57,7 @@ export default function Footer({ lang = "es" }) {
   return (
     <footer
       className={
-        isWorkIndex ? "border-t border-border bg-[#F2F5FA]" : "border-t border-border bg-background"
+        isWorkIndex ? "border-t border-border bg-[#F2F5FA]" : "border-t border-border"
       }
     >
       <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20">

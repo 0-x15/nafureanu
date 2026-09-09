@@ -1,5 +1,4 @@
 import Reveal from "@/components/Reveal";
-import Backdrop from "@/components/Backdrop";
 import { STRINGS } from "@/i18n";
 import ProcessCanvas from "./process/ProcessCanvas";
 import ProcessMobile from "./process/ProcessMobile";
@@ -16,10 +15,9 @@ export default function HomeProcess({ lang = "es" }) {
 
   return (
     <section
-      className="relative isolate px-5 py-20 md:px-10 md:pt-32 md:pb-16"
+      className="px-5 py-20 md:px-10 md:pt-32 md:pb-16"
       aria-labelledby="home-process-heading"
     >
-      <Backdrop tone="deep" x="-4%" y="44%" w="108%" h="50%" />
       <div className="mx-auto max-w-[1440px]">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">

@@ -3,12 +3,12 @@ import { cn } from "@/lib/utils";
 const T = {
   es: {
     title: "Flujo automático",
-    steps: ["Recibe un email", "La IA lo clasifica", "Se crea la tarea"],
+    steps: ["Recibe un email", "La IA lo clasifica", "Extrae los datos", "Crea la tarea"],
     status: "Activo",
   },
   en: {
     title: "Automated flow",
-    steps: ["Email arrives", "AI classifies it", "Task created"],
+    steps: ["Email arrives", "AI classifies it", "Extracts the data", "Creates the task"],
     status: "Active",
   },
 };
@@ -30,15 +30,17 @@ export default function AutomationCard({ lang = "es", className }) {
           {t.status}
         </span>
       </div>
-      <div className="mt-3.5 space-y-2">
+      {/* the flow: a rail joins the steps, the last one is done */}
+      <div className="relative mt-3.5 space-y-2">
+        <span aria-hidden="true" className="absolute bottom-2 left-2 top-2 w-px bg-[#E5E1D6]" />
         {t.steps.map((step, i) => (
-          <div key={step} className="flex items-center gap-2.5">
+          <div key={step} className="relative flex items-center gap-2.5">
             <span
               className={cn(
                 "flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[8px]",
                 i === t.steps.length - 1
                   ? "bg-[#3157F6] text-white"
-                  : "border border-[#D9D5C8] text-[#9A94A6]"
+                  : "border border-[#D9D5C8] bg-white text-[#9A94A6]"
               )}
             >
               {i + 1}

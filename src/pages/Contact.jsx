@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Backdrop from "@/components/Backdrop";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/data/site";
 import { STRINGS, langPath, otherLang } from "@/i18n";
@@ -59,8 +58,7 @@ export default function Contact({ lang = "es" }) {
   };
 
   return (
-    <section className="relative isolate px-5 pt-36 md:px-10 md:pt-48" aria-labelledby="contact-heading">
-      <Backdrop tone="white" x="67%" y="26%" w="40%" h="68%" />
+    <section className="px-5 pt-36 md:px-10 md:pt-48" aria-labelledby="contact-heading">
       <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
         {c.kicker}
       </p>

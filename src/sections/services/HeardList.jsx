@@ -1,5 +1,4 @@
 import Reveal from "@/components/Reveal";
-import Backdrop from "@/components/Backdrop";
 import { STRINGS } from "@/i18n";
 
 /**
@@ -11,10 +10,9 @@ export default function HeardList({ lang = "es" }) {
 
   return (
     <section
-      className="relative isolate px-5 pb-20 md:px-10 md:pb-32"
+      className="px-5 pb-20 md:px-10 md:pb-32"
       aria-labelledby="heard-title"
     >
-      <Backdrop tone="cool" x="-4%" y="22%" w="72%" h="66%" />
       <div className="mx-auto max-w-[1440px]">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
           {s.heardKicker}

@@ -53,36 +53,6 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* The canvas: the ivory sheet under a soft, structured light. Two fixed
-     planes rather than blobs — a bright field on the upper right, where
-     the product surfaces sit, and a cool field on the lower left. Fixed
-     layers never repaint on scroll. Sections keep their ground
-     transparent so the light shows through; sections that need a tone
-     of their own paint over it (see components/Backdrop). */
-  body::before,
-  body::after {
-    content: "";
-    position: fixed;
-    z-index: -1;
-    pointer-events: none;
-  }
-  body::before {
-    top: -14vh;
-    right: -12vw;
-    bottom: 34vh;
-    left: 52vw;
-    background: rgba(255, 255, 255, 0.55);
-    filter: blur(70px);
-  }
-  body::after {
-    top: 56vh;
-    right: 58vw;
-    bottom: -16vh;
-    left: -14vw;
-    background: rgba(49, 87, 246, 0.045);
-    filter: blur(90px);
-  }
-
   ::selection {
     background: #3157f6;
     color: #ffffff;
@@ -95,6 +65,101 @@
 }
 
 @layer components {
+  /* ── The canvas: architecture behind the content ─────────────────── */
+  /* Rendered once in SiteLayout, under everything. Large rectangular
+     planes on the ivory sheet — a lighter sheet, a cool block, a shade —
+     distributed along the scroll in viewport heights, some anchored to
+     the bottom so they meet the footer, some only showing a corner.
+     Long pages spread the lower planes with max(vh, %). Pure CSS. */
+  .site-canvas {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .site-canvas > span {
+    position: absolute;
+    display: block;
+  }
+  /* top: a huge, slightly lighter sheet entering from the upper right */
+  .canvas-a {
+    top: -16vh;
+    right: -14vw;
+    width: 60vw;
+    height: 112vh;
+    background: rgba(255, 255, 255, 0.42);
+    box-shadow: 0 80px 160px -100px rgba(27, 36, 64, 0.32);
+  }
+  /* mid 1: a cool block, half outside on the left */
+  .canvas-b {
+    top: 122vh;
+    left: -18vw;
+    width: 46vw;
+    height: 64vh;
+    background: rgba(49, 87, 246, 0.035);
+  }
+  /* mid 2: two overlapping planes on the right — a near-transparent sheet
+     with an ambient shadow, and a shade offset over its lower-left */
+  .canvas-c {
+    top: 214vh;
+    right: -6vw;
+    width: 42vw;
+    height: 72vh;
+    background: rgba(255, 255, 255, 0.34);
+    box-shadow: 0 90px 180px -110px rgba(27, 36, 64, 0.34);
+  }
+  .canvas-d {
+    top: 248vh;
+    right: 22vw;
+    width: 30vw;
+    height: 44vh;
+    background: rgba(27, 31, 42, 0.022);
+  }
+  /* lower: a very wide diffuse field */
+  .canvas-e {
+    top: max(338vh, 46%);
+    left: -10vw;
+    width: 120vw;
+    height: 36vh;
+    background: rgba(231, 237, 249, 0.55);
+    filter: blur(48px);
+  }
+  /* lower 2: only a corner of this plane is inside the page */
+  .canvas-f {
+    top: max(432vh, 64%);
+    left: -30vw;
+    width: 50vw;
+    height: 62vh;
+    background: rgba(27, 31, 42, 0.024);
+  }
+  /* bottom: the last plane, meeting the footer from the right */
+  .canvas-g {
+    bottom: -12vh;
+    right: -8vw;
+    width: 56vw;
+    height: 54vh;
+    background: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 80px 160px -100px rgba(27, 36, 64, 0.3);
+  }
+  @media (max-width: 767px) {
+    .canvas-b,
+    .canvas-d,
+    .canvas-f {
+      display: none;
+    }
+    .canvas-a {
+      width: 80vw;
+      height: 90vh;
+    }
+    .canvas-e {
+      filter: none;
+      background: rgba(231, 237, 249, 0.4);
+    }
+    .canvas-g {
+      width: 90vw;
+    }
+  }
+
   /* ── Nafureanu action material ─────────────────────────────── */
 
   /* Primary — restrained multi-tone cobalt surface */
