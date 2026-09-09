@@ -411,9 +411,13 @@ export const EN = {
       "Software, automation, product and infrastructure built around real problems.",
     viewProject: "View project",
     hero: {
+      h1a: "Systems already",
+      h1b: "at work.",
       selected: "Selected work / 04",
       discipline: "Software engineering",
-      words: ["Draft", "Built", "Operating", "Deployed", "Connected", "Live"],
+      railLabel: "State",
+      words: ["Draft", "Built", "Operating"],
+      marks: ["Deployed", "Connected", "Live"],
     },
     stage: {
       marker: "Selected work / 04",

@@ -162,6 +162,17 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
+  /* ── Project archive: the plinth's light ─────────────────────── */
+  .group\/next:hover .wk-sweep,
+  .group\/next:focus-within .wk-sweep { animation: wk-sweep 1.6s cubic-bezier(0.4, 0, 0.2, 1) 1 forwards; }
+  @keyframes wk-sweep {
+    from { transform: skewX(-20deg) translateX(0); }
+    to { transform: skewX(-20deg) translateX(720px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wk-sweep { animation: none !important; }
+  }
+
   /* ── Nafureanu action system: a plate and its growing stack ───── */
   /* A normal button — the cobalt plate with the label and the arrow —
      resting on a stack of light sheets: white and the palette's warm

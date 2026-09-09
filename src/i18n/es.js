@@ -412,9 +412,13 @@ export const ES = {
       "Software, automatización, producto e infraestructura construidos alrededor de problemas reales.",
     viewProject: "Ver proyecto",
     hero: {
+      h1a: "Sistemas que ya están",
+      h1b: "trabajando.",
       selected: "Trabajo seleccionado / 04",
       discipline: "Ingeniería de software",
-      words: ["Borrador", "Construido", "Operando", "Desplegado", "Conectado", "En producción"],
+      railLabel: "Estado",
+      words: ["Borrador", "Construido", "Operando"],
+      marks: ["Desplegado", "Conectado", "En producción"],
     },
     stage: {
       marker: "Trabajo seleccionado / 04",
