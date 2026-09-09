@@ -97,23 +97,25 @@
     background: linear-gradient(130deg, rgba(255, 255, 255, 0.45), rgba(49, 87, 246, 0.06), rgba(255, 255, 255, 0.12));
     backdrop-filter: blur(32px);
   }
-  /* plane 3 material — the narrow diagonal catcher of light */
+  /* plane 3 material — the narrow diagonal catcher of light, given a
+     little more presence: a brighter fill, a stronger rim and a shadow */
   .fivo-c {
     border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 40px 90px -40px rgba(49, 87, 246, 0.4);
     backdrop-filter: blur(18px);
   }
-  .fp-1 { top: 8vh; right: -7vw; width: 52vw; height: 20vh; transform: rotate(-2deg); }
+  .fp-1 { top: 8vh; right: -7vw; width: 52vw; height: 14vh; transform: rotate(-2deg); }
   .fp-2 { top: 58vh; left: 36vw; width: 46vw; height: 12vh; transform: rotate(-6deg); }
-  .fp-3 { bottom: -4vh; left: -9vw; width: 48vw; height: 22vh; transform: rotate(2deg); }
+  .fp-3 { bottom: -4vh; left: -9vw; width: 48vw; height: 16vh; transform: rotate(2deg); }
   @media (max-width: 767px) {
     .site-canvas > span {
       backdrop-filter: none;
     }
-    .fp-1 { right: -22vw; width: 90vw; height: 16vh; }
+    .fp-1 { right: -22vw; width: 90vw; height: 12vh; }
     .fp-2 { display: none; }
-    .fp-3 { left: -26vw; width: 88vw; height: 18vh; }
+    .fp-3 { left: -26vw; width: 88vw; height: 13vh; }
   }
   /* ── Nafureanu action material ─────────────────────────────── */
 
