@@ -162,74 +162,125 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: the mark ─────────────────────────── */
-  /* A radical simplification. A button is a graphite bar with square
-     corners — the site's own geometry: no radius, no gradient, no
-     glass — and the brand's atom at its start: the small cobalt square
-     that signs sections and lists. On hover the square stretches into a
-     bar, pushing the label, and the arrow moves: the button engages.
-     Primary is solid graphite, secondary is a hairline outline. */
+  /* ── Nafureanu action system: the stack ───────────────────────── */
+  /* A light plate, and inside it, before the label, a small stack of
+     three layers, each cut into two segments by a joint, stepped like
+     the exploded pieces of the N. On hover the stack assembles: the
+     layers slide into line and the joints close, one after another,
+     and the arrow moves. Primary is a pale cobalt glass with cobalt
+     layers; secondary is paper with graphite layers that turn cobalt. */
   .action {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    border-radius: 2px;
+    border-radius: 4px;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
     letter-spacing: -0.005em;
     white-space: nowrap;
     transition:
-      background-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 260ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 260ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 260ms cubic-bezier(0.22, 1, 0.36, 1);
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .action__mark {
-    flex: none;
-    width: 8px;
-    height: 8px;
-    background: hsl(var(--accent));
-    transition:
-      width 420ms cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 260ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .action:hover .action__mark,
-  .action:focus-visible .action__mark {
-    width: 24px;
-  }
+  .action:hover { transform: translateY(-1px); }
+  .action:active { transform: translateY(0); }
   .action:focus-visible {
     outline: 2px solid hsl(var(--accent));
     outline-offset: 3px;
   }
+  /* the stack: three layers of 4px, 22px wide, stepped 0 / 3 / 6px */
+  .action__stack {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    width: 28px;
+  }
+  .action__layer {
+    position: relative;
+    height: 4px;
+    width: 22px;
+    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .action__layer:nth-child(2) { transform: translateX(3px); transition-delay: 40ms; }
+  .action__layer:nth-child(3) { transform: translateX(6px); transition-delay: 80ms; }
+  /* each layer is two segments with a joint between them */
+  .action__layer::before,
+  .action__layer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-radius: 1px;
+    transition:
+      left 460ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .action__layer::before { left: 0; width: 12px; }
+  .action__layer::after { left: 15px; width: 7px; }
+  .action__layer:nth-child(2)::after { transition-delay: 40ms; }
+  .action__layer:nth-child(3)::after { transition-delay: 80ms; }
+  .action:hover .action__layer,
+  .action:focus-visible .action__layer { transform: translateX(0); }
+  .action:hover .action__layer::after,
+  .action:focus-visible .action__layer::after { left: 12px; }
 
-  /* primary — solid graphite */
+  /* primary — pale cobalt glass, cobalt layers */
   .action-primary {
-    color: hsl(var(--background));
-    background: hsl(var(--foreground));
-    box-shadow: 0 12px 28px -18px rgba(25, 28, 41, 0.6);
+    color: hsl(var(--foreground));
+    background: linear-gradient(180deg, #f7f9ff 0%, #ebf0ff 100%);
+    border: 1px solid rgba(49, 87, 246, 0.38);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 10px 26px -16px rgba(49, 87, 246, 0.5);
   }
   .action-primary:hover {
-    background: #0f1220;
-    box-shadow: 0 16px 32px -18px rgba(25, 28, 41, 0.7);
+    background: linear-gradient(180deg, #f3f6ff 0%, #e2eaff 100%);
+    border-color: rgba(49, 87, 246, 0.7);
+    color: hsl(var(--accent-deep));
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      0 14px 30px -16px rgba(49, 87, 246, 0.6);
   }
-  .action-primary:hover .action__mark { background: hsl(var(--accent-bright)); }
+  .action-primary .action__layer:nth-child(1)::before,
+  .action-primary .action__layer:nth-child(1)::after { background: #2348e8; }
+  .action-primary .action__layer:nth-child(2)::before,
+  .action-primary .action__layer:nth-child(2)::after { background: #3157f6; }
+  .action-primary .action__layer:nth-child(3)::before,
+  .action-primary .action__layer:nth-child(3)::after { background: #6f8cff; }
 
-  /* secondary — hairline outline */
+  /* secondary — paper, graphite layers that turn cobalt */
   .action-secondary {
     color: hsl(var(--foreground));
-    background: transparent;
-    border: 1px solid rgba(25, 28, 41, 0.28);
+    background: #fcfbf8;
+    border: 1px solid rgba(25, 28, 41, 0.18);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .action-secondary:hover {
-    background: rgba(255, 255, 255, 0.6);
-    border-color: hsl(var(--foreground));
+    background: #ffffff;
+    border-color: rgba(25, 28, 41, 0.42);
   }
+  .action-secondary .action__layer:nth-child(1)::before,
+  .action-secondary .action__layer:nth-child(1)::after { background: rgba(25, 28, 41, 0.82); }
+  .action-secondary .action__layer:nth-child(2)::before,
+  .action-secondary .action__layer:nth-child(2)::after { background: rgba(25, 28, 41, 0.55); }
+  .action-secondary .action__layer:nth-child(3)::before,
+  .action-secondary .action__layer:nth-child(3)::after { background: rgba(25, 28, 41, 0.3); }
+  .action-secondary:hover .action__layer:nth-child(1)::before,
+  .action-secondary:hover .action__layer:nth-child(1)::after { background: #2348e8; }
+  .action-secondary:hover .action__layer:nth-child(2)::before,
+  .action-secondary:hover .action__layer:nth-child(2)::after { background: #3157f6; }
+  .action-secondary:hover .action__layer:nth-child(3)::before,
+  .action-secondary:hover .action__layer:nth-child(3)::after { background: #6f8cff; }
 
-  /* compact contexts (header): the same bar, no shadow */
+  /* compact contexts (header): the same plate, no shadow */
   .action-quiet.action-primary,
-  .action-quiet.action-primary:hover { box-shadow: none; }
+  .action-quiet.action-primary:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9); }
 
 }
 

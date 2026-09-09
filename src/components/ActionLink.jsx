@@ -16,8 +16,8 @@ const SIZES = {
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * A graphite bar with square corners and the brand's cobalt square at its
- * start, which stretches into a bar on hover (see .action in index.css).
+ * A light plate with a small stack of three segmented layers inside that
+ * assembles on hover (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
@@ -61,7 +61,11 @@ export default function ActionLink({
   const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
   const inner = (
     <>
-      <span aria-hidden="true" className="action__mark" />
+      <span aria-hidden="true" className="action__stack">
+        <span className="action__layer" />
+        <span className="action__layer" />
+        <span className="action__layer" />
+      </span>
       <span>{children}</span>
       {arrow}
     </>
