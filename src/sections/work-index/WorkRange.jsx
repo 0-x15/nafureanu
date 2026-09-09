@@ -21,7 +21,7 @@ export default function WorkRange({ t }) {
   const reduced = useReducedMotion();
   const r = t.range;
   return (
-    <section aria-labelledby="work-range" className="relative overflow-hidden bg-background/40 px-5 py-20 md:px-10 md:py-28">
+    <section aria-labelledby="work-range" className="relative overflow-hidden px-5 py-20 md:px-10 md:py-28">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <span className="absolute -left-[10%] top-[10%] h-[60%] w-[40%] rounded-full bg-[radial-gradient(closest-side,rgba(255,255,255,0.7),transparent)]" />
       </div>
@@ -40,10 +40,10 @@ export default function WorkRange({ t }) {
             <span aria-hidden="true" className="absolute inset-y-0 left-1/2 block"><Rule vertical className="bg-foreground/15" delay={0.15} /></span>
             <span aria-hidden="true" className="absolute inset-0 border border-dashed border-foreground/10" />
             {/* axis labels */}
-            <p className={cn(MONO, "absolute left-0 top-1/2 -translate-y-1/2 bg-[#F8F6F0] pr-3 text-foreground/70")}>{r.axisX[0]}</p>
-            <p className={cn(MONO, "absolute right-0 top-1/2 -translate-y-1/2 bg-[#F8F6F0] pl-3 text-right text-foreground/70")}>{r.axisX[1]}</p>
-            <p className={cn(MONO, "absolute left-1/2 top-0 -translate-x-1/2 bg-[#F8F6F0] px-3 text-foreground/70")}>{r.axisY[0]}</p>
-            <p className={cn(MONO, "absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#F8F6F0] px-3 text-foreground/70")}>{r.axisY[1]}</p>
+            <p className={cn(MONO, "absolute left-0 top-1/2 -translate-y-1/2 bg-[#F9F7F0] pr-3 text-foreground/70")}>{r.axisX[0]}</p>
+            <p className={cn(MONO, "absolute right-0 top-1/2 -translate-y-1/2 bg-[#F9F7F0] pl-3 text-right text-foreground/70")}>{r.axisX[1]}</p>
+            <p className={cn(MONO, "absolute left-1/2 top-0 -translate-x-1/2 bg-[#F9F7F0] px-3 text-foreground/70")}>{r.axisY[0]}</p>
+            <p className={cn(MONO, "absolute bottom-0 left-1/2 -translate-x-1/2 bg-[#F9F7F0] px-3 text-foreground/70")}>{r.axisY[1]}</p>
             {/* the projects as coordinates */}
             {r.items.map((item, i) => {
               const p = POS[item.slug];
@@ -57,7 +57,7 @@ export default function WorkRange({ t }) {
                   className="absolute"
                   style={{ left: `${p.x}%`, top: `${p.y}%` }}
                 >
-                  <span aria-hidden="true" className="absolute -left-3 top-[0.55em] h-[7px] w-[7px] border border-accent bg-[#F8F6F0]" />
+                  <span aria-hidden="true" className="absolute -left-3 top-[0.55em] h-[7px] w-[7px] border border-accent bg-[#F9F7F0]" />
                   <p className="font-heading text-[clamp(1.4rem,2.2vw,2.1rem)] font-bold leading-none tracking-[-0.03em] text-foreground">{item.name}</p>
                   <p className={cn(MONO, "mt-2 text-muted-foreground")}>{item.note}</p>
                 </motion.div>
@@ -77,7 +77,7 @@ export default function WorkRange({ t }) {
                 return (
                   <li key={item.slug} className="border-b border-foreground/12 py-4">
                     <div className="relative h-px bg-foreground/12">
-                      <span aria-hidden="true" className="absolute top-1/2 h-[7px] w-[7px] -translate-y-1/2 border border-accent bg-[#F8F6F0]" style={{ left: `calc(${p.x}% - 3px)` }} />
+                      <span aria-hidden="true" className="absolute top-1/2 h-[7px] w-[7px] -translate-y-1/2 border border-accent bg-[#F9F7F0]" style={{ left: `calc(${p.x}% - 3px)` }} />
                     </div>
                     <p className="mt-3 font-heading text-[20px] font-bold leading-tight tracking-[-0.02em] text-foreground">{item.name}</p>
                     <p className={cn(MONO, "mt-1 text-muted-foreground")}>{item.note} · {p.y < 50 ? r.axisY[0] : r.axisY[1]}</p>

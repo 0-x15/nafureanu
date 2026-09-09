@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/data/site";
 import { CAPABILITIES } from "@/data/capabilities";
@@ -33,9 +33,6 @@ export default function Footer({ lang = "es" }) {
   const s = STRINGS[lang];
   const f = s.footer;
   const year = new Date().getFullYear();
-  /* /work keeps its light #F2F5FA environment through the footer */
-  const { pathname } = useLocation();
-  const isWorkIndex = pathname === "/work" || pathname === "/en/work";
 
   const navLinks = [
     { to: "/", label: f.home },
@@ -57,7 +54,7 @@ export default function Footer({ lang = "es" }) {
   return (
     <footer
       className={
-        isWorkIndex ? "border-t border-border bg-[#F2F5FA]" : "border-t border-border"
+        "border-t border-border"
       }
     >
       <div className="mx-auto max-w-[1440px] px-5 py-16 md:px-10 md:py-20">

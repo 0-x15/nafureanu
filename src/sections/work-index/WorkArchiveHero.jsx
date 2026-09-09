@@ -23,13 +23,9 @@ export default function WorkArchiveHero({ lang, t, projects }) {
   const a = t.archive;
 
   return (
-    <header className="relative overflow-hidden bg-[#EEF2F8]/60 px-5 pb-14 pt-24 md:px-10 md:pb-16 md:pt-24">
-      {/* atmosphere: a faint cobalt field, a cyan reflection, registration lines and two glass surfaces */}
+    <header className="relative overflow-hidden px-5 pb-14 pt-24 md:px-10 md:pb-16 md:pt-24">
+      {/* the archive's registration lines; the atmosphere is the site's own canvas */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
-        <span className="absolute -right-[10%] -top-[20%] h-[80%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.09),transparent)]" />
-        <span className="absolute -left-[12%] bottom-[-30%] h-[70%] w-[46%] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.07),transparent)]" />
-        <span className="absolute right-[6%] top-[14%] h-[30vh] w-[36vw] -rotate-2 rounded-[36px] border border-white/70 bg-white/40 shadow-[0_70px_130px_-70px_rgba(49,87,246,0.35)] backdrop-blur-[28px]" />
-        <span className="absolute -left-[6%] bottom-[8%] h-[22vh] w-[30vw] rotate-2 rounded-[42px] border border-white/60 bg-[linear-gradient(130deg,rgba(255,255,255,0.45),rgba(49,87,246,0.06),rgba(255,255,255,0.12))] backdrop-blur-[32px]" />
         <span className="absolute inset-x-0 top-[calc(7rem+40px)] hidden h-px bg-foreground/[0.08] md:block" />
         <span className="absolute bottom-0 left-[58%] top-0 hidden w-px bg-foreground/[0.07] lg:block" />
       </div>
@@ -82,7 +78,7 @@ export default function WorkArchiveHero({ lang, t, projects }) {
                       onFocus={() => setActive(i)}
                       aria-current={on ? "true" : undefined}
                       className={cn(
-                        "group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-4 outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2F4F6] md:grid-cols-[2.75rem_1fr_auto] md:py-5",
+                        "group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-4 outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#F9F7F0] md:grid-cols-[2.75rem_1fr_auto] md:py-5",
                         on ? "opacity-100" : "opacity-70 hover:opacity-100 lg:opacity-55"
                       )}
                     >
