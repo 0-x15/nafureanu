@@ -16,8 +16,8 @@ const SIZES = {
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * One plate with a rail around its perimeter and a signal that runs the
- * circuit on hover (see .action in index.css).
+ * A plate of laminated glass: four diagonal laminae inside, leaning at
+ * the N's angle, that slide and light up on hover (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
@@ -61,11 +61,11 @@ export default function ActionLink({
   const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
   const inner = (
     <>
-      <svg aria-hidden="true" className="action__circuit">
-        <rect className="action__rail" pathLength="100" />
-        <rect className="action__signal" pathLength="100" />
-      </svg>
-      {children}
+      <span aria-hidden="true" className="action__lam" />
+      <span aria-hidden="true" className="action__lam" />
+      <span aria-hidden="true" className="action__lam" />
+      <span aria-hidden="true" className="action__lam" />
+      <span>{children}</span>
       {arrow}
     </>
   );
