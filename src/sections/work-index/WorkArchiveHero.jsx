@@ -6,68 +6,87 @@ import { EASE, MONO } from "./workBits";
 
 /**
  * Act 01 — the entrance of the exhibition. Metadata along the top
- * edge, the statement with its last word in cobalt, one sentence, the
- * line of state — and, on the right, the hall itself, seen from its
- * door: a floor drawn in perspective, two walls of tall glass
- * partitions converging on a light at the far end, each partition
- * mirrored in the floor. The partitions rise one after another on
- * entry, the camera leans a little with the pointer and scrolling
- * walks you in, towards the pieces shown below. Nothing hangs on the
- * walls: the work is shown in the cards.
+ * edge, the statement centred with its last word in cobalt, one
+ * sentence, and under it the hall itself, seen from its door: a floor
+ * drawn in perspective, two walls of exhibition panels converging on a
+ * light at the far end. The panels are solid, paper-white slabs with
+ * real thickness, each divided into three segments — a header with a
+ * cobalt mark, a body of rules, a footer of slots — mirrored faintly in
+ * the floor. They rise one after another on entry and their marks
+ * light up in sequence; the camera leans with the pointer and
+ * scrolling walks you in, towards the pieces shown below. Nothing
+ * hangs on them: the work is shown in the cards.
  */
-const DEPTHS = [40, -200, -440, -680, -920, -1160];
-const GLASS = {
-  a: "border-white/80 bg-[linear-gradient(160deg,rgba(255,255,255,0.7),rgba(23,180,205,0.08)_60%,rgba(49,87,246,0.08))]",
-  b: "border-white/70 bg-[linear-gradient(200deg,rgba(49,87,246,0.09),rgba(255,255,255,0.6)_48%,rgba(23,180,205,0.08))]",
-};
+const DEPTHS = [60, -220, -500, -780, -1060, -1340];
 
-function Partition({ side, z, i, reduced }) {
+function Panel({ side, z, i, reduced }) {
   const left = side === "l";
-  const tone = i % 2 === 0 ? "a" : "b";
   return (
     <motion.div
-      initial={reduced ? false : { opacity: 0, y: 36 }}
+      initial={reduced ? false : { opacity: 0, y: 40 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.3 + i * 0.12, ease: EASE }}
-      style={{ z: left ? z : z - 180, rotateY: left ? 90 : -90, transformOrigin: "left center" }}
-      className={cn("absolute bottom-[30%] h-[320px] w-[180px] [transform-style:preserve-3d]", left ? "left-[7%]" : "left-[93%]")}
+      style={{ z: left ? z : z - 200, rotateY: left ? 90 : -90, transformOrigin: "left center" }}
+      className={cn("absolute bottom-[26%] h-[320px] w-[200px] [transform-style:preserve-3d]", left ? "left-[8%]" : "left-[92%]")}
     >
-      <div className={cn("absolute inset-0 border shadow-[inset_0_1px_0_rgba(255,255,255,0.95)]", GLASS[tone])}>
-        {/* a cobalt strip on each partition, lit in sequence once it stands */}
-        <motion.span
-          initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }}
-          animate={{ backgroundColor: "rgba(49,87,246,1)" }}
-          transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : 1.3 + i * 0.16 }}
-          className={cn("absolute top-5 h-[6px] w-10 border border-accent", left ? "left-5" : "right-5")}
-        />
-        <span className="absolute inset-x-5 bottom-5 h-px bg-foreground/10" />
+      {/* the face: three segments */}
+      <div className="absolute inset-0 border border-foreground/15 bg-[#FCFBF8] shadow-[inset_0_1px_0_#fff,0_40px_70px_-40px_rgba(25,28,41,0.3)]">
+        <div className={cn("absolute inset-x-0 top-0 h-[24%] border-b border-foreground/12 bg-[#F3F0E9]", left ? "text-left" : "text-right")}>
+          <motion.span
+            initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }}
+            animate={{ backgroundColor: "rgba(49,87,246,1)" }}
+            transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : 1.3 + i * 0.16 }}
+            className={cn("absolute top-5 h-[8px] w-12 border border-accent", left ? "left-5" : "right-5")}
+          />
+          <span className={cn("absolute bottom-5 h-px w-[40%] bg-foreground/25", left ? "left-5" : "right-5")} />
+        </div>
+        <div className="absolute inset-x-0 top-[24%] h-[50%] border-b border-foreground/12">
+          <span className={cn("absolute top-[22%] h-[6px] w-[62%] bg-foreground/[0.08]", left ? "left-5" : "right-5")} />
+          <span className={cn("absolute top-[40%] h-[6px] w-[48%] bg-foreground/[0.08]", left ? "left-5" : "right-5")} />
+          <span className={cn("absolute top-[58%] h-[6px] w-[70%] bg-foreground/[0.08]", left ? "left-5" : "right-5")} />
+          <span className={cn("absolute top-[76%] h-[6px] w-[36%] bg-accent/25", left ? "left-5" : "right-5")} />
+        </div>
+        <div className="absolute inset-x-0 bottom-0 h-[26%] bg-[#F7F5EF]">
+          <span className={cn("absolute top-5 grid grid-cols-4 gap-1.5", left ? "left-5" : "right-5")}>
+            <i className="h-[10px] w-[10px] border border-foreground/25 bg-white" />
+            <i className="h-[10px] w-[10px] border border-foreground/25 bg-white" />
+            <i className="h-[10px] w-[10px] border border-foreground/25 bg-white" />
+            <i className="h-[10px] w-[10px] border border-accent/60 bg-accent/15" />
+          </span>
+          <span className={cn("absolute bottom-5 h-px w-[52%] bg-foreground/20", left ? "left-5" : "right-5")} />
+        </div>
       </div>
+      {/* the thickness of the slab, on the end that faces the door */}
+      <div
+        aria-hidden="true"
+        className={cn("absolute top-0 h-full w-[14px] border-y border-foreground/15 bg-[#ECE9E0]", left ? "left-0 origin-left [transform:rotateY(-90deg)]" : "right-0 origin-right [transform:rotateY(90deg)]")}
+      />
       {/* the reflection in the floor */}
-      <div aria-hidden="true" className={cn("absolute inset-x-0 top-full h-[55%] origin-top border-x opacity-45 [mask-image:linear-gradient(to_top,transparent,rgba(0,0,0,0.9))] [transform:scaleY(-1)]", GLASS[tone])} />
+      <div aria-hidden="true" className="absolute inset-x-0 top-full h-[50%] origin-top border-x border-foreground/10 bg-[linear-gradient(to_bottom,rgba(252,251,248,0.9),rgba(252,251,248,0))] opacity-40 [transform:scaleY(-1)]" />
     </motion.div>
   );
 }
 
 function Hall({ reduced, rx, ry, walk }) {
   return (
-    <div className="relative h-[270px] w-full overflow-visible sm:h-[360px] lg:h-[480px]">
+    <div className="relative mx-auto h-[150px] w-[346px] sm:h-[240px] sm:w-[576px] md:h-[300px] md:w-[720px] lg:h-[400px] lg:w-[960px]">
       {/* the scene is drawn at one size and scaled down on small screens */}
-      <div className="absolute left-0 top-0 h-[480px] w-[640px] origin-top-left scale-[0.54] sm:scale-[0.75] lg:scale-100" style={{ perspective: "1000px", perspectiveOrigin: "50% 38%" }}>
+      <div className="absolute left-0 top-0 h-[460px] w-[960px] origin-top-left scale-[0.36] sm:scale-[0.6] md:scale-[0.75] lg:scale-100" style={{ perspective: "1100px", perspectiveOrigin: "50% 40%" }}>
         <motion.div style={reduced ? undefined : { rotateX: rx, rotateY: ry, z: walk }} className="absolute inset-0 [transform-style:preserve-3d]">
           {/* the floor, receding from the door to the far end */}
-          <div aria-hidden="true" className="absolute inset-x-[-10%] top-[70%] h-[1400px] origin-top [transform:rotateX(-90deg)]">
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,31,42,0.22)_1px,transparent_1px),linear-gradient(0deg,rgba(27,31,42,0.22)_1px,transparent_1px)] bg-[size:110px_110px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.95),transparent_78%)]" />
+          <div aria-hidden="true" className="absolute inset-x-[-10%] top-[74%] h-[1600px] origin-top [transform:rotateX(-90deg)]">
+            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,31,42,0.22)_1px,transparent_1px),linear-gradient(0deg,rgba(27,31,42,0.22)_1px,transparent_1px)] bg-[size:120px_120px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.95),transparent_78%)]" />
             <div className="absolute inset-0 bg-[radial-gradient(40%_30%_at_50%_70%,rgba(49,87,246,0.18),transparent)]" />
           </div>
           {/* the light at the far end */}
-          <div aria-hidden="true" className="absolute left-1/2 top-[38%] h-[420px] w-[420px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.22),rgba(23,180,205,0.08)_55%,transparent)] blur-2xl" style={{ transform: "translate(-50%,-50%) translateZ(-1300px)" }} />
+          <div aria-hidden="true" className="absolute left-1/2 top-[40%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.24),rgba(23,180,205,0.08)_55%,transparent)] blur-2xl" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
 
           {/* the two walls */}
           {DEPTHS.map((z, i) => (
-            <Partition key={`l${i}`} side="l" z={z} i={i} reduced={reduced} />
+            <Panel key={`l${i}`} side="l" z={z} i={i} reduced={reduced} />
           ))}
           {DEPTHS.map((z, i) => (
-            <Partition key={`r${i}`} side="r" z={z} i={i} reduced={reduced} />
+            <Panel key={`r${i}`} side="r" z={z} i={i} reduced={reduced} />
           ))}
         </motion.div>
       </div>
@@ -86,7 +105,7 @@ export default function WorkArchiveHero({ lang, t }) {
   const ry = useTransform(sx, [-1, 1], [-4, 4]);
   const rx = useTransform(sy, [-1, 1], [2.5, -2.5]);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const walk = useTransform(scrollYProgress, [0, 1], [0, 320]);
+  const walk = useTransform(scrollYProgress, [0, 1], [0, 360]);
   const onMove = (e) => {
     if (reduced || e.pointerType !== "mouse" || !ref.current) return;
     const r = ref.current.getBoundingClientRect();
@@ -118,36 +137,35 @@ export default function WorkArchiveHero({ lang, t }) {
           <p className={cn(MONO, "hidden text-muted-foreground md:block")}>{h.discipline}</p>
         </motion.div>
 
-        <div className="mt-10 grid gap-8 md:mt-12 lg:grid-cols-12 lg:items-end lg:gap-x-8">
-          {/* the statement */}
-          <div className="lg:col-span-6">
-            <motion.h1 {...up(1)} className="font-heading text-[clamp(2.9rem,5.6vw,5.8rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground [text-wrap:balance]">
-              {h.h1a} <span className="text-accent">{h.h1b}</span>
-            </motion.h1>
-            <motion.p {...up(2)} className="mt-8 max-w-[40ch] text-[16px] leading-[1.6] text-foreground/80 md:text-[18px]">
-              {t.intro}
-            </motion.p>
-            {/* the line of state: three marks lighting up in sequence */}
-            <motion.div {...up(3)} className="mt-10 max-w-[520px]" role="list" aria-label={h.stateLabel}>
-              <div className="relative h-px bg-foreground/15">
-                <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: 0.5, ease: EASE }} className="absolute inset-y-0 left-0 w-full origin-left bg-accent/60" />
-              </div>
-              <ol className="mt-3 grid grid-cols-3 gap-4">
-                {h.marks.map((w, i) => (
-                  <li key={w} className="flex items-center gap-2.5">
-                    <motion.span aria-hidden="true" initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }} animate={{ backgroundColor: "rgba(49,87,246,1)" }} transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.9 + i * 0.35 }} className="h-[7px] w-[7px] shrink-0 border border-accent" />
-                    <span className={cn(MONO, "text-foreground/75")}>{w}</span>
-                  </li>
-                ))}
-              </ol>
-            </motion.div>
-          </div>
-
-          {/* the hall */}
-          <motion.div {...up(2)} aria-hidden="true" className="lg:col-span-6">
-            <Hall reduced={Boolean(reduced)} rx={rx} ry={ry} walk={walk} />
-          </motion.div>
+        {/* the statement, centred over the door */}
+        <div className="mx-auto mt-6 flex flex-col items-center text-center md:mt-8">
+          <motion.h1 {...up(1)} className="max-w-[11em] font-heading text-[clamp(2.9rem,6vw,6.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground [text-wrap:balance]">
+            {h.h1a} <span className="text-accent">{h.h1b}</span>
+          </motion.h1>
+          <motion.p {...up(2)} className="mt-6 max-w-[46ch] text-[16px] leading-[1.6] text-foreground/80 md:text-[18px]">
+            {t.intro}
+          </motion.p>
         </div>
+
+        {/* the hall */}
+        <motion.div {...up(3)} aria-hidden="true" className="mt-4 md:mt-6">
+          <Hall reduced={Boolean(reduced)} rx={rx} ry={ry} walk={walk} />
+        </motion.div>
+
+        {/* the line of state: three marks lighting up in sequence */}
+        <motion.div {...up(4)} className="mx-auto mt-6 max-w-[560px] md:mt-8" role="list" aria-label={h.stateLabel}>
+          <div className="relative h-px bg-foreground/15">
+            <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: 0.5, ease: EASE }} className="absolute inset-y-0 left-0 w-full origin-left bg-accent/60" />
+          </div>
+          <ol className="mt-3 grid grid-cols-3 gap-4">
+            {h.marks.map((w, i) => (
+              <li key={w} className="flex items-center justify-center gap-2.5">
+                <motion.span aria-hidden="true" initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }} animate={{ backgroundColor: "rgba(49,87,246,1)" }} transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.9 + i * 0.35 }} className="h-[7px] w-[7px] shrink-0 border border-accent" />
+                <span className={cn(MONO, "text-foreground/75")}>{w}</span>
+              </li>
+            ))}
+          </ol>
+        </motion.div>
       </div>
     </header>
   );
