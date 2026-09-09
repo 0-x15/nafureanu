@@ -162,132 +162,117 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: the stacked plates ───────────────── */
-  /* The button is the top plate of a small exploded stack, after the
-     system drawing on the home: a light laminated plate, and behind it
-     three layers stepping down and to the right — two light plates with
-     a hairline outline and a cobalt edge, and the solid cobalt base.
-     On hover the stack compresses under the plate, and the arrow moves.
-     The label sits on a clearing so it reads clean over the lamination. */
-  .action-set {
-    position: relative;
-    display: inline-flex;
-    isolation: isolate;
-  }
-  .action__layer {
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: 3px;
-    pointer-events: none;
-    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .action__layer:nth-child(1) { transform: translate(2px, 5px); }
-  .action__layer:nth-child(2) { transform: translate(4px, 10px); transition-delay: 40ms; }
-  .action__layer:nth-child(3) { transform: translate(6px, 15px); transition-delay: 80ms; }
-  .action-set:hover .action__layer:nth-child(1),
-  .action-set:focus-within .action__layer:nth-child(1) { transform: translate(1px, 2px); }
-  .action-set:hover .action__layer:nth-child(2),
-  .action-set:focus-within .action__layer:nth-child(2) { transform: translate(2px, 4px); }
-  .action-set:hover .action__layer:nth-child(3),
-  .action-set:focus-within .action__layer:nth-child(3) { transform: translate(3px, 6px); }
+  /* ── Nafureanu action system: the engineering plate ───────────── */
+  /* The button is one plate of the system drawing on the home: a glass
+     plate with the fine technical grid and a cobalt outline, drawn with
+     real thickness in oblique projection — a bottom face and a right
+     face, the cobalt edges of the drawing. The label sits on a clearing
+     over the grid. On hover the plate lifts off its base, as the layers
+     do when the drawing explodes, and the arrow moves. Primary has
+     cobalt faces, secondary graphite faces that turn cobalt. */
   .action {
+    --depth: 4px;
     position: relative;
-    isolation: isolate;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border-radius: 3px;
+    border-radius: 2px;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
     letter-spacing: -0.005em;
     white-space: nowrap;
+    background-color: rgba(255, 255, 255, 0.86);
+    background-image:
+      linear-gradient(var(--action-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--action-grid) 1px, transparent 1px);
+    background-size: 8px 8px;
+    background-position: -1px -1px;
     transition:
-      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
       border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
+      color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  /* the lamination: one hairline every 6px, behind everything */
-  .action::before {
+  /* the thickness: a bottom face and a right face, in oblique projection */
+  .action::before,
+  .action::after {
     content: "";
     position: absolute;
-    inset: 1px;
-    z-index: -1;
-    border-radius: 2px;
-    background-image: repeating-linear-gradient(180deg, transparent 0 5px, var(--action-line) 5px 6px);
-    background-position: 0 3px;
     pointer-events: none;
+    transition:
+      transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      height 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      width 320ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .action::before {
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: var(--depth);
+    transform-origin: top left;
+    transform: skewX(45deg);
+    background: var(--action-face-b);
+  }
+  .action::after {
+    top: 0;
+    bottom: 0;
+    left: 100%;
+    width: var(--depth);
+    transform-origin: top left;
+    transform: skewY(45deg);
+    background: var(--action-face-r);
   }
   .action__label {
     position: relative;
-    padding: 0 0.4rem;
+    padding: 0 0.35rem;
     border-radius: 2px;
     background: var(--action-clear);
   }
-  .action:hover { transform: translateY(-1px); }
-  .action:active { transform: translateY(1px); }
+  .action:hover,
+  .action:focus-visible {
+    --depth: 7px;
+    transform: translate(-2px, -2px);
+  }
+  .action:active {
+    --depth: 2px;
+    transform: translate(1px, 1px);
+  }
   .action:focus-visible {
     outline: 2px solid hsl(var(--accent));
-    outline-offset: 3px;
+    outline-offset: 4px;
   }
 
-  /* primary — pale cobalt glass */
+  /* primary — cobalt outline and faces */
   .action-primary {
-    --action-line: rgba(49, 87, 246, 0.16);
-    --action-clear: linear-gradient(90deg, rgba(246, 248, 255, 0) 0%, rgba(246, 248, 255, 0.96) 12%, rgba(246, 248, 255, 0.96) 88%, rgba(246, 248, 255, 0) 100%);
+    --action-grid: rgba(49, 87, 246, 0.16);
+    --action-clear: rgba(255, 255, 255, 0.92);
+    --action-face-b: #3157f6;
+    --action-face-r: #2348e8;
     color: hsl(var(--foreground));
-    background: #f6f8ff;
-    border: 1px solid rgba(49, 87, 246, 0.42);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(49, 87, 246, 0.7);
   }
-  .action-primary:hover {
-    color: hsl(var(--accent-deep));
-    border-color: rgba(49, 87, 246, 0.72);
-  }
-  /* the layers behind: two light plates with a cobalt edge, then the base */
-  .action-set-primary .action__layer:nth-child(1),
-  .action-set-primary .action__layer:nth-child(2) {
-    background: #f9faff;
-    border: 1px solid rgba(49, 87, 246, 0.3);
-    box-shadow: inset 3px 0 0 rgba(49, 87, 246, 0.85);
-  }
-  .action-set-primary .action__layer:nth-child(2) { box-shadow: inset 3px 0 0 rgba(49, 87, 246, 0.6); }
-  .action-set-primary .action__layer:nth-child(3) {
-    background: #3157f6;
-    box-shadow: 0 14px 28px -16px rgba(49, 87, 246, 0.6);
-  }
+  .action-primary:hover { color: hsl(var(--accent-deep)); border-color: hsl(var(--accent)); }
 
-  /* secondary — paper */
+  /* secondary — graphite outline, faces that turn cobalt */
   .action-secondary {
-    --action-line: rgba(25, 28, 41, 0.11);
-    --action-clear: linear-gradient(90deg, rgba(252, 251, 248, 0) 0%, rgba(252, 251, 248, 0.96) 12%, rgba(252, 251, 248, 0.96) 88%, rgba(252, 251, 248, 0) 100%);
+    --action-grid: rgba(25, 28, 41, 0.1);
+    --action-clear: rgba(252, 251, 248, 0.94);
+    --action-face-b: #d9dce6;
+    --action-face-r: #c5c9d6;
     color: hsl(var(--foreground));
-    background: #fcfbf8;
-    border: 1px solid rgba(25, 28, 41, 0.22);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    background-color: rgba(252, 251, 248, 0.92);
+    border: 1px solid rgba(25, 28, 41, 0.28);
   }
   .action-secondary:hover {
-    border-color: rgba(25, 28, 41, 0.45);
+    --action-face-b: #3157f6;
+    --action-face-r: #2348e8;
+    border-color: rgba(25, 28, 41, 0.5);
   }
-  .action-set-secondary .action__layer:nth-child(1),
-  .action-set-secondary .action__layer:nth-child(2) {
-    background: #fdfcfa;
-    border: 1px solid rgba(25, 28, 41, 0.2);
-    box-shadow: inset 3px 0 0 rgba(25, 28, 41, 0.6);
-  }
-  .action-set-secondary .action__layer:nth-child(2) { box-shadow: inset 3px 0 0 rgba(25, 28, 41, 0.4); }
-  .action-set-secondary .action__layer:nth-child(3) {
-    background: rgba(49, 87, 246, 0.5);
-    box-shadow: 0 14px 28px -16px rgba(49, 87, 246, 0.4);
-  }
-  .action-set-secondary:hover .action__layer:nth-child(1) { box-shadow: inset 3px 0 0 #3157f6; }
-  .action-set-secondary:hover .action__layer:nth-child(2) { box-shadow: inset 3px 0 0 rgba(49, 87, 246, 0.7); }
-  .action-set-secondary:hover .action__layer:nth-child(3) { background: #3157f6; }
 
-  /* compact contexts (header): the plate alone */
-  .action-set-quiet .action__layer { display: none; }
+  /* compact contexts (header): a thinner plate */
+  .action-quiet { --depth: 3px; }
+  .action-quiet:hover { --depth: 5px; }
 
 }
 

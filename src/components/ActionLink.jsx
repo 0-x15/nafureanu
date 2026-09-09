@@ -16,10 +16,9 @@ const SIZES = {
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * The top plate of a small exploded stack, after the system drawing on
- * the home: a laminated light plate with three layers stepping down
- * behind it — two outlined plates with a cobalt edge and the cobalt
- * base — that compress on hover (see .action in index.css).
+ * One plate of the system drawing on the home: a glass plate with the
+ * technical grid and a cobalt outline, drawn with real thickness in
+ * oblique projection, that lifts on hover (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
@@ -60,10 +59,7 @@ export default function ActionLink({
     );
   }
 
-  // the wrapper carries the stacked layers and any layout classes; the plate is the link itself
-  const quiet = /\baction-quiet\b/.test(className);
-  const setCls = cn("action-set", variant === "primary" ? "action-set-primary" : "action-set-secondary", quiet && "action-set-quiet", className.replace(/\baction-quiet\b/, ""));
-  const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size]);
+  const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
   const inner = (
     <>
       <span className="action__label">{children}</span>
@@ -71,16 +67,16 @@ export default function ActionLink({
     </>
   );
 
+  if (as === "button") {
+    return (
+      <button type={type} onClick={onClick} className={cls}>
+        {inner}
+      </button>
+    );
+  }
   return (
-    <span className={setCls}>
-      <span aria-hidden="true" className="action__layer" />
-      <span aria-hidden="true" className="action__layer" />
-      <span aria-hidden="true" className="action__layer" />
-      {as === "button" ? (
-        <button type={type} onClick={onClick} className={cls}>{inner}</button>
-      ) : (
-        <Link to={to} className={cls}>{inner}</Link>
-      )}
-    </span>
+    <Link to={to} className={cls}>
+      {inner}
+    </Link>
   );
 }
