@@ -1,99 +1,71 @@
 /**
- * The atmosphere behind the whole site — see .site-canvas in index.css.
- * Four scenes along the scroll: soft cobalt/cyan light fields, flowing
- * curves and a ghostly sweep (SVG with gradient strokes that fade at both
- * ends), near-invisible structural lines, a couple of shades and two
- * frosted surfaces. Rendered once in SiteLayout under every page; purely
- * decorative and inert. Sections with a tone of their own paint over it.
+ * The canvas behind the whole site — see .site-canvas in index.css.
+ * One large-format abstract piece in the upper part of the page (veils
+ * of light, two blurred ribbons with their ghost lines, a masked
+ * technical trama, a frosted haze) dissolving into a quiet lower page.
+ * Rendered once in SiteLayout under every page; purely decorative and
+ * inert. Sections with a tone of their own paint over it.
  */
 const COBALT = "#3157F6";
 const CYAN = "#149FB8";
 const INK = "#1B1F2A";
-
-/** A stroke gradient that fades in and out along the drawing's width. */
-function Fade({ id, color, peak, x1 = 0, x2 = 1 }) {
-  return (
-    <linearGradient id={id} gradientUnits="objectBoundingBox" x1={x1} y1="0" x2={x2} y2="0">
-      <stop offset="0" stopColor={color} stopOpacity="0" />
-      <stop offset="0.35" stopColor={color} stopOpacity={peak} />
-      <stop offset="0.65" stopColor={color} stopOpacity={peak} />
-      <stop offset="1" stopColor={color} stopOpacity="0" />
-    </linearGradient>
-  );
-}
 
 export default function SiteBackground() {
   return (
     <div aria-hidden="true" className="site-canvas">
       <span className="canvas-mist" />
 
-      {/* scene A */}
-      <div className="canvas-a">
-        <svg viewBox="0 0 1560 1320" preserveAspectRatio="none">
+      <div className="canvas-top">
+        <span className="canvas-veils" />
+        <span className="canvas-trama" />
+        <svg className="canvas-ribbons" viewBox="0 0 1440 1800" preserveAspectRatio="xMidYMin meet">
           <defs>
-            <Fade id="bgA1" color={COBALT} peak="0.26" />
-            <Fade id="bgA2" color={COBALT} peak="0.16" />
-            <Fade id="bgA3" color={CYAN} peak="0.2" />
-            <Fade id="bgAs" color={COBALT} peak="0.11" />
+            {/* ribbon 1: cobalt rising into cyan, gone at both ends */}
+            <linearGradient id="bg-r1" gradientUnits="userSpaceOnUse" x1="-100" y1="1000" x2="1540" y2="120">
+              <stop offset="0" stopColor={COBALT} stopOpacity="0" />
+              <stop offset="0.3" stopColor={COBALT} stopOpacity="0.2" />
+              <stop offset="0.62" stopColor={CYAN} stopOpacity="0.17" />
+              <stop offset="1" stopColor={CYAN} stopOpacity="0" />
+            </linearGradient>
+            {/* ribbon 2: cyan drifting down into cobalt */}
+            <linearGradient id="bg-r2" gradientUnits="userSpaceOnUse" x1="-100" y1="420" x2="1540" y2="1480">
+              <stop offset="0" stopColor={CYAN} stopOpacity="0" />
+              <stop offset="0.32" stopColor={CYAN} stopOpacity="0.13" />
+              <stop offset="0.7" stopColor={COBALT} stopOpacity="0.14" />
+              <stop offset="1" stopColor={COBALT} stopOpacity="0" />
+            </linearGradient>
+            {/* ghost lines along the gestures */}
+            <linearGradient id="bg-l1" gradientUnits="userSpaceOnUse" x1="-100" y1="0" x2="1540" y2="0">
+              <stop offset="0" stopColor={COBALT} stopOpacity="0" />
+              <stop offset="0.35" stopColor={COBALT} stopOpacity="0.26" />
+              <stop offset="0.7" stopColor={COBALT} stopOpacity="0.2" />
+              <stop offset="1" stopColor={COBALT} stopOpacity="0" />
+            </linearGradient>
+            <linearGradient id="bg-l2" gradientUnits="userSpaceOnUse" x1="-100" y1="0" x2="1540" y2="0">
+              <stop offset="0" stopColor={CYAN} stopOpacity="0" />
+              <stop offset="0.4" stopColor={CYAN} stopOpacity="0.22" />
+              <stop offset="1" stopColor={CYAN} stopOpacity="0" />
+            </linearGradient>
           </defs>
-          {/* the sweep: one wide, blurred curve */}
-          <path className="sweep" d="M-60 1040 C 300 860, 560 1120, 900 700 S 1400 260, 1660 320" fill="none" stroke="url(#bgAs)" strokeWidth="150" strokeLinecap="round" />
-          {/* flowing lines */}
-          <path d="M-60 1000 C 320 820, 560 1080, 900 660 S 1380 220, 1660 280" fill="none" stroke="url(#bgA1)" strokeWidth="1.3" />
-          <path d="M-60 1060 C 340 880, 600 1150, 940 740 S 1420 300, 1660 360" fill="none" stroke="url(#bgA2)" strokeWidth="1.1" />
-          <path d="M-60 940 C 300 760, 520 1000, 860 600 S 1340 160, 1660 200" fill="none" stroke="url(#bgA3)" strokeWidth="1" />
-          {/* structure: a long straight line and a wide arc, barely there */}
-          <line x1="120" y1="1320" x2="1560" y2="120" stroke={INK} strokeOpacity="0.055" strokeWidth="1" />
-          <circle cx="1040" cy="560" r="620" fill="none" stroke={COBALT} strokeOpacity="0.05" strokeWidth="1" />
-        </svg>
-      </div>
-      <span className="canvas-glass-a" />
 
-      {/* scene B */}
-      <div className="canvas-b">
-        <svg viewBox="0 0 1480 1160" preserveAspectRatio="none">
-          <defs>
-            <Fade id="bgB1" color={COBALT} peak="0.22" />
-            <Fade id="bgB2" color={CYAN} peak="0.16" />
-            <Fade id="bgBs" color={COBALT} peak="0.09" />
-          </defs>
-          <path className="sweep" d="M-80 300 C 300 200, 520 640, 900 560 S 1360 260, 1560 420" fill="none" stroke="url(#bgBs)" strokeWidth="170" strokeLinecap="round" />
-          <path d="M-80 260 C 300 160, 520 600, 900 520 S 1360 220, 1560 380" fill="none" stroke="url(#bgB1)" strokeWidth="1.2" />
-          <path d="M-80 340 C 320 240, 560 700, 940 620 S 1400 320, 1560 480" fill="none" stroke="url(#bgB2)" strokeWidth="1" />
-          <line x1="-80" y1="900" x2="1560" y2="560" stroke={INK} strokeOpacity="0.05" strokeWidth="1" />
-          <line x1="-80" y1="990" x2="1560" y2="650" stroke={INK} strokeOpacity="0.035" strokeWidth="1" />
-        </svg>
-      </div>
-      <span className="canvas-shade-b" />
-      <span className="canvas-glass-b" />
+          {/* ribbon 2 sits behind: a wide drift from the upper left down to the right */}
+          <path className="ribbon ribbon-2" d="M-140 380 C 220 420, 440 780, 780 880 C 1120 980, 1320 1220, 1580 1440 L 1580 1560 C 1300 1320, 1090 1080, 750 990 C 410 900, 190 540, -140 500 Z" fill="url(#bg-r2)" />
+          {/* ribbon 1: the main gesture, rising through the hero's right */}
+          <path className="ribbon" d="M-140 980 C 280 900, 520 600, 820 520 C 1120 440, 1320 240, 1580 40 L 1580 230 C 1340 400, 1170 570, 870 650 C 570 730, 320 1060, -140 1140 Z" fill="url(#bg-r1)" />
 
-      {/* scene C */}
-      <div className="canvas-c">
-        <span className="band" />
-        <svg viewBox="0 0 1600 900" preserveAspectRatio="none">
-          <defs>
-            <Fade id="bgC1" color={COBALT} peak="0.2" />
-            <Fade id="bgC2" color={CYAN} peak="0.15" />
-          </defs>
-          <path d="M-40 520 C 300 420, 620 700, 980 560 S 1400 340, 1640 440" fill="none" stroke="url(#bgC1)" strokeWidth="1.2" />
-          <path d="M-40 600 C 320 500, 660 780, 1020 640 S 1440 420, 1640 520" fill="none" stroke="url(#bgC2)" strokeWidth="1" />
-          <line x1="-40" y1="300" x2="1640" y2="120" stroke={INK} strokeOpacity="0.045" strokeWidth="1" />
-          <line x1="-40" y1="380" x2="1640" y2="200" stroke={INK} strokeOpacity="0.03" strokeWidth="1" />
+          {/* ghost lines: the same gestures, drawn as hairlines */}
+          <path d="M-140 950 C 280 870, 520 570, 820 490 C 1120 410, 1320 210, 1580 10" fill="none" stroke="url(#bg-l1)" strokeWidth="1.2" />
+          <path d="M-140 1170 C 300 1090, 560 780, 900 690 C 1200 610, 1380 420, 1580 260" fill="none" stroke="url(#bg-l1)" strokeWidth="1" strokeOpacity="0.7" />
+          <path d="M-140 350 C 220 390, 440 750, 780 850 C 1120 950, 1320 1190, 1580 1410" fill="none" stroke="url(#bg-l2)" strokeWidth="1" />
+          {/* technical marks: a wide arc and one long straight, barely there */}
+          <circle cx="1120" cy="560" r="680" fill="none" stroke={COBALT} strokeOpacity="0.055" strokeWidth="1" />
+          <line x1="-140" y1="1500" x2="1580" y2="300" stroke={INK} strokeOpacity="0.045" strokeWidth="1" />
         </svg>
+        <span className="canvas-haze" />
       </div>
-      <span className="canvas-halo" />
-      <span className="canvas-shade-c" />
 
-      {/* scene D */}
-      <div className="canvas-d">
-        <svg viewBox="0 0 1500 960" preserveAspectRatio="none">
-          <defs>
-            <Fade id="bgD1" color={COBALT} peak="0.18" />
-          </defs>
-          <path d="M-40 700 C 300 560, 640 820, 1000 620 S 1360 380, 1540 460" fill="none" stroke="url(#bgD1)" strokeWidth="1.2" />
-          <circle cx="1000" cy="560" r="520" fill="none" stroke={COBALT} strokeOpacity="0.045" strokeWidth="1" />
-        </svg>
-      </div>
+      <span className="canvas-mid" />
+      <span className="canvas-foot" />
     </div>
   );
 }

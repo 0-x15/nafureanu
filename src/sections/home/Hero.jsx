@@ -100,7 +100,7 @@ export default function Hero({ lang = "es" }) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, delay: 0.4, ease: EASE }}
-            className="absolute -top-8 z-0 hidden lg:-left-16 lg:block xl:-left-32 2xl:-left-16"
+            className="absolute -top-8 z-0 hidden lg:-left-16 lg:block xl:-left-32 min-[1360px]:-left-36 min-[1536px]:-left-16"
           >
             <AutomationCard lang={lang} className="-rotate-2" />
           </motion.div>

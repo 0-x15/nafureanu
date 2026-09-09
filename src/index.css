@@ -65,14 +65,14 @@
 }
 
 @layer components {
-  /* ── The canvas: the atmosphere behind the content ───────────────── */
-  /* One global layer (SiteBackground) under every page. Four scenes
-     spread along the scroll (top, middle, lower, bottom): soft cobalt and
-     cyan light fields, flowing curves and a ghostly sweep drawn as SVG
-     with gradient strokes, near-invisible structural lines, a shade or
-     two, and a frosted surface. No hard edges anywhere. Positions in
-     viewport heights, the lower scene with max(vh, %) for long pages,
-     the last one anchored to the footer. Pure CSS + static SVG. */
+  /* ── The canvas: one large-format abstract piece behind the site ─── */
+  /* Rendered once (SiteBackground) under every page. Not a set of
+     ornaments: a single composition concentrated in the upper part of
+     the page — veils of cobalt and cyan light, two blurred ribbon
+     gestures with their ghost lines, a faint technical trama masked to a
+     region, and a frosted haze — that dissolves through a mask into a
+     quiet lower page with one soft light field and a last glow at the
+     footer. Pure CSS + one static SVG. */
   .site-canvas {
     position: absolute;
     inset: 0;
@@ -82,148 +82,107 @@
   .site-canvas > * {
     position: absolute;
   }
-  .site-canvas svg {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
   .canvas-mist {
     inset: 0;
-    background: linear-gradient(112deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 38%, rgba(49, 87, 246, 0.028) 100%);
+    background: linear-gradient(112deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0) 40%, rgba(49, 87, 246, 0.03) 100%);
   }
-  /* scene A — the opening: light from the upper right, curves rising */
-  .canvas-a {
-    top: -12vh;
-    right: -22vw;
-    width: 1560px;
-    height: 1320px;
-    background:
-      radial-gradient(50% 44% at 60% 40%, rgba(49, 87, 246, 0.115), rgba(49, 87, 246, 0) 70%),
-      radial-gradient(36% 32% at 28% 72%, rgba(20, 159, 184, 0.075), rgba(20, 159, 184, 0) 70%),
-      radial-gradient(44% 40% at 74% 22%, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%);
-  }
-  .canvas-a .sweep {
-    filter: blur(34px);
-  }
-  /* a frosted surface tilted into the first light */
-  .canvas-glass-a {
-    top: 60vh;
-    right: 6vw;
-    width: 760px;
-    height: 470px;
-    border-radius: 6px;
-    transform: rotate(-7deg);
-    background: rgba(255, 255, 255, 0.36);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.55),
-      0 120px 220px -140px rgba(27, 36, 64, 0.4);
-    filter: blur(9px);
-    backdrop-filter: blur(16px);
-  }
-  /* scene B — the middle: a cool field on the left, curves crossing */
-  .canvas-b {
-    top: 186vh;
-    left: -26vw;
-    width: 1480px;
-    height: 1160px;
-    background:
-      radial-gradient(46% 44% at 44% 50%, rgba(49, 87, 246, 0.095), rgba(49, 87, 246, 0) 70%),
-      radial-gradient(30% 30% at 74% 28%, rgba(20, 159, 184, 0.06), rgba(20, 159, 184, 0) 70%);
-  }
-  .canvas-b .sweep {
-    filter: blur(40px);
-  }
-  .canvas-shade-b {
-    top: 262vh;
-    right: 14vw;
-    width: 560px;
-    height: 680px;
-    border-radius: 6px;
-    transform: rotate(-4deg);
-    background: rgba(27, 31, 42, 0.034);
-    filter: blur(30px);
-  }
-  .canvas-glass-b {
-    top: 236vh;
-    right: -6vw;
-    width: 700px;
-    height: 450px;
-    border-radius: 6px;
-    transform: rotate(3deg);
-    background: rgba(255, 255, 255, 0.32);
-    box-shadow:
-      inset 0 0 0 1px rgba(255, 255, 255, 0.5),
-      0 110px 200px -130px rgba(27, 36, 64, 0.36);
-    filter: blur(10px);
-    backdrop-filter: blur(14px);
-  }
-  /* scene C — lower: a wide tilted band of light, long horizontal curves */
-  .canvas-c {
-    top: max(330vh, 44%);
-    left: -14vw;
-    width: 128vw;
-    height: 900px;
-  }
-  .canvas-c .band {
-    position: absolute;
-    top: 180px;
+  /* the upper composition, dissolving downwards */
+  .canvas-top {
+    top: 0;
     left: 0;
     width: 100%;
-    height: 480px;
-    transform: rotate(-2.5deg);
-    background: linear-gradient(90deg, rgba(49, 87, 246, 0) 0%, rgba(49, 87, 246, 0.085) 26%, rgba(20, 159, 184, 0.07) 58%, rgba(231, 237, 249, 0.6) 82%, rgba(231, 237, 249, 0) 100%);
-    filter: blur(58px);
+    height: 280vh;
+    -webkit-mask-image: linear-gradient(to bottom, #000 62%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to bottom, #000 62%, rgba(0, 0, 0, 0) 100%);
   }
-  .canvas-halo {
-    top: max(430vh, 64%);
-    left: 42vw;
-    width: 1000px;
-    height: 1000px;
-    background: radial-gradient(50% 50% at 50% 50%, rgba(49, 87, 246, 0.07), rgba(49, 87, 246, 0) 66%);
+  .canvas-top > * {
+    position: absolute;
   }
-  .canvas-shade-c {
-    top: max(500vh, 78%);
-    left: -30vw;
-    width: 54vw;
-    height: 640px;
-    border-radius: 6px;
-    transform: rotate(6deg);
-    background: rgba(27, 31, 42, 0.032);
-    filter: blur(32px);
-  }
-  /* scene D — the close: light and one last curve meeting the footer */
-  .canvas-d {
-    bottom: -24vh;
-    right: -12vw;
-    width: 1500px;
-    height: 960px;
+  /* veils: wide fields of light */
+  .canvas-veils {
+    inset: 0;
     background:
-      radial-gradient(52% 48% at 58% 52%, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0) 72%),
-      radial-gradient(34% 34% at 30% 40%, rgba(49, 87, 246, 0.065), rgba(49, 87, 246, 0) 70%);
+      radial-gradient(34% 22% at 76% 14%, rgba(49, 87, 246, 0.15), rgba(49, 87, 246, 0) 70%),
+      radial-gradient(40% 20% at 20% 52%, rgba(20, 159, 184, 0.11), rgba(20, 159, 184, 0) 70%),
+      radial-gradient(30% 16% at 88% 60%, rgba(49, 87, 246, 0.09), rgba(49, 87, 246, 0) 70%),
+      radial-gradient(38% 18% at 52% 2%, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 72%);
+  }
+  /* ribbons: the SVG scales with the width; its height follows */
+  .canvas-ribbons {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .canvas-ribbons .ribbon {
+    filter: blur(38px);
+  }
+  .canvas-ribbons .ribbon-2 {
+    filter: blur(46px);
+  }
+  /* trama: a fine dot lattice, only alive inside two soft regions */
+  .canvas-trama {
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(27, 31, 42, 0.13) 0.7px, rgba(27, 31, 42, 0) 0.8px);
+    background-size: 18px 18px;
+    -webkit-mask-image:
+      radial-gradient(26% 15% at 80% 21%, #000, rgba(0, 0, 0, 0) 70%),
+      radial-gradient(16% 12% at 4% 56%, #000, rgba(0, 0, 0, 0) 70%);
+    mask-image:
+      radial-gradient(26% 15% at 80% 21%, #000, rgba(0, 0, 0, 0) 70%),
+      radial-gradient(16% 12% at 4% 56%, #000, rgba(0, 0, 0, 0) 70%);
+  }
+  /* frosted haze: an elongated, soft-edged glass drift, not a panel */
+  .canvas-haze {
+    top: 72vh;
+    left: 30vw;
+    width: 72vw;
+    height: 62vh;
+    border-radius: 50% 42% 48% 50% / 60% 50% 50% 40%;
+    transform: rotate(-16deg);
+    background: rgba(255, 255, 255, 0.34);
+    filter: blur(34px);
+    backdrop-filter: blur(22px);
+  }
+  /* the quiet lower page */
+  .canvas-mid {
+    top: max(340vh, 46%);
+    left: -10vw;
+    width: 120vw;
+    height: 120vh;
+    background:
+      radial-gradient(38% 42% at 30% 50%, rgba(20, 159, 184, 0.075), rgba(20, 159, 184, 0) 70%),
+      radial-gradient(36% 40% at 74% 46%, rgba(49, 87, 246, 0.085), rgba(49, 87, 246, 0) 70%);
+  }
+  .canvas-foot {
+    bottom: -30vh;
+    left: 0;
+    width: 100%;
+    height: 120vh;
+    background:
+      radial-gradient(40% 44% at 76% 64%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%),
+      radial-gradient(30% 34% at 22% 76%, rgba(49, 87, 246, 0.07), rgba(49, 87, 246, 0) 70%);
   }
   @media (max-width: 767px) {
-    .canvas-b,
-    .canvas-shade-b,
-    .canvas-glass-b,
-    .canvas-shade-c {
+    .canvas-top {
+      height: 200vh;
+    }
+    .canvas-trama {
       display: none;
     }
-    .canvas-glass-a {
-      right: -34vw;
-      width: 520px;
-      height: 340px;
+    .canvas-haze {
       backdrop-filter: none;
+      left: 10vw;
+      width: 120vw;
+      height: 40vh;
+      top: 60vh;
     }
-    .canvas-a {
-      right: -60vw;
-      width: 1100px;
-      height: 940px;
+    .canvas-ribbons .ribbon {
+      filter: blur(22px);
     }
-    .canvas-a .sweep,
-    .canvas-c .band {
-      filter: blur(28px);
+    .canvas-ribbons .ribbon-2 {
+      filter: blur(26px);
     }
   }
   /* ── Nafureanu action material ─────────────────────────────── */
