@@ -19,13 +19,3 @@ export function Rule({ className = "", delay = 0, vertical = false }) {
     />
   );
 }
-
-/** Two mono labels on one line, the archive's way of annotating a moment. */
-export function Meta({ left, right = undefined, className = "" }) {
-  return (
-    <div className={cn("flex items-baseline justify-between gap-6", className)}>
-      <p className={cn(MONO, "text-muted-foreground")}>{left}</p>
-      {right && <p className={cn(MONO, "hidden text-muted-foreground sm:block")}>{right}</p>}
-    </div>
-  );
-}

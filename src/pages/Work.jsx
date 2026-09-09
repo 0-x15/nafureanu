@@ -6,15 +6,13 @@ import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
 import FivoCardVisual from "@/components/work/visuals/FivoCardVisual";
 import WorkArchiveHero from "@/sections/work-index/WorkArchiveHero";
-import ProjectStage from "@/sections/work-index/ProjectStage";
-import WorkRange from "@/sections/work-index/WorkRange";
-import WorkNextSlot from "@/sections/work-index/WorkNextSlot";
+import WorkCardStage from "@/sections/work-index/WorkCardStage";
+import WorkNext from "@/sections/work-index/WorkNext";
 
 /**
- * The project index — a living archive of the systems already built.
- * Four acts: the archive opens with the project register; the four
- * cards on their stage; the range of the work as a classification
- * spread; and the empty fifth entry that closes the register.
+ * The project index — a curated archive of built systems, in three
+ * acts: the abstract hero, the four cards (the only place the projects
+ * appear) on their stage, and the forward-looking close, entry 05.
  * Presentation order is explicit here, independent of PROJECTS.
  */
 const ORDER = [
@@ -28,7 +26,6 @@ export default function Work({ lang = "es" }) {
   const s = STRINGS[lang];
   const wp = s.workPage;
   const entries = ORDER.map((entry) => ({ ...entry, project: PROJECTS.find((p) => p.slug === entry.slug) }));
-  const projects = entries.map((e) => e.project);
 
   usePageMeta({
     lang,
@@ -40,10 +37,9 @@ export default function Work({ lang = "es" }) {
 
   return (
     <div>
-      <WorkArchiveHero lang={lang} t={wp} projects={projects} />
-      <ProjectStage lang={lang} t={wp} entries={entries} viewProject={wp.viewProject} />
-      <WorkRange t={wp} />
-      <WorkNextSlot lang={lang} t={wp} projects={projects} />
+      <WorkArchiveHero lang={lang} t={wp} />
+      <WorkCardStage lang={lang} t={wp} entries={entries} viewProject={wp.viewProject} />
+      <WorkNext lang={lang} t={wp} />
     </div>
   );
 }
