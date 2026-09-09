@@ -65,13 +65,14 @@
 }
 
 @layer components {
-  /* ── The canvas: the Fivo chapter's three glass planes, fixed ───────── */
+  /* ── The canvas: glass planes that travel with the scroll ──────────── */
   /* One global layer (SiteBackground) under every page: the three planes
-     of the Fivo chapter on the home — the broad upper-right plane, the
-     narrow diagonal pill, the lower-left plane with a hint of cobalt in
-     the material — with the same widths, radii, borders, shadows and
-     tilts, fixed to the viewport so they stay in view through every
-     section while scrolling, on the site's own ivory. Pure CSS. */
+     of the Fivo chapter — broad plane, diagonal pill, lower plane — fixed
+     to the viewport and carried across it by the page's scroll progress
+     (CSS scroll-driven animations, no JavaScript), plus two planes that
+     only appear in the middle and at the end of the page. Each plane also
+     drifts slowly on its own. Browsers without scroll timelines keep the
+     three planes still in their opening positions. */
   .site-canvas {
     position: absolute;
     inset: 0;
@@ -81,44 +82,55 @@
   .site-canvas > span {
     position: fixed;
     display: block;
+    will-change: transform, opacity;
+  }
+  .site-canvas > span > i {
+    display: block;
+    width: 100%;
+    height: 100%;
+    will-change: transform;
   }
   /* the glass: clear white with a breath of cyan and cobalt, a bright
-     rim, a top highlight and a cobalt-tinted bloom */
+     rim, a top highlight and a soft cobalt bloom */
   .fivo-a {
     border-radius: 36px;
     border: 1px solid rgba(255, 255, 255, 0.9);
-    background: linear-gradient(120deg, rgba(255, 255, 255, 0.68), rgba(23, 180, 205, 0.08) 60%, rgba(49, 87, 246, 0.07));
+    background: linear-gradient(120deg, rgba(255, 255, 255, 0.66), rgba(23, 180, 205, 0.05) 60%, rgba(49, 87, 246, 0.045));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.95),
-      0 60px 120px -50px rgba(49, 87, 246, 0.32);
+      0 60px 120px -50px rgba(49, 87, 246, 0.26);
     backdrop-filter: blur(28px);
   }
   .fivo-b {
     border-radius: 42px;
     border: 1px solid rgba(255, 255, 255, 0.85);
-    background: linear-gradient(130deg, rgba(49, 87, 246, 0.09), rgba(255, 255, 255, 0.58) 48%, rgba(23, 180, 205, 0.08));
+    background: linear-gradient(130deg, rgba(49, 87, 246, 0.055), rgba(255, 255, 255, 0.56) 48%, rgba(23, 180, 205, 0.05));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.9),
-      0 60px 120px -50px rgba(49, 87, 246, 0.3);
+      0 60px 120px -50px rgba(49, 87, 246, 0.24);
     backdrop-filter: blur(32px);
   }
   .fivo-c {
     border-radius: 9999px;
     border: 1px solid rgba(255, 255, 255, 0.9);
-    background: linear-gradient(90deg, rgba(23, 180, 205, 0.09), rgba(255, 255, 255, 0.62) 50%, rgba(49, 87, 246, 0.08));
+    background: linear-gradient(90deg, rgba(23, 180, 205, 0.055), rgba(255, 255, 255, 0.6) 50%, rgba(49, 87, 246, 0.05));
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.95),
-      0 40px 90px -40px rgba(49, 87, 246, 0.4);
+      0 40px 90px -40px rgba(49, 87, 246, 0.32);
     backdrop-filter: blur(18px);
   }
-  /* placement; the tilt lives in the drift animation below */
-  .fp-1 { top: 8vh; left: -7vw; width: 38vw; height: 14vh; animation: fp-drift-1 26s ease-in-out infinite; }
-  .fp-2 { top: 40vh; left: 26vw; width: 46vw; height: 12vh; animation: fp-drift-2 22s ease-in-out infinite; }
-  .fp-3 { bottom: 12vh; right: -9vw; width: 48vw; height: 16vh; animation: fp-drift-3 30s ease-in-out infinite; }
-  .site-canvas > span {
-    will-change: transform;
-  }
-  /* life: a slow drift, a few pixels and a degree or so, never in sync */
+  /* opening positions */
+  .fp-1 { top: 8vh; left: -7vw; width: 38vw; height: 14vh; }
+  .fp-2 { top: 40vh; left: 26vw; width: 46vw; height: 12vh; }
+  .fp-3 { bottom: 12vh; right: -9vw; width: 48vw; height: 16vh; }
+  .fp-4 { top: 16vh; right: 8vw; width: 26vw; height: 34vh; opacity: 0; }
+  .fp-5 { top: 58vh; left: -4vw; width: 36vw; height: 18vh; opacity: 0; }
+  /* the tilt and a slow drift live on the inner element */
+  .fp-1 > i { animation: fp-drift-1 26s ease-in-out infinite; }
+  .fp-2 > i { animation: fp-drift-2 22s ease-in-out infinite; }
+  .fp-3 > i { animation: fp-drift-3 30s ease-in-out infinite; }
+  .fp-4 > i { animation: fp-drift-4 24s ease-in-out infinite; }
+  .fp-5 > i { animation: fp-drift-5 28s ease-in-out infinite; }
   @keyframes fp-drift-1 {
     0%, 100% { transform: translate3d(0, 0, 0) rotate(2deg); }
     50% { transform: translate3d(22px, -16px, 0) rotate(3.5deg); }
@@ -131,18 +143,71 @@
     0%, 100% { transform: translate3d(0, 0, 0) rotate(5deg); }
     50% { transform: translate3d(-18px, -20px, 0) rotate(3.5deg); }
   }
-  @media (prefers-reduced-motion: reduce) {
+  @keyframes fp-drift-4 {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(-8deg); }
+    50% { transform: translate3d(14px, 18px, 0) rotate(-6deg); }
+  }
+  @keyframes fp-drift-5 {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(3deg); }
+    50% { transform: translate3d(20px, -12px, 0) rotate(4.5deg); }
+  }
+  /* the journey: the page's scroll progress moves the planes across the
+     viewport and reveals the two extra ones */
+  @supports (animation-timeline: scroll()) {
     .site-canvas > span {
+      animation-timeline: scroll(root);
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-duration: 1s;
+    }
+    .fp-1 { animation-name: fp-scroll-1; }
+    .fp-2 { animation-name: fp-scroll-2; }
+    .fp-3 { animation-name: fp-scroll-3; }
+    .fp-4 { animation-name: fp-scroll-4; }
+    .fp-5 { animation-name: fp-scroll-5; }
+  }
+  @keyframes fp-scroll-1 {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(48vw, 50vh, 0); }
+  }
+  @keyframes fp-scroll-2 {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-20vw, 36vh, 0); }
+  }
+  @keyframes fp-scroll-3 {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-42vw, -58vh, 0); }
+  }
+  @keyframes fp-scroll-4 {
+    0%, 22% { opacity: 0; transform: translate3d(0, 12vh, 0); }
+    40%, 62% { opacity: 1; transform: translate3d(0, 0, 0); }
+    80%, 100% { opacity: 0; transform: translate3d(0, -12vh, 0); }
+  }
+  @keyframes fp-scroll-5 {
+    0%, 58% { opacity: 0; transform: translate3d(-6vw, 10vh, 0); }
+    80%, 100% { opacity: 1; transform: translate3d(0, 0, 0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .site-canvas > span,
+    .site-canvas > span > i {
       animation: none;
+    }
+    .fp-4,
+    .fp-5 {
+      display: none;
     }
   }
   @media (max-width: 767px) {
-    .site-canvas > span {
+    .site-canvas > span > i {
       backdrop-filter: none;
     }
+    .fp-2,
+    .fp-4 {
+      display: none;
+    }
     .fp-1 { left: -22vw; width: 76vw; height: 12vh; }
-    .fp-2 { display: none; }
     .fp-3 { right: -26vw; width: 88vw; height: 13vh; }
+    .fp-5 { width: 70vw; }
   }
   /* ── Nafureanu action material ─────────────────────────────── */
 
