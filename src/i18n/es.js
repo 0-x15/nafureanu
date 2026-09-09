@@ -412,6 +412,43 @@ export const ES = {
       "Software, automatización e infraestructura construidos alrededor de problemas reales de negocio.",
     secondary:
       "Explora cómo convertimos operaciones, procesos y productos en sistemas que funcionan.",
+    archive: {
+      brand: "Nafureanu",
+      label: "Archivo de proyectos",
+      count: "04 sistemas",
+      selection: "Selección actual",
+      registerLabel: "Registro",
+      hint: "Pasa por una entrada para leerla · cada una abre su caso",
+    },
+    stage: {
+      rule: "Selección · 01 — 04",
+      view: "Sistemas / Productos / Experiencias",
+      statement: "Cuatro proyectos. Cuatro tipos de problema.",
+      refs: ["Operaciones", "Pagos", "Producto", "Digital"],
+      edition: "Archivo · cuatro entradas",
+    },
+    range: {
+      label: "Rango del trabajo",
+      statement: "No construimos la misma solución cuatro veces.",
+      support: "Cada problema exigía una arquitectura distinta: quién usa el sistema y qué es cambia de un proyecto a otro.",
+      axisX: ["Operaciones", "Producto"],
+      axisY: ["Equipo interno", "Usuarios externos"],
+      items: [
+        { slug: "crm-inmobiliario", name: "CRM inmobiliario", note: "Sistema de operaciones sobre Odoo" },
+        { slug: "life-admin", name: "Life Admin", note: "Administración personal · producto propio" },
+        { slug: "web-projects", name: "Web y productos digitales", note: "Experiencias para públicos externos" },
+        { slug: "fivo", name: "Fivo", note: "Infraestructura de pagos · producto independiente" },
+      ],
+    },
+    next: {
+      label: "Registro · 05",
+      blank: "Entrada 05, vacía: el próximo sistema",
+      line: "El próximo sistema todavía no está aquí.",
+      support: "Puede empezar con un proceso que no funciona, una herramienta que ya no encaja o una idea que todavía no tiene forma.",
+      cta: "Hablar de un proyecto",
+      words: ["Proceso", "Idea", "Sistema", "Producto"],
+      signature: "Nafureanu · Archivo de proyectos · Entrada 05 pendiente",
+    },
     viewProject: "Ver proyecto",
     close: {
       kicker: "El siguiente sistema",

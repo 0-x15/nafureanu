@@ -411,6 +411,43 @@ export const EN = {
       "Software, automation and infrastructure built around real business problems.",
     secondary:
       "Explore how we turn operations, processes and products into systems that work.",
+    archive: {
+      brand: "Nafureanu",
+      label: "Project archive",
+      count: "04 systems",
+      selection: "Current selection",
+      registerLabel: "Register",
+      hint: "Move over an entry to read it · each one opens its case",
+    },
+    stage: {
+      rule: "Selection · 01 — 04",
+      view: "Systems / Products / Experiences",
+      statement: "Four projects. Four kinds of problem.",
+      refs: ["Operations", "Payments", "Product", "Digital"],
+      edition: "Archive · four entries",
+    },
+    range: {
+      label: "Range of work",
+      statement: "We did not build the same solution four times.",
+      support: "Each problem called for a different architecture: who uses the system and what it is changes from one project to the next.",
+      axisX: ["Operations", "Product"],
+      axisY: ["Internal team", "External users"],
+      items: [
+        { slug: "crm-inmobiliario", name: "Real-estate CRM", note: "Operations system on Odoo" },
+        { slug: "life-admin", name: "Life Admin", note: "Personal administration · own product" },
+        { slug: "web-projects", name: "Web & digital products", note: "Experiences for external audiences" },
+        { slug: "fivo", name: "Fivo", note: "Payment infrastructure · independent product" },
+      ],
+    },
+    next: {
+      label: "Register · 05",
+      blank: "Entry 05, empty: the next system",
+      line: "The next system is not here yet.",
+      support: "It can start with a process that does not work, a tool that no longer fits, or an idea that has no shape yet.",
+      cta: "Start a conversation",
+      words: ["Process", "Idea", "System", "Product"],
+      signature: "Nafureanu · Project archive · Entry 05 pending",
+    },
     viewProject: "View project",
     close: {
       kicker: "The next system",

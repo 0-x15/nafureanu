@@ -162,6 +162,22 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
+  /* ── Project archive: the empty entry's words ─────────────────── */
+  /* On hover or focus the four words surface one after another, on a
+     slow loop; without a pointer, or with reduced motion, they are
+     simply there. */
+  .next-word { opacity: 0.35; transition: opacity 300ms; }
+  .group:hover .next-word,
+  .group:focus-visible .next-word { animation: next-word-surface 3.6s ease-in-out infinite; }
+  @keyframes next-word-surface {
+    0%, 100% { opacity: 0.35; color: inherit; }
+    12%, 22% { opacity: 1; color: #3157f6; }
+    34% { opacity: 0.35; }
+  }
+  @media (hover: none), (prefers-reduced-motion: reduce) {
+    .next-word { opacity: 0.8; animation: none !important; }
+  }
+
   /* ── Nafureanu action system: a plate and its growing stack ───── */
   /* A normal button — the cobalt plate with the label and the arrow —
      resting on a stack of light sheets: white and the palette's warm
