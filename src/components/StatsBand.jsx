@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import Backdrop from "@/components/Backdrop";
 import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { STRINGS, langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -50,10 +51,11 @@ export default function StatsBand({ lang = "es" }) {
   return (
     <section
       ref={sectionRef}
-      className="relative h-[420vh] bg-background"
+      className="relative h-[420vh]"
       aria-label={s.title}
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 isolate h-screen overflow-hidden">
+        <Backdrop tone="white" x="48%" y="12%" w="60%" h="76%" />
         {/* Quiet neutral base bloom under the per-state atmosphere */}
         <span
           aria-hidden="true"

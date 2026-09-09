@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import Backdrop from "@/components/Backdrop";
 import ActionLink from "@/components/ActionLink";
 import Reveal from "@/components/Reveal";
 import { STRINGS, langPath } from "@/i18n";
@@ -16,9 +17,11 @@ export default function HomeCta({ lang = "es" }) {
 
   return (
     <section
-      className="relative bg-background px-5 py-16 md:px-10 md:pt-20 md:pb-24"
+      className="relative isolate px-5 py-16 md:px-10 md:pt-20 md:pb-24"
       aria-labelledby="home-cta-heading"
     >
+      <Backdrop tone="deep" x="-4%" y="58%" w="108%" h="46%" marks={false} />
+      <Backdrop tone="white" x="56%" y="10%" w="50%" h="78%" />
       <div className="relative mx-auto max-w-[1440px]">
         {/* one precise line — "Hablemos" resolving toward "Empieza por aquí" */}
         <motion.div

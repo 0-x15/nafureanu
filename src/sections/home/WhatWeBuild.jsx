@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Backdrop from "@/components/Backdrop";
 import Reveal from "@/components/Reveal";
 import { STRINGS } from "@/i18n";
 import CapabilityNav from "./capabilities/CapabilityNav";
@@ -18,9 +19,10 @@ export default function WhatWeBuild({ lang = "es" }) {
 
   return (
     <section
-      className="bg-background px-5 pt-20 md:px-10 md:pt-32"
+      className="relative isolate px-5 pt-20 md:px-10 md:pt-32"
       aria-labelledby="build-heading"
     >
+      <Backdrop tone="white" x="36%" y="34%" w="70%" h="70%" />
       <div className="mx-auto max-w-[1440px]">
         <Reveal>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">

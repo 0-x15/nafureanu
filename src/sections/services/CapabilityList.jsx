@@ -1,4 +1,5 @@
 import { CAPABILITIES } from "@/data/capabilities";
+import Backdrop from "@/components/Backdrop";
 import Reveal from "@/components/Reveal";
 import { STRINGS } from "@/i18n";
 
@@ -10,7 +11,8 @@ export default function CapabilityList({ lang = "es" }) {
   const s = STRINGS[lang].servicesPage;
 
   return (
-    <section className="bg-background px-5 md:px-10" aria-label={s.h1}>
+    <section className="relative isolate px-5 md:px-10" aria-label={s.h1}>
+      <Backdrop tone="deep" x="-4%" y="1%" w="36%" h="98%" />
       <div className="mx-auto max-w-[1440px]">
         {CAPABILITIES.map((cap, i) => {
           const c = cap.copy[lang];

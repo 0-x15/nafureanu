@@ -1,4 +1,5 @@
 import Reveal from "@/components/Reveal";
+import Backdrop from "@/components/Backdrop";
 import { STRINGS } from "@/i18n";
 import { OperatingLayer } from "./about/HomeAboutVisual";
 
@@ -14,7 +15,8 @@ import { OperatingLayer } from "./about/HomeAboutVisual";
 export default function HomeAbout({ lang = "es" }) {
   const a = STRINGS[lang].homeAbout;
   return (
-    <section aria-labelledby="home-about" className="relative overflow-hidden bg-background px-5 pt-16 md:px-10 md:pt-24">
+    <section aria-labelledby="home-about" className="relative isolate overflow-hidden px-5 pt-16 md:px-10 md:pt-24">
+      <Backdrop tone="cool" x="66%" y="38%" w="40%" h="56%" />
       {/* structural lines emerging from the hero's whitespace */}
       <svg aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 hidden h-48 w-full md:block" viewBox="0 0 1440 192" preserveAspectRatio="none" fill="none">
         <path d="M0 34 H520 C560 34 580 54 620 54 H1440" stroke="#3157F6" strokeOpacity="0.14" />

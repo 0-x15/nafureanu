@@ -59,7 +59,7 @@ export default function ProblemCanvas({ lang = "es" }) {
   return (
     <section
       ref={ref}
-      className="relative h-[220vh] bg-background"
+      className="relative h-[220vh]"
       aria-label={c.title}
     >
       <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">

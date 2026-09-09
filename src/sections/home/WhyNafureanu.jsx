@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Backdrop from "@/components/Backdrop";
 import { motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
@@ -21,9 +22,10 @@ export default function WhyNafureanu({ lang = "es" }) {
 
   return (
     <section
-      className="bg-background px-5 py-16 md:px-10 md:pt-16 md:pb-20"
+      className="relative isolate px-5 py-16 md:px-10 md:pt-16 md:pb-20"
       aria-labelledby="why-heading"
     >
+      <Backdrop tone="cool" x="58%" y="52%" w="48%" h="46%" />
       <div className="mx-auto max-w-[1440px]">
         {/* Intro — full width */}
         <Reveal>

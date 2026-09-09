@@ -53,18 +53,34 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Soft ambient depth on the ivory canvas. A fixed layer instead of
-     background-attachment: fixed, which makes the browser repaint the
-     whole viewport on every scroll step. */
-  body::before {
+  /* The canvas: the ivory sheet under a soft, structured light. Two fixed
+     planes rather than blobs — a bright field on the upper right, where
+     the product surfaces sit, and a cool field on the lower left. Fixed
+     layers never repaint on scroll. Sections keep their ground
+     transparent so the light shows through; sections that need a tone
+     of their own paint over it (see components/Backdrop). */
+  body::before,
+  body::after {
     content: "";
     position: fixed;
-    inset: 0;
     z-index: -1;
     pointer-events: none;
-    background-image:
-      radial-gradient(48% 36% at 88% -4%, rgba(49, 87, 246, 0.06), transparent 60%),
-      radial-gradient(40% 30% at 0% 100%, rgba(49, 87, 246, 0.04), transparent 55%);
+  }
+  body::before {
+    top: -14vh;
+    right: -12vw;
+    bottom: 34vh;
+    left: 52vw;
+    background: rgba(255, 255, 255, 0.55);
+    filter: blur(70px);
+  }
+  body::after {
+    top: 56vh;
+    right: 58vw;
+    bottom: -16vh;
+    left: -14vw;
+    background: rgba(49, 87, 246, 0.045);
+    filter: blur(90px);
   }
 
   ::selection {

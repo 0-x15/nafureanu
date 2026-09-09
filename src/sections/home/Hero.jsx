@@ -5,6 +5,7 @@ import SophIADashboard from "@/components/mockups/SophIADashboard";
 import FivoCheckout from "@/components/mockups/FivoCheckout";
 import AutomationCard from "@/components/mockups/AutomationCard";
 import { STRINGS, langPath } from "@/i18n";
+import Backdrop from "@/components/Backdrop";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -24,7 +25,9 @@ export default function Hero({ lang = "es" }) {
   const ySide = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
-    <section ref={ref} className="relative overflow-hidden px-5 pt-32 md:px-10 md:pt-44">
+    <section ref={ref} className="relative isolate overflow-hidden px-5 pt-32 md:px-10 md:pt-44">
+      <Backdrop tone="deep" x="46%" y="30%" w="60%" h="62%" marks={false} />
+      <Backdrop tone="white" x="52%" y="14%" w="60%" h="72%" />
       <div className="mx-auto grid max-w-[1440px] items-center gap-14 lg:grid-cols-12">
         {/* Copy */}
         <div className="lg:col-span-6">
