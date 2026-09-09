@@ -31,8 +31,7 @@ export default function HomeAbout({ lang = "es" }) {
         <Reveal>
           <h2
             id="home-about"
-            className="mt-8 font-heading font-bold leading-[1.02] tracking-[-0.03em] text-foreground [text-wrap:balance] md:mt-10"
-            style={{ fontSize: "clamp(34px, 5vw, 76px)" }}
+            className="mt-8 font-heading text-3xl font-bold leading-[1.05] tracking-[-0.03em] text-foreground [text-wrap:balance] md:mt-10 md:text-6xl"
           >
             {a.title}
           </h2>
@@ -40,7 +39,7 @@ export default function HomeAbout({ lang = "es" }) {
 
         {/* 2 · company definition */}
         <Reveal delay={0.06}>
-          <p className="mt-8 max-w-[34em] text-[18px] leading-[1.6] text-foreground/90 md:mt-10 md:text-[21px]">{a.lead}</p>
+          <p className="mt-8 text-[18px] leading-[1.6] text-foreground/90 md:mt-10 md:text-[21px]">{a.lead}</p>
         </Reveal>
 
         {/* 3 · three editorial chapters · 4 · the operating layer beside them */}
