@@ -9,15 +9,16 @@ const ICONS = {
 
 /* plate padding per size */
 const SIZES = {
-  lg: "pl-5 pr-6 py-3.5",
-  md: "pl-4 pr-5 py-3",
-  sm: "pl-3.5 pr-4 py-2",
+  lg: "px-6 py-3.5",
+  md: "px-5 py-3",
+  sm: "px-4 py-2",
 };
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * A light plate with a small stack of three segmented layers inside that
- * assembles on hover (see .action in index.css).
+ * A light plate built like a block of stacked sheets: a fine lamination
+ * across the body, pieces sticking out of the edges that slide home on
+ * hover, and two layers under the bottom edge (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
@@ -61,12 +62,11 @@ export default function ActionLink({
   const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
   const inner = (
     <>
-      <span aria-hidden="true" className="action__stack">
-        <span className="action__layer" />
-        <span className="action__layer" />
-        <span className="action__layer" />
-      </span>
-      <span>{children}</span>
+      <span aria-hidden="true" className="action__seg" />
+      <span aria-hidden="true" className="action__seg" />
+      <span aria-hidden="true" className="action__seg" />
+      <span aria-hidden="true" className="action__seg" />
+      <span className="action__label">{children}</span>
       {arrow}
     </>
   );
