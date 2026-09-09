@@ -97,7 +97,7 @@ export default function SophIADashboard({
           </aside>
 
           {/* Main panel */}
-          <div className="min-w-0 flex-1 p-4 md:p-5">
+          <div className="min-w-0 flex-1 p-4 [container-type:inline-size] md:p-5">
             <div className="flex items-center justify-between gap-3">
               <p className="font-heading text-sm font-bold text-[#171C29]">
                 {t.panel}
@@ -107,17 +107,19 @@ export default function SophIADashboard({
               </span>
             </div>
 
-            {/* KPI cards */}
-            <div className="mt-4 grid grid-cols-2 gap-2.5 lg:grid-cols-4">
+            {/* Module tiles. Two columns by default; four only when the panel
+                itself is wide enough (container query) for every title to sit
+                on one line with room to breathe. Grid rows keep the heights equal. */}
+            <div className="mt-3.5 grid grid-cols-2 gap-2.5 [@container(min-width:600px)]:grid-cols-4">
               {t.kpis.map(([value, label]) => (
                 <div
                   key={label}
-                  className="rounded-lg border border-[#EFEBE0] bg-[#FCFBF8] p-3"
+                  className="flex min-w-0 flex-col rounded-lg border border-[#EFEBE0] bg-[#FCFBF8] px-3 py-2.5"
                 >
-                  <p className="font-heading text-lg font-bold tracking-tight text-[#171C29]">
+                  <p className="font-heading text-[15px] font-bold leading-tight tracking-tight text-[#171C29]">
                     {value}
                   </p>
-                  <p className="mt-0.5 text-[10px] leading-snug text-[#9A94A6]">
+                  <p className="mt-1 text-[10.5px] leading-snug text-[#8F8A99]">
                     {label}
                   </p>
                 </div>
