@@ -162,191 +162,93 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: the exploded stack ─────────────── */
-  /* The action is the system drawing on the home, whole: the label is
-     a tile hanging from a guide above an isometric stack — the glass
-     engineering plate with its grid and pads, two white plates with the
-     cobalt edge, the solid cobalt base — with callout leaders and their
-     dots on the left, a dashed ghost tile and a few technical marks.
-     On hover the stack spreads upwards and the tile descends onto the
-     plate. The stack is real CSS 3D (rotateX · rotateZ), so the grid
-     and the pads fall into the isometric plane by themselves. */
-  .iso {
-    --w: 180px;
+  /* ── Nafureanu action system: a plate with layers beneath ──────── */
+  /* A normal button — the cobalt plate with the label and the arrow —
+     and two offset layers beneath it that slide in and lock under the
+     plate on hover. Secondary is the light plate with graphite layers. */
+  .action-set {
     position: relative;
-    display: inline-grid;
-    grid-template-rows: auto 118px;
-    justify-items: start;
-    width: calc(var(--w) + 96px);
-    padding-left: 34px;
+    display: inline-flex;
     isolation: isolate;
   }
-  /* the label tile — the clickable element */
-  .iso__tile {
+  .action-set::before,
+  .action-set::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 6px;
+    pointer-events: none;
+    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .action-set::before { transform: translate(5px, 5px); }
+  .action-set::after { transform: translate(10px, 10px); }
+  .action-set:hover::before,
+  .action-set:hover::after,
+  .action-set:focus-within::before,
+  .action-set:focus-within::after { transform: translate(0, 0); }
+  .action {
     position: relative;
-    z-index: 3;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
+    border-radius: 6px;
     font-size: 0.875rem;
     font-weight: 500;
     line-height: 1.25rem;
     letter-spacing: -0.005em;
     white-space: nowrap;
-    color: hsl(var(--foreground));
-    background: #ffffff;
-    border: 1px solid rgba(49, 87, 246, 0.7);
-    border-radius: 2px;
-    box-shadow: 0 10px 24px -14px rgba(49, 87, 246, 0.45);
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1), color 300ms;
+    transition:
+      transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
+      color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .iso:hover .iso__tile,
-  .iso:focus-within .iso__tile { transform: translateY(8px); color: hsl(var(--accent-deep)); }
-  .iso__tile svg { color: #3157f6; }
-  /* the guide from the tile down to the plate */
-  .iso__drop {
-    position: absolute;
-    z-index: 2;
-    left: calc(34px + var(--w) * 0.5);
-    top: calc(100% - 118px);
-    width: 1px;
-    height: 34px;
-    background: rgba(49, 87, 246, 0.55);
-    transform-origin: top;
-    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .iso:hover .iso__drop,
-  .iso:focus-within .iso__drop { transform: scaleY(0.4); }
-  /* the isometric stack */
-  .iso__stack {
-    position: absolute;
-    z-index: 1;
-    left: 34px;
-    bottom: 26px;
-    width: var(--w);
-    height: 46px;
-    transform-style: preserve-3d;
-    transform: rotateX(58deg) rotateZ(-36deg);
-    pointer-events: none;
-  }
-  .iso__plate {
-    position: absolute;
-    inset: 0;
-    transform-style: preserve-3d;
-    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .iso__plate > b { position: absolute; inset: 0; display: block; }
-  .iso__face {
-    background: #ffffff;
-    border: 1px solid rgba(25, 28, 41, 0.22);
-    transform: translateZ(0);
-  }
-  .iso__edge {
-    background: #3157f6;
-    transform: translateZ(-3px);
-  }
-  /* the engineering plate: glass, grid and pads */
-  .iso__plate-1 { transform: translateZ(40px); }
-  .iso__plate-1 .iso__face {
-    background-color: rgba(255, 255, 255, 0.72);
-    background-image:
-      linear-gradient(rgba(49, 87, 246, 0.16) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(49, 87, 246, 0.16) 1px, transparent 1px);
-    background-size: 12px 12px;
-    border-color: rgba(49, 87, 246, 0.7);
-  }
-  .iso__plate-1 .iso__edge { background: rgba(49, 87, 246, 0.35); }
-  .iso__pad {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background: rgba(49, 87, 246, 0.14);
-    border: 1px solid rgba(49, 87, 246, 0.85);
-    transform: translateZ(0.5px);
-  }
-  .iso__pad::after { content: ""; position: absolute; inset: 2px; background: #3157f6; }
-  .iso__pad-1 { left: 22%; top: 30%; }
-  .iso__pad-2 { left: 58%; top: 52%; }
-  .iso__pad-3 { left: 80%; top: 24%; }
-  .iso__plate-2 { transform: translateZ(26px); }
-  .iso__plate-3 { transform: translateZ(13px); }
-  .iso__plate-3 .iso__edge { background: rgba(49, 87, 246, 0.7); }
-  /* the base: solid cobalt, thick */
-  .iso__base { transform: translateZ(0); }
-  .iso__base .iso__face { background: #3157f6; border-color: #2a4ce6; }
-  .iso__base .iso__edge { background: #1f3fd0; transform: translateZ(-8px); }
-  .iso:hover .iso__plate-1, .iso:focus-within .iso__plate-1 { transform: translateZ(54px); }
-  .iso:hover .iso__plate-2, .iso:focus-within .iso__plate-2 { transform: translateZ(34px); }
-  .iso:hover .iso__plate-3, .iso:focus-within .iso__plate-3 { transform: translateZ(16px); }
-  /* callout leaders on the left, with their dots */
-  .iso__lead {
-    position: absolute;
-    z-index: 2;
-    left: 0;
-    width: 30px;
-    height: 1px;
-    background: rgba(25, 28, 41, 0.35);
-  }
-  .iso__lead::before {
-    content: "";
-    position: absolute;
-    left: -2px;
-    top: -2.5px;
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    border: 1px solid rgba(25, 28, 41, 0.6);
-    background: #ffffff;
-  }
-  .iso__lead-1 { bottom: 78px; }
-  .iso__lead-2 { bottom: 62px; }
-  .iso__lead-3 { bottom: 40px; background: rgba(49, 87, 246, 0.6); }
-  .iso__lead-3::before { border-color: #3157f6; background: #3157f6; }
-  /* a ghost tile, dashed, and a few marks */
-  .iso__ghost {
-    position: absolute;
-    z-index: 2;
-    right: 8px;
-    top: 4px;
-    width: 18px;
-    height: 18px;
-    border: 1px dashed rgba(25, 28, 41, 0.4);
-    transform: rotate(45deg) scaleY(0.58);
-  }
-  .iso__mark {
-    position: absolute;
-    z-index: 2;
-    width: 8px;
-    height: 1px;
-    background: rgba(25, 28, 41, 0.35);
-    transform: rotate(-30deg);
-  }
-  .iso__mark-1 { right: 30px; top: 30px; }
-  .iso__mark-2 { right: 2px; bottom: 34px; transform: rotate(30deg); }
-  .iso__dot { position: absolute; z-index: 2; width: 3px; height: 3px; border-radius: 50%; background: rgba(25, 28, 41, 0.3); }
-  .iso__dot-1 { right: 20px; top: 52px; }
-  .iso__dot-2 { left: 14px; top: 10px; }
-  .iso__tile:focus-visible {
+  .action:hover { transform: translateY(-1px); }
+  .action:active { transform: translateY(0); }
+  .action:focus-visible {
     outline: 2px solid hsl(var(--accent));
-    outline-offset: 4px;
+    outline-offset: 3px;
   }
-  /* secondary — the same drawing in graphite, waking in cobalt */
-  .iso-secondary .iso__tile { border-color: rgba(25, 28, 41, 0.3); box-shadow: none; }
-  .iso-secondary .iso__tile svg { color: hsl(var(--foreground)); }
-  .iso-secondary .iso__edge { background: rgba(25, 28, 41, 0.35); }
-  .iso-secondary .iso__plate-1 .iso__face { background-image: linear-gradient(rgba(25, 28, 41, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(25, 28, 41, 0.1) 1px, transparent 1px); border-color: rgba(25, 28, 41, 0.35); }
-  .iso-secondary .iso__pad { border-color: rgba(25, 28, 41, 0.5); background: rgba(25, 28, 41, 0.06); }
-  .iso-secondary .iso__pad::after { background: rgba(25, 28, 41, 0.6); }
-  .iso-secondary .iso__base .iso__face { background: rgba(25, 28, 41, 0.35); border-color: rgba(25, 28, 41, 0.4); }
-  .iso-secondary .iso__base .iso__edge { background: rgba(25, 28, 41, 0.5); }
-  .iso-secondary .iso__drop { background: rgba(25, 28, 41, 0.4); }
-  .iso-secondary:hover .iso__edge, .iso-secondary:hover .iso__base .iso__face { background: #3157f6; }
-  .iso-secondary:hover .iso__base .iso__edge { background: #1f3fd0; }
-  .iso-secondary:hover .iso__tile svg { color: #3157f6; }
-  /* compact contexts (header): the tile alone */
-  .iso-quiet { grid-template-rows: auto; width: auto; padding-left: 0; }
-  .iso-quiet .iso__stack, .iso-quiet .iso__drop, .iso-quiet .iso__lead, .iso-quiet .iso__ghost, .iso-quiet .iso__mark, .iso-quiet .iso__dot { display: none; }
-  .iso-quiet:hover .iso__tile { transform: none; }
+
+  /* primary — the cobalt plate */
+  .action-primary {
+    color: hsl(var(--accent-foreground));
+    background-image: linear-gradient(135deg, #2348e8 0%, #3157f6 45%, #5575ff 100%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow:
+      0 10px 28px -14px rgba(49, 87, 246, 0.7),
+      inset 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+  .action-primary:hover {
+    box-shadow:
+      0 14px 34px -14px rgba(49, 87, 246, 0.78),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+  .action-set-primary::before { background: rgba(49, 87, 246, 0.3); }
+  .action-set-primary::after { background: rgba(49, 87, 246, 0.14); }
+
+  /* secondary — the light plate */
+  .action-secondary {
+    color: hsl(var(--foreground));
+    background: #fcfbf8;
+    border: 1px solid rgba(20, 30, 50, 0.14);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  }
+  .action-secondary:hover {
+    background-color: #eef2fe;
+    border-color: rgba(49, 87, 246, 0.4);
+    color: hsl(var(--accent-deep));
+  }
+  .action-set-secondary::before { background: rgba(20, 30, 50, 0.06); }
+  .action-set-secondary::after { background: rgba(20, 30, 50, 0.03); }
+
+  /* compact contexts (header): the plate alone */
+  .action-set-quiet::before,
+  .action-set-quiet::after { display: none; }
+  .action-set-quiet .action-primary { box-shadow: 0 4px 16px -10px rgba(49, 87, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
+  .action-set-quiet .action-primary:hover { box-shadow: 0 8px 20px -12px rgba(49, 87, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.24); }
 
 }
 
