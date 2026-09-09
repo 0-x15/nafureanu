@@ -162,45 +162,20 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: a plate and its shards ───────────── */
-  /* A button is one calm plate with the label and the arrow. Behind it,
-     three shards step down to the right — each shorter and lower than
-     the last, the segmented diagonal of the Structural N. On hover the
-     shards rise, widen and fuse with the plate: the pieces lock in.
-     A pass of light crosses the plate and the arrow moves. Primary is
-     cobalt, secondary is light glass. */
-  .action-set {
-    position: relative;
-    display: inline-flex;
-    isolation: isolate;
-  }
-  .action__shard {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    z-index: -1;
-    border-radius: 6px;
-    pointer-events: none;
-    transition:
-      transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
-      left 520ms cubic-bezier(0.22, 1, 0.36, 1),
-      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .action__shard:nth-child(1) { left: 26%; transform: translate(6px, 6px); }
-  .action__shard:nth-child(2) { left: 52%; transform: translate(12px, 12px); transition-delay: 40ms; }
-  .action__shard:nth-child(3) { left: 76%; transform: translate(18px, 18px); transition-delay: 80ms; }
-  .action-set:hover .action__shard,
-  .action-set:focus-within .action__shard {
-    left: 0;
-    transform: translate(0, 0);
-  }
+  /* ── Nafureanu action system: the circuit ─────────────────────── */
+  /* A button is one calm plate with the label and the arrow, and a
+     thin rail running around its perimeter. On the rail lives a
+     signal: a short bright trace parked on the top edge. On hover the
+     signal runs the whole perimeter once, like current through a
+     circuit, and returns; the plate lights up and the arrow moves.
+     Primary is cobalt with a white signal, secondary is paper with a
+     cobalt signal. The rail is an SVG rect with pathLength 100, so the
+     trace is measured in percent of the perimeter. */
   .action {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    overflow: hidden;
     border-radius: 6px;
     font-size: 0.875rem;
     font-weight: 500;
@@ -211,20 +186,41 @@
       transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
       box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1),
       background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+      color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  /* the pass of light */
-  .action::before {
-    content: "";
+  .action__circuit {
     position: absolute;
-    inset: -20% -45%;
-    background: linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.14) 50%, transparent 58%);
-    transform: translateX(-40%);
-    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
     pointer-events: none;
   }
-  .action:hover::before { transform: translateX(40%); }
+  .action__rail,
+  .action__signal {
+    x: 0.5px;
+    y: 0.5px;
+    width: calc(100% - 1px);
+    height: calc(100% - 1px);
+    rx: 5.5px;
+    fill: none;
+    stroke-width: 1;
+  }
+  .action__signal {
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-dasharray: 9 91;
+    stroke-dashoffset: -3;
+    transition: stroke-dashoffset 300ms;
+  }
+  .action:hover .action__signal,
+  .action:focus-visible .action__signal {
+    animation: action-run 1100ms cubic-bezier(0.4, 0, 0.2, 1) 1;
+  }
+  @keyframes action-run {
+    from { stroke-dashoffset: -3; }
+    to { stroke-dashoffset: -103; }
+  }
   .action:hover { transform: translateY(-1px); }
   .action:active { transform: translateY(0); }
   .action:focus-visible {
@@ -232,44 +228,39 @@
     outline-offset: 3px;
   }
 
-  /* primary — cobalt */
+  /* primary — cobalt, white signal */
   .action-primary {
     color: hsl(var(--accent-foreground));
     background-image: linear-gradient(135deg, #2348e8 0%, #3157f6 45%, #5575ff 100%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
       0 10px 28px -14px rgba(49, 87, 246, 0.7);
   }
   .action-primary:hover {
+    background-image: linear-gradient(135deg, #2c50ee 0%, #3b60ff 45%, #6382ff 100%);
     box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28),
       0 14px 34px -14px rgba(49, 87, 246, 0.78);
   }
-  .action-set-primary .action__shard:nth-child(1) { background: rgba(49, 87, 246, 0.42); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35); }
-  .action-set-primary .action__shard:nth-child(2) { background: rgba(49, 87, 246, 0.26); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3); }
-  .action-set-primary .action__shard:nth-child(3) { background: rgba(49, 87, 246, 0.14); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25); }
+  .action-primary .action__rail { stroke: rgba(255, 255, 255, 0.24); }
+  .action-primary .action__signal { stroke: rgba(255, 255, 255, 0.95); }
 
-  /* secondary — light glass */
-  /* the plate is opaque so the shards read only where they step out */
+  /* secondary — paper, cobalt signal */
   .action-secondary {
     color: hsl(var(--foreground));
     background: #fcfbf8;
-    border: 1px solid rgba(20, 30, 50, 0.14);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .action-secondary:hover {
     background-color: #eef2fe;
-    border-color: rgba(49, 87, 246, 0.4);
     color: hsl(var(--accent-deep));
   }
-  .action-set-secondary .action__shard:nth-child(1) { background: rgba(20, 30, 50, 0.075); }
-  .action-set-secondary .action__shard:nth-child(2) { background: rgba(20, 30, 50, 0.05); }
-  .action-set-secondary .action__shard:nth-child(3) { background: rgba(20, 30, 50, 0.028); }
+  .action-secondary .action__rail { stroke: rgba(20, 30, 50, 0.16); }
+  .action-secondary .action__signal { stroke: hsl(var(--accent)); }
 
-  /* compact contexts (header): the plate alone */
-  .action-set-quiet .action__shard { display: none; }
-  .action-set-quiet .action-primary { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 16px -10px rgba(49, 87, 246, 0.5); }
-  .action-set-quiet .action-primary:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 8px 20px -12px rgba(49, 87, 246, 0.55); }
+  /* compact contexts (header): the same plate, a quieter shadow */
+  .action-quiet.action-primary { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 4px 16px -10px rgba(49, 87, 246, 0.5); }
+  .action-quiet.action-primary:hover { box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.24), 0 8px 20px -12px rgba(49, 87, 246, 0.55); }
 
 }
 

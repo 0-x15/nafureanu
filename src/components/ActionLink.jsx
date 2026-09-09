@@ -16,13 +16,13 @@ const SIZES = {
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * One plate with three stepped shards behind it that fuse with the
- * plate on hover — the segmented diagonal of the N (see .action in index.css).
+ * One plate with a rail around its perimeter and a signal that runs the
+ * circuit on hover (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
  * <button> when `as="button"`. Pass "action-quiet" in className for the
- * compact header plate without layers.
+ * compact header plate with a quieter shadow.
  * @param {{ to?: string, children: import("react").ReactNode, variant?: "primary" | "secondary" | "text", icon?: "upRight" | "right", size?: "lg" | "md" | "sm", className?: string, as?: "button", type?: "button" | "submit", onClick?: () => void }} props
  */
 export default function ActionLink({
@@ -58,27 +58,28 @@ export default function ActionLink({
     );
   }
 
-  // the wrapper carries the shards and any layout classes; the plate is the link itself
-  const quiet = /\baction-quiet\b/.test(className);
-  const setCls = cn("action-set", variant === "primary" ? "action-set-primary" : "action-set-secondary", quiet && "action-set-quiet", className.replace(/\baction-quiet\b/, ""));
-  const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size]);
+  const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
   const inner = (
     <>
+      <svg aria-hidden="true" className="action__circuit">
+        <rect className="action__rail" pathLength="100" />
+        <rect className="action__signal" pathLength="100" />
+      </svg>
       {children}
       {arrow}
     </>
   );
 
+  if (as === "button") {
+    return (
+      <button type={type} onClick={onClick} className={cls}>
+        {inner}
+      </button>
+    );
+  }
   return (
-    <span className={setCls}>
-      <span aria-hidden="true" className="action__shard" />
-      <span aria-hidden="true" className="action__shard" />
-      <span aria-hidden="true" className="action__shard" />
-      {as === "button" ? (
-        <button type={type} onClick={onClick} className={cls}>{inner}</button>
-      ) : (
-        <Link to={to} className={cls}>{inner}</Link>
-      )}
-    </span>
+    <Link to={to} className={cls}>
+      {inner}
+    </Link>
   );
 }
