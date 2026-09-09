@@ -1,6 +1,6 @@
 import Reveal from "@/components/Reveal";
 import { STRINGS } from "@/i18n";
-import { OperatingLayer, OperatingLayerCompact } from "./about/HomeAboutVisual";
+import { OperatingLayer } from "./about/HomeAboutVisual";
 
 /**
  * About Nafureanu — the chapter right after the hero, read as a
@@ -61,8 +61,7 @@ export default function HomeAbout({ lang = "es" }) {
             ))}
           </ol>
           <div className="mt-12 lg:col-span-5 lg:mt-0 lg:pt-8 xl:col-span-4">
-            <div className="mx-auto hidden max-w-[440px] lg:block"><OperatingLayer t={a} /></div>
-            <div className="md:mx-auto md:max-w-[560px] lg:hidden"><OperatingLayerCompact t={a} /></div>
+            <div className="mx-auto max-w-[440px]"><OperatingLayer t={a} /></div>
           </div>
         </div>
 
