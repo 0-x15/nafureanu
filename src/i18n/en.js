@@ -426,6 +426,13 @@ export const EN = {
       kicker: "Next",
       slot: "Entry 05 · not yet recorded",
       tag: "05",
+      states: ["To assemble", "Assembled"],
+      parts: ["Infrastructure", "Software", "Automation", "AI"],
+      piecesLabel: "Parts",
+      hintRest: "Hover to see the parts · click to assemble",
+      hintOpen: "Click to take it apart",
+      assemble: "Assemble entry 05",
+      disassemble: "Take entry 05 apart",
       line: "What comes next is still to be built.",
       support:
         "It can start with an operation that does not work as it should, a tool that stopped fitting, or an idea that has no shape yet.",

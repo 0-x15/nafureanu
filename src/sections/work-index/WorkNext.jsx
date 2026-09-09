@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
 import { langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -6,24 +6,54 @@ import ActionLink from "@/components/ActionLink";
 import { EASE, MONO } from "./workBits";
 
 /**
- * Act 03 — next. The closing looks forward: a glass plinth with a
- * reserved outline on top, and above it the piece that does not exist
- * yet — a dashed body hanging from a guide, floating, tagged 05. When
- * the visitor enters the field the piece descends, lands in the
- * reserved place and turns solid cobalt; a registration mark follows
- * the pointer and a light sweeps the plinth. Then the statement and
- * the door. Nothing about the projects already seen.
+ * Act 03 — next. The closing looks forward: entry 05 is a system still
+ * to be assembled. Its four layers — infrastructure, software,
+ * automation, AI — float exploded above a glass plinth, each breathing
+ * at its own pace. Enter the field and the exploded view opens further,
+ * with guides and labels. Click (or press Enter) and the parts land one
+ * after another on the reserved place, the cobalt piece last, and the
+ * tag reads "assembled"; click again to take it apart. A registration
+ * mark follows the pointer. Then the statement and the door.
  */
-function Plinth({ reduced, hot, tag }) {
-  const bob = reduced ? {} : { y: [0, -5, 0] };
+/* ── the assembly: geometry in the plinth's own oblique ───────────── */
+const U = [0.9836, -0.1803]; // along the plinth's long edge
+const V = [0.9393, 0.3430]; // along its short edge
+const C = [285, 187]; // centre of the plinth's top face
+const para = (cx, cy, w, d) => [
+  [cx - U[0] * w / 2 - V[0] * d / 2, cy - U[1] * w / 2 - V[1] * d / 2],
+  [cx + U[0] * w / 2 - V[0] * d / 2, cy + U[1] * w / 2 - V[1] * d / 2],
+  [cx + U[0] * w / 2 + V[0] * d / 2, cy + U[1] * w / 2 + V[1] * d / 2],
+  [cx - U[0] * w / 2 + V[0] * d / 2, cy - U[1] * w / 2 + V[1] * d / 2],
+];
+const pts = (list) => list.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(" ");
+/** A part: top face and its two front faces, drawn at the plinth centre; position comes from the group transform. */
+function Part({ w, d, t, top, side, stroke, dash }) {
+  const P = para(C[0], C[1], w, d);
+  const dn = (p) => [p[0], p[1] + t];
   return (
-    <svg viewBox="0 0 560 340" aria-hidden="true" className="h-auto w-full overflow-visible">
+    <>
+      <polygon points={pts([P[3], P[2], dn(P[2]), dn(P[3])])} fill={side} stroke={stroke} strokeOpacity="0.7" strokeDasharray={dash} />
+      <polygon points={pts([P[0], P[3], dn(P[3]), dn(P[0])])} fill={side} stroke={stroke} strokeOpacity="0.55" strokeDasharray={dash} />
+      <polygon points={pts(P)} fill={top} stroke={stroke} strokeOpacity="0.85" strokeDasharray={dash} />
+    </>
+  );
+}
+
+/* the four layers of any system, bottom to top */
+const PARTS = [
+  { key: "infra", w: 210, d: 74, t: 14, restY: -46, hoverX: -26, hoverY: -12, rot: -3, top: "#DFE5F5", side: "#C9D2EA", stroke: "#1B1F2A" },
+  { key: "software", w: 200, d: 70, t: 6, restY: -94, hoverX: 18, hoverY: -22, rot: 2.5, top: "#FFFFFF", side: "#EEF1F7", stroke: "#1B1F2A" },
+  { key: "automation", w: 190, d: 66, t: 6, restY: -140, hoverX: -14, hoverY: -34, rot: -2, top: "rgba(255,255,255,0.72)", side: "rgba(255,255,255,0.5)", stroke: "#3157F6" },
+  { key: "ai", w: 96, d: 34, t: 10, restY: -188, hoverX: 30, hoverY: -46, rot: 4, top: "#3157F6", side: "#2348E8", stroke: "#3157F6" },
+];
+const STACK_Y = [-2, -18, -26, -34]; // assembled offsets, bottom to top
+
+function Assembly({ reduced, mode, placed, labels, tag, stateWords }) {
+  const assembled = mode === "assembled";
+  const open = mode === "open";
+  return (
+    <svg viewBox="0 0 560 380" aria-hidden="true" className="h-auto w-full overflow-visible">
       <defs>
-        <linearGradient id="wk-sweep" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0" stopColor="#3157F6" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#3157F6" stopOpacity="0.35" />
-          <stop offset="1" stopColor="#3157F6" stopOpacity="0" />
-        </linearGradient>
         <linearGradient id="wk-top" x1="0" y1="0" x2="1" y2="1">
           <stop offset="0" stopColor="#FFFFFF" stopOpacity="0.92" />
           <stop offset="1" stopColor="#FFFFFF" stopOpacity="0.5" />
@@ -41,41 +71,57 @@ function Plinth({ reduced, hot, tag }) {
         </radialGradient>
       </defs>
 
-      {/* the floor light */}
-      <ellipse cx="280" cy="292" rx="230" ry="26" fill="url(#wk-floor)" />
+      {/* the floor light, stronger once assembled */}
+      <motion.ellipse cx="280" cy="330" rx="230" ry="26" fill="url(#wk-floor)" initial={false} animate={{ opacity: assembled ? 1.6 : 1, scale: assembled ? 1.1 : 1 }} transition={{ duration: reduced ? 0 : 0.8 }} style={{ transformOrigin: "280px 330px" }} />
 
-      {/* the plinth: glass top, two sides, a highlight on the front edge */}
-      <motion.g initial={reduced ? false : { opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.9, ease: EASE }} filter="url(#wk-shadow)">
+      {/* the plinth */}
+      <g transform="translate(0 38)" filter="url(#wk-shadow)">
         <polygon points="80,178 320,134 490,196 250,240" fill="url(#wk-top)" stroke="#1B1F2A" strokeOpacity="0.28" />
         <polygon points="80,178 250,240 250,286 80,224" fill="url(#wk-side)" stroke="#1B1F2A" strokeOpacity="0.28" />
         <polygon points="250,240 490,196 490,242 250,286" fill="url(#wk-side)" stroke="#1B1F2A" strokeOpacity="0.28" />
         <polyline points="80,178 250,240 490,196" fill="none" stroke="#FFFFFF" strokeOpacity="0.9" />
-        {/* the reserved outline on the top face, and its fill when the piece lands */}
-        <motion.polygon points="150,180 318,148 410,182 242,214" initial={false} animate={{ fill: hot ? "rgba(49,87,246,0.12)" : "rgba(49,87,246,0)", stroke: hot ? "#3157F6" : "rgba(49,87,246,0.6)" }} transition={{ duration: reduced ? 0 : 0.6 }} strokeDasharray="5 4" />
-        {/* the light that sweeps the top face */}
-        <rect x="-200" y="120" width="180" height="130" fill="url(#wk-sweep)" className="wk-sweep" transform="skewX(-20)" />
+        <motion.polygon points={pts(para(C[0], C[1], 214, 76))} initial={false} animate={{ fill: assembled ? "rgba(49,87,246,0.1)" : "rgba(49,87,246,0)", stroke: assembled ? "#3157F6" : "rgba(49,87,246,0.6)" }} transition={{ duration: reduced ? 0 : 0.5 }} strokeDasharray="5 4" />
+      </g>
+
+      {/* guides from the sky to each part, only while open */}
+      <motion.g initial={false} animate={{ opacity: open ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.4 }} stroke="#3157F6" strokeOpacity="0.4">
+        {PARTS.map((p, i) => (
+          <line key={p.key} x1={C[0] + p.hoverX} y1="0" x2={C[0] + p.hoverX} y2={C[1] + 38 + p.restY + p.hoverY - 24} />
+        ))}
       </motion.g>
 
-      {/* the piece that does not exist yet: a dashed body hanging from a guide, floating; it lands on hover */}
-      <motion.g initial={false} animate={hot ? { y: 46 } : bob} transition={hot ? { duration: reduced ? 0 : 0.8, ease: EASE } : { duration: 4, repeat: Infinity, ease: "easeInOut" }}>
-        <line x1="280" y1="0" x2="280" y2="86" stroke="#3157F6" strokeOpacity="0.45" />
-        <circle cx="280" cy="0" r="3" fill="#FFFFFF" stroke="#3157F6" strokeWidth="1.2" />
-        <motion.g initial={false} animate={{ opacity: hot ? 1 : 0.85 }}>
-          <motion.polygon points="150,118 318,86 410,120 242,152" initial={false} animate={{ fill: hot ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.35)", stroke: hot ? "#3157F6" : "#1B1F2A", strokeOpacity: hot ? 1 : 0.55 }} transition={{ duration: reduced ? 0 : 0.6 }} strokeDasharray={hot ? "0 0" : "6 5"} />
-          <motion.polygon points="150,118 242,152 242,166 150,132" initial={false} animate={{ fill: hot ? "rgba(49,87,246,0.9)" : "rgba(49,87,246,0)", stroke: hot ? "#3157F6" : "#1B1F2A", strokeOpacity: hot ? 1 : 0.35 }} transition={{ duration: reduced ? 0 : 0.6 }} strokeDasharray={hot ? "0 0" : "6 5"} />
-          <motion.polygon points="242,152 410,120 410,134 242,166" initial={false} animate={{ fill: hot ? "rgba(35,72,232,0.9)" : "rgba(49,87,246,0)", stroke: hot ? "#2348E8" : "#1B1F2A", strokeOpacity: hot ? 1 : 0.35 }} transition={{ duration: reduced ? 0 : 0.6 }} strokeDasharray={hot ? "0 0" : "6 5"} />
-          {/* the tag */}
-          <g transform="translate(410 100)">
-            <line x1="0" y1="0" x2="42" y2="-22" stroke="#1B1F2A" strokeOpacity="0.4" />
-            <rect x="42" y="-38" width="46" height="18" fill="#FFFFFF" stroke="#1B1F2A" strokeOpacity="0.4" />
-            <text x="65" y="-25" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.4" fill="#3157F6">{tag}</text>
-          </g>
-        </motion.g>
-      </motion.g>
+      {/* the parts, bottom to top */}
+      {PARTS.map((p, i) => {
+        const done = assembled && placed > i;
+        const target = assembled
+          ? { x: 0, y: 38 + STACK_Y[i] + (done ? 0 : -60), rotate: 0, opacity: done ? 1 : 0.25 }
+          : open
+            ? { x: p.hoverX, y: 38 + p.restY + p.hoverY, rotate: p.rot, opacity: 1 }
+            : { x: 0, y: 38 + p.restY, rotate: 0, opacity: 1 };
+        const bob = !reduced && !assembled && !open ? { y: [38 + p.restY, 38 + p.restY - 4 - i, 38 + p.restY] } : {};
+        return (
+          <motion.g
+            key={p.key}
+            initial={false}
+            animate={{ ...target, ...bob }}
+            transition={bob.y ? { y: { duration: 3.6 + i * 0.4, repeat: Infinity, ease: "easeInOut" }, x: { duration: 0.6 }, rotate: { duration: 0.6 }, opacity: { duration: 0.4 } } : { type: "spring", stiffness: 120, damping: 18, mass: 0.9, delay: reduced ? 0 : assembled ? i * 0.16 : 0 }}
+            style={{ transformOrigin: `${C[0]}px ${C[1] + 38}px` }}
+          >
+            <Part w={p.w} d={p.d} t={p.t} side={p.side} stroke={p.stroke} dash={assembled ? undefined : i === 3 ? undefined : "6 5"} top={assembled || i === 3 ? p.top : p.top === "#FFFFFF" ? "rgba(255,255,255,0.55)" : p.top} />
+            {/* the part's label, only while open */}
+            <motion.g initial={false} animate={{ opacity: open ? 1 : 0, x: open ? 0 : -6 }} transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : 0.08 * i }}>
+              <line x1={C[0] + 110} y1={C[1] + 38 - 10} x2={C[0] + 150} y2={C[1] + 38 - 26} stroke="#1B1F2A" strokeOpacity="0.4" />
+              <text x={C[0] + 156} y={C[1] + 38 - 30} fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.4" fill="#1B1F2A" fillOpacity="0.75">{String(4 - i).padStart(2, "0")} · {labels[i].toUpperCase()}</text>
+            </motion.g>
+          </motion.g>
+        );
+      })}
 
-      {/* dimension ticks */}
-      <g stroke="#1B1F2A" strokeOpacity="0.35">
-        <line x1="80" y1="318" x2="250" y2="318" /><line x1="80" y1="314" x2="80" y2="322" /><line x1="250" y1="314" x2="250" y2="322" />
+      {/* the tag: 05, and the state of the entry */}
+      <g transform="translate(430 372)">
+        <rect x="0" y="-20" width="112" height="20" fill="#FFFFFF" stroke="#1B1F2A" strokeOpacity="0.4" />
+        <text x="10" y="-6" fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.4" fill="#3157F6">{tag}</text>
+        <text x="38" y="-6" fontFamily="var(--font-mono)" fontSize="9.5" letterSpacing="1.4" fill="#1B1F2A" fillOpacity="0.7">{assembled ? stateWords[1].toUpperCase() : stateWords[0].toUpperCase()}</text>
       </g>
     </svg>
   );
@@ -85,7 +131,17 @@ export default function WorkNext({ lang, t }) {
   const reduced = useReducedMotion();
   const n = t.next;
   const [hot, setHot] = useState(false);
+  const [assembled, setAssembled] = useState(false);
+  const [placed, setPlaced] = useState(0);
   const ref = useRef(null);
+  // the parts land one after another
+  useEffect(() => {
+    if (!assembled) { setPlaced(0); return undefined; }
+    if (reduced) { setPlaced(PARTS.length); return undefined; }
+    const timers = PARTS.map((_, i) => window.setTimeout(() => setPlaced(i + 1), 160 * i + 120));
+    return () => timers.forEach((id) => window.clearTimeout(id));
+  }, [assembled, reduced]);
+  const mode = assembled ? "assembled" : hot ? "open" : "rest";
   const mx = useMotionValue(0.5);
   const my = useMotionValue(0.5);
   const cx = useSpring(mx, { stiffness: 80, damping: 22 });
@@ -115,8 +171,19 @@ export default function WorkNext({ lang, t }) {
           <motion.div {...io} transition={{ duration: 0.9, ease: EASE }} ref={ref} onPointerMove={onMove} className="relative lg:col-span-7">
             <p className={cn(MONO, "text-accent")}>{n.kicker}</p>
             <div className="relative mt-4">
-              <div className="relative mx-auto max-w-[560px] pt-2 md:pt-4">
-                <Plinth reduced={Boolean(reduced)} hot={hot} tag={n.tag} />
+              <button
+                type="button"
+                aria-pressed={assembled}
+                aria-label={assembled ? n.disassemble : n.assemble}
+                onClick={() => setAssembled((v) => !v)}
+                className="relative mx-auto block w-full max-w-[560px] cursor-pointer pt-2 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-8 focus-visible:ring-offset-[#F9F7F0] md:pt-4"
+              >
+                <Assembly reduced={Boolean(reduced)} mode={mode} placed={placed} labels={n.parts} tag={n.tag} stateWords={n.states} />
+              </button>
+              {/* the counter and the hint: always readable */}
+              <div className="mt-2 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
+                <p className={cn(MONO, "text-muted-foreground")}>{n.slot} · {n.piecesLabel} {assembled ? placed : 0}/{PARTS.length}</p>
+                <p className={cn(MONO, "text-muted-foreground")}>{assembled ? n.hintOpen : n.hintRest}</p>
               </div>
               {/* the cursor: a registration mark looking for its place */}
               {!reduced && (
@@ -125,7 +192,6 @@ export default function WorkNext({ lang, t }) {
                   <span className="absolute left-1/2 top-1/2 h-6 w-px -translate-x-1/2 -translate-y-1/2 bg-accent/50" />
                 </motion.span>
               )}
-              <p className={cn(MONO, "mt-2 text-muted-foreground")}>{n.slot}</p>
             </div>
           </motion.div>
 

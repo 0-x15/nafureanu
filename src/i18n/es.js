@@ -427,6 +427,13 @@ export const ES = {
       kicker: "Siguiente",
       slot: "Entrada 05 · sin registrar",
       tag: "05",
+      states: ["Por montar", "Montado"],
+      parts: ["Infraestructura", "Software", "Automatización", "IA"],
+      piecesLabel: "Piezas",
+      hintRest: "Pasa por encima para ver las piezas · haz clic para montar",
+      hintOpen: "Haz clic para desmontar",
+      assemble: "Montar la entrada 05",
+      disassemble: "Desmontar la entrada 05",
       line: "Lo siguiente todavía está por construir.",
       support:
         "Puede empezar con una operación que no funciona como debería, una herramienta que dejó de encajar o una idea que todavía no tiene forma.",
