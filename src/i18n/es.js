@@ -416,8 +416,7 @@ export const ES = {
       h1b: "trabajando.",
       selected: "Trabajo seleccionado / 04",
       discipline: "Ingeniería de software",
-      railLabel: "Estado",
-      words: ["Borrador", "Construido", "Operando"],
+      stateLabel: "Estado de los sistemas",
       marks: ["Desplegado", "Conectado", "En producción"],
     },
     stage: {
