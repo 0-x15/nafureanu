@@ -264,7 +264,6 @@ export const EN = {
       caps: [
         "Embeddable checkout",
         "REST API",
-        "Payment links",
         "Webhooks",
         "On-chain verification",
         "Circle CCTP",

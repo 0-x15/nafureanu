@@ -265,7 +265,6 @@ export const ES = {
       caps: [
         "Checkout embebible",
         "REST API",
-        "Payment links",
         "Webhooks",
         "Verificación on-chain",
         "Circle CCTP",
