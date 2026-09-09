@@ -7,7 +7,6 @@ import WhatWeBuild from "@/sections/home/WhatWeBuild";
 import HomeProcess from "@/sections/home/HomeProcess";
 import WhyNafureanu from "@/sections/home/WhyNafureanu";
 import HomeCta from "@/sections/home/HomeCta";
-import FivoChapter from "@/sections/home/work/FivoChapter";
 
 export default function Home({ lang = "es" }) {
   const s = STRINGS[lang];
@@ -27,8 +26,6 @@ export default function Home({ lang = "es" }) {
       <WhatWeBuild lang={lang} />
       <HomeProcess lang={lang} />
       <StatsBand lang={lang} />
-      {/* proof — the Fivo chapter on its own fintech canvas */}
-      <FivoChapter lang={lang} />
       <WhyNafureanu lang={lang} />
       <HomeCta lang={lang} />
     </>

@@ -65,20 +65,18 @@
 }
 
 @layer components {
-  /* ── The canvas: the N's path, travelled with the scroll ──────────── */
+  /* ── The canvas: the N assembling in the centre, never the same way ── */
   /* One global layer (SiteBackground) under every page, fixed to the
-     viewport. --p is the page's scroll progress (0…1, set by a passive
-     scroll listener) and --diag the angle of the N's diagonal for the
-     current viewport. A large invisible N spans the right half of the
-     viewport: the cobalt piece — the segment of the logo — travels its
-     strokes as the page scrolls (down the left column, up the diagonal,
-     down the right column) and the glass panes assemble each stroke as
-     the piece passes; at the very end the piece glides back to the
-     middle of the diagonal and locks in, as in the mark. Every pane has
-     its own progress window, clamped from --p in CSS. */
+     viewport. --p is the page's scroll progress (0…1, fed by a passive
+     scroll listener). A large N sits in the centre of the viewport
+     (columns at 32–41vw and 59–68vw, 14–86vh); five glass panes are its
+     strokes and a small cobalt piece is the segment of the logo. Where
+     each pane starts, how it is tilted and when it arrives, and the
+     route the piece takes before it locks into the diagonal, are drawn
+     at random by the component on every page load (inline custom
+     properties), so the assembly is never the same circuit twice. */
   .site-canvas {
     --p: 0;
-    --diag: 39deg;
     position: absolute;
     inset: 0;
     overflow: hidden;
@@ -96,7 +94,6 @@
     will-change: transform;
     animation: fp-breath 24s ease-in-out infinite;
   }
-  /* the glass */
   .fivo-a {
     border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.9);
@@ -125,49 +122,34 @@
     0%, 100% { transform: translate3d(0, 0, 0); }
     50% { transform: translate3d(8px, -6px, 0); }
   }
-  /* the N: left column at 45–54vw, right column at 81.5–90.5vw, from
-     12vh to 84vh. Each pane's base position is its place in the N; --k
-     is its own progress, and (1 - --k) pulls it back to where it started. */
-  .fp-1 {
-    --k: clamp(0, calc(var(--p) / 0.2), 1);
-    top: 12vh; left: 45vw; width: 9vw; height: 34vh;
-    transform: translate3d(calc((1 - var(--k)) * -36vw), calc((1 - var(--k)) * -16vh), 0) rotate(calc((1 - var(--k)) * 14deg));
+  /* a stroke: its base is its place in the N; --k is its own progress
+     window (--w0 start, --w1 length) and (1 - --k) pulls it back to its
+     random start (--sx, --sy, --sr). --rb is the stroke's own tilt. */
+  .pane {
+    --k: clamp(0, calc((var(--p) - var(--w0)) / var(--w1)), 1);
+    transform: translate3d(calc((1 - var(--k)) * var(--sx)), calc((1 - var(--k)) * var(--sy)), 0) rotate(calc(var(--rb) + (1 - var(--k)) * var(--sr)));
   }
-  .fp-2 {
-    --k: clamp(0, calc((var(--p) - 0.1) / 0.25), 1);
-    top: 50vh; left: 45vw; width: 9vw; height: 34vh;
-    transform: translate3d(calc((1 - var(--k)) * -30vw), calc((1 - var(--k)) * 24vh), 0) rotate(calc((1 - var(--k)) * -10deg));
-  }
-  .fp-3 {
-    --k: clamp(0, calc((var(--p) - 0.33) / 0.2), 1);
-    top: calc(66vh - 4.5vw); left: 46vw; width: 26vw; height: 9vw;
-    transform: translate3d(calc((1 - var(--k)) * 22vw), calc((1 - var(--k)) * 24vh), 0) rotate(calc(var(--diag) - 90deg + (1 - var(--k)) * 34deg));
-  }
-  .fp-4 {
-    --k: clamp(0, calc((var(--p) - 0.46) / 0.2), 1);
-    top: calc(30vh - 4.5vw); left: 64vw; width: 26vw; height: 9vw;
-    transform: translate3d(calc((1 - var(--k)) * 16vw), calc((1 - var(--k)) * -24vh), 0) rotate(calc(var(--diag) - 90deg + (1 - var(--k)) * -26deg));
-  }
-  .fp-5 {
-    --k: clamp(0, calc((var(--p) - 0.66) / 0.24), 1);
-    top: 12vh; left: 81.5vw; width: 9vw; height: 72vh;
-    transform: translate3d(calc((1 - var(--k)) * 16vw), calc((1 - var(--k)) * 30vh), 0) rotate(calc((1 - var(--k)) * -8deg));
-  }
-  /* the piece: down the left column (a), up the diagonal (b), down the
-     right column (c), then back to the middle of the diagonal (d) */
+  .fp-1 { --rb: 0deg; top: 14vh; left: 32vw; width: 9vw; height: 34vh; }
+  .fp-2 { --rb: 0deg; top: 52vh; left: 32vw; width: 9vw; height: 34vh; }
+  .fp-3 { --rb: calc(90deg - var(--diag)); top: calc(32vh - 4.5vw); left: calc(43.25vw - var(--dlen) / 2); width: var(--dlen); height: 9vw; }
+  .fp-4 { --rb: calc(90deg - var(--diag)); top: calc(68vh - 4.5vw); left: calc(56.75vw - var(--dlen) / 2); width: var(--dlen); height: 9vw; }
+  .fp-5 { --rb: 0deg; top: 14vh; left: 59vw; width: 9vw; height: 72vh; }
+  /* the piece: four random waypoints (--x0…--x3, --y0…--y3, --r0…--r3)
+     then the middle of the diagonal, where it locks in at the stroke's
+     angle (--r4). Each leg takes a quarter of the scroll. */
   .fp-n {
-    --a: clamp(0, calc(var(--p) / 0.33), 1);
-    --b: clamp(0, calc((var(--p) - 0.33) / 0.33), 1);
-    --c: clamp(0, calc((var(--p) - 0.66) / 0.24), 1);
-    --d: clamp(0, calc((var(--p) - 0.9) / 0.1), 1);
-    top: calc(12vh - 7px); left: calc(49.5vw - 22px); width: 44px; height: 14px;
+    --s1: clamp(0, calc(var(--p) / 0.25), 1);
+    --s2: clamp(0, calc((var(--p) - 0.25) / 0.25), 1);
+    --s3: clamp(0, calc((var(--p) - 0.5) / 0.25), 1);
+    --s4: clamp(0, calc((var(--p) - 0.75) / 0.25), 1);
+    top: calc(50vh - 7px); left: calc(50vw - 22px); width: 44px; height: 14px;
     transform:
       translate3d(
-        calc(var(--b) * 36.5vw - var(--d) * 18.25vw),
-        calc(var(--a) * 72vh - var(--b) * 72vh + var(--c) * 72vh - var(--d) * 36vh),
+        calc(var(--x0) + var(--s1) * (var(--x1) - var(--x0)) + var(--s2) * (var(--x2) - var(--x1)) + var(--s3) * (var(--x3) - var(--x2)) + var(--s4) * (0vw - var(--x3))),
+        calc(var(--y0) + var(--s1) * (var(--y1) - var(--y0)) + var(--s2) * (var(--y2) - var(--y1)) + var(--s3) * (var(--y3) - var(--y2)) + var(--s4) * (0vh - var(--y3))),
         0
       )
-      rotate(calc((var(--b) - var(--c) + var(--d)) * (var(--diag) - 90deg)));
+      rotate(calc(var(--r0) + var(--s1) * (var(--r1) - var(--r0)) + var(--s2) * (var(--r2) - var(--r1)) + var(--s3) * (var(--r3) - var(--r2)) + var(--s4) * (90deg - var(--diag) - var(--r3))));
   }
   @media (prefers-reduced-motion: reduce) {
     .site-canvas > span > i {
