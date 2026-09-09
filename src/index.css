@@ -162,23 +162,26 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: the HUD ────────────────────────── */
-  /* Not a button: an instrument. At rest, a minimal light plate with
-     four corner marks. On hover it deploys: the corners open outwards,
-     segments grow out of two vertices — up from the top right, down
-     from the bottom left — bend, extend, and print a mono readout at
-     their end (the index and the action above, the real destination
-     below), while a scan line sweeps across the plate. Everything is
-     drawn from the site's own vocabulary: hairlines, mono labels,
-     cobalt on paper. */
-  .action-set {
+  /* ── Nafureanu action system: matter that assembles ──────────── */
+  /* There is no button until you need one. At rest, only the word and
+     a faint field of scattered pieces around it. As the pointer comes
+     near, the pieces converge and assemble the plate around the word —
+     the closer, the more assembled — and the whole thing leans a little
+     towards the hand. Leave, and it dissolves. --k is the proximity
+     (0 far … 1 inside), fed by one shared pointer listener; each piece
+     carries its own scatter (--sx/--sy/--sr) and its slot on the
+     plate's edge (--tx/--ty/--tr). Keyboard focus, touch and reduced
+     motion get the assembled plate directly. */
+  .action-field {
+    --k: 0;
+    --mx: 0;
+    --my: 0;
     position: relative;
     display: inline-flex;
     isolation: isolate;
   }
   .action {
     position: relative;
-    overflow: hidden;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -187,118 +190,83 @@
     line-height: 1.25rem;
     letter-spacing: -0.005em;
     white-space: nowrap;
-    border: 1px solid var(--action-outline);
-    background: var(--action-fill);
     color: hsl(var(--foreground));
-    transition:
-      color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
+    border: 1px solid transparent;
+    transform: translate(calc(var(--mx) * 1px), calc(var(--my) * 1px));
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), color 200ms;
   }
-  .action-set:hover .action,
-  .action-set:focus-within .action { color: var(--action-ink-hover); border-color: var(--action-ink); }
-  /* the scan line */
-  .action::after {
+  /* the plate: glass that only exists in proportion to the proximity */
+  .action::before {
     content: "";
     position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -2px;
-    width: 1px;
+    inset: -1px;
+    z-index: -1;
+    background: var(--action-fill);
+    border: 1px solid var(--action-outline);
+    opacity: var(--k);
+    transform: scale(calc(0.96 + var(--k) * 0.04));
+    transition: opacity 180ms linear, transform 180ms linear;
+  }
+  .action__arrow {
+    opacity: calc(0.35 + var(--k) * 0.65);
+    transform: translateX(calc((1 - var(--k)) * -4px));
+    transition: opacity 180ms linear, transform 180ms linear;
+  }
+  /* the pieces: 10×2 bars, from their scatter to their slot */
+  .action__bit {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    margin: -1px 0 0 -5px;
     background: var(--action-ink);
+    opacity: calc(0.16 + var(--k) * 0.84);
+    transform:
+      translate(
+        calc(var(--tx) + (1 - var(--k)) * var(--sx)),
+        calc(var(--ty) + (1 - var(--k)) * var(--sy))
+      )
+      rotate(calc(var(--tr) + (1 - var(--k)) * var(--sr)));
+    transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms linear;
+    pointer-events: none;
+  }
+  /* launch: on click the pieces fly along the arrow's direction */
+  .action-field.is-launch .action__bit {
+    transition: transform 380ms cubic-bezier(0.4, 0, 0.2, 1), opacity 380ms linear;
+    transform: translate(calc(var(--tx) + 28px), calc(var(--ty) - 22px)) rotate(var(--tr));
     opacity: 0;
-    pointer-events: none;
   }
-  .action-set:hover .action::after,
-  .action-set:focus-within .action::after { animation: action-scan 900ms cubic-bezier(0.4, 0, 0.2, 1) 1; }
-  @keyframes action-scan {
-    0% { transform: translateX(0); opacity: 0.9; }
-    100% { transform: translateX(calc(100% + 2px)); opacity: 0; }
-  }
-  /* corner marks: small L shapes that open outwards */
-  .action__corner {
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border: 0 solid var(--action-ink);
-    pointer-events: none;
-    transition: transform 380ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .action__corner-1 { top: -1px; left: -1px; border-top-width: 1px; border-left-width: 1px; }
-  .action__corner-2 { top: -1px; right: -1px; border-top-width: 1px; border-right-width: 1px; }
-  .action__corner-3 { bottom: -1px; right: -1px; border-bottom-width: 1px; border-right-width: 1px; }
-  .action__corner-4 { bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
-  .action-set:hover .action__corner-1, .action-set:focus-within .action__corner-1 { transform: translate(-5px, -5px); }
-  .action-set:hover .action__corner-2, .action-set:focus-within .action__corner-2 { transform: translate(5px, -5px); }
-  .action-set:hover .action__corner-3, .action-set:focus-within .action__corner-3 { transform: translate(5px, 5px); }
-  .action-set:hover .action__corner-4, .action-set:focus-within .action__corner-4 { transform: translate(-5px, 5px); }
-  /* the readouts: a segment out of a vertex, a bend, a line, a mono text */
-  .action__hud {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    height: 12px;
-    pointer-events: none;
-    color: var(--action-ink);
-    font-family: var(--font-mono);
-    font-size: 9px;
-    font-weight: 500;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    line-height: 1;
-    white-space: nowrap;
-  }
-  /* above: from the top-right vertex, leftwards over the plate;
-     below: from the bottom-left vertex, rightwards under it */
-  .action__hud-1 { right: -2px; top: -13px; flex-direction: row-reverse; }
-  .action__hud-2 { left: -2px; top: calc(100% + 13px); }
-  .action__hud i {
-    display: block;
-    height: 1px;
-    background: var(--action-ink);
-    transform: scaleX(0);
-    transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .action__hud .diag { width: 16px; }
-  .action__hud-1 .diag { transform-origin: left center; transform: rotate(45deg) scaleX(0); margin-left: -2px; }
-  .action__hud-2 .diag { transform-origin: right center; transform: rotate(-45deg) scaleX(0); margin-right: -2px; }
-  .action__hud .line { width: 34px; transition-delay: 160ms; }
-  .action__hud-1 .line { transform-origin: right center; }
-  .action__hud-2 .line { transform-origin: left center; }
-  .action__hud b {
-    font-weight: 500;
-    margin: 0 6px;
-    transition: clip-path 420ms cubic-bezier(0.22, 1, 0.36, 1) 300ms;
-  }
-  .action__hud-1 b { clip-path: inset(0 0 0 100%); }
-  .action__hud-2 b { clip-path: inset(0 100% 0 0); }
-  .action-set:hover .action__hud-1 .diag, .action-set:focus-within .action__hud-1 .diag { transform: rotate(45deg) scaleX(1); }
-  .action-set:hover .action__hud-2 .diag, .action-set:focus-within .action__hud-2 .diag { transform: rotate(-45deg) scaleX(1); }
-  .action-set:hover .action__hud .line, .action-set:focus-within .action__hud .line { transform: scaleX(1); }
-  .action-set:hover .action__hud b, .action-set:focus-within .action__hud b { clip-path: inset(0 0 0 0); }
   .action:focus-visible {
     outline: 2px solid hsl(var(--accent));
-    outline-offset: 4px;
+    outline-offset: 6px;
+  }
+  /* no pointer proximity: touch, keyboard, reduced motion — assembled */
+  .action-field:focus-within,
+  .action-field.is-static { --k: 1; }
+  @media (hover: none) {
+    .action-field { --k: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .action-field { --k: 1; }
   }
 
-  /* primary — cobalt instrument */
-  .action-set-primary {
-    --action-outline: rgba(49, 87, 246, 0.6);
-    --action-fill: linear-gradient(135deg, #ffffff 0%, #f3f6ff 60%, #e9eeff 100%);
+  /* primary — cobalt matter */
+  .action-field-primary {
     --action-ink: #3157f6;
-    --action-ink-hover: hsl(var(--accent-deep));
+    --action-outline: rgba(49, 87, 246, 0.55);
+    --action-fill: linear-gradient(135deg, #ffffff 0%, #f2f5ff 60%, #e8edff 100%);
   }
-  /* secondary — graphite instrument that wakes in cobalt */
-  .action-set-secondary {
+  .action-field-primary .action { color: hsl(var(--foreground)); }
+  /* secondary — graphite matter */
+  .action-field-secondary {
+    --action-ink: rgba(25, 28, 41, 0.7);
     --action-outline: rgba(25, 28, 41, 0.3);
     --action-fill: linear-gradient(135deg, #fdfcfa 0%, #f7f5f0 100%);
-    --action-ink: rgba(25, 28, 41, 0.75);
-    --action-ink-hover: hsl(var(--foreground));
   }
-  .action-set-secondary:hover { --action-ink: #3157f6; }
-
-  /* compact contexts (header): corners only, no readouts */
-  .action-set-quiet .action__hud { display: none; }
+  /* compact contexts (header): already assembled, fewer pieces */
+  .action-field-quiet { --k: 1; }
+  .action-field-quiet .action__bit { display: none; }
 
 }
 
