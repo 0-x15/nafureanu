@@ -6,8 +6,9 @@ import { EASE, MONO } from "./workBits";
 
 /**
  * Act 01 — the entrance of the exhibition. Metadata along the top
- * edge, the statement centred with its last word in cobalt, one
- * sentence, and under it the hall itself, seen from its door: a floor
+ * edge, the statement with its last word in cobalt, one sentence and
+ * the line of state on the left; on the right the hall itself, seen
+ * from its door: a floor
  * drawn in perspective, two walls of exhibition panels converging on a
  * light at the far end. The panels are solid, paper-white slabs with
  * real thickness, each divided into three segments — a header with a
@@ -69,9 +70,9 @@ function Panel({ side, z, i, reduced }) {
 
 function Hall({ reduced, rx, ry, walk }) {
   return (
-    <div className="relative mx-auto h-[150px] w-[346px] sm:h-[240px] sm:w-[576px] md:h-[300px] md:w-[720px] lg:h-[400px] lg:w-[960px]">
-      {/* the scene is drawn at one size and scaled down on small screens */}
-      <div className="absolute left-0 top-0 h-[460px] w-[960px] origin-top-left scale-[0.36] sm:scale-[0.6] md:scale-[0.75] lg:scale-100" style={{ perspective: "1100px", perspectiveOrigin: "50% 40%" }}>
+    <div className="relative mx-auto h-[205px] w-[346px] sm:h-[342px] sm:w-[576px] md:h-[380px] md:w-[640px] lg:ml-auto lg:mr-0 lg:h-[274px] lg:w-[461px] xl:h-[354px] xl:w-[595px] min-[1440px]:h-[380px] min-[1440px]:w-[640px]">
+      {/* the scene is drawn at one size and scaled to the column */}
+      <div className="absolute left-0 top-0 h-[460px] w-[640px] origin-top-left scale-[0.54] sm:scale-[0.9] md:scale-100 lg:scale-[0.72] xl:scale-[0.93] min-[1440px]:scale-100" style={{ perspective: "1000px", perspectiveOrigin: "50% 40%" }}>
         <motion.div style={reduced ? undefined : { rotateX: rx, rotateY: ry, z: walk }} className="absolute inset-0 [transform-style:preserve-3d]">
           {/* the floor, receding from the door to the far end */}
           <div aria-hidden="true" className="absolute inset-x-[-10%] top-[74%] h-[1600px] origin-top [transform:rotateX(-90deg)]">
@@ -137,35 +138,36 @@ export default function WorkArchiveHero({ lang, t }) {
           <p className={cn(MONO, "hidden text-muted-foreground md:block")}>{h.discipline}</p>
         </motion.div>
 
-        {/* the statement, centred over the door */}
-        <div className="mx-auto mt-6 flex flex-col items-center text-center md:mt-8">
-          <motion.h1 {...up(1)} className="max-w-[11em] font-heading text-[clamp(2.9rem,6vw,6.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground [text-wrap:balance]">
-            {h.h1a} <span className="text-accent">{h.h1b}</span>
-          </motion.h1>
-          <motion.p {...up(2)} className="mt-6 max-w-[46ch] text-[16px] leading-[1.6] text-foreground/80 md:text-[18px]">
-            {t.intro}
-          </motion.p>
-        </div>
-
-        {/* the hall */}
-        <motion.div {...up(3)} aria-hidden="true" className="mt-4 md:mt-6">
-          <Hall reduced={Boolean(reduced)} rx={rx} ry={ry} walk={walk} />
-        </motion.div>
-
-        {/* the line of state: three marks lighting up in sequence */}
-        <motion.div {...up(4)} className="mx-auto mt-6 max-w-[560px] md:mt-8" role="list" aria-label={h.stateLabel}>
-          <div className="relative h-px bg-foreground/15">
-            <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: 0.5, ease: EASE }} className="absolute inset-y-0 left-0 w-full origin-left bg-accent/60" />
+        <div className="mt-10 grid gap-10 md:mt-12 lg:grid-cols-12 lg:items-center lg:gap-x-8">
+          {/* the statement, beside the door */}
+          <div className="lg:col-span-6 lg:-mt-12">
+            <motion.h1 {...up(1)} className="font-heading text-[clamp(2.9rem,5.6vw,5.8rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground [text-wrap:balance]">
+              {h.h1a} <span className="text-accent">{h.h1b}</span>
+            </motion.h1>
+            <motion.p {...up(2)} className="mt-8 max-w-[40ch] text-[16px] leading-[1.6] text-foreground/80 md:text-[18px]">
+              {t.intro}
+            </motion.p>
+            {/* the line of state: three marks lighting up in sequence */}
+            <motion.div {...up(3)} className="mt-10 max-w-[520px]" role="list" aria-label={h.stateLabel}>
+              <div className="relative h-px bg-foreground/15">
+                <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: 0.5, ease: EASE }} className="absolute inset-y-0 left-0 w-full origin-left bg-accent/60" />
+              </div>
+              <ol className="mt-3 grid grid-cols-3 gap-4">
+                {h.marks.map((w, i) => (
+                  <li key={w} className="flex items-center gap-2.5">
+                    <motion.span aria-hidden="true" initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }} animate={{ backgroundColor: "rgba(49,87,246,1)" }} transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.9 + i * 0.35 }} className="h-[7px] w-[7px] shrink-0 border border-accent" />
+                    <span className={cn(MONO, "text-foreground/75")}>{w}</span>
+                  </li>
+                ))}
+              </ol>
+            </motion.div>
           </div>
-          <ol className="mt-3 grid grid-cols-3 gap-4">
-            {h.marks.map((w, i) => (
-              <li key={w} className="flex items-center justify-center gap-2.5">
-                <motion.span aria-hidden="true" initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }} animate={{ backgroundColor: "rgba(49,87,246,1)" }} transition={{ duration: reduced ? 0 : 0.3, delay: reduced ? 0 : 0.9 + i * 0.35 }} className="h-[7px] w-[7px] shrink-0 border border-accent" />
-                <span className={cn(MONO, "text-foreground/75")}>{w}</span>
-              </li>
-            ))}
-          </ol>
-        </motion.div>
+
+          {/* the hall */}
+          <motion.div {...up(2)} aria-hidden="true" className="lg:col-span-6">
+            <Hall reduced={Boolean(reduced)} rx={rx} ry={ry} walk={walk} />
+          </motion.div>
+        </div>
       </div>
     </header>
   );
