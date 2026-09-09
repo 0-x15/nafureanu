@@ -1,47 +1,61 @@
+import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Act, Fade, H2, MONO } from "./studioBits";
+import { EASE, H2, Index, MONO } from "./studioBits";
 
 /**
- * Act 05 — technical direction. A corporate profile of the founder's
- * role, built typographically: role, responsibility, company intent, and
- * the principle that lets the company grow beyond one person.
+ * Room 05 — technical direction. Corporate governance, not biography:
+ * who holds technical responsibility, and how the company avoids
+ * depending on one person. The knowledge-transfer drawing is the centre.
  */
 export default function FounderDirection({ a }) {
   const t = a.founder;
+  const reduced = useReducedMotion();
   return (
-    <Act id="studio-founder" index={a.index[4]} className="py-14 md:py-20">
-      <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-4">
-          <p id="studio-founder-title" className="font-heading text-[clamp(2.2rem,4vw,3.6rem)] font-bold leading-none tracking-[-0.04em] text-foreground">{t.name}</p>
-          <p className={cn(MONO, "mt-3 text-accent")}>{t.role}</p>
-          <p className="mt-6 max-w-[38ch] text-[15px] leading-[1.65] text-foreground/80">{t.statement}</p>
-        </div>
-        <div className="lg:col-span-7 lg:col-start-6">
-          <dl className="grid gap-8 border-t border-foreground/12 pt-5 sm:grid-cols-2">
-            <div>
-              <dt className={cn(MONO, "text-muted-foreground")}>{t.respLabel}</dt>
-              <dd><ul className="mt-2 divide-y divide-foreground/10">{t.resp.map((r) => <li key={r} className="py-2 text-[14px] font-medium text-foreground">{r}</li>)}</ul></dd>
+    <section id="studio-founder" aria-labelledby="studio-founder-title" className="scroll-mt-20 bg-white px-5 py-16 md:px-10 md:py-24">
+      <div className="mx-auto max-w-[1440px]">
+        <Index meta={t.meta}>{t.index}</Index>
+        <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-8">
+          <div className="flex items-start gap-6 lg:col-span-3">
+            <p id="studio-founder-title" className="font-heading text-[clamp(3rem,6vw,5.5rem)] font-bold leading-none tracking-[-0.045em] text-foreground lg:self-start lg:[writing-mode:vertical-rl] lg:rotate-180">{t.name}</p>
+            <div className="pt-2">
+              <p className={cn(MONO, "text-accent")}>{t.role}</p>
+              <p className="mt-4 max-w-[26ch] text-[14px] leading-[1.6] text-foreground/80">{t.question}</p>
             </div>
-            <div>
-              <dt className={cn(MONO, "text-muted-foreground")}>{t.intentLabel}</dt>
-              <dd className="mt-2 text-[14px] leading-[1.65] text-foreground/85">{t.intent}</dd>
+          </div>
+          <div className="lg:col-span-8 lg:col-start-5">
+            <div className="grid gap-6 border-t border-foreground/12 pt-5 md:grid-cols-12">
+              <p className={cn(MONO, "text-muted-foreground md:col-span-3")}>{t.matrixLabel}</p>
+              <ul className="flex flex-wrap gap-x-6 gap-y-2 md:col-span-9">
+                {t.matrix.map((m) => <li key={m} className="flex items-center gap-2 text-[14px] font-semibold text-foreground"><span aria-hidden="true" className="h-2 w-2 bg-accent" />{m}</li>)}
+              </ul>
+              <p className="text-[15px] leading-[1.6] text-foreground/80 md:col-span-9 md:col-start-4">{t.intent}</p>
             </div>
-          </dl>
-          <Fade className="mt-12">
-            <h3 className={H2}><span className="block">{t.a}</span><span className="block text-muted-foreground">{t.b}</span></h3>
-            <p className={cn(MONO, "mt-8 text-muted-foreground")}>{t.howLabel}</p>
-            <dl className="mt-2 grid gap-x-8 border-t border-foreground/12 sm:grid-cols-2">
-              {t.how.map((h) => (
-                <div key={h.label} className="border-b border-foreground/12 py-3">
-                  <dt className="text-[14px] font-semibold text-foreground">{h.label}</dt>
-                  <dd className="mt-0.5 text-[13px] leading-[1.55] text-muted-foreground">{h.text}</dd>
-                </div>
-              ))}
-            </dl>
-            <p className="mt-5 text-[14px] leading-[1.65] text-muted-foreground">{t.note}</p>
-          </Fade>
+
+            <div className="mt-14 md:mt-16">
+              <span aria-hidden="true" className="block h-[3px] w-12 bg-accent" />
+              <h3 className={cn(H2, "mt-5 max-w-[26ch] text-foreground")}><span className="block">{t.a}</span><span className="block text-muted-foreground">{t.b}</span></h3>
+            </div>
+
+            {/* knowledge transfer: person → system through four channels */}
+            <figure aria-label={t.transfer.label} className="m-0 mt-10">
+              <div className="grid grid-cols-[auto_1fr_auto] items-stretch gap-4 md:gap-8">
+                <div className="flex items-center border border-foreground/25 px-4 py-6 md:px-6"><span className="font-heading text-[15px] font-bold tracking-[-0.02em] text-foreground md:text-[17px]">{t.transfer.from}</span></div>
+                <ul className="flex flex-col justify-center gap-3">
+                  {t.transfer.channels.map((ch, i) => (
+                    <li key={ch} className="relative flex items-center">
+                      <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0 }} whileInView={{ scaleX: 1 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: reduced ? 0 : 0.8, delay: reduced ? 0 : 0.15 * i, ease: EASE }} className="block h-px w-full origin-left bg-accent" />
+                      <span className={cn(MONO, "absolute left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white px-2 text-foreground/80")}>{ch}</span>
+                      <span aria-hidden="true" className="absolute right-0 top-1/2 h-1.5 w-1.5 -translate-y-1/2 rotate-45 border-r border-t border-accent" />
+                    </li>
+                  ))}
+                </ul>
+                <div className="flex items-center border border-accent bg-accent px-4 py-6 text-white md:px-6"><span className="font-heading text-[15px] font-bold tracking-[-0.02em] md:text-[17px]">{t.transfer.to}</span></div>
+              </div>
+              <figcaption className="mt-4 text-[14px] leading-[1.6] text-muted-foreground">{t.note}</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
-    </Act>
+    </section>
   );
 }

@@ -1,57 +1,122 @@
 import { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { Act, H2, MONO, Sheet } from "./studioBits";
+import { H2, Index, MONO } from "./studioBits";
+
+const INK = "#8FB3FF";
+const DIM = "rgba(255,255,255,0.28)";
+const FAINT = "rgba(255,255,255,0.14)";
 
 /**
- * Act 03 — the engineering standard. Six dimensions of a professionally
- * delivered system, and a review sheet whose principles unfold one by one.
- * Labelled as principles, not as a formal certification.
+ * The system cross-section: one technical drawing on graphite. Each
+ * review principle lights the layer it concerns and its consequence.
+ */
+function SystemSection({ d, active, reduced }) {
+  const show = (id) => active === id;
+  const t = { duration: reduced ? 0 : 0.5 };
+  const label = (x, y, text, opts = {}) => <text x={x} y={y} fontFamily="JetBrains Mono, ui-monospace, monospace" fontSize={opts.size || 9} letterSpacing="1.2" fill={opts.fill || DIM} textAnchor={opts.anchor || "start"} style={{ textTransform: "uppercase" }}>{text}</text>;
+  const L = d.layers;
+  return (
+    <svg viewBox="0 0 640 420" role="img" aria-label={d.label} className="h-auto w-full">
+      {/* documentation margin */}
+      <motion.g animate={{ opacity: show("documented") ? 1 : 0.35 }} transition={t}>
+        <rect x="24" y="52" width="86" height="300" fill="none" stroke={show("documented") ? INK : FAINT} strokeDasharray="3 4" />
+        {label(30, 44, L.knowledge, { fill: show("documented") ? INK : DIM })}
+        {[0, 1, 2, 3, 4, 5, 6].map((i) => <rect key={i} x="34" y={70 + i * 26} width={i % 3 === 0 ? 56 : 40} height="3" fill={show("documented") ? INK : FAINT} />)}
+        {show("documented") && label(30, 372, d.marks.decisions, { fill: INK })}
+      </motion.g>
+      {/* system boundary */}
+      <rect x="130" y="52" width="360" height="300" fill="none" stroke={DIM} />
+      {label(136, 44, d.label, { fill: DIM })}
+      {/* layers */}
+      {[["interface", 52, 60, L.interface], ["logic", 112, 96, L.logic], ["data", 208, 64, L.data]].map(([id, y, h, name]) => (
+        <g key={id}>
+          <line x1="130" y1={y + h} x2="490" y2={y + h} stroke={FAINT} />
+          {label(138, y + 14, name, { fill: show("testable") && id === "logic" ? INK : DIM })}
+        </g>
+      ))}
+      {/* modules (understandable) */}
+      <motion.g animate={{ opacity: show("understandable") ? 1 : 0.22 }} transition={t}>
+        {[220, 310, 400].map((x) => <line key={x} x1={x} y1="52" x2={x} y2="272" stroke={show("understandable") ? INK : FAINT} />)}
+        {["A", "B", "C", "D"].map((m, i) => <g key={m}>{label(148 + i * 90, 106, m, { fill: show("understandable") ? "#ffffff" : DIM, size: 11 })}</g>)}
+        {show("understandable") && label(138, 290, d.marks.modules, { fill: INK })}
+      </motion.g>
+      {/* tests (testable) */}
+      <motion.g animate={{ opacity: show("testable") ? 1 : 0 }} transition={t}>
+        <rect x="131" y="113" width="358" height="94" fill="rgba(143,179,255,0.08)" />
+        {[0, 1, 2, 3].map((i) => <text key={i} x={190 + i * 90} y="184" fontFamily="JetBrains Mono, monospace" fontSize="14" fill={INK} textAnchor="middle">✓</text>)}
+        {label(138, 200, d.marks.tests, { fill: INK })}
+      </motion.g>
+      {/* change (maintainable) */}
+      <motion.g animate={{ opacity: show("maintainable") ? 1 : 0 }} transition={t}>
+        <rect x="221" y="53" width="88" height="218" fill="rgba(143,179,255,0.1)" stroke={INK} />
+        <path d="M265 20 v26" stroke={INK} strokeWidth="1.2" /><path d="M259 40 l6 8 6-8" fill="none" stroke={INK} strokeWidth="1.2" />
+        {label(272, 24, d.marks.change, { fill: INK })}
+      </motion.g>
+      {/* integrations + boundary (evolvable) */}
+      <motion.g animate={{ opacity: show("evolvable") ? 1 : 0.35 }} transition={t}>
+        <rect x="520" y="52" width="96" height="220" fill="none" stroke={show("evolvable") ? INK : FAINT} strokeDasharray={show("evolvable") ? "0" : "3 4"} />
+        {label(526, 44, L.integrations, { fill: show("evolvable") ? INK : DIM })}
+        {[90, 150, 210].map((y) => <g key={y}><line x1="490" y1={y} x2="520" y2={y} stroke={show("evolvable") ? INK : FAINT} /><rect x="486" y={y - 4} width="8" height="8" fill="#151821" stroke={show("evolvable") ? INK : FAINT} /></g>)}
+        {show("evolvable") && label(526, 290, d.marks.boundary, { fill: INK })}
+      </motion.g>
+      {/* operation (operable) */}
+      <motion.g animate={{ opacity: show("operable") ? 1 : 0.35 }} transition={t}>
+        <line x1="130" y1="300" x2="490" y2="300" stroke={show("operable") ? INK : FAINT} />
+        {label(138, 314, L.operation, { fill: show("operable") ? INK : DIM })}
+        {[0, 1, 2].map((i) => <rect key={i} x={150 + i * 112} y="322" width="96" height="20" fill={show("operable") ? "rgba(143,179,255,0.12)" : "none"} stroke={show("operable") ? INK : FAINT} />)}
+        {show("operable") && label(138, 372, d.marks.deploy, { fill: INK })}
+      </motion.g>
+      {/* baseline coordinates */}
+      {label(130, 404, "x 130 · y 052", { fill: FAINT })}
+      {label(616, 404, "640 × 420", { fill: FAINT, anchor: "end" })}
+    </svg>
+  );
+}
+
+/**
+ * Room 03 — the engineering review room. Graphite, cobalt lines, small
+ * white annotations. The principle selected lights the consequence in
+ * the cross-section: not a paragraph that opens, a layer that appears.
  */
 export default function EngineeringStandard({ a }) {
   const t = a.standard;
   const reduced = useReducedMotion();
-  const [open, setOpen] = useState(0);
+  const [on, setOn] = useState("understandable");
+  const p = t.principles.find((x) => x.id === on) || t.principles[0];
   return (
-    <Act id="studio-standard" index={a.index[2]} className="py-14 md:py-20">
-      <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-10">
-        <div className="lg:col-span-5">
-          <h2 id="studio-standard-title" className={H2}><span className="block">{t.a}</span><span className="block text-muted-foreground">{t.b}</span></h2>
-          <p className="mt-5 max-w-[44ch] text-[15px] leading-[1.65] text-foreground/80">{t.intro}</p>
-          <p className={cn(MONO, "mt-10 text-muted-foreground")}>{t.dimsLabel}</p>
-          <dl className="mt-2 grid grid-cols-2 gap-x-8 border-t border-foreground/12">
-            {t.dims.map((d) => (
-              <div key={d.label} className="border-b border-foreground/12 py-3">
-                <dt className="text-[14px] font-semibold text-foreground">{d.label}</dt>
-                <dd className="mt-0.5 text-[13px] leading-[1.5] text-muted-foreground">{d.text}</dd>
-              </div>
-            ))}
-          </dl>
-          <p className="mt-6 max-w-[44ch] text-[14px] leading-[1.65] text-muted-foreground">{t.note}</p>
-        </div>
-        <div className="lg:col-span-7">
-          <Sheet title={t.sheet.title} meta={t.sheet.meta}>
-            <ol className="divide-y divide-foreground/10">
-              {t.rows.map((r, i) => {
-                const on = open === i;
+    <section id="studio-standard" aria-labelledby="studio-standard-title" className="scroll-mt-20 bg-[#151821] px-5 py-20 text-white md:px-10 md:py-28">
+      <div className="mx-auto max-w-[1320px]">
+        <Index tone="light" meta={t.meta}>{t.index}</Index>
+        <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-4">
+            <h2 id="studio-standard-title" className={cn(H2, "text-white")}><span className="block">{t.a}</span><span className="block text-white/55">{t.b}</span></h2>
+            <p className="mt-5 max-w-[40ch] text-[15px] leading-[1.6] text-white/70">{t.intro}</p>
+            <p className={cn(MONO, "mt-10 text-white/45")}>{t.principlesLabel}</p>
+            <ol className="mt-2 border-t border-white/15" role="group" aria-label={t.principlesLabel}>
+              {t.principles.map((x) => {
+                const active = on === x.id;
                 return (
-                  <li key={r.label}>
-                    <button type="button" aria-expanded={on} aria-controls={`studio-review-${i}`} onClick={() => setOpen(on ? -1 : i)} className={cn("grid w-full grid-cols-[28px_1fr_20px] items-center gap-4 px-5 py-3.5 text-left outline-none transition-colors hover:bg-[#FAF9F5] focus-visible:bg-[#FAF9F5] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-accent md:px-6")}>
-                      <span aria-hidden="true" className={cn("font-mono text-[12px]", on ? "text-accent" : "text-foreground/45")}>✓</span>
-                      <span className={cn("text-[15px] font-medium tracking-[-0.01em] transition-colors", on ? "text-foreground" : "text-foreground/80")}>{r.label}</span>
-                      <span aria-hidden="true" className={cn("justify-self-end font-mono text-[12px] text-muted-foreground transition-transform", on && "rotate-45")}>+</span>
+                  <li key={x.id} className="border-b border-white/15">
+                    <button type="button" aria-pressed={active} onMouseEnter={() => setOn(x.id)} onFocus={() => setOn(x.id)} onClick={() => setOn(x.id)} className={cn("grid w-full grid-cols-[14px_1fr_auto] items-center gap-3 py-2.5 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#8FB3FF] focus-visible:ring-offset-4 focus-visible:ring-offset-[#151821]", active ? "text-white" : "text-white/55 hover:text-white/85")}>
+                      <span aria-hidden="true" className={cn("h-2 w-2 border transition-colors", active ? "border-[#8FB3FF] bg-[#8FB3FF]" : "border-white/40")} />
+                      <span className="font-heading text-[16px] font-bold tracking-[-0.02em] md:text-[17px]">{x.label}</span>
+                      <span className={cn(MONO, active ? "text-[#8FB3FF]" : "text-white/35")}>{x.layer}</span>
                     </button>
-                    <motion.div id={`studio-review-${i}`} initial={false} animate={{ height: on ? "auto" : 0, opacity: on ? 1 : 0 }} transition={{ duration: reduced ? 0 : 0.35, ease: [0.22, 1, 0.36, 1] }} className="overflow-hidden">
-                      <p className="px-5 pb-4 pl-[60px] text-[14px] leading-[1.65] text-foreground/80 md:px-6 md:pl-[64px]">{r.text}</p>
-                    </motion.div>
                   </li>
                 );
               })}
             </ol>
-            <p className={cn(MONO, "border-t border-foreground/12 px-5 py-3 text-muted-foreground md:px-6")}>{t.sheet.hint}</p>
-          </Sheet>
+            <p className="mt-5 min-h-[44px] text-[14px] leading-[1.6] text-white/80" aria-live="polite">{p.text}</p>
+          </div>
+          <div className="lg:col-span-8">
+            <motion.div initial={reduced ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.9 }} className="border border-white/10 bg-[#11141C] p-3 md:p-6">
+              <SystemSection d={t.drawing} active={on} reduced={Boolean(reduced)} />
+            </motion.div>
+            <p className={cn(MONO, "mt-4 text-white/40")}>{t.note}</p>
+          </div>
         </div>
       </div>
-    </Act>
+    </section>
   );
 }
