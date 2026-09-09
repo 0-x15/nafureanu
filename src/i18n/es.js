@@ -426,6 +426,7 @@ export const ES = {
     next: {
       kicker: "Siguiente",
       slot: "Entrada 05 · sin registrar",
+      tag: "05",
       line: "Lo siguiente todavía está por construir.",
       support:
         "Puede empezar con una operación que no funciona como debería, una herramienta que dejó de encajar o una idea que todavía no tiene forma.",

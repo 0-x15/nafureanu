@@ -425,6 +425,7 @@ export const EN = {
     next: {
       kicker: "Next",
       slot: "Entry 05 · not yet recorded",
+      tag: "05",
       line: "What comes next is still to be built.",
       support:
         "It can start with an operation that does not work as it should, a tool that stopped fitting, or an idea that has no shape yet.",
