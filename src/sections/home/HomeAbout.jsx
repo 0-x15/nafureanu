@@ -52,7 +52,7 @@ export default function HomeAbout({ lang = "es" }) {
                     <span className="font-mono text-[11px] tracking-[0.18em] text-accent md:pt-1.5">0{i + 1}</span>
                     <div>
                       <h3 className="font-heading text-xl font-bold tracking-[-0.02em] text-foreground md:text-2xl">{ch.label}</h3>
-                      <p className="mt-3 max-w-[56ch] text-[15px] leading-[1.65] text-muted-foreground md:text-[17px]">{ch.text}</p>
+                      <p className="mt-3 max-w-[68ch] text-[15px] leading-[1.65] text-muted-foreground md:text-[17px]">{ch.text}</p>
                     </div>
                   </div>
                 </Reveal>
