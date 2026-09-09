@@ -19,16 +19,24 @@ import "./workHero.css";
  * one 3D transform per rack, gradients for every material.
  */
 const RACK_Z = [40, -110, -260, -410, -560, -710, -860];
-const MODULES = [
-  { top: 8, d: 3.1, o: 0 },
-  { top: 27, d: 2.3, o: 0.7 },
-  { top: 46, d: 4.2, o: 1.4 },
-  { top: 65, d: 2.8, o: 0.3 },
-  { top: 84, d: 3.6, o: 1.1 },
-];
+const MODULE_TOPS = [8, 27, 46, 65, 84];
+/* The LEDs of one door as a single background: one dot per module row. */
+const leds = (color, x) => MODULE_TOPS.map((t) => `radial-gradient(circle at ${x}px calc(${t}% + 7px), ${color} 0 2.5px, ${color}99 3.5px, transparent 7px)`).join(",");
+const LED_A = leds("#17B4CD", 13);
+const LED_B = `${leds("#3157F6", 72)},${leds("#E9EEFF", 83)}`;
 
+/**
+ * One rack. The first two on each side are true boxes (a side panel in
+ * 3D, seen from the door); the rest are flat planes, which is all the
+ * eye can tell at that distance and saves a compositing layer each.
+ * The LEDs live in two overlays per door whose opacity animates on the
+ * compositor — the door itself is never repainted. Far racks keep the
+ * overlays still.
+ */
 function Rack({ side, z, i, reduced }) {
   const left = side === "l";
+  const boxed = i < 2;
+  const live = i < 4;
   const label = `${left ? "A" : "B"}-${String(i + 1).padStart(2, "0")}`;
   return (
     <motion.div
@@ -36,25 +44,21 @@ function Rack({ side, z, i, reduced }) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 1, delay: 0.25 + i * 0.1, ease: EASE }}
       style={{ z: left ? z : z - 120, rotateY: left ? 78 : -78, transformOrigin: "left center" }}
-      className={cn("absolute bottom-[24%] h-[260px] w-[120px] [transform-style:preserve-3d]", left ? "left-[14%] md:left-[7%]" : "left-[86%] md:left-[93%]")}
+      className={cn("absolute bottom-[24%] h-[260px] w-[120px]", boxed && "[transform-style:preserve-3d]", left ? "left-[14%] md:left-[7%]" : "left-[86%] md:left-[93%]")}
     >
       {/* the cabinet and its door */}
       <div className="wk-rack">
-        <div className="wk-plate"><span>{label}</span><i /></div>
+        <div className="wk-plate"><span>{label}</span><i className={live ? undefined : "wk-still"} /></div>
         <div className="wk-door">
           <span className="wk-rail" style={{ left: 3 }} />
           <span className="wk-rail" style={{ right: 3 }} />
-          {MODULES.map((m, k) => (
-            <span key={k} className="wk-mod" style={/** @type {any} */ ({ top: `${m.top}%`, "--d": `${m.d + (i % 3) * 0.4}s`, "--o": `${m.o + i * 0.17}s` })}>
-              <i className="wk-led wk-led-a" />
-              <i className="wk-led wk-led-b" />
-              {(k + i) % 2 === 0 && <i className="wk-led wk-led-c" />}
-            </span>
-          ))}
+          {MODULE_TOPS.map((t) => <span key={t} className="wk-mod" style={{ top: `${t}%` }} />)}
+          <span className={cn("wk-leds", live && "wk-live")} style={/** @type {any} */ ({ backgroundImage: LED_A, "--d": `${3.1 + (i % 3) * 0.5}s`, "--o": `${i * 0.37}s` })} />
+          <span className={cn("wk-leds", live && "wk-live")} style={/** @type {any} */ ({ backgroundImage: LED_B, "--d": `${2.2 + (i % 2) * 0.7}s`, "--o": `${0.6 + i * 0.23}s` })} />
         </div>
       </div>
-      {/* the depth of the cabinet, on the end that faces the door */}
-      <div aria-hidden="true" className={cn("absolute top-0 h-full w-[16px] border-y border-foreground/25 bg-[linear-gradient(180deg,#D3D1C9,#C2C0B8)]", left ? "left-0 origin-left [transform:rotateY(-90deg)]" : "right-0 origin-right [transform:rotateY(90deg)]")} />
+      {/* the side of the cabinet, going back from the door towards the wall */}
+      {boxed && <div aria-hidden="true" className={cn("absolute top-0 h-full w-[16px] border-y border-foreground/25 bg-[linear-gradient(180deg,#D3D1C9,#C2C0B8)]", left ? "left-0 origin-left [transform:rotateY(90deg)]" : "right-0 origin-right [transform:rotateY(-90deg)]")} />}
       {/* the reflection in the floor */}
       <div aria-hidden="true" className="absolute inset-x-0 top-full h-[70%] origin-top opacity-[0.32] [mask-image:linear-gradient(to_top,transparent_10%,rgba(0,0,0,0.9))] [transform:scaleY(-1)]">
         <div className="wk-rack"><div className="wk-door" /></div>
@@ -65,7 +69,7 @@ function Rack({ side, z, i, reduced }) {
 
 function Hall({ reduced, rx, ry, walk, scale }) {
   return (
-    <div aria-hidden="true" className="pointer-events-none absolute inset-0 [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,transparent,#000_20%,#000_88%,transparent),linear-gradient(to_right,transparent,#000_5%,#000_95%,transparent)] [-webkit-mask-composite:source-in]">
+    <div aria-hidden="true" className="pointer-events-none absolute inset-0">
       {/* the scene is drawn at one size and scaled to cover the hero */}
       <div className="absolute left-1/2 top-[58%] h-[460px] w-[640px]" style={{ transform: `translate(-50%, -50%) scale(${scale})`, perspective: "1000px", perspectiveOrigin: "50% 42%" }}>
         <motion.div style={reduced ? undefined : { rotateX: rx, rotateY: ry, z: walk }} className="absolute inset-0 [transform-style:preserve-3d]">
@@ -79,9 +83,9 @@ function Hall({ reduced, rx, ry, walk, scale }) {
             <div className="wk-ceiling" />
           </div>
           {/* the far end: a lit doorway, its glow and the haze in front of it */}
-          <div className="absolute left-1/2 top-[42%] h-[300px] w-[250px] bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(23,180,205,0.3)_60%,rgba(49,87,246,0.3))] opacity-80 blur-md" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
-          <div className="wk-glow absolute left-1/2 top-[42%] h-[560px] w-[560px] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.3),rgba(49,87,246,0.14)_45%,transparent)] blur-2xl" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
-          <div className="wk-haze absolute left-1/2 top-[44%] h-[420px] w-[900px] bg-[radial-gradient(closest-side,rgba(249,247,240,0.8),transparent)] blur-xl" style={{ transform: "translate(-50%,-50%) translateZ(-900px)" }} />
+          <div className="absolute left-1/2 top-[42%] h-[340px] w-[300px] bg-[radial-gradient(closest-side,rgba(255,255,255,0.95),rgba(220,245,250,0.7)_45%,rgba(23,180,205,0.18)_75%,transparent)]" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
+          <div className="wk-glow absolute left-1/2 top-[42%] h-[640px] w-[640px] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.32),rgba(49,87,246,0.14)_40%,rgba(49,87,246,0.04)_70%,transparent)]" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
+          <div className="wk-haze absolute left-1/2 top-[44%] h-[460px] w-[960px] bg-[radial-gradient(closest-side,rgba(249,247,240,0.8),rgba(249,247,240,0.35)_55%,transparent)]" style={{ transform: "translate(-50%,-50%) translateZ(-900px)" }} />
 
           {/* the two rows of racks */}
           {RACK_Z.map((z, i) => (
@@ -92,6 +96,11 @@ function Hall({ reduced, rx, ry, walk, scale }) {
           ))}
         </motion.div>
       </div>
+      {/* the edges of the room dissolve into the page */}
+      <span className="absolute inset-x-0 top-0 h-[22%] bg-gradient-to-b from-background to-transparent" />
+      <span className="absolute inset-x-0 bottom-0 h-[14%] bg-gradient-to-t from-background to-transparent" />
+      <span className="absolute inset-y-0 left-0 w-[6%] bg-gradient-to-r from-background to-transparent" />
+      <span className="absolute inset-y-0 right-0 w-[6%] bg-gradient-to-l from-background to-transparent" />
     </div>
   );
 }
