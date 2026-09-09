@@ -69,10 +69,11 @@
   /* One global layer (SiteBackground) under every page. The three planes
      of the Fivo chapter on the home — the broad upper-right plane, the
      lower-left plane with a hint of cobalt in the material, and the
-     narrow diagonal pill — repeated along the scroll with the same
-     measures, radii, borders, shadows and tilts, on the site's own ivory
-     (no blue ground, no glows). Deeper positions use max(vh, %) so long
-     pages keep the rhythm; the last plane meets the footer. Pure CSS. */
+     narrow diagonal pill — repeated along the scroll (about one plane per
+     viewport, alternating sides) with the same widths, radii, borders,
+     shadows and tilts and a lower height, on the site's own ivory (no
+     blue ground, no glows). The last positions use max(vh, %) so very
+     long pages keep the rhythm; the final plane meets the footer. */
   .site-canvas {
     position: absolute;
     inset: 0;
@@ -105,29 +106,31 @@
     background: rgba(255, 255, 255, 0.25);
     backdrop-filter: blur(18px);
   }
-  /* top */
-  .fp-1 { top: 8vh; right: -7vw; width: 52vw; height: 30vh; transform: rotate(-2deg); }
-  .fp-2 { top: 62vh; left: 36vw; width: 46vw; height: 12vh; transform: rotate(-6deg); }
-  .fp-3 { top: 96vh; left: -9vw; width: 48vw; height: 34vh; transform: rotate(2deg); }
-  /* middle */
-  .fp-4 { top: max(270vh, 38%); right: -6vw; width: 50vw; height: 30vh; transform: rotate(-2deg); }
-  .fp-5 { top: max(362vh, 50%); left: -8vw; width: 46vw; height: 32vh; transform: rotate(2deg); }
-  .fp-6 { top: max(470vh, 64%); left: 30vw; width: 44vw; height: 12vh; transform: rotate(-6deg); }
-  /* bottom, meeting the footer */
-  .fp-7 { bottom: 6vh; right: -7vw; width: 50vw; height: 30vh; transform: rotate(-2deg); }
+  /* one plane roughly every viewport, alternating sides; the last three
+     use max(vh, %) so very long pages keep the rhythm to the end */
+  .fp-1 { top: 8vh; right: -7vw; width: 52vw; height: 20vh; transform: rotate(-2deg); }
+  .fp-2 { top: 58vh; left: 36vw; width: 46vw; height: 12vh; transform: rotate(-6deg); }
+  .fp-3 { top: 100vh; left: -9vw; width: 48vw; height: 22vh; transform: rotate(2deg); }
+  .fp-4 { top: 210vh; right: -6vw; width: 50vw; height: 20vh; transform: rotate(-2deg); }
+  .fp-5 { top: 320vh; left: -8vw; width: 46vw; height: 22vh; transform: rotate(2deg); }
+  .fp-6 { top: 400vh; left: 30vw; width: 44vw; height: 12vh; transform: rotate(-6deg); }
+  .fp-7 { top: 470vh; right: -7vw; width: 50vw; height: 20vh; transform: rotate(-2deg); }
+  .fp-8 { top: 590vh; left: -9vw; width: 48vw; height: 22vh; transform: rotate(2deg); }
+  .fp-9 { top: max(710vh, 56%); right: -6vw; width: 50vw; height: 20vh; transform: rotate(-2deg); }
+  .fp-10 { top: max(820vh, 70%); left: 32vw; width: 44vw; height: 12vh; transform: rotate(-6deg); }
+  .fp-11 { top: max(900vh, 84%); left: -8vw; width: 46vw; height: 22vh; transform: rotate(2deg); }
+  .fp-12 { bottom: 6vh; right: -7vw; width: 50vw; height: 20vh; transform: rotate(-2deg); }
   @media (max-width: 767px) {
     .site-canvas > span {
       backdrop-filter: none;
     }
     .fp-2,
-    .fp-4,
-    .fp-5,
-    .fp-6 {
+    .fp-6,
+    .fp-10 {
       display: none;
     }
-    .fp-1 { right: -20vw; width: 90vw; height: 24vh; }
-    .fp-3 { left: -24vw; width: 88vw; height: 26vh; }
-    .fp-7 { right: -20vw; width: 90vw; height: 24vh; }
+    .fp-1, .fp-4, .fp-7, .fp-9, .fp-12 { right: -22vw; width: 90vw; height: 16vh; }
+    .fp-3, .fp-5, .fp-8, .fp-11 { left: -26vw; width: 88vw; height: 18vh; }
   }
 
   /* ── Nafureanu action material ─────────────────────────────── */
