@@ -65,20 +65,20 @@
 }
 
 @layer components {
-  /* ── The canvas: the system assembling behind the site ─────────────── */
+  /* ── The canvas: the N's path, travelled with the scroll ──────────── */
   /* One global layer (SiteBackground) under every page, fixed to the
-     viewport and driven by the page's scroll progress (CSS scroll-driven
-     animations, no JavaScript). It tells the site's own story:
-       0 %   — the operation: five glass panes scattered and tilted, and
-               one small cobalt piece (the segment of the N) adrift;
-       50 %  — the engineering: the panes have travelled into an ordered
-               deck of parallel layers on the right, the piece has taken
-               its place at the edge of the deck;
-       100 % — the system: the layers fold into a single pane and the
-               cobalt piece locks into it.
-     The ordered deck is the base state, so browsers without scroll
-     timelines see the calm composition; reduced motion sees it still. */
+     viewport. --p is the page's scroll progress (0…1, set by a passive
+     scroll listener) and --diag the angle of the N's diagonal for the
+     current viewport. A large invisible N spans the right half of the
+     viewport: the cobalt piece — the segment of the logo — travels its
+     strokes as the page scrolls (down the left column, up the diagonal,
+     down the right column) and the glass panes assemble each stroke as
+     the piece passes; at the very end the piece glides back to the
+     middle of the diagonal and locks in, as in the mark. Every pane has
+     its own progress window, clamped from --p in CSS. */
   .site-canvas {
+    --p: 0;
+    --diag: 39deg;
     position: absolute;
     inset: 0;
     overflow: hidden;
@@ -87,17 +87,18 @@
   .site-canvas > span {
     position: fixed;
     display: block;
-    will-change: transform, opacity;
+    will-change: transform;
   }
   .site-canvas > span > i {
     display: block;
     width: 100%;
     height: 100%;
     will-change: transform;
+    animation: fp-breath 24s ease-in-out infinite;
   }
   /* the glass */
   .fivo-a {
-    border-radius: 36px;
+    border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.9);
     background: linear-gradient(120deg, rgba(255, 255, 255, 0.66), rgba(23, 180, 205, 0.05) 60%, rgba(49, 87, 246, 0.045));
     box-shadow:
@@ -106,7 +107,7 @@
     backdrop-filter: blur(28px);
   }
   .fivo-b {
-    border-radius: 42px;
+    border-radius: 28px;
     border: 1px solid rgba(255, 255, 255, 0.85);
     background: linear-gradient(130deg, rgba(49, 87, 246, 0.055), rgba(255, 255, 255, 0.56) 48%, rgba(23, 180, 205, 0.05));
     box-shadow:
@@ -114,87 +115,61 @@
       0 60px 120px -50px rgba(49, 87, 246, 0.24);
     backdrop-filter: blur(32px);
   }
-  .fivo-c {
-    border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    background: linear-gradient(90deg, rgba(23, 180, 205, 0.055), rgba(255, 255, 255, 0.6) 50%, rgba(49, 87, 246, 0.05));
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.95),
-      0 40px 90px -40px rgba(49, 87, 246, 0.32);
-    backdrop-filter: blur(18px);
-  }
-  /* the piece: the cobalt segment of the N */
   .fivo-n {
     border-radius: 4px;
     background: #3157f6;
     box-shadow: 0 14px 30px -12px rgba(49, 87, 246, 0.6);
+    animation: none;
   }
-  /* base state = the ordered deck: five parallel layers on the right */
-  .fp-1 { top: 14vh; left: 56vw; width: 36vw; height: 12vh; }
-  .fp-2 { top: 30vh; left: 56vw; width: 36vw; height: 8vh; }
-  .fp-3 { top: 42vh; left: 56vw; width: 36vw; height: 14vh; }
-  .fp-4 { top: 60vh; left: 56vw; width: 36vw; height: 10vh; }
-  .fp-5 { top: 74vh; left: 56vw; width: 36vw; height: 12vh; }
-  .fp-n { top: calc(49vh - 7px); left: calc(56vw - 22px); width: 44px; height: 14px; }
-  /* the deck's shared tilt and a slow breath live on the inner element */
-  .site-canvas > span > i { animation: fp-breath 24s ease-in-out infinite; }
-  .fp-2 > i { animation-delay: -6s; }
-  .fp-3 > i { animation-delay: -12s; }
-  .fp-4 > i { animation-delay: -3s; }
-  .fp-5 > i { animation-delay: -16s; }
-  .fp-n > i { animation: none; }
   @keyframes fp-breath {
-    0%, 100% { transform: translate3d(0, 0, 0) rotate(-4deg); }
-    50% { transform: translate3d(10px, -6px, 0) rotate(-3.2deg); }
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(8px, -6px, 0); }
   }
-  /* the journey */
-  @supports (animation-timeline: scroll()) {
-    .site-canvas > span {
-      animation-timeline: scroll(root);
-      animation-timing-function: ease-in-out;
-      animation-fill-mode: both;
-      animation-duration: 1s;
-    }
-    .fp-1 { animation-name: fp-j1; }
-    .fp-2 { animation-name: fp-j2; }
-    .fp-3 { animation-name: fp-j3; }
-    .fp-4 { animation-name: fp-j4; }
-    .fp-5 { animation-name: fp-j5; }
-    .fp-n { animation-name: fp-jn; }
+  /* the N: left column at 45–54vw, right column at 81.5–90.5vw, from
+     12vh to 84vh. Each pane's base position is its place in the N; --k
+     is its own progress, and (1 - --k) pulls it back to where it started. */
+  .fp-1 {
+    --k: clamp(0, calc(var(--p) / 0.2), 1);
+    top: 12vh; left: 45vw; width: 9vw; height: 34vh;
+    transform: translate3d(calc((1 - var(--k)) * -36vw), calc((1 - var(--k)) * -16vh), 0) rotate(calc((1 - var(--k)) * 14deg));
   }
-  /* 0 % scattered → 50 % in the deck → 100 % folded into one pane */
-  @keyframes fp-j1 {
-    0% { transform: translate3d(-60vw, -8vh, 0) rotate(8deg); opacity: 1; }
-    50% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
-    88%, 100% { transform: translate3d(0, 28vh, 0) rotate(0deg); opacity: 0; }
+  .fp-2 {
+    --k: clamp(0, calc((var(--p) - 0.1) / 0.25), 1);
+    top: 50vh; left: 45vw; width: 9vw; height: 34vh;
+    transform: translate3d(calc((1 - var(--k)) * -30vw), calc((1 - var(--k)) * 24vh), 0) rotate(calc((1 - var(--k)) * -10deg));
   }
-  @keyframes fp-j2 {
-    0% { transform: translate3d(-30vw, 6vh, 0) rotate(-6deg); opacity: 1; }
-    50% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
-    88%, 100% { transform: translate3d(0, 12vh, 0) rotate(0deg); opacity: 0; }
+  .fp-3 {
+    --k: clamp(0, calc((var(--p) - 0.33) / 0.2), 1);
+    top: calc(66vh - 4.5vw); left: 46vw; width: 26vw; height: 9vw;
+    transform: translate3d(calc((1 - var(--k)) * 22vw), calc((1 - var(--k)) * 24vh), 0) rotate(calc(var(--diag) - 90deg + (1 - var(--k)) * 34deg));
   }
-  @keyframes fp-j3 {
-    0% { transform: translate3d(6vw, 30vh, 0) rotate(5deg); }
-    50% { transform: translate3d(0, 0, 0) rotate(0deg); }
-    100% { transform: translate3d(0, 0, 0) rotate(4deg); }
+  .fp-4 {
+    --k: clamp(0, calc((var(--p) - 0.46) / 0.2), 1);
+    top: calc(30vh - 4.5vw); left: 64vw; width: 26vw; height: 9vw;
+    transform: translate3d(calc((1 - var(--k)) * 16vw), calc((1 - var(--k)) * -24vh), 0) rotate(calc(var(--diag) - 90deg + (1 - var(--k)) * -26deg));
   }
-  @keyframes fp-j4 {
-    0% { transform: translate3d(-4vw, -14vh, 0) rotate(-12deg); opacity: 1; }
-    50% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
-    88%, 100% { transform: translate3d(0, -18vh, 0) rotate(0deg); opacity: 0; }
+  .fp-5 {
+    --k: clamp(0, calc((var(--p) - 0.66) / 0.24), 1);
+    top: 12vh; left: 81.5vw; width: 9vw; height: 72vh;
+    transform: translate3d(calc((1 - var(--k)) * 16vw), calc((1 - var(--k)) * 30vh), 0) rotate(calc((1 - var(--k)) * -8deg));
   }
-  @keyframes fp-j5 {
-    0% { transform: translate3d(-62vw, 4vh, 0) rotate(3deg); opacity: 1; }
-    50% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
-    88%, 100% { transform: translate3d(0, -32vh, 0) rotate(0deg); opacity: 0; }
-  }
-  @keyframes fp-jn {
-    0% { transform: translate3d(-22vw, -30vh, 0) rotate(26deg); }
-    50% { transform: translate3d(0, 0, 0) rotate(-4deg); }
-    100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  /* the piece: down the left column (a), up the diagonal (b), down the
+     right column (c), then back to the middle of the diagonal (d) */
+  .fp-n {
+    --a: clamp(0, calc(var(--p) / 0.33), 1);
+    --b: clamp(0, calc((var(--p) - 0.33) / 0.33), 1);
+    --c: clamp(0, calc((var(--p) - 0.66) / 0.24), 1);
+    --d: clamp(0, calc((var(--p) - 0.9) / 0.1), 1);
+    top: calc(12vh - 7px); left: calc(49.5vw - 22px); width: 44px; height: 14px;
+    transform:
+      translate3d(
+        calc(var(--b) * 36.5vw - var(--d) * 18.25vw),
+        calc(var(--a) * 72vh - var(--b) * 72vh + var(--c) * 72vh - var(--d) * 36vh),
+        0
+      )
+      rotate(calc((var(--b) - var(--c) + var(--d)) * (var(--diag) - 90deg)));
   }
   @media (prefers-reduced-motion: reduce) {
-    .site-canvas > span,
     .site-canvas > span > i {
       animation: none;
     }
@@ -203,12 +178,7 @@
     .site-canvas > span > i {
       backdrop-filter: none;
     }
-    .fp-2,
-    .fp-4 {
-      display: none;
-    }
-    .fp-1, .fp-3, .fp-5 { left: 30vw; width: 80vw; }
-    .fp-n { left: calc(30vw - 22px); }
+    .fp-n { width: 30px; height: 10px; }
   }
   /* ── Nafureanu action material ─────────────────────────────── */
 
