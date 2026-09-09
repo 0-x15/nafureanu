@@ -162,31 +162,42 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: a plate with layers beneath ──────── */
+  /* ── Nafureanu action system: a plate and its growing stack ───── */
   /* A normal button — the cobalt plate with the label and the arrow —
-     and two offset layers beneath it that slide in and lock under the
-     plate on hover. Secondary is the light plate with graphite layers. */
+     resting on a stack of light sheets: white and the palette's warm
+     greys, each with a hairline so it reads on the ivory. At rest only
+     one sheet shows beneath the plate. On hover the stack grows: a
+     second and a third sheet slide out from under the plate, one after
+     another. On press the whole stack compresses. */
   .action-set {
     position: relative;
     display: inline-flex;
     isolation: isolate;
   }
-  .action-set::before,
-  .action-set::after {
-    content: "";
+  .action__layer {
     position: absolute;
     inset: 0;
     z-index: -1;
     border-radius: 6px;
+    border: 1px solid rgba(25, 28, 41, 0.14);
     pointer-events: none;
-    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition:
+      transform 420ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .action-set::before { transform: translate(5px, 5px); }
-  .action-set::after { transform: translate(10px, 10px); }
-  .action-set:hover::before,
-  .action-set:hover::after,
-  .action-set:focus-within::before,
-  .action-set:focus-within::after { transform: translate(0, 0); }
+  .action__layer-1 { background: #ffffff; transform: translate(4px, 4px); }
+  .action__layer-2 { background: #f1eee6; transform: translate(4px, 4px); opacity: 0; transition-delay: 60ms; }
+  .action__layer-3 { background: #e7e3d8; transform: translate(4px, 4px); opacity: 0; transition-delay: 120ms; }
+  .action-set:hover .action__layer-1,
+  .action-set:focus-within .action__layer-1 { transform: translate(5px, 5px); }
+  .action-set:hover .action__layer-2,
+  .action-set:focus-within .action__layer-2 { transform: translate(10px, 10px); opacity: 1; }
+  .action-set:hover .action__layer-3,
+  .action-set:focus-within .action__layer-3 { transform: translate(15px, 15px); opacity: 1; }
+  .action-set:active .action__layer { transition-duration: 160ms; transition-delay: 0ms; }
+  .action-set:active .action__layer-1 { transform: translate(2px, 2px); }
+  .action-set:active .action__layer-2 { transform: translate(4px, 4px); }
+  .action-set:active .action__layer-3 { transform: translate(6px, 6px); }
   .action {
     position: relative;
     display: inline-flex;
@@ -205,8 +216,8 @@
       border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
       color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .action:hover { transform: translateY(-1px); }
-  .action:active { transform: translateY(0); }
+  .action-set:hover .action { transform: translate(-1px, -1px); }
+  .action-set:active .action { transform: translate(1px, 1px); }
   .action:focus-visible {
     outline: 2px solid hsl(var(--accent));
     outline-offset: 3px;
@@ -221,36 +232,29 @@
       0 10px 28px -14px rgba(49, 87, 246, 0.7),
       inset 0 1px 0 rgba(255, 255, 255, 0.22);
   }
-  .action-primary:hover {
+  .action-set:hover .action-primary {
     box-shadow:
       0 14px 34px -14px rgba(49, 87, 246, 0.78),
       inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
-  /* the layers take the palette's cyan under the cobalt plate */
-  .action-set-primary::before { background: rgba(20, 159, 184, 0.42); }
-  .action-set-primary::after { background: rgba(20, 159, 184, 0.2); }
 
   /* secondary — the light plate */
   .action-secondary {
     color: hsl(var(--foreground));
     background: #fcfbf8;
-    border: 1px solid rgba(20, 30, 50, 0.14);
+    border: 1px solid rgba(20, 30, 50, 0.18);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
-  .action-secondary:hover {
+  .action-set:hover .action-secondary {
     background-color: #eef2fe;
     border-color: rgba(49, 87, 246, 0.4);
     color: hsl(var(--accent-deep));
   }
-  /* and cobalt under the light plate */
-  .action-set-secondary::before { background: rgba(49, 87, 246, 0.24); }
-  .action-set-secondary::after { background: rgba(49, 87, 246, 0.11); }
 
   /* compact contexts (header): the plate alone */
-  .action-set-quiet::before,
-  .action-set-quiet::after { display: none; }
+  .action-set-quiet .action__layer { display: none; }
   .action-set-quiet .action-primary { box-shadow: 0 4px 16px -10px rgba(49, 87, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
-  .action-set-quiet .action-primary:hover { box-shadow: 0 8px 20px -12px rgba(49, 87, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.24); }
+  .action-set-quiet:hover .action-primary { box-shadow: 0 8px 20px -12px rgba(49, 87, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.24); }
 
 }
 

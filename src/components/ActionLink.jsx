@@ -15,8 +15,8 @@ const SIZES = {
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * A plate with the label and the arrow, and two offset layers beneath
- * it that lock under the plate on hover (see .action-set in index.css).
+ * A plate with the label and the arrow on a stack of light sheets: one
+ * shows at rest, two more slide out on hover (see .action-set in index.css).
  * variant: "primary" (cobalt) | "secondary" (light) | "text" (quiet
  * inline action). icon: "upRight" for conversation/external actions,
  * "right" for navigational ones. Renders a router Link, or a <button>
@@ -70,6 +70,9 @@ export default function ActionLink({
 
   return (
     <span className={setCls}>
+      <i aria-hidden="true" className="action__layer action__layer-3" />
+      <i aria-hidden="true" className="action__layer action__layer-2" />
+      <i aria-hidden="true" className="action__layer action__layer-1" />
       {as === "button" ? (
         <button type={type} onClick={onClick} className={cls}>{inner}</button>
       ) : (
