@@ -23,7 +23,7 @@ export default function WorkArchiveHero({ lang, t, projects }) {
   const a = t.archive;
 
   return (
-    <header className="relative overflow-hidden bg-[#EEF2F8] px-5 pb-14 pt-24 md:px-10 md:pb-16 md:pt-24">
+    <header className="relative overflow-hidden bg-[#EEF2F8]/60 px-5 pb-14 pt-24 md:px-10 md:pb-16 md:pt-24">
       {/* atmosphere: a faint cobalt field, a cyan reflection, registration lines and two glass surfaces */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <span className="absolute -right-[10%] -top-[20%] h-[80%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.09),transparent)]" />
@@ -82,7 +82,7 @@ export default function WorkArchiveHero({ lang, t, projects }) {
                       onFocus={() => setActive(i)}
                       aria-current={on ? "true" : undefined}
                       className={cn(
-                        "group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-4 outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#EEF2F8] md:grid-cols-[2.75rem_1fr_auto] md:py-5",
+                        "group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-4 outline-none transition-opacity duration-300 focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#F2F4F6] md:grid-cols-[2.75rem_1fr_auto] md:py-5",
                         on ? "opacity-100" : "opacity-70 hover:opacity-100 lg:opacity-55"
                       )}
                     >

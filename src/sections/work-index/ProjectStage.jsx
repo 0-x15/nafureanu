@@ -14,7 +14,7 @@ import { MONO, Meta, Rule } from "./workBits";
 export default function ProjectStage({ lang, t, entries, viewProject }) {
   const s = t.stage;
   return (
-    <section aria-label={t.kicker} className="relative overflow-hidden bg-[#F6F8FB] px-5 pb-20 pt-10 md:px-10 md:pb-28 md:pt-14">
+    <section aria-label={t.kicker} className="relative overflow-hidden bg-[#F6F8FB]/55 px-5 pb-20 pt-10 md:px-10 md:pb-28 md:pt-14">
       {/* the light behind the row */}
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <span className="absolute left-1/2 top-[38%] h-[70%] w-[64%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.1),transparent)] blur-2xl" />

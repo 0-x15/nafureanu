@@ -16,7 +16,7 @@ import { MONO, Rule } from "./workBits";
 export default function WorkNextSlot({ lang, t, projects }) {
   const n = t.next;
   return (
-    <section aria-labelledby="work-next" className="relative overflow-hidden bg-[#E8EDF8] px-5 py-20 md:px-10 md:py-28">
+    <section aria-labelledby="work-next" className="relative overflow-hidden bg-[#E8EDF8]/65 px-5 py-20 md:px-10 md:py-28">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <span className="absolute -bottom-[30%] left-[30%] h-[90%] w-[60%] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.12),transparent)]" />
         <span className="absolute -right-[8%] top-[10%] h-[24vh] w-[30vw] -rotate-2 rounded-[36px] border border-white/70 bg-white/35 backdrop-blur-[28px]" />
@@ -29,7 +29,7 @@ export default function WorkNextSlot({ lang, t, projects }) {
             <ol className="mt-3 border-t border-foreground/15">
               {projects.map((p, i) => (
                 <li key={p.slug} className="border-b border-foreground/12">
-                  <Link to={langPath(lang, `/work/${projectSlug(p, lang)}`)} className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-3 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#E8EDF8]">
+                  <Link to={langPath(lang, `/work/${projectSlug(p, lang)}`)} className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-3 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#EDF0F8]">
                     <span className={cn(MONO, "text-muted-foreground")}>{String(i + 1).padStart(2, "0")}</span>
                     <span className="font-heading text-[17px] font-bold tracking-[-0.02em] text-foreground/75 transition-colors group-hover:text-foreground md:text-[18px]">{pick(p.title, lang)}</span>
                   </Link>
@@ -37,12 +37,12 @@ export default function WorkNextSlot({ lang, t, projects }) {
               ))}
               {/* 05 — the empty slot */}
               <li className="border-b border-accent/40">
-                <div tabIndex={0} aria-label={n.blank} className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-4 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#E8EDF8]">
+                <div tabIndex={0} aria-label={n.blank} className="group grid grid-cols-[2.5rem_1fr] items-baseline gap-x-4 py-4 outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-[#EDF0F8]">
                   <span className={cn(MONO, "text-accent")}>05</span>
                   <span className="relative block">
                     {/* the blank line */}
                     <span aria-hidden="true" className="relative mt-[0.55em] block h-px w-[52%] bg-foreground/35 transition-[width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:w-full group-focus-visible:w-full">
-                      <span className="absolute -right-px -top-[4px] h-[9px] w-[9px] border border-accent bg-[#E8EDF8] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+                      <span className="absolute -right-px -top-[4px] h-[9px] w-[9px] border border-accent bg-[#EDF0F8] opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
                     </span>
                     {/* the words that could fill it */}
                     <span className="next-words mt-3 flex flex-wrap gap-x-4 gap-y-1">
