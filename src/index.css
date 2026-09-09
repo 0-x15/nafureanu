@@ -162,14 +162,35 @@
     }
     .fp-n { width: 30px; height: 10px; }
   }
-  /* ── Nafureanu action system: laminated sheets ─────────────────── */
-  /* A light plate built like a block of stacked sheets seen edge-on:
-     lines — a fine horizontal lamination runs across the whole body;
-     segments — short pieces stick out of the edges on different rows
-     and slide home on hover; layers — two sheets show under the bottom
-     edge and compress when the button is pressed into place. The label
-     sits on a clearing so it reads clean. Primary is pale cobalt glass,
-     secondary is paper. */
+  /* ── Nafureanu action system: the stacked plates ───────────────── */
+  /* The button is the top plate of a small exploded stack, after the
+     system drawing on the home: a light laminated plate, and behind it
+     three layers stepping down and to the right — two light plates with
+     a hairline outline and a cobalt edge, and the solid cobalt base.
+     On hover the stack compresses under the plate, and the arrow moves.
+     The label sits on a clearing so it reads clean over the lamination. */
+  .action-set {
+    position: relative;
+    display: inline-flex;
+    isolation: isolate;
+  }
+  .action__layer {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: 3px;
+    pointer-events: none;
+    transition: transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .action__layer:nth-child(1) { transform: translate(2px, 5px); }
+  .action__layer:nth-child(2) { transform: translate(4px, 10px); transition-delay: 40ms; }
+  .action__layer:nth-child(3) { transform: translate(6px, 15px); transition-delay: 80ms; }
+  .action-set:hover .action__layer:nth-child(1),
+  .action-set:focus-within .action__layer:nth-child(1) { transform: translate(1px, 2px); }
+  .action-set:hover .action__layer:nth-child(2),
+  .action-set:focus-within .action__layer:nth-child(2) { transform: translate(2px, 4px); }
+  .action-set:hover .action__layer:nth-child(3),
+  .action-set:focus-within .action__layer:nth-child(3) { transform: translate(3px, 6px); }
   .action {
     position: relative;
     isolation: isolate;
@@ -184,10 +205,9 @@
     white-space: nowrap;
     transition:
       transform 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
       border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
       color 300ms cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 420ms cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
   /* the lamination: one hairline every 6px, behind everything */
   .action::before {
@@ -200,28 +220,12 @@
     background-position: 0 3px;
     pointer-events: none;
   }
-  /* the clearing under the label */
   .action__label {
     position: relative;
     padding: 0 0.4rem;
     border-radius: 2px;
     background: var(--action-clear);
   }
-  /* the segments: pieces that stick out of the edges on different rows */
-  .action__seg {
-    position: absolute;
-    height: 4px;
-    background: var(--action-seg);
-    transition:
-      transform 460ms cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 300ms cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .action__seg:nth-child(1) { left: -1px; top: 9px; width: 16px; transform: translateX(-5px); }
-  .action__seg:nth-child(2) { left: -1px; bottom: 11px; width: 10px; transform: translateX(-3px); transition-delay: 40ms; }
-  .action__seg:nth-child(3) { right: -1px; top: 15px; width: 12px; transform: translateX(4px); transition-delay: 80ms; }
-  .action__seg:nth-child(4) { right: -1px; bottom: 9px; width: 18px; transform: translateX(6px); transition-delay: 120ms; }
-  .action:hover .action__seg,
-  .action:focus-visible .action__seg { transform: translateX(0); }
   .action:hover { transform: translateY(-1px); }
   .action:active { transform: translateY(1px); }
   .action:focus-visible {
@@ -229,52 +233,61 @@
     outline-offset: 3px;
   }
 
-  /* primary — pale cobalt glass; the layers below are cobalt sheets */
+  /* primary — pale cobalt glass */
   .action-primary {
     --action-line: rgba(49, 87, 246, 0.16);
     --action-clear: linear-gradient(90deg, rgba(246, 248, 255, 0) 0%, rgba(246, 248, 255, 0.96) 12%, rgba(246, 248, 255, 0.96) 88%, rgba(246, 248, 255, 0) 100%);
-    --action-seg: #3157f6;
     color: hsl(var(--foreground));
     background: #f6f8ff;
     border: 1px solid rgba(49, 87, 246, 0.42);
-    box-shadow:
-      0 3px 0 -1px #dfe6ff,
-      0 6px 0 -2px #edf1ff,
-      0 14px 28px -18px rgba(49, 87, 246, 0.5);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .action-primary:hover {
     color: hsl(var(--accent-deep));
     border-color: rgba(49, 87, 246, 0.72);
-    box-shadow:
-      0 1px 0 -1px #dfe6ff,
-      0 2px 0 -2px #edf1ff,
-      0 16px 30px -18px rgba(49, 87, 246, 0.6);
   }
-  .action-primary:hover .action__seg { background: #2348e8; }
+  /* the layers behind: two light plates with a cobalt edge, then the base */
+  .action-set-primary .action__layer:nth-child(1),
+  .action-set-primary .action__layer:nth-child(2) {
+    background: #f9faff;
+    border: 1px solid rgba(49, 87, 246, 0.3);
+    box-shadow: inset 3px 0 0 rgba(49, 87, 246, 0.85);
+  }
+  .action-set-primary .action__layer:nth-child(2) { box-shadow: inset 3px 0 0 rgba(49, 87, 246, 0.6); }
+  .action-set-primary .action__layer:nth-child(3) {
+    background: #3157f6;
+    box-shadow: 0 14px 28px -16px rgba(49, 87, 246, 0.6);
+  }
 
-  /* secondary — paper; graphite lamination, segments turn cobalt */
+  /* secondary — paper */
   .action-secondary {
     --action-line: rgba(25, 28, 41, 0.11);
     --action-clear: linear-gradient(90deg, rgba(252, 251, 248, 0) 0%, rgba(252, 251, 248, 0.96) 12%, rgba(252, 251, 248, 0.96) 88%, rgba(252, 251, 248, 0) 100%);
-    --action-seg: rgba(25, 28, 41, 0.72);
     color: hsl(var(--foreground));
     background: #fcfbf8;
     border: 1px solid rgba(25, 28, 41, 0.22);
-    box-shadow:
-      0 3px 0 -1px #ebe9e2,
-      0 6px 0 -2px #f3f1ea;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
   .action-secondary:hover {
     border-color: rgba(25, 28, 41, 0.45);
-    box-shadow:
-      0 1px 0 -1px #ebe9e2,
-      0 2px 0 -2px #f3f1ea;
   }
-  .action-secondary:hover .action__seg { background: #3157f6; }
+  .action-set-secondary .action__layer:nth-child(1),
+  .action-set-secondary .action__layer:nth-child(2) {
+    background: #fdfcfa;
+    border: 1px solid rgba(25, 28, 41, 0.2);
+    box-shadow: inset 3px 0 0 rgba(25, 28, 41, 0.6);
+  }
+  .action-set-secondary .action__layer:nth-child(2) { box-shadow: inset 3px 0 0 rgba(25, 28, 41, 0.4); }
+  .action-set-secondary .action__layer:nth-child(3) {
+    background: rgba(49, 87, 246, 0.5);
+    box-shadow: 0 14px 28px -16px rgba(49, 87, 246, 0.4);
+  }
+  .action-set-secondary:hover .action__layer:nth-child(1) { box-shadow: inset 3px 0 0 #3157f6; }
+  .action-set-secondary:hover .action__layer:nth-child(2) { box-shadow: inset 3px 0 0 rgba(49, 87, 246, 0.7); }
+  .action-set-secondary:hover .action__layer:nth-child(3) { background: #3157f6; }
 
-  /* compact contexts (header): the same plate, without the stacked sheets */
-  .action-quiet.action-primary,
-  .action-quiet.action-primary:hover { box-shadow: none; }
+  /* compact contexts (header): the plate alone */
+  .action-set-quiet .action__layer { display: none; }
 
 }
 

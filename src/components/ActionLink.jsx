@@ -16,9 +16,10 @@ const SIZES = {
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * A light plate built like a block of stacked sheets: a fine lamination
- * across the body, pieces sticking out of the edges that slide home on
- * hover, and two layers under the bottom edge (see .action in index.css).
+ * The top plate of a small exploded stack, after the system drawing on
+ * the home: a laminated light plate with three layers stepping down
+ * behind it — two outlined plates with a cobalt edge and the cobalt
+ * base — that compress on hover (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
@@ -59,28 +60,27 @@ export default function ActionLink({
     );
   }
 
-  const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
+  // the wrapper carries the stacked layers and any layout classes; the plate is the link itself
+  const quiet = /\baction-quiet\b/.test(className);
+  const setCls = cn("action-set", variant === "primary" ? "action-set-primary" : "action-set-secondary", quiet && "action-set-quiet", className.replace(/\baction-quiet\b/, ""));
+  const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size]);
   const inner = (
     <>
-      <span aria-hidden="true" className="action__seg" />
-      <span aria-hidden="true" className="action__seg" />
-      <span aria-hidden="true" className="action__seg" />
-      <span aria-hidden="true" className="action__seg" />
       <span className="action__label">{children}</span>
       {arrow}
     </>
   );
 
-  if (as === "button") {
-    return (
-      <button type={type} onClick={onClick} className={cls}>
-        {inner}
-      </button>
-    );
-  }
   return (
-    <Link to={to} className={cls}>
-      {inner}
-    </Link>
+    <span className={setCls}>
+      <span aria-hidden="true" className="action__layer" />
+      <span aria-hidden="true" className="action__layer" />
+      <span aria-hidden="true" className="action__layer" />
+      {as === "button" ? (
+        <button type={type} onClick={onClick} className={cls}>{inner}</button>
+      ) : (
+        <Link to={to} className={cls}>{inner}</Link>
+      )}
+    </span>
   );
 }
