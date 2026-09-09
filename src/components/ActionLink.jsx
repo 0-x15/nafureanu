@@ -9,16 +9,16 @@ const ICONS = {
 
 /* plate padding per size */
 const SIZES = {
-  lg: "px-6 py-3.5",
-  md: "px-5 py-3",
-  sm: "px-4 py-2",
+  lg: "pl-5 pr-6 py-3.5",
+  md: "pl-4 pr-5 py-3",
+  sm: "pl-3.5 pr-4 py-2",
 };
 
 /**
  * The Nafureanu action system — one reusable CTA component.
- * One plate of the system drawing on the home: a glass plate with the
- * technical grid and a cobalt outline, drawn with real thickness in
- * oblique projection, that lifts on hover (see .action in index.css).
+ * One plate of the system drawing on the home: a glass plate with a
+ * cobalt outline and real thickness in oblique projection, the label
+ * called out by a dashed leader, lifting on hover (see .action in index.css).
  * variant: "primary" (cobalt) | "secondary" (light glass) | "text"
  * (quiet inline action). icon: "upRight" for conversation/external
  * actions, "right" for navigational ones. Renders a router Link, or a
@@ -62,6 +62,7 @@ export default function ActionLink({
   const cls = cn("action group", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size], className);
   const inner = (
     <>
+      <span aria-hidden="true" className="action__lead" />
       <span className="action__label">{children}</span>
       {arrow}
     </>

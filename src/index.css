@@ -164,14 +164,14 @@
   }
   /* ── Nafureanu action system: the engineering plate ───────────── */
   /* The button is one plate of the system drawing on the home: a glass
-     plate with the fine technical grid and a cobalt outline, drawn with
+     plate with a cobalt outline and a soft diagonal sheen, drawn with
      real thickness in oblique projection — a bottom face and a right
-     face, the cobalt edges of the drawing. The label sits on a clearing
-     over the grid. On hover the plate lifts off its base, as the layers
-     do when the drawing explodes, and the arrow moves. Primary has
-     cobalt faces, secondary graphite faces that turn cobalt. */
+     face, the cobalt edges of the drawing. Inside, the label is called
+     out by a dashed leader with its dot, like the callouts of the
+     drawing; on hover the leader flows towards the label and the plate
+     lifts off its base, as the layers do when the drawing explodes.
+     Primary has cobalt faces, secondary graphite faces that turn cobalt. */
   .action {
-    --depth: 4px;
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -182,18 +182,14 @@
     line-height: 1.25rem;
     letter-spacing: -0.005em;
     white-space: nowrap;
-    background-color: rgba(255, 255, 255, 0.86);
-    background-image:
-      linear-gradient(var(--action-grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--action-grid) 1px, transparent 1px);
-    background-size: 8px 8px;
-    background-position: -1px -1px;
+    background: var(--action-sheen);
     transition:
       transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
       border-color 300ms cubic-bezier(0.22, 1, 0.36, 1),
       color 300ms cubic-bezier(0.22, 1, 0.36, 1);
   }
-  /* the thickness: a bottom face and a right face, in oblique projection */
+  /* the thickness: a bottom face and a right face in oblique projection,
+     each a lamination of three thin layers with air between them */
   .action::before,
   .action::after {
     content: "";
@@ -212,7 +208,7 @@
     height: var(--depth);
     transform-origin: top left;
     transform: skewX(45deg);
-    background: var(--action-face-b);
+    background: linear-gradient(180deg, var(--action-l1) 0 20%, transparent 20% 40%, var(--action-l2) 40% 60%, transparent 60% 80%, var(--action-l3) 80% 100%);
   }
   .action::after {
     top: 0;
@@ -221,21 +217,45 @@
     width: var(--depth);
     transform-origin: top left;
     transform: skewY(45deg);
-    background: var(--action-face-r);
+    background: linear-gradient(90deg, var(--action-l1) 0 20%, transparent 20% 40%, var(--action-l2) 40% 60%, transparent 60% 80%, var(--action-l3) 80% 100%);
+  }
+  /* the callout: a dashed leader and its dot, before the label */
+  .action__lead {
+    flex: none;
+    position: relative;
+    width: 18px;
+    height: 1px;
+    background-image: repeating-linear-gradient(90deg, var(--action-lead) 0 3px, transparent 3px 6px);
+    background-size: 24px 1px;
+  }
+  .action__lead::after {
+    content: "";
+    position: absolute;
+    right: -2px;
+    top: -2px;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--action-lead);
+    transition: transform 300ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .action:hover .action__lead,
+  .action:focus-visible .action__lead { animation: action-lead-flow 700ms linear infinite; }
+  .action:hover .action__lead::after { transform: scale(1.35); }
+  @keyframes action-lead-flow {
+    from { background-position: 0 0; }
+    to { background-position: 6px 0; }
   }
   .action__label {
     position: relative;
-    padding: 0 0.35rem;
-    border-radius: 2px;
-    background: var(--action-clear);
   }
   .action:hover,
   .action:focus-visible {
-    --depth: 7px;
+    --depth: 9px;
     transform: translate(-2px, -2px);
   }
   .action:active {
-    --depth: 2px;
+    --depth: 3px;
     transform: translate(1px, 1px);
   }
   .action:focus-visible {
@@ -245,10 +265,11 @@
 
   /* primary — cobalt outline and faces */
   .action-primary {
-    --action-grid: rgba(49, 87, 246, 0.16);
-    --action-clear: rgba(255, 255, 255, 0.92);
-    --action-face-b: #3157f6;
-    --action-face-r: #2348e8;
+    --action-sheen: linear-gradient(135deg, #ffffff 0%, #f4f6ff 55%, #e9eeff 100%);
+    --action-lead: #3157f6;
+    --action-l1: #3157f6;
+    --action-l2: rgba(49, 87, 246, 0.72);
+    --action-l3: rgba(49, 87, 246, 0.45);
     color: hsl(var(--foreground));
     border: 1px solid rgba(49, 87, 246, 0.7);
   }
@@ -256,23 +277,26 @@
 
   /* secondary — graphite outline, faces that turn cobalt */
   .action-secondary {
-    --action-grid: rgba(25, 28, 41, 0.1);
-    --action-clear: rgba(252, 251, 248, 0.94);
-    --action-face-b: #d9dce6;
-    --action-face-r: #c5c9d6;
+    --action-sheen: linear-gradient(135deg, #fdfcfa 0%, #f8f6f1 60%, #f1efe8 100%);
+    --action-lead: rgba(25, 28, 41, 0.7);
+    --action-l1: rgba(25, 28, 41, 0.55);
+    --action-l2: rgba(25, 28, 41, 0.38);
+    --action-l3: rgba(25, 28, 41, 0.22);
     color: hsl(var(--foreground));
-    background-color: rgba(252, 251, 248, 0.92);
     border: 1px solid rgba(25, 28, 41, 0.28);
   }
   .action-secondary:hover {
-    --action-face-b: #3157f6;
-    --action-face-r: #2348e8;
+    --action-lead: #3157f6;
+    --action-l1: #3157f6;
+    --action-l2: rgba(49, 87, 246, 0.72);
+    --action-l3: rgba(49, 87, 246, 0.45);
     border-color: rgba(25, 28, 41, 0.5);
   }
 
   /* compact contexts (header): a thinner plate */
-  .action-quiet { --depth: 3px; }
-  .action-quiet:hover { --depth: 5px; }
+  .action { --depth: 5px; }
+  .action-quiet { --depth: 5px; }
+  .action-quiet:hover { --depth: 7px; }
 
 }
 
