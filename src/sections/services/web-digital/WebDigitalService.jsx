@@ -40,7 +40,7 @@ export default function WebDigitalService({ lang = "es" }) {
   }, []);
 
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <WebCanvasHero lang={lang} c={c} />
       <StructureAct c={c} />
       <DirectionStudio c={c} dir={dir} setDir={setDir} />

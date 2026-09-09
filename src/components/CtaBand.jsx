@@ -14,7 +14,7 @@ export default function CtaBand({
   button,
 }) {
   return (
-    <section className="bg-background px-5 py-20 md:px-10 md:py-28">
+    <section className="px-5 py-20 md:px-10 md:py-28">
       <div className="relative mx-auto max-w-[1440px] overflow-hidden rounded-2xl bg-[#0B1220] px-6 py-16 text-center md:px-10 md:py-24">
         <div
           aria-hidden="true"

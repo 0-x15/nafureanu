@@ -6,7 +6,7 @@ export const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
 export const KICKER = "text-xs font-medium uppercase tracking-[0.22em] text-accent";
 
 const ACTS = {
-  page: "bg-background",
+  page: "",
   white: "bg-white",
   studio: "bg-[#F7F8FB] [background-image:linear-gradient(rgba(15,23,42,0.035)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.035)_1px,transparent_1px)] [background-size:48px_48px]",
   proof: "bg-[#F2F5FA]",

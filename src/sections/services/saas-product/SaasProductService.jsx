@@ -27,7 +27,7 @@ export default function SaasProductService({ lang = "es" }) {
   const c = STRINGS[lang].saasProductService;
   const paths = { fivo: workPath(lang, "fivo"), lifeAdmin: workPath(lang, "life-admin"), web: workPath(lang, "web-projects") };
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <ProductProgress items={c.progress.items} map={PROGRESS} label={c.progress.label} />
       <ProductHero lang={lang} c={c} proofPath="#sp-proof" />
       <ProductDefinition c={c} />

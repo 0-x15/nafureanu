@@ -41,7 +41,7 @@ export default function CaseStudy({ lang = "es" }) {
 
   if (!project || !c) {
     return (
-      <div className="bg-background px-5 pb-24 pt-40 md:px-10">
+      <div className="px-5 pb-24 pt-40 md:px-10">
         <p className="text-sm text-muted-foreground">{cs.notFound}</p>
         <Link
           to={langPath(lang, "/work")}
@@ -84,7 +84,7 @@ export default function CaseStudy({ lang = "es" }) {
   const diagramTitle = project.diagram ? pick(project.diagram.title, lang) : "";
 
   return (
-    <article className="bg-background">
+    <article>
       <div className="px-5 pt-24 md:px-10 md:pt-28">
         <div className="mx-auto max-w-[1440px]">
           <BackToProjects lang={lang} />

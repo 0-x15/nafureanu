@@ -9,7 +9,7 @@ export default function ProcessStrip({ lang = "es", kicker, title }) {
   const steps = STRINGS[lang].process;
 
   return (
-    <section className="bg-background px-5 py-20 md:px-10 md:py-32" aria-labelledby="process-heading">
+    <section className="px-5 py-20 md:px-10 md:py-32" aria-labelledby="process-heading">
       <div className="mx-auto max-w-[1440px]">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
           {kicker}

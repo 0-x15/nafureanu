@@ -2,7 +2,7 @@ import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 
 /** Shared pieces of the service pages: chapters, heads, surfaces and small type. */
-const TONES = { page: "bg-background", white: "bg-white", blue: "bg-[#F2F5FA]" };
+const TONES = { page: "", white: "bg-white", blue: "bg-[#F2F5FA]" };
 
 export const KICKER = "text-xs font-medium uppercase tracking-[0.22em] text-accent";
 export const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";

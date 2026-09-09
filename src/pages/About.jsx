@@ -26,7 +26,7 @@ export default function About({ lang = "es" }) {
     alternatePath: langPath(otherLang(lang), "/about"),
   });
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <StudioHero a={a} />
       <StudioModel a={a} />
       <DecisionStandard a={a} />

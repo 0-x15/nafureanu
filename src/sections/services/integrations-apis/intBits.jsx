@@ -6,7 +6,7 @@ export const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
 export const KICKER = "text-xs font-medium uppercase tracking-[0.22em] text-accent";
 
 const ACTS = {
-  page: "bg-background",
+  page: "",
   white: "bg-white",
   ledger: "bg-white [background-image:repeating-linear-gradient(180deg,transparent_0,transparent_39px,rgba(15,23,42,0.045)_39px,rgba(15,23,42,0.045)_40px)]",
   lab: "bg-[#F3F4F7]",

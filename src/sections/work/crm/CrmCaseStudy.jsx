@@ -19,7 +19,7 @@ export default function CrmCaseStudy({ lang = "es" }) {
   const c = STRINGS[lang].crm;
 
   return (
-    <article className="bg-background">
+    <article>
       <div className="px-5 pt-24 md:px-10 md:pt-28">
         <div className="mx-auto max-w-[1440px]">
           <BackToProjects lang={lang} />

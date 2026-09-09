@@ -18,7 +18,7 @@ export default function Services({ lang = "es" }) {
 
   return (
     <>
-      <header className="bg-background px-5 pt-36 md:px-10 md:pt-48">
+      <header className="px-5 pt-36 md:px-10 md:pt-48">
         <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
           {sp.kicker}
         </p>

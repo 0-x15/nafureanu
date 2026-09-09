@@ -44,7 +44,7 @@ export default function BusinessSystemsService({ lang = "es", service }) {
   const casePath = workPath(lang, service.project);
   const lifeAdminPath = workPath(lang, "life-admin");
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <BsHero lang={lang} c={c} proofPath={proofPath} />
       <ServiceNav items={c.nav.items} label={c.nav.label} />
       <BsFit c={c} />

@@ -47,7 +47,7 @@ export default function AiAutomationService({ lang = "es" }) {
   const self = SERVICES.find((s) => s.id === "ai-automation");
   const proofPath = `${self ? servicePath(self, lang) : langPath(lang, "/services")}#ai-proof`;
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <AiHero lang={lang} c={c} proofPath={proofPath} />
       <ServiceNav items={c.nav.items} label={c.nav.label} />
       <AiFit c={c} />

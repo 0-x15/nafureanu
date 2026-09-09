@@ -13,7 +13,7 @@ export default function StudioCta({ lang, a }) {
   const t = a.cta;
   const st = a.hero.axis.stations;
   return (
-    <section aria-labelledby="studio-cta-title" className="border-t border-foreground/12 bg-background px-5 py-20 md:px-10 md:py-28">
+    <section aria-labelledby="studio-cta-title" className="border-t border-foreground/12 px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-[1440px]">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-end lg:gap-8">
           <div className="lg:col-span-7">

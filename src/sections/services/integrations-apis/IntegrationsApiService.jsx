@@ -29,7 +29,7 @@ export default function IntegrationsApiService({ lang = "es" }) {
   const c = STRINGS[lang].integrationsApiService;
   const paths = { fivo: workPath(lang, "fivo"), crm: workPath(lang, "crm-inmobiliario") };
   return (
-    <article id="in-article" className="bg-background pt-24 md:pt-28">
+    <article id="in-article" className="pt-24 md:pt-28">
       <TraceSpine c={c.spine} map={SPINE} articleId="in-article" />
       <IntegrationHero lang={lang} c={c} proofPath="#in-proof" />
       <HumanBridge c={c} />

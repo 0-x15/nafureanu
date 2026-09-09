@@ -38,7 +38,7 @@ export default function CrmRealEstateService({ lang = "es", service }) {
   const project = PROJECTS.find((p) => p.slug === service.project);
   const proofPath = langPath(lang, `/work/${project ? projectSlug(project, lang) : service.project}`);
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <CrmServiceHero lang={lang} c={c} proofPath={proofPath} />
       <CrmServiceNav items={c.nav.items} label={c.nav.label} />
       <CrmServiceOperation c={c} />

@@ -13,7 +13,7 @@ export const DISPLAY = "font-[Fraunces,Georgia,serif]";
 export const INK = "#201F1D";
 
 const TONES = {
-  page: "bg-background",
+  page: "",
   paper: "bg-[#F9F8F4]",
   sand: "bg-[#F1EEE9]",
   white: "bg-white",

@@ -39,7 +39,7 @@ export default function CustomSoftwareService({ lang = "es" }) {
   const c = STRINGS[lang].customSoftwareService;
   const paths = { crm: workPath(lang, "crm-inmobiliario"), lifeAdmin: workPath(lang, "life-admin"), fivo: workPath(lang, "fivo") };
   return (
-    <article className="bg-background pt-24 md:pt-28">
+    <article className="pt-24 md:pt-28">
       <CsHero lang={lang} c={c} proofPath={langPath(lang, "/work")} />
       <ServiceNav items={c.nav.items} label={c.nav.label} />
       <CsDecide c={c} />

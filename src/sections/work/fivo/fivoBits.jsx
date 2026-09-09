@@ -10,7 +10,7 @@ import { cn } from "@/lib/utils";
  */
 
 const TONES = {
-  page: "bg-background",
+  page: "",
   white: "bg-white",
   blue: "bg-[#F2F5FA]",
   tint: "bg-[#EEF3FF]",
