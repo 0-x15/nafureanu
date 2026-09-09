@@ -1,0 +1,129 @@
+/* The server room of the /work hero. Plain CSS (not a Tailwind layer) so nothing is purged. */
+
+.wk-rack {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(25, 28, 41, 0.32);
+  background: linear-gradient(180deg, #ECEAE3 0%, #DFDDD5 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), inset 0 -1px 0 rgba(25, 28, 41, 0.12);
+}
+.wk-door {
+  position: absolute;
+  inset: 22px 7px 12px 7px;
+  background-color: #1B1F2C;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.11) 0.6px, transparent 0.9px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0 1px, transparent 1px 9px),
+    linear-gradient(180deg, #232838 0%, #191D29 100%);
+  background-size: 4px 4px, 100% 9px, 100% 100%;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.55), inset 0 0 24px rgba(0, 0, 0, 0.35);
+}
+.wk-rail {
+  position: absolute;
+  top: 24px;
+  bottom: 14px;
+  width: 2px;
+  background: rgba(255, 255, 255, 0.35);
+}
+.wk-mod {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  height: 14px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, #3A3F4E 0%, #2B3040 55%, #242938 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 1px 0 rgba(0, 0, 0, 0.5);
+}
+.wk-mod::before {
+  /* the drive bays: a row of thin slots */
+  content: "";
+  position: absolute;
+  inset: 4px 26px 4px 12px;
+  background: repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.42) 0 4px, transparent 4px 6px);
+  border-radius: 1px;
+}
+.wk-led {
+  position: absolute;
+  top: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 1px;
+  animation: wk-led var(--d, 3s) ease-in-out var(--o, 0s) infinite;
+}
+.wk-led-a { left: 3px; background: #17B4CD; box-shadow: 0 0 8px 1px rgba(23, 180, 205, 0.95); }
+.wk-led-b { right: 18px; background: #3157F6; box-shadow: 0 0 8px 1px rgba(49, 87, 246, 0.95); }
+.wk-led-c { right: 7px; background: #E9EEFF; box-shadow: 0 0 6px 1px rgba(233, 238, 255, 0.85); animation-duration: 1.6s; }
+.wk-plate {
+  position: absolute;
+  top: 6px;
+  left: 8px;
+  right: 8px;
+  height: 11px;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(25, 28, 41, 0.18);
+  background: #F6F4EE;
+  padding: 0 4px;
+  font-family: ui-monospace, "JetBrains Mono", Menlo, monospace;
+  font-size: 6px;
+  letter-spacing: 0.12em;
+  color: rgba(25, 28, 41, 0.7);
+}
+.wk-plate i {
+  margin-left: auto;
+  width: 3px;
+  height: 3px;
+  background: #3157F6;
+  animation: wk-led 2.4s ease-in-out infinite;
+}
+.wk-floor {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, rgba(25, 28, 41, 0.22) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(25, 28, 41, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(180deg, #E7E5DE 0%, #DAD8D0 100%);
+  background-size: 60px 60px, 60px 60px, 60px 60px, 60px 60px, 100% 100%;
+  background-position: 0 0, 0 0, 1px 1px, 1px 1px, 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.9) 35%, transparent 80%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.9) 35%, transparent 80%);
+}
+.wk-ceiling {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, transparent 27%, #FFFFFF 27%, #FFFFFF 30%, transparent 30%, transparent 70%, #FFFFFF 70%, #FFFFFF 73%, transparent 73%),
+    linear-gradient(90deg, transparent 45.5%, rgba(25, 28, 41, 0.2) 45.5%, rgba(25, 28, 41, 0.2) 46.5%, transparent 46.5%, transparent 53.5%, rgba(25, 28, 41, 0.2) 53.5%, rgba(25, 28, 41, 0.2) 54.5%, transparent 54.5%),
+    repeating-linear-gradient(0deg, rgba(25, 28, 41, 0.12) 0 1px, transparent 1px 90px),
+    linear-gradient(180deg, #C6C5BE 0%, #D6D4CD 100%);
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.85) 40%, transparent 85%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.85) 40%, transparent 85%);
+}
+.wk-ceiling::after {
+  /* the glow of the light strips on the ceiling */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(90deg, transparent 22%, rgba(120, 170, 255, 0.28) 28.5%, transparent 35%, transparent 65%, rgba(120, 170, 255, 0.28) 71.5%, transparent 78%);
+  filter: blur(6px);
+}
+.wk-glow {
+  animation: wk-breathe 7s ease-in-out infinite;
+}
+.wk-haze {
+  animation: wk-breathe 9s ease-in-out 2s infinite;
+}
+@keyframes wk-led {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+@keyframes wk-breathe {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .wk-led, .wk-plate i, .wk-glow, .wk-haze { animation: none; }
+}

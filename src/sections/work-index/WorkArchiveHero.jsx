@@ -3,91 +3,92 @@ import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTran
 import { cn } from "@/lib/utils";
 import BackToHome from "@/components/work/BackToHome";
 import { EASE, MONO } from "./workBits";
+import "./workHero.css";
 
 /**
- * Act 01 — the entrance of the exhibition. Metadata along the top
+ * Act 01 — the entrance of the machine room. Metadata along the top
  * edge, the statement with its last word in cobalt, one sentence and
- * the line of state on the left; on the right the hall itself, seen
- * from its door: a floor
- * drawn in perspective, two walls of exhibition panels converging on a
- * light at the far end. The panels are solid, paper-white slabs with
- * real thickness, each divided into three segments — a header with a
- * cobalt mark, a body of rules, a footer of slots — mirrored faintly in
- * the floor. They rise one after another on entry and their marks
- * light up in sequence; the camera leans with the pointer and
- * scrolling walks you in, towards the pieces shown below. Nothing
- * hangs on them: the work is shown in the cards.
+ * the line of state on the left; on the right, a corridor of a modern
+ * server room seen from its door: two rows of racks converging on a
+ * cool light at the far end, a raised technical floor that mirrors
+ * them, a ceiling with two light strips and cable trays, and inside
+ * each rack a dark perforated door with modules whose LEDs blink at
+ * their own pace. The racks rise one after another on entry, the
+ * camera leans with the pointer and scrolling walks you in, towards
+ * the systems shown below in the cards. The scene is plain DOM/CSS:
+ * one 3D transform per rack, gradients for every material.
  */
-const DEPTHS = [60, -220, -500, -780, -1060, -1340];
+const RACK_Z = [40, -110, -260, -410, -560, -710, -860];
+const MODULES = [
+  { top: 8, d: 3.1, o: 0 },
+  { top: 27, d: 2.3, o: 0.7 },
+  { top: 46, d: 4.2, o: 1.4 },
+  { top: 65, d: 2.8, o: 0.3 },
+  { top: 84, d: 3.6, o: 1.1 },
+];
 
-function Panel({ side, z, i, reduced }) {
+function Rack({ side, z, i, reduced }) {
   const left = side === "l";
+  const label = `${left ? "A" : "B"}-${String(i + 1).padStart(2, "0")}`;
   return (
     <motion.div
-      initial={reduced ? false : { opacity: 0, y: 40 }}
+      initial={reduced ? false : { opacity: 0, y: 36 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.3 + i * 0.12, ease: EASE }}
-      style={{ z: left ? z : z - 200, rotateY: left ? 90 : -90, transformOrigin: "left center" }}
-      className={cn("absolute bottom-[26%] h-[320px] w-[200px] [transform-style:preserve-3d]", left ? "left-[8%]" : "left-[92%]")}
+      transition={{ duration: 1, delay: 0.25 + i * 0.1, ease: EASE }}
+      style={{ z: left ? z : z - 120, rotateY: left ? 78 : -78, transformOrigin: "left center" }}
+      className={cn("absolute bottom-[24%] h-[260px] w-[120px] [transform-style:preserve-3d]", left ? "left-[7%]" : "left-[93%]")}
     >
-      {/* the face: three segments */}
-      <div className="absolute inset-0 border border-foreground/15 bg-[#FCFBF8] shadow-[inset_0_1px_0_#fff,0_40px_70px_-40px_rgba(25,28,41,0.3)]">
-        <div className={cn("absolute inset-x-0 top-0 h-[24%] border-b border-foreground/12 bg-[#F3F0E9]", left ? "text-left" : "text-right")}>
-          <motion.span
-            initial={reduced ? false : { backgroundColor: "rgba(49,87,246,0)" }}
-            animate={{ backgroundColor: "rgba(49,87,246,1)" }}
-            transition={{ duration: reduced ? 0 : 0.35, delay: reduced ? 0 : 1.3 + i * 0.16 }}
-            className={cn("absolute top-5 h-[8px] w-12 border border-accent", left ? "left-5" : "right-5")}
-          />
-          <span className={cn("absolute bottom-5 h-px w-[40%] bg-foreground/25", left ? "left-5" : "right-5")} />
-        </div>
-        <div className="absolute inset-x-0 top-[24%] h-[50%] border-b border-foreground/12">
-          <span className={cn("absolute top-[22%] h-[6px] w-[62%] bg-foreground/[0.08]", left ? "left-5" : "right-5")} />
-          <span className={cn("absolute top-[40%] h-[6px] w-[48%] bg-foreground/[0.08]", left ? "left-5" : "right-5")} />
-          <span className={cn("absolute top-[58%] h-[6px] w-[70%] bg-foreground/[0.08]", left ? "left-5" : "right-5")} />
-          <span className={cn("absolute top-[76%] h-[6px] w-[36%] bg-accent/25", left ? "left-5" : "right-5")} />
-        </div>
-        <div className="absolute inset-x-0 bottom-0 h-[26%] bg-[#F7F5EF]">
-          <span className={cn("absolute top-5 grid grid-cols-4 gap-1.5", left ? "left-5" : "right-5")}>
-            <i className="h-[10px] w-[10px] border border-foreground/25 bg-white" />
-            <i className="h-[10px] w-[10px] border border-foreground/25 bg-white" />
-            <i className="h-[10px] w-[10px] border border-foreground/25 bg-white" />
-            <i className="h-[10px] w-[10px] border border-accent/60 bg-accent/15" />
-          </span>
-          <span className={cn("absolute bottom-5 h-px w-[52%] bg-foreground/20", left ? "left-5" : "right-5")} />
+      {/* the cabinet and its door */}
+      <div className="wk-rack">
+        <div className="wk-plate"><span>{label}</span><i /></div>
+        <div className="wk-door">
+          <span className="wk-rail" style={{ left: 3 }} />
+          <span className="wk-rail" style={{ right: 3 }} />
+          {MODULES.map((m, k) => (
+            <span key={k} className="wk-mod" style={/** @type {any} */ ({ top: `${m.top}%`, "--d": `${m.d + (i % 3) * 0.4}s`, "--o": `${m.o + i * 0.17}s` })}>
+              <i className="wk-led wk-led-a" />
+              <i className="wk-led wk-led-b" />
+              {(k + i) % 2 === 0 && <i className="wk-led wk-led-c" />}
+            </span>
+          ))}
         </div>
       </div>
-      {/* the thickness of the slab, on the end that faces the door */}
-      <div
-        aria-hidden="true"
-        className={cn("absolute top-0 h-full w-[14px] border-y border-foreground/15 bg-[#ECE9E0]", left ? "left-0 origin-left [transform:rotateY(-90deg)]" : "right-0 origin-right [transform:rotateY(90deg)]")}
-      />
+      {/* the depth of the cabinet, on the end that faces the door */}
+      <div aria-hidden="true" className={cn("absolute top-0 h-full w-[16px] border-y border-foreground/25 bg-[linear-gradient(180deg,#D3D1C9,#C2C0B8)]", left ? "left-0 origin-left [transform:rotateY(-90deg)]" : "right-0 origin-right [transform:rotateY(90deg)]")} />
       {/* the reflection in the floor */}
-      <div aria-hidden="true" className="absolute inset-x-0 top-full h-[50%] origin-top border-x border-foreground/10 bg-[linear-gradient(to_bottom,rgba(252,251,248,0.9),rgba(252,251,248,0))] opacity-40 [transform:scaleY(-1)]" />
+      <div aria-hidden="true" className="absolute inset-x-0 top-full h-[70%] origin-top opacity-[0.32] [mask-image:linear-gradient(to_top,transparent_10%,rgba(0,0,0,0.9))] [transform:scaleY(-1)]">
+        <div className="wk-rack"><div className="wk-door" /></div>
+      </div>
     </motion.div>
   );
 }
 
 function Hall({ reduced, rx, ry, walk }) {
   return (
-    <div className="relative mx-auto h-[205px] w-[346px] sm:h-[342px] sm:w-[576px] md:h-[380px] md:w-[640px] lg:ml-auto lg:mr-0 lg:h-[274px] lg:w-[461px] xl:h-[354px] xl:w-[595px] min-[1440px]:h-[380px] min-[1440px]:w-[640px]">
-      {/* the scene is drawn at one size and scaled to the column */}
-      <div className="absolute left-0 top-0 h-[460px] w-[640px] origin-top-left scale-[0.54] sm:scale-[0.9] md:scale-100 lg:scale-[0.72] xl:scale-[0.93] min-[1440px]:scale-100" style={{ perspective: "1000px", perspectiveOrigin: "50% 40%" }}>
+    <div className="relative mx-auto h-[225px] w-full [mask-composite:intersect] [mask-image:linear-gradient(to_bottom,transparent,#000_14%,#000_90%,transparent),linear-gradient(to_right,transparent,#000_8%,#000_92%,transparent)] [-webkit-mask-composite:source-in] sm:h-[335px] md:h-[380px] lg:ml-auto lg:mr-0 lg:h-[274px] lg:w-[461px] xl:h-[354px] xl:w-[595px] min-[1440px]:h-[380px] min-[1440px]:w-[640px]">
+      {/* the scene is drawn at one size, centred and scaled to its box */}
+      <div className="absolute left-1/2 top-0 h-[460px] w-[640px] origin-top -translate-x-1/2 scale-[0.6] sm:scale-[0.9] md:scale-100 lg:scale-[0.72] xl:scale-[0.93] min-[1440px]:scale-100" style={{ perspective: "1000px", perspectiveOrigin: "50% 42%" }}>
         <motion.div style={reduced ? undefined : { rotateX: rx, rotateY: ry, z: walk }} className="absolute inset-0 [transform-style:preserve-3d]">
-          {/* the floor, receding from the door to the far end */}
-          <div aria-hidden="true" className="absolute inset-x-[-10%] top-[74%] h-[1600px] origin-top [transform:rotateX(-90deg)]">
-            <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(27,31,42,0.22)_1px,transparent_1px),linear-gradient(0deg,rgba(27,31,42,0.22)_1px,transparent_1px)] bg-[size:120px_120px] [mask-image:linear-gradient(to_bottom,rgba(0,0,0,0.95),transparent_78%)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(40%_30%_at_50%_70%,rgba(49,87,246,0.18),transparent)]" />
+          {/* the raised floor, receding from the door to the far end */}
+          <div aria-hidden="true" className="absolute inset-x-[-10%] top-[76%] h-[1600px] origin-top [transform:rotateX(-90deg)]">
+            <div className="wk-floor" />
+            <div className="absolute inset-0 bg-[radial-gradient(38%_26%_at_50%_62%,rgba(23,180,205,0.22),transparent)]" />
           </div>
-          {/* the light at the far end */}
-          <div aria-hidden="true" className="absolute left-1/2 top-[40%] h-[520px] w-[520px] rounded-full bg-[radial-gradient(closest-side,rgba(49,87,246,0.24),rgba(23,180,205,0.08)_55%,transparent)] blur-2xl" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
+          {/* the ceiling: light strips and cable trays */}
+          <div aria-hidden="true" className="absolute inset-x-[-10%] top-[13%] h-[1600px] origin-top [transform:rotateX(-90deg)]">
+            <div className="wk-ceiling" />
+          </div>
+          {/* the far end: a lit doorway, its glow and the haze in front of it */}
+          <div aria-hidden="true" className="absolute left-1/2 top-[42%] h-[300px] w-[250px] border border-white/80 bg-[linear-gradient(180deg,rgba(255,255,255,0.95),rgba(23,180,205,0.35)_60%,rgba(49,87,246,0.35))] shadow-[0_0_80px_20px_rgba(23,180,205,0.35)]" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
+          <div aria-hidden="true" className="wk-glow absolute left-1/2 top-[42%] h-[560px] w-[560px] rounded-full bg-[radial-gradient(closest-side,rgba(23,180,205,0.3),rgba(49,87,246,0.14)_45%,transparent)] blur-2xl" style={{ transform: "translate(-50%,-50%) translateZ(-1500px)" }} />
+          <div aria-hidden="true" className="wk-haze absolute left-1/2 top-[44%] h-[420px] w-[900px] bg-[radial-gradient(closest-side,rgba(249,247,240,0.8),transparent)] blur-xl" style={{ transform: "translate(-50%,-50%) translateZ(-900px)" }} />
 
-          {/* the two walls */}
-          {DEPTHS.map((z, i) => (
-            <Panel key={`l${i}`} side="l" z={z} i={i} reduced={reduced} />
+          {/* the two rows of racks */}
+          {RACK_Z.map((z, i) => (
+            <Rack key={`l${i}`} side="l" z={z} i={i} reduced={reduced} />
           ))}
-          {DEPTHS.map((z, i) => (
-            <Panel key={`r${i}`} side="r" z={z} i={i} reduced={reduced} />
+          {RACK_Z.map((z, i) => (
+            <Rack key={`r${i}`} side="r" z={z} i={i} reduced={reduced} />
           ))}
         </motion.div>
       </div>
