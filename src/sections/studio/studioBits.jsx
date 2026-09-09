@@ -9,11 +9,11 @@ export const H2 = "font-heading text-[clamp(1.6rem,2.6vw,2.5rem)] font-bold lead
 export const STATEMENT = "font-heading text-[clamp(1.5rem,2.4vw,2.3rem)] font-semibold leading-[1.15] tracking-[-0.025em] [text-wrap:balance]";
 
 /** The act index: a mono coordinate, no rule attached. */
-export function Index({ children, meta = undefined, tone = "accent", className = "" }) {
+export function Index({ children, meta = undefined, className = "" }) {
   return (
     <div className={cn("flex items-baseline justify-between gap-6", className)}>
-      <p className={cn(MONO, tone === "light" ? "text-[#8FB3FF]" : "text-accent")}>{children}</p>
-      {meta && <p className={cn(MONO, tone === "light" ? "text-white/45" : "text-muted-foreground", "hidden sm:block")}>{meta}</p>}
+      <p className={cn(MONO, "text-accent")}>{children}</p>
+      {meta && <p className={cn(MONO, "hidden text-muted-foreground sm:block")}>{meta}</p>}
     </div>
   );
 }

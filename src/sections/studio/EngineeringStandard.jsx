@@ -3,9 +3,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { H2, Index, MONO } from "./studioBits";
 
-const INK = "#8FB3FF";
-const DIM = "rgba(255,255,255,0.28)";
-const FAINT = "rgba(255,255,255,0.14)";
+const INK = "#2563EB";
+const DIM = "rgba(27,31,42,0.5)";
+const FAINT = "rgba(27,31,42,0.16)";
 
 /**
  * The system cross-section: one technical drawing on graphite. Each
@@ -38,18 +38,18 @@ function SystemSection({ d, active, reduced }) {
       {/* modules (understandable) */}
       <motion.g animate={{ opacity: show("understandable") ? 1 : 0.22 }} transition={t}>
         {[220, 310, 400].map((x) => <line key={x} x1={x} y1="52" x2={x} y2="272" stroke={show("understandable") ? INK : FAINT} />)}
-        {["A", "B", "C", "D"].map((m, i) => <g key={m}>{label(148 + i * 90, 106, m, { fill: show("understandable") ? "#ffffff" : DIM, size: 11 })}</g>)}
+        {["A", "B", "C", "D"].map((m, i) => <g key={m}>{label(148 + i * 90, 106, m, { fill: show("understandable") ? "#1B1F2A" : DIM, size: 11 })}</g>)}
         {show("understandable") && label(138, 290, d.marks.modules, { fill: INK })}
       </motion.g>
       {/* tests (testable) */}
       <motion.g animate={{ opacity: show("testable") ? 1 : 0 }} transition={t}>
-        <rect x="131" y="113" width="358" height="94" fill="rgba(143,179,255,0.08)" />
+        <rect x="131" y="113" width="358" height="94" fill="rgba(37,99,235,0.07)" />
         {[0, 1, 2, 3].map((i) => <text key={i} x={190 + i * 90} y="184" fontFamily="JetBrains Mono, monospace" fontSize="14" fill={INK} textAnchor="middle">✓</text>)}
         {label(138, 200, d.marks.tests, { fill: INK })}
       </motion.g>
       {/* change (maintainable) */}
       <motion.g animate={{ opacity: show("maintainable") ? 1 : 0 }} transition={t}>
-        <rect x="221" y="53" width="88" height="218" fill="rgba(143,179,255,0.1)" stroke={INK} />
+        <rect x="221" y="53" width="88" height="218" fill="rgba(37,99,235,0.08)" stroke={INK} />
         <path d="M265 20 v26" stroke={INK} strokeWidth="1.2" /><path d="M259 40 l6 8 6-8" fill="none" stroke={INK} strokeWidth="1.2" />
         {label(272, 24, d.marks.change, { fill: INK })}
       </motion.g>
@@ -57,14 +57,14 @@ function SystemSection({ d, active, reduced }) {
       <motion.g animate={{ opacity: show("evolvable") ? 1 : 0.35 }} transition={t}>
         <rect x="520" y="52" width="96" height="220" fill="none" stroke={show("evolvable") ? INK : FAINT} strokeDasharray={show("evolvable") ? "0" : "3 4"} />
         {label(526, 44, L.integrations, { fill: show("evolvable") ? INK : DIM })}
-        {[90, 150, 210].map((y) => <g key={y}><line x1="490" y1={y} x2="520" y2={y} stroke={show("evolvable") ? INK : FAINT} /><rect x="486" y={y - 4} width="8" height="8" fill="#151821" stroke={show("evolvable") ? INK : FAINT} /></g>)}
+        {[90, 150, 210].map((y) => <g key={y}><line x1="490" y1={y} x2="520" y2={y} stroke={show("evolvable") ? INK : FAINT} /><rect x="486" y={y - 4} width="8" height="8" fill="#FFFFFF" stroke={show("evolvable") ? INK : FAINT} /></g>)}
         {show("evolvable") && label(526, 290, d.marks.boundary, { fill: INK })}
       </motion.g>
       {/* operation (operable) */}
       <motion.g animate={{ opacity: show("operable") ? 1 : 0.35 }} transition={t}>
         <line x1="130" y1="300" x2="490" y2="300" stroke={show("operable") ? INK : FAINT} />
         {label(138, 314, L.operation, { fill: show("operable") ? INK : DIM })}
-        {[0, 1, 2].map((i) => <rect key={i} x={150 + i * 112} y="322" width="96" height="20" fill={show("operable") ? "rgba(143,179,255,0.12)" : "none"} stroke={show("operable") ? INK : FAINT} />)}
+        {[0, 1, 2].map((i) => <rect key={i} x={150 + i * 112} y="322" width="96" height="20" fill={show("operable") ? "rgba(37,99,235,0.1)" : "none"} stroke={show("operable") ? INK : FAINT} />)}
         {show("operable") && label(138, 372, d.marks.deploy, { fill: INK })}
       </motion.g>
       {/* baseline coordinates */}
@@ -75,8 +75,8 @@ function SystemSection({ d, active, reduced }) {
 }
 
 /**
- * Room 03 — the engineering review room. Graphite, cobalt lines, small
- * white annotations. The principle selected lights the consequence in
+ * Room 03 — the engineering review room. A pale technical ground, cobalt
+ * lines, small graphite annotations. The principle selected lights the consequence in
  * the cross-section: not a paragraph that opens, a layer that appears.
  */
 export default function EngineeringStandard({ a }) {
@@ -85,35 +85,35 @@ export default function EngineeringStandard({ a }) {
   const [on, setOn] = useState("understandable");
   const p = t.principles.find((x) => x.id === on) || t.principles[0];
   return (
-    <section id="studio-standard" aria-labelledby="studio-standard-title" className="scroll-mt-20 bg-[#151821] px-5 py-20 text-white md:px-10 md:py-28">
+    <section id="studio-standard" aria-labelledby="studio-standard-title" className="scroll-mt-20 bg-[#F3F5F9] px-5 py-20 md:px-10 md:py-28">
       <div className="mx-auto max-w-[1320px]">
-        <Index tone="light" meta={t.meta}>{t.index}</Index>
+        <Index meta={t.meta}>{t.index}</Index>
         <div className="mt-8 grid gap-10 lg:grid-cols-12 lg:gap-10">
           <div className="lg:col-span-4">
-            <h2 id="studio-standard-title" className={cn(H2, "text-white")}><span className="block">{t.a}</span><span className="block text-white/55">{t.b}</span></h2>
-            <p className="mt-5 max-w-[40ch] text-[15px] leading-[1.6] text-white/70">{t.intro}</p>
-            <p className={cn(MONO, "mt-10 text-white/45")}>{t.principlesLabel}</p>
-            <ol className="mt-2 border-t border-white/15" role="group" aria-label={t.principlesLabel}>
+            <h2 id="studio-standard-title" className={cn(H2, "text-foreground")}><span className="block">{t.a}</span><span className="block text-muted-foreground">{t.b}</span></h2>
+            <p className="mt-5 max-w-[40ch] text-[15px] leading-[1.6] text-foreground/80">{t.intro}</p>
+            <p className={cn(MONO, "mt-10 text-muted-foreground")}>{t.principlesLabel}</p>
+            <ol className="mt-2 border-t border-foreground/15" role="group" aria-label={t.principlesLabel}>
               {t.principles.map((x) => {
                 const active = on === x.id;
                 return (
-                  <li key={x.id} className="border-b border-white/15">
-                    <button type="button" aria-pressed={active} onMouseEnter={() => setOn(x.id)} onFocus={() => setOn(x.id)} onClick={() => setOn(x.id)} className={cn("grid w-full grid-cols-[14px_1fr_auto] items-center gap-3 py-2.5 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-[#8FB3FF] focus-visible:ring-offset-4 focus-visible:ring-offset-[#151821]", active ? "text-white" : "text-white/55 hover:text-white/85")}>
-                      <span aria-hidden="true" className={cn("h-2 w-2 border transition-colors", active ? "border-[#8FB3FF] bg-[#8FB3FF]" : "border-white/40")} />
+                  <li key={x.id} className="border-b border-foreground/12">
+                    <button type="button" aria-pressed={active} onMouseEnter={() => setOn(x.id)} onFocus={() => setOn(x.id)} onClick={() => setOn(x.id)} className={cn("grid w-full grid-cols-[14px_1fr_auto] items-center gap-3 py-2.5 text-left outline-none transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4", active ? "text-foreground" : "text-foreground/50 hover:text-foreground/85")}>
+                      <span aria-hidden="true" className={cn("h-2 w-2 border transition-colors", active ? "border-accent bg-accent" : "border-foreground/35")} />
                       <span className="font-heading text-[16px] font-bold tracking-[-0.02em] md:text-[17px]">{x.label}</span>
-                      <span className={cn(MONO, active ? "text-[#8FB3FF]" : "text-white/35")}>{x.layer}</span>
+                      <span className={cn(MONO, active ? "text-accent" : "text-muted-foreground")}>{x.layer}</span>
                     </button>
                   </li>
                 );
               })}
             </ol>
-            <p className="mt-5 min-h-[44px] text-[14px] leading-[1.6] text-white/80" aria-live="polite">{p.text}</p>
+            <p className="mt-5 min-h-[44px] text-[14px] leading-[1.6] text-foreground/85" aria-live="polite">{p.text}</p>
           </div>
           <div className="lg:col-span-8">
-            <motion.div initial={reduced ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.9 }} className="border border-white/10 bg-[#11141C] p-3 md:p-6">
+            <motion.div initial={reduced ? false : { opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true, margin: "-60px" }} transition={{ duration: 0.9 }} className="border border-foreground/12 bg-white p-3 md:p-6">
               <SystemSection d={t.drawing} active={on} reduced={Boolean(reduced)} />
             </motion.div>
-            <p className={cn(MONO, "mt-4 text-white/40")}>{t.note}</p>
+            <p className={cn(MONO, "mt-4 text-muted-foreground")}>{t.note}</p>
           </div>
         </div>
       </div>
