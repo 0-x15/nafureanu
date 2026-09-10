@@ -150,21 +150,21 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
                         );
                       })}
                     </ul>
+                    {gi === 0 && (
+                      <Link to={base} className="group mt-3 inline-flex items-center gap-1.5 px-3 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
+                        {t.explore}
+                        <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[2px]" />
+                      </Link>
+                    )}
                   </div>
                 ))}
               </div>
-              <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border px-7 py-3 md:px-8">
-                <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
-                  <span className={cn(MONO, "text-muted-foreground")}>{t.specialities.label}</span>
-                  {SERVICE_NAV.specialities.map((sp) => (
-                    <Link key={sp.id} to={serviceNavPath(sp, lang)} className="text-[12px] font-medium text-foreground/70 outline-none transition-colors hover:text-foreground focus-visible:text-accent">{t.specialities.items[sp.id]}</Link>
-                  ))}
-                </p>
-                <Link to={base} className="group ml-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
-                  {t.explore}
-                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[2px]" />
-                </Link>
-              </div>
+              <p className="flex flex-wrap items-center gap-x-4 gap-y-1 border-t border-border px-7 py-3 md:px-8">
+                <span className={cn(MONO, "text-muted-foreground")}>{t.specialities.label}</span>
+                {SERVICE_NAV.specialities.map((sp) => (
+                  <Link key={sp.id} to={serviceNavPath(sp, lang)} className="text-[12px] font-medium text-foreground/70 outline-none transition-colors hover:text-foreground focus-visible:text-accent">{t.specialities.items[sp.id]}</Link>
+                ))}
+              </p>
             </nav>
           </motion.div>
         )}
