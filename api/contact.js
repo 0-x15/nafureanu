@@ -3,17 +3,16 @@
  *
  * The site is a static Vite build on Vercel; this is the only server-side
  * piece. It receives the project brief as JSON, validates it, applies light
- * abuse protection and hands it to the email provider (Resend, over HTTPS).
+ * abuse protection and hands it to a delivery service over HTTPS.
  *
  * Nothing about the inbox reaches the browser. Configuration lives only in
  * Vercel environment variables (Project → Settings → Environment Variables):
- *   RESEND_API_KEY  provider key (server-side secret)
- *   CONTACT_TO      the inbox that receives the briefs
- *   CONTACT_FROM    optional sender, e.g. "Nafureanu <no-reply@nafureanu.com>"
- *                   (the domain must be verified in Resend; without it the
- *                   provider's onboarding sender is used)
- * Without RESEND_API_KEY or CONTACT_TO the endpoint answers 503 and nothing
- * is sent. Nothing from the message is logged.
+ *   WEB3FORMS_ACCESS_KEY  Web3Forms key; the inbox is bound to the key on
+ *                         web3forms.com (the channel the previous site used)
+ *   RESEND_API_KEY + CONTACT_TO (+ optional CONTACT_FROM)  alternative
+ *                         transport through Resend, used when set
+ * With neither configured the endpoint answers 503 and nothing is sent.
+ * Nothing from the message is logged.
  */
 const MAX_BODY = 16384;
 const RATE_WINDOW_MS = 60 * 60 * 1000;
@@ -23,7 +22,8 @@ const LIMITS = { name: 120, company: 160, email: 200, need: 4000, problem: 4000,
 const ALLOWED = ["name", "company", "email", "need", "problem", "result", "lang", "website", "elapsed"];
 const STRINGS = ["name", "company", "email", "need", "problem", "result", "lang", "website"];
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-const PROVIDER_URL = process.env.RESEND_API_URL || "https://api.resend.com/emails";
+const RESEND_URL = process.env.RESEND_API_URL || "https://api.resend.com/emails";
+const WEB3FORMS_URL = process.env.WEB3FORMS_API_URL || "https://api.web3forms.com/submit";
 
 /** Best-effort sliding window per client address (per function instance). */
 const hits = new Map();
@@ -121,10 +121,11 @@ export default async function handler(req, res) {
   const ip = String(req.headers["x-forwarded-for"] || "").split(",")[0].trim() || req.socket?.remoteAddress || "unknown";
   if (rateLimited(ip)) return reply(429, { ok: false, error: "rate_limited" });
 
-  const key = process.env.RESEND_API_KEY;
+  const resendKey = process.env.RESEND_API_KEY;
   const to = process.env.CONTACT_TO;
-  if (!key || !to || !EMAIL_RE.test(to)) return reply(503, { ok: false, error: "not_configured" });
-  const from = process.env.CONTACT_FROM || "Nafureanu <onboarding@resend.dev>";
+  const w3Key = process.env.WEB3FORMS_ACCESS_KEY;
+  const viaResend = Boolean(resendKey && to && EMAIL_RE.test(to));
+  if (!viaResend && !w3Key) return reply(503, { ok: false, error: "not_configured" });
 
   const L = LABELS[lang];
   const received = new Date().toISOString().replace("T", " ").slice(0, 16) + " UTC";
@@ -147,18 +148,31 @@ export default async function handler(req, res) {
     `${L.time}: ${received}`,
   ].join("\n");
 
+  const subject = `${L.subject} · ${headerSafe(name)}`;
   let sent = false;
   try {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 10000);
-    const r = await fetch(PROVIDER_URL, {
-      method: "POST",
-      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from, to: [to], reply_to: email, subject: `${L.subject} · ${headerSafe(name)}`, text }),
-      signal: ctrl.signal,
-    });
+    if (viaResend) {
+      const from = process.env.CONTACT_FROM || "Nafureanu <onboarding@resend.dev>";
+      const r = await fetch(RESEND_URL, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({ from, to: [to], reply_to: email, subject, text }),
+        signal: ctrl.signal,
+      });
+      sent = r.ok;
+    } else {
+      const r = await fetch(WEB3FORMS_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ access_key: w3Key, subject, from_name: "Nafureanu Web", name, email, replyto: email, message: text }),
+        signal: ctrl.signal,
+      });
+      const out = await r.json().catch(() => null);
+      sent = r.ok && Boolean(out && out.success);
+    }
     clearTimeout(timer);
-    sent = r.ok;
   } catch {
     sent = false;
   }
