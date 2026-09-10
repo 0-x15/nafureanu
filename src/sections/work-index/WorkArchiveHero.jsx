@@ -1,5 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 import BackToHome from "@/components/work/BackToHome";
 import { EASE, MONO } from "./workBits";
@@ -13,8 +13,8 @@ import "./workHero.css";
  * cool light at the far end, a raised technical floor that mirrors
  * them, a ceiling with two light strips and cable trays, and inside
  * each rack a dark perforated door with modules whose LEDs blink at
- * their own pace. The racks rise one after another on entry, the
- * camera leans with the pointer and scrolling walks you in, towards
+ * their own pace. The racks rise one after another on entry and
+ * scrolling walks you in, towards
  * the systems shown below in the cards. The scene is plain DOM/CSS:
  * one 3D transform per rack, gradients for every material.
  */
@@ -67,12 +67,12 @@ function Rack({ side, z, i, reduced }) {
   );
 }
 
-function Hall({ reduced, rx, ry, walk, scale }) {
+function Hall({ reduced, walk, scale }) {
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0">
       {/* the scene is drawn at one size and scaled to cover the hero */}
       <div className="absolute left-1/2 top-[58%] h-[460px] w-[640px]" style={{ transform: `translate(-50%, -50%) scale(${scale})`, perspective: "1000px", perspectiveOrigin: "50% 42%" }}>
-        <motion.div style={reduced ? undefined : { rotateX: rx, rotateY: ry, z: walk }} className="absolute inset-0 [transform-style:preserve-3d]">
+        <motion.div style={reduced ? undefined : { z: walk }} className="absolute inset-0 [transform-style:preserve-3d]">
           {/* the raised floor, receding from the door to the far end */}
           <div className="absolute inset-x-[-10%] top-[76%] h-[1600px] origin-top [transform:rotateX(-90deg)]">
             <div className="wk-floor" />
@@ -110,12 +110,6 @@ export default function WorkArchiveHero({ lang, t }) {
   const h = t.hero;
   const ref = useRef(null);
   const [scale, setScale] = useState(2.2);
-  const px = useMotionValue(0);
-  const py = useMotionValue(0);
-  const sx = useSpring(px, { stiffness: 50, damping: 18 });
-  const sy = useSpring(py, { stiffness: 50, damping: 18 });
-  const ry = useTransform(sx, [-1, 1], [-3, 3]);
-  const rx = useTransform(sy, [-1, 1], [2, -2]);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const walk = useTransform(scrollYProgress, [0, 1], [0, 360]);
   useLayoutEffect(() => {
@@ -127,22 +121,12 @@ export default function WorkArchiveHero({ lang, t }) {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-  const onMove = (e) => {
-    if (reduced || e.pointerType !== "mouse" || !ref.current) return;
-    const r = ref.current.getBoundingClientRect();
-    px.set(((e.clientX - r.left) / r.width - 0.5) * 2);
-    py.set(((e.clientY - r.top) / r.height - 0.5) * 2);
-  };
-  const onLeave = () => {
-    px.set(0);
-    py.set(0);
-  };
   const up = (i) => ({ initial: reduced ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE } });
 
   return (
-    <header ref={ref} onPointerMove={onMove} onPointerLeave={onLeave} className="relative flex h-[560px] flex-col overflow-hidden px-5 pb-10 pt-24 sm:h-[640px] md:px-10 md:pb-14 md:pt-24 lg:h-[min(88svh,860px)] lg:min-h-[640px]">
+    <header ref={ref} className="relative flex h-[560px] flex-col overflow-hidden px-5 pb-10 pt-24 sm:h-[640px] md:px-10 md:pb-14 md:pt-24 lg:h-[min(88svh,860px)] lg:min-h-[640px]">
       {/* the room, filling the hero */}
-      <Hall reduced={Boolean(reduced)} rx={rx} ry={ry} walk={walk} scale={scale} />
+      <Hall reduced={Boolean(reduced)} walk={walk} scale={scale} />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col">
         {/* the top edge */}
