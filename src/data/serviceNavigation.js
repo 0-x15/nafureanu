@@ -34,9 +34,13 @@ export const SERVICE_NAV = {
       ],
     },
   ],
+  // The footer line of the menu: the four areas Nafureanu wants to be known
+  // for, each pointing at its dedicated service page.
   specialities: [
-    { id: "odoo-engineering", anchor: "odoo-engineering" },
-    { id: "payments", anchor: "web3-payments" },
+    { id: "software", service: "custom-software" },
+    { id: "ai", service: "ai-automation" },
+    { id: "web", service: "web-digital" },
+    { id: "crm", service: "business-systems" },
   ],
 };
 

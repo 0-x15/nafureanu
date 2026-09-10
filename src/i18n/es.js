@@ -48,13 +48,7 @@ export const ES = {
       "integrations-apis": { label: "Integraciones y APIs", description: "Conectamos sistemas para que los datos se muevan sin trabajo manual." },
       "web-digital": { label: "Web y experiencias digitales", description: "Webs, aplicaciones y experiencias digitales con diseño e ingeniería de producto." },
     },
-    specialities: {
-      label: "Especialidades técnicas",
-      items: {
-        "odoo-engineering": { label: "Ingeniería Odoo", description: "Módulos a medida, lógica de negocio, automatización y migraciones sobre Odoo." },
-        payments: { label: "Infraestructura de pagos", description: "Pagos con stablecoins, verificación on-chain y arquitectura de cobros para productos digitales." },
-      },
-    },
+    specialities: { label: "Especialidades", items: { software: "Ingeniería de software", ai: "IA y automatización", web: "Diseño y desarrollo web", crm: "CRM a medida" } },
     all: "Ver todos los servicios",
     explore: "Explorar todos los servicios",
   },

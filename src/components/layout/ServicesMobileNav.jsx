@@ -2,10 +2,8 @@ import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { ArrowRight, Minus, Plus } from "lucide-react";
 import { STRINGS, langPath } from "@/i18n";
-import { SERVICE_NAV, SERVICE_NAV_ITEMS, isDedicatedService, isServiceNavItemActive, isServicesSection, serviceNavPath } from "@/data/serviceNavigation";
+import { SERVICE_NAV_ITEMS, isDedicatedService, isServiceNavItemActive, isServicesSection, serviceNavPath } from "@/data/serviceNavigation";
 import { cn } from "@/lib/utils";
-
-const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
 
 /**
  * Mobile treatment of the Services item: the label stays a real link to
@@ -46,17 +44,6 @@ export default function ServicesMobileNav({ lang = "es", linkClassName = "" }) {
             </li>
           );
         })}
-        <li className="mt-3 border-t border-border pt-3">
-          <p className={cn(MONO, "text-muted-foreground")}>{t.specialities.label}</p>
-        </li>
-        {SERVICE_NAV.specialities.map((sp) => (
-          <li key={sp.id}>
-            <Link to={serviceNavPath(sp, lang)} className="flex items-center gap-3 py-2.5 text-[15px] font-medium text-foreground/85 outline-none focus-visible:text-accent">
-              <span aria-hidden="true" className="h-1.5 w-1.5 shrink-0 rounded-full bg-accent-cyan/70" />
-              {t.specialities.items[sp.id].label}
-            </Link>
-          </li>
-        ))}
         <li>
           <Link to={base} className="mt-2 inline-flex items-center gap-1.5 py-1 text-[13px] font-medium text-accent outline-none focus-visible:underline">
             {t.all}

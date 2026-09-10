@@ -149,35 +149,17 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
                   </div>
                 ))}
               </div>
-              {/* the specialities: transversal expertise, with the same weight as a service */}
-              <div className="border-t border-border p-4 md:p-5">
-                <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2 px-3">
-                  <p className={cn(MONO, "text-muted-foreground")}>{t.specialities.label}</p>
-                  <Link to={base} className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
-                    {t.explore}
-                    <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[2px]" />
-                  </Link>
-                </div>
-                <ul className="mt-2 grid gap-x-4 md:grid-cols-2">
-                  {SERVICE_NAV.specialities.map((sp) => {
-                    const copy = t.specialities.items[sp.id];
-                    return (
-                      <li key={sp.id}>
-                        <Link
-                          to={serviceNavPath(sp, lang)}
-                          className="group flex items-start gap-3 rounded-[6px] px-3 py-2.5 outline-none transition-colors hover:bg-[#F6F8FB] focus-visible:bg-[#F6F8FB] focus-visible:ring-2 focus-visible:ring-accent"
-                        >
-                          <span aria-hidden="true" className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-accent-cyan/70 transition-colors group-hover:bg-accent" />
-                          <span className="min-w-0 flex-1">
-                            <span className="block text-[14px] font-semibold tracking-[-0.01em] text-foreground">{copy.label}</span>
-                            <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">{copy.description}</span>
-                          </span>
-                          <ArrowRight aria-hidden="true" className="mt-[3px] h-3.5 w-3.5 shrink-0 -translate-x-1 text-accent opacity-0 transition-[opacity,transform] duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100" />
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
+              <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-2 border-t border-border px-7 py-3 md:px-8">
+                <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+                  <span className={cn(MONO, "text-muted-foreground")}>{t.specialities.label}</span>
+                  {SERVICE_NAV.specialities.map((sp) => (
+                    <Link key={sp.id} to={serviceNavPath(sp, lang)} className="text-[12px] font-medium text-foreground/70 outline-none transition-colors hover:text-foreground focus-visible:text-accent">{t.specialities.items[sp.id]}</Link>
+                  ))}
+                </p>
+                <Link to={base} className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
+                  {t.explore}
+                  <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[2px]" />
+                </Link>
               </div>
             </nav>
           </motion.div>
