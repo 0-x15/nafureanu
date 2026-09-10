@@ -48,7 +48,13 @@ export const EN = {
       "integrations-apis": { label: "Integrations & APIs", description: "We connect systems so data moves without manual work." },
       "web-digital": { label: "Web & digital experiences", description: "Websites, applications and digital experiences with product design and engineering." },
     },
-    specialities: { label: "Specialist capabilities", items: { "odoo-engineering": "Odoo engineering", payments: "Payments infrastructure" } },
+    specialities: {
+      label: "Technical specialities",
+      items: {
+        "odoo-engineering": { label: "Odoo engineering", description: "Custom modules, business logic, automation and migrations on Odoo." },
+        payments: { label: "Payments infrastructure", description: "Stablecoin payments, on-chain verification and payment architecture for digital products." },
+      },
+    },
     all: "See all services",
     explore: "Explore all services",
   },
