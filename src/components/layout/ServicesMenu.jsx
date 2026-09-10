@@ -124,7 +124,7 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
             <nav aria-label={t.menuLabel} className="rounded-[10px] border border-border bg-white shadow-[0_28px_64px_-32px_rgba(12,18,32,0.42),0_1px_0_rgba(15,23,42,0.04)]">
               <div className="grid md:grid-cols-[1.02fr_1fr]">
                 {SERVICE_NAV.groups.map((g, gi) => (
-                  <div key={g.id} className={cn("p-4 md:p-5", gi === 0 && "md:border-r md:border-border")}>
+                  <div key={g.id} className={cn("flex flex-col p-4 md:p-5", gi === 0 && "md:border-r md:border-border")}>
                     <p className={cn(MONO, "px-3 text-muted-foreground")}>{t.groups[g.id]}</p>
                     <ul className="mt-2">
                       {g.items.map((item) => {
@@ -151,7 +151,7 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
                       })}
                     </ul>
                     {gi === 0 && (
-                      <Link to={base} className="group mt-3 inline-flex items-center gap-1.5 px-3 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
+                      <Link to={base} className="group mt-auto inline-flex items-center gap-1.5 self-start px-3 pb-2 pt-4 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
                         {t.explore}
                         <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[2px]" />
                       </Link>
