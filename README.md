@@ -63,11 +63,12 @@ Support: [https://app.base44.com/support](https://app.base44.com/support)
 
 ## Contact form
 
-The site is a static Vite build deployed on Vercel. The only server-side piece is `api/contact.js`, a Vercel Serverless Function that receives the contact brief and hands it to a delivery service. The inbox is never in the frontend; configure the environment variables in Vercel (Project → Settings → Environment Variables, Production):
+The site is a static Vite build deployed on Vercel. The only server-side piece is `api/contact.js`, a Vercel Serverless Function that receives the contact brief and sends it through Resend. The inbox is never in the frontend; configure these environment variables in Vercel (Project → Settings → Environment Variables, Production):
 
 | Variable | Value |
 | --- | --- |
-| `WEB3FORMS_ACCESS_KEY` | Web3Forms access key; the inbox is the one bound to the key on web3forms.com |
-| `RESEND_API_KEY`, `CONTACT_TO`, `CONTACT_FROM` | alternative transport through Resend, used when set (`CONTACT_FROM` needs a domain verified in Resend) |
+| `RESEND_API_KEY` | API key from resend.com (server-side secret) |
+| `CONTACT_TO` | the inbox that receives the briefs |
+| `CONTACT_FROM` | optional sender such as `Nafureanu <no-reply@nafureanu.com>`; the domain must be verified in Resend, otherwise the provider's onboarding sender is used |
 
-With neither configured the endpoint answers 503 and the form shows its error state. Locally, run `WEB3FORMS_ACCESS_KEY=… node scripts/dev-api.mjs` next to `npm run dev`; Vite proxies `/api` to it.
+Without `RESEND_API_KEY` or `CONTACT_TO` the endpoint answers 503 and the form shows its error state. Locally, run `CONTACT_TO=… RESEND_API_KEY=… node scripts/dev-api.mjs` next to `npm run dev`; Vite proxies `/api` to it.
