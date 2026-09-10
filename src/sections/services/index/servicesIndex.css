@@ -1,0 +1,50 @@
+/* Service Architecture — the blades answer to the pointer as physical surfaces. */
+.sv-blade {
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.4s, opacity 0.4s;
+}
+.sv-blade:hover,
+.sv-blade:focus-visible {
+  transform: translateY(-8px);
+  border-color: rgba(49, 87, 246, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 54px 90px -44px rgba(49, 87, 246, 0.5);
+}
+.sv-slot:hover,
+.sv-slot:focus-within {
+  z-index: 30 !important;
+}
+.sv-field:has(.sv-blade:hover) .sv-blade:not(:hover),
+.sv-field:has(.sv-blade:focus-visible) .sv-blade:not(:focus-visible) {
+  opacity: 0.72;
+}
+.sv-mark {
+  transform: scaleX(0.3);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sv-blade:hover .sv-mark,
+.sv-blade:focus-visible .sv-mark {
+  transform: scaleX(1);
+}
+.sv-when {
+  color: rgba(25, 28, 41, 0.64);
+  transition: color 0.4s;
+}
+.sv-blade:hover .sv-when,
+.sv-blade:focus-visible .sv-when {
+  color: rgba(25, 28, 41, 0.92);
+}
+.sv-cta {
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.35s, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.sv-blade:hover .sv-cta,
+.sv-blade:focus-visible .sv-cta {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .sv-blade, .sv-mark, .sv-when, .sv-cta { transition: none; }
+  .sv-blade:hover, .sv-blade:focus-visible { transform: none; }
+  .sv-cta { opacity: 1; transform: none; }
+}

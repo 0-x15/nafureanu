@@ -8,7 +8,7 @@ export const EN = {
     services: {
       title: "Services — Nafureanu",
       description:
-        "Custom software, AI and automation, business systems, Odoo engineering, integrations, digital products and stablecoin payments.",
+        "Seven services, each with its own page: custom real-estate CRM, custom CRM and business systems, custom software, AI and automation, SaaS and digital products, integrations and APIs, web design and development.",
     },
     work: {
       title: "Projects — Nafureanu",
@@ -377,20 +377,50 @@ export const EN = {
     trust: "We reply with real questions, not a generic proposal.",
   },
   servicesPage: {
-    kicker: "Services",
-    h1: "What we build.",
-    intro:
-      "Seven disciplines, one way of working: understand the process first, then build the system that runs it.",
-    when: "When you need it",
-    heardKicker: "What we hear",
-    heardTitle: "Companies arrive with phrases like these.",
-    heardNote: "If any of them sounds familiar, it's a good time to talk.",
-    processKicker: "How we work",
-    processTitle: "From process to system.",
-    cta: {
-      kicker: "Contact",
-      title: "Do any of these sound familiar?",
-      note: "Tell us about the bottleneck. We'll turn it into a system.",
+    hero: {
+      kicker: "Services",
+      h1: "What to build depends on where the problem is.",
+      sub: "An operation that doesn't fit, work that is still manual, disconnected systems, a product waiting to launch or a digital presence that no longer represents the company. Each situation calls for a different answer.",
+      range: "01—07",
+      material: "Services / Engineering",
+      layers: ["Foundation", "Integrations", "Data", "Operations", "Automation", "Product", "Interface"],
+    },
+    architecture: {
+      kicker: "Service architecture",
+      title: "Several entry points. Each one starts from a concrete situation.",
+      fields: { systems: "Systems and operations", product: "Automation and product" },
+      enter: "See the service",
+    },
+    names: {
+      "crm-real-estate": "Custom real-estate CRM",
+      "business-systems": "Custom CRM and business systems",
+      "custom-software": "Custom software",
+      "ai-automation": "AI and automation",
+      saas: "SaaS and digital products",
+      "integrations-apis": "Integrations and APIs",
+      "web-digital": "Web design and development",
+    },
+    entries: {
+      "crm-real-estate": "When a real-estate agency needs properties, clients, demand, visits and operations to be part of the same system.",
+      "business-systems": "When clients, operations, documents and follow-up live scattered, or the current software forces the team to work around it.",
+      "custom-software": "When the tool you need doesn't exist, or a generic solution no longer fits the way you actually work.",
+      "ai-automation": "When people are still classifying, copying, reviewing, answering or moving information the system could handle.",
+      saas: "When an idea needs to become a real product: definition, architecture, experience, logic and launch.",
+      "integrations-apis": "When the tools work separately and someone ends up being the bridge between them.",
+      "web-digital": "When the digital presence needs to represent the company better and be built with the same quality it was designed with.",
+    },
+    together: {
+      kicker: "Services are not silos",
+      title: "Services are entry points. Not compartments.",
+      text: "A real project may need several disciplines at once. A CRM can include automation and integrations; a product can need APIs, artificial intelligence and an experience of its own. We design the combination around the problem, not around a closed list of deliverables.",
+      words: ["System", "Automation", "Connection", "Experience"],
+      result: "One solution",
+    },
+    closing: {
+      kicker: "Start",
+      title: "You don't need to know where to start.",
+      text: "Tell us what happens today. If the project crosses several disciplines, we'll define the right entry point together.",
+      meta: "01—07 · Assembled",
     },
   },
   heard: [

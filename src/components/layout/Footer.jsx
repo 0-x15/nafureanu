@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/data/site";
-import { CAPABILITIES } from "@/data/capabilities";
+import { SERVICES, servicePath } from "@/data/services";
 import { STRINGS, langPath } from "@/i18n";
 import LanguageSwitch from "@/components/LanguageSwitch";
 import { LogoLockup } from "@/components/brand/Logo";
@@ -14,21 +14,10 @@ const labelClass =
 
 /**
  * Global footer — the final layer of the corporate system: a crawlable
- * company statement, a site-architecture map with real internal links,
- * and a thin legal/utility bar. Service links currently point at the
- * existing /services anchors (h2 ids) and can be redirected to future
- * dedicated service pages by changing the SERVICE_HREF map below.
+ * company statement, a site-architecture map with real internal links
+ * (the seven dedicated service pages, the work, the studio), and a thin
+ * legal/utility bar.
  */
-const SERVICE_HREF = {
-  "custom-software": "/services#custom-software",
-  "ai-automation": "/services#ai-automation",
-  "business-systems": "/services#business-systems",
-  "odoo-engineering": "/services#odoo-engineering",
-  "integrations-apis": "/services#integrations-apis",
-  "web-digital": "/services#web-digital",
-  "web3-payments": "/services#web3-payments",
-};
-
 export default function Footer({ lang = "es" }) {
   const s = STRINGS[lang];
   const f = s.footer;
@@ -114,13 +103,10 @@ export default function Footer({ lang = "es" }) {
           <nav aria-label={f.services} className="md:col-span-4">
             <p className={labelClass}>{f.services}</p>
             <ul className="mt-5 grid gap-x-6 gap-y-2.5 text-[13px] sm:grid-cols-2">
-              {CAPABILITIES.map((c) => (
-                <li key={c.id}>
-                  <Link
-                    className={linkClass}
-                    to={langPath(lang, SERVICE_HREF[c.id] || "/services")}
-                  >
-                    {c.copy[lang].title}
+              {SERVICES.map((service) => (
+                <li key={service.id}>
+                  <Link className={linkClass} to={servicePath(service, lang)}>
+                    {s.serviceNav.items[service.id].label}
                   </Link>
                 </li>
               ))}

@@ -8,7 +8,7 @@ export const ES = {
     services: {
       title: "Servicios — Nafureanu",
       description:
-        "Software a medida, IA y automatización, sistemas de negocio, ingeniería Odoo, integraciones, productos digitales y pagos con stablecoins.",
+        "Siete servicios con página propia: CRM inmobiliario a medida, CRM y sistemas de gestión, software a medida, IA y automatización, SaaS y productos digitales, integraciones y APIs, diseño y desarrollo web.",
     },
     work: {
       title: "Proyectos — Nafureanu",
@@ -378,20 +378,50 @@ export const ES = {
     trust: "Respondemos con preguntas reales, no con una propuesta genérica.",
   },
   servicesPage: {
-    kicker: "Servicios",
-    h1: "Qué construimos.",
-    intro:
-      "Siete disciplinas, una forma de trabajar: primero entender el proceso, después construir el sistema que lo ejecuta.",
-    when: "Cuándo lo necesitas",
-    heardKicker: "Lo que escuchamos",
-    heardTitle: "Las empresas llegan con frases como estas.",
-    heardNote: "Si alguna te suena, es buen momento para hablar.",
-    processKicker: "Cómo trabajamos",
-    processTitle: "De proceso a sistema.",
-    cta: {
-      kicker: "Contacto",
-      title: "¿Te reconoces en algo de esto?",
-      note: "Cuéntanos el cuello de botella. Lo convertimos en sistema.",
+    hero: {
+      kicker: "Servicios",
+      h1: "Qué construir depende de dónde está el problema.",
+      sub: "Una operación que no encaja, trabajo que sigue siendo manual, sistemas desconectados, un producto por lanzar o una presencia digital que ya no representa a la empresa. Cada situación necesita una respuesta distinta.",
+      range: "01—07",
+      material: "Services / Engineering",
+      layers: ["Base", "Integraciones", "Datos", "Operaciones", "Automatización", "Producto", "Interfaz"],
+    },
+    architecture: {
+      kicker: "Arquitectura de servicios",
+      title: "Varias entradas. Cada una empieza en una situación concreta.",
+      fields: { systems: "Sistemas y operaciones", product: "Automatización y producto" },
+      enter: "Ver el servicio",
+    },
+    names: {
+      "crm-real-estate": "CRM inmobiliario a medida",
+      "business-systems": "CRM y sistemas de gestión a medida",
+      "custom-software": "Software a medida",
+      "ai-automation": "IA y automatización",
+      saas: "SaaS y productos digitales",
+      "integrations-apis": "Integraciones y APIs",
+      "web-digital": "Diseño y desarrollo web",
+    },
+    entries: {
+      "crm-real-estate": "Cuando una inmobiliaria necesita que propiedades, clientes, demanda, visitas y operaciones formen parte del mismo sistema.",
+      "business-systems": "Cuando clientes, operaciones, documentos y seguimiento viven repartidos o el software actual obliga al equipo a trabajar alrededor de él.",
+      "custom-software": "Cuando la herramienta que necesitas no existe o una solución genérica ya no encaja con la forma real de trabajar.",
+      "ai-automation": "Cuando personas siguen clasificando, copiando, revisando, respondiendo o moviendo información que el sistema podría resolver.",
+      saas: "Cuando una idea necesita convertirse en un producto real: definición, arquitectura, experiencia, lógica y lanzamiento.",
+      "integrations-apis": "Cuando las herramientas funcionan por separado y una persona termina haciendo de puente entre ellas.",
+      "web-digital": "Cuando la presencia digital necesita representar mejor a la empresa y estar construida con la misma calidad con la que se diseña.",
+    },
+    together: {
+      kicker: "Los servicios no son silos",
+      title: "Los servicios son puntos de entrada. No compartimentos.",
+      text: "Un proyecto real puede necesitar varias disciplinas al mismo tiempo. Un CRM puede incluir automatización e integraciones; un producto puede necesitar APIs, inteligencia artificial y una experiencia propia. Diseñamos la combinación alrededor del problema, no alrededor de una lista cerrada de entregables.",
+      words: ["Sistema", "Automatización", "Conexión", "Experiencia"],
+      result: "Una solución",
+    },
+    closing: {
+      kicker: "Empezar",
+      title: "No hace falta saber por dónde empezar.",
+      text: "Cuéntanos qué ocurre hoy. Si el proyecto cruza varias disciplinas, definiremos juntos cuál es el punto de entrada adecuado.",
+      meta: "01—07 · Ensamblado",
     },
   },
   heard: [
