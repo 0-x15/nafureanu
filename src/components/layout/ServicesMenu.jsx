@@ -156,7 +156,7 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
                     <Link key={sp.id} to={serviceNavPath(sp, lang)} className="text-[12px] font-medium text-foreground/70 outline-none transition-colors hover:text-foreground focus-visible:text-accent">{t.specialities.items[sp.id]}</Link>
                   ))}
                 </p>
-                <Link to={base} className="group inline-flex items-center gap-1.5 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
+                <Link to={base} className="group ml-auto inline-flex items-center gap-1.5 text-[13px] font-medium text-accent outline-none transition-colors hover:text-accent-deep focus-visible:underline">
                   {t.explore}
                   <ArrowRight aria-hidden="true" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-[2px]" />
                 </Link>
