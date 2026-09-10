@@ -60,3 +60,17 @@ GitHub integration: [https://docs.base44.com/developers/app-code/local-developme
 Local development: [https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview](https://docs.base44.com/developers/backend/overview/local-dev/local-development-overview)
 
 Support: [https://app.base44.com/support](https://app.base44.com/support)
+
+## Contact form
+
+The site is published as static files (Hostinger). The only server-side piece is `public/api/contact.php`, which receives the contact brief and hands it to the host's mail transport. The inbox it delivers to is never in the frontend: create `nafureanu-contact.config.php` **one level above the web root** (next to `public_html`, not inside it):
+
+```php
+<?php
+return [
+  'to'   => 'inbox@example.com',        // where the briefs are delivered
+  'from' => 'no-reply@your-domain.com', // a sender on a domain whose mail is hosted here (SPF/DMARC)
+];
+```
+
+Environment variables `CONTACT_TO` / `CONTACT_FROM` are honoured instead if the host allows them. Without either, the endpoint answers 503 and the form shows its error state. For local development run a PHP server on port 8794 with `-t public` (see `vite.config.js`); `npm run dev` proxies `/api` to it.

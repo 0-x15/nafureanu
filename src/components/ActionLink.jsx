@@ -22,7 +22,8 @@ const SIZES = {
  * "right" for navigational ones. Renders a router Link, or a <button>
  * when `as="button"`. Pass "action-quiet" in className for the compact
  * header plate without layers.
- * @param {{ to?: string, children: import("react").ReactNode, variant?: "primary" | "secondary" | "text", icon?: "upRight" | "right", size?: "lg" | "md" | "sm", className?: string, as?: "button", type?: "button" | "submit", onClick?: () => void }} props
+ * `disabled` (button only) keeps the plate in place and stops the hover stack.
+ * @param {{ to?: string, children: import("react").ReactNode, variant?: "primary" | "secondary" | "text", icon?: "upRight" | "right", size?: "lg" | "md" | "sm", className?: string, as?: "button", type?: "button" | "submit", onClick?: () => void, disabled?: boolean }} props
  */
 export default function ActionLink({
   to = "#",
@@ -34,6 +35,7 @@ export default function ActionLink({
   as = undefined,
   type = "button",
   onClick = undefined,
+  disabled = false,
 }) {
   const Icon = ICONS[icon];
   const arrow = Icon && (
@@ -59,7 +61,7 @@ export default function ActionLink({
 
   // the wrapper carries the layers and any layout classes; the plate is the link itself
   const quiet = /\baction-quiet\b/.test(className);
-  const setCls = cn("action-set group", variant === "primary" ? "action-set-primary" : "action-set-secondary", quiet && "action-set-quiet", className.replace(/\baction-quiet\b/, ""));
+  const setCls = cn("action-set group", variant === "primary" ? "action-set-primary" : "action-set-secondary", quiet && "action-set-quiet", disabled && "action-set-disabled", className.replace(/\baction-quiet\b/, ""));
   const cls = cn("action", variant === "primary" ? "action-primary" : "action-secondary", SIZES[size]);
   const inner = (
     <>
@@ -74,7 +76,7 @@ export default function ActionLink({
       <i aria-hidden="true" className="action__layer action__layer-2" />
       <i aria-hidden="true" className="action__layer action__layer-1" />
       {as === "button" ? (
-        <button type={type} onClick={onClick} className={cls}>{inner}</button>
+        <button type={type} onClick={onClick} disabled={disabled} aria-disabled={disabled || undefined} className={cls}>{inner}</button>
       ) : (
         <Link to={to} className={cls}>{inner}</Link>
       )}

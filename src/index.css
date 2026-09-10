@@ -270,6 +270,8 @@
   }
 
   /* compact contexts (header): the plate alone */
+  .action-set-disabled { pointer-events: none; }
+  .action-set-disabled .action { opacity: 0.72; cursor: default; }
   .action-set-quiet .action__layer { display: none; }
   .action-set-quiet .action-primary { box-shadow: 0 4px 16px -10px rgba(49, 87, 246, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.18); }
   .action-set-quiet:hover .action-primary { box-shadow: 0 8px 20px -12px rgba(49, 87, 246, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.24); }
