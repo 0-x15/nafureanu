@@ -63,14 +63,12 @@ Support: [https://app.base44.com/support](https://app.base44.com/support)
 
 ## Contact form
 
-The site is published as static files (Hostinger). The only server-side piece is `public/api/contact.php`, which receives the contact brief and hands it to the host's mail transport. The inbox it delivers to is never in the frontend: create `nafureanu-contact.config.php` **one level above the web root** (next to `public_html`, not inside it):
+The site is a static Vite build deployed on Vercel. The only server-side piece is `api/contact.js`, a Vercel Serverless Function that receives the contact brief and sends it through Resend. The inbox is never in the frontend: configure these environment variables in Vercel (Project → Settings → Environment Variables, Production):
 
-```php
-<?php
-return [
-  'to'   => 'inbox@example.com',        // where the briefs are delivered
-  'from' => 'no-reply@your-domain.com', // a sender on a domain whose mail is hosted here (SPF/DMARC)
-];
-```
+| Variable | Value |
+| --- | --- |
+| `RESEND_API_KEY` | API key from resend.com (server-side secret) |
+| `CONTACT_TO` | the inbox that receives the briefs |
+| `CONTACT_FROM` | optional sender such as `Nafureanu <no-reply@nafureanu.com>`; the domain must be verified in Resend, otherwise the provider's onboarding sender is used |
 
-Environment variables `CONTACT_TO` / `CONTACT_FROM` are honoured instead if the host allows them. Without either, the endpoint answers 503 and the form shows its error state. For local development run a PHP server on port 8794 with `-t public` (see `vite.config.js`); `npm run dev` proxies `/api` to it.
+Without `RESEND_API_KEY` or `CONTACT_TO` the endpoint answers 503 and the form shows its error state. Locally, run `CONTACT_TO=… RESEND_API_KEY=… node scripts/dev-api.mjs` next to `npm run dev`; Vite proxies `/api` to it.

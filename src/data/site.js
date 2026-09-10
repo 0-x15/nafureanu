@@ -2,7 +2,7 @@ export const SITE = {
   name: "Nafureanu",
   domain: "https://nafureanu.com",
   // The only public contact channel is the form at /contact; the inbox it
-  // delivers to is configured server-side (see public/api/contact.php).
+  // delivers to is configured server-side (see api/contact.js).
   tagline: {
     es: "Software que elimina trabajo.",
     en: "Software that removes work.",

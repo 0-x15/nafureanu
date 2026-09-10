@@ -15,7 +15,7 @@ import { usePageMeta } from "@/lib/seo";
  */
 const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
 const EASE = [0.22, 1, 0.36, 1];
-const ENDPOINT = "/api/contact.php";
+const ENDPOINT = "/api/contact";
 const LIMITS = { name: 120, company: 160, email: 200, need: 4000, problem: 4000, result: 4000 };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const EMPTY = { name: "", company: "", email: "", need: "", problem: "", result: "", website: "" };
