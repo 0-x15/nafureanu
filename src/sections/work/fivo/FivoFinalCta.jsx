@@ -31,8 +31,6 @@ export default function FivoFinalCta({ lang, c }) {
           <a href={t.product.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-foreground/80 transition-colors hover:text-accent">
             {t.product.host} <ArrowUpRight className="h-3 w-3" />
           </a>
-          <span aria-hidden="true">·</span>
-          <a href={`mailto:${t.product.support}`} className="text-foreground/80 transition-colors hover:text-accent">{t.product.support}</a>
         </Reveal>
       </div>
     </section>

@@ -1474,7 +1474,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       copy: "Diseñamos y construimos software alrededor del problema, desde la arquitectura hasta producción.",
       primary: "Cuéntanos qué necesitas",
       secondary: "Ver todos los proyectos",
-      product: { label: "Sobre el producto", text: "Fivo es un producto en producción con soporte propio:", host: "fivo.finance", url: "https://fivo.finance", support: "support@fivo.finance" },
+      product: { label: "Sobre el producto", text: "Fivo es un producto en producción con soporte propio.", host: "fivo.finance", url: "https://fivo.finance" },
     },
   },
   lifeAdmin: {

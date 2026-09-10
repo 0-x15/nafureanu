@@ -1473,7 +1473,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       copy: "We design and build software around the problem, from architecture to production.",
       primary: "Tell us what you need",
       secondary: "See all projects",
-      product: { label: "About the product", text: "Fivo is a live product with its own support:", host: "fivo.finance", url: "https://fivo.finance", support: "support@fivo.finance" },
+      product: { label: "About the product", text: "Fivo is a live product with its own support.", host: "fivo.finance", url: "https://fivo.finance" },
     },
   },
   lifeAdmin: {
