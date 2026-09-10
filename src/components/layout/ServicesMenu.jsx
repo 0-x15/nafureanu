@@ -38,11 +38,15 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
   const reduced = useReducedMotion();
 
   const show = useCallback(() => { window.clearTimeout(timer.current); setOpen(true); }, []);
+  /* Hover intent: the pointer has to rest on the trigger for a moment; just crossing the header never opens the menu. */
+  const intent = useRef(null);
+  const arm = useCallback((e) => { if (e.pointerType && e.pointerType !== "mouse") return; window.clearTimeout(intent.current); intent.current = window.setTimeout(() => setOpen(true), 170); }, []);
+  const disarm = useCallback(() => { window.clearTimeout(intent.current); }, []);
   const hide = useCallback((delay = CLOSE_DELAY) => { window.clearTimeout(timer.current); timer.current = window.setTimeout(() => setOpen(false), delay); }, []);
 
   useEffect(() => { onOpenChange?.(open); }, [open, onOpenChange]);
   useEffect(() => { setOpen(false); }, [pathname]);
-  useEffect(() => () => window.clearTimeout(timer.current), []);
+  useEffect(() => () => { window.clearTimeout(timer.current); window.clearTimeout(intent.current); }, []);
 
   /* Escape returns focus to the trigger; pointer/keyboard interaction outside closes. */
   useEffect(() => {
@@ -81,7 +85,7 @@ export default function ServicesMenu({ lang = "es", onOpenChange = undefined }) 
   const onTriggerFocus = () => { if (skipFocusOpen.current) { skipFocusOpen.current = false; return; } show(); };
 
   return (
-    <div ref={rootRef} className="flex h-full items-center" onBlur={onBlur} onPointerEnter={show} onPointerLeave={() => hide()}>
+    <div ref={rootRef} className="flex h-full items-center" onBlur={onBlur} onPointerEnter={arm} onPointerLeave={() => { disarm(); hide(); }}>
       <span className="flex items-center gap-0.5">
         <Link
           ref={triggerRef}

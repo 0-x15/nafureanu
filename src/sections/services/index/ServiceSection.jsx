@@ -189,8 +189,9 @@ export default function ServiceSection({ labels, range = undefined, material = u
         const isTop = i === LAYERS.length - 1;
         const [lx, ly] = P(0, H, z, cx, cy);
         const [bx, by] = P(W, H, z, cx, cy);
-        const ax = (lx + bx) / 2 - 40;
-        const ay = (ly + by) / 2 + TK / 2;
+        /* the leader lands on the front-left face, a third of the way along its top edge, at mid thickness */
+        const ax = lx + (bx - lx) * 0.34;
+        const ay = ly + (by - ly) * 0.34 + TK / 2;
         return (
           <motion.g
             key={i}
@@ -203,10 +204,10 @@ export default function ServiceSection({ labels, range = undefined, material = u
             {!assembled && labels[i] !== undefined && (
               <g>
                 {/* the leader starts after the label: ~7.2px per mono character at 9px with 1.4 letter-spacing */}
-                <line x1={24 + labels[i].length * 7.2 + 8} y1={ay} x2={ax} y2={ay} stroke={INK} strokeWidth="0.75" />
+                <line x1={24 + (labels[i].length + 4) * 7.2 + 6} y1={ay} x2={ax} y2={ay} stroke={INK} strokeWidth="0.75" />
                 <circle cx={ax} cy={ay} r="1.8" fill={COBALT} />
                 <text x="24" y={ay + 3} fontSize="9" fontFamily={MONO} letterSpacing="1.4" fill="rgba(25,28,41,0.72)">
-                  {labels[i].toUpperCase()}
+                  {`0${LAYERS.length - i}  ${labels[i].toUpperCase()}`}
                 </text>
               </g>
             )}
