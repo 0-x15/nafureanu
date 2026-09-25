@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Reveal from "@/components/Reveal";
-import { STRINGS } from "@/i18n";
+import { STRINGS, langPath } from "@/i18n";
+import { SERVICES, servicePath } from "@/data/services";
+import { PROJECTS, projectSlug } from "@/data/projects";
 import CapabilityNav from "./capabilities/CapabilityNav";
 import CapabilityScene from "./capabilities/CapabilityScene";
 import CapabilityChapter from "./capabilities/CapabilityChapter";
@@ -11,10 +13,31 @@ import CapabilityChapter from "./capabilities/CapabilityChapter";
  * one transforms the art-directed scene (right). On mobile it
  * becomes a vertical story of full-width chapters.
  */
+/* Where each capability leads, in the order of `build.capabilities`: the
+   dedicated service page, or the Fivo case for the infrastructure that has
+   no commercial page yet; two capabilities also expose a specialist page. */
+const DESTINATIONS = [
+  { service: "custom-software" },
+  { service: "ai-automation" },
+  { service: "business-systems", also: "crm-real-estate" },
+  { service: "integrations-apis" },
+  { service: "saas", also: "web-digital" },
+  { project: "fivo" },
+];
+
 export default function WhatWeBuild({ lang = "es" }) {
-  const s = STRINGS[lang].build;
+  const strings = STRINGS[lang];
+  const s = strings.build;
   const [active, setActive] = useState(0);
   const labels = { when: s.whenLabel, build: s.buildLabel };
+  const path = (id) => servicePath(SERVICES.find((service) => service.id === id), lang);
+  const routes = DESTINATIONS.map((d) => {
+    const project = d.project ? PROJECTS.find((p) => p.slug === d.project) : null;
+    return {
+      to: project ? langPath(lang, `/work/${projectSlug(project, lang)}`) : path(d.service),
+      also: d.also ? { to: path(d.also), label: strings.servicesPage.names[d.also] } : null,
+    };
+  });
 
   return (
     <section
@@ -49,6 +72,7 @@ export default function WhatWeBuild({ lang = "es" }) {
           </Reveal>
           <CapabilityScene
             capabilities={s.capabilities}
+            routes={routes}
             active={active}
             lang={lang}
             labels={labels}
@@ -59,7 +83,7 @@ export default function WhatWeBuild({ lang = "es" }) {
         <div className="mt-12 space-y-16 md:hidden">
           {s.capabilities.map((cap, i) => (
             <Reveal key={cap.name}>
-              <CapabilityChapter cap={cap} index={i} lang={lang} labels={labels} />
+              <CapabilityChapter cap={cap} route={routes[i]} index={i} lang={lang} labels={labels} />
             </Reveal>
           ))}
         </div>

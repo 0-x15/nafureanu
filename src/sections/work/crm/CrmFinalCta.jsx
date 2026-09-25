@@ -1,6 +1,7 @@
 import Reveal from "@/components/Reveal";
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";
+import RelatedServices from "@/components/work/RelatedServices";
 
 /**
  * Final CTA — corporate and light: an editorial question on the
@@ -40,6 +41,9 @@ export default function CrmFinalCta({ lang, c }) {
             {t.secondary}
           </ActionLink>
         </Reveal>
+      </div>
+      <div className="mx-auto mt-14 max-w-[1440px] border-t border-border pt-6">
+        <RelatedServices lang={lang} ids={["crm-real-estate", "business-systems"]} />
       </div>
     </section>
   );

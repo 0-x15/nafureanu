@@ -1,5 +1,6 @@
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";
+import RelatedServices from "@/components/work/RelatedServices";
 
 /** The closing question, on the site's own ground so the exhibition dissolves into it. */
 export default function Outro({ lang = "es", c }) {
@@ -13,6 +14,7 @@ export default function Outro({ lang = "es", c }) {
           <ActionLink to={langPath(lang, "/contact")} size="lg">{o.primary}</ActionLink>
           <ActionLink to={langPath(lang, "/work")} variant="secondary" icon="right" size="lg">{o.secondary}</ActionLink>
         </div>
+        <RelatedServices lang={lang} ids={["web-digital"]} className="mt-10" />
       </div>
     </section>
   );

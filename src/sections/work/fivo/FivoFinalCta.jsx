@@ -3,6 +3,7 @@ import Reveal from "@/components/Reveal";
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";
 import { Mono } from "./fivoBits";
+import RelatedServices from "@/components/work/RelatedServices";
 
 /**
  * Final CTA — the complexity of Fivo connected to Nafureanu's offer.
@@ -25,7 +26,10 @@ export default function FivoFinalCta({ lang, c }) {
             <ActionLink to={langPath(lang, "/work")} variant="secondary" icon="right" size="lg">{t.secondary}</ActionLink>
           </Reveal>
         </div>
-        <Reveal delay={0.14} className="mt-14 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-6 text-xs text-muted-foreground">
+        <Reveal delay={0.12} className="mt-14 border-t border-border pt-6">
+          <RelatedServices lang={lang} ids={["integrations-apis", "saas"]} />
+        </Reveal>
+        <Reveal delay={0.14} className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-border pt-6 text-xs text-muted-foreground">
           <Mono>{t.product.label}</Mono>
           <span>{t.product.text}</span>
           <a href={t.product.url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-foreground/80 transition-colors hover:text-accent">

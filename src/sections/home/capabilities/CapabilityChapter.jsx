@@ -6,7 +6,7 @@ import CapabilityFacts from "./CapabilityFacts";
  * story — eyebrow, headline, copy, visual, when-needed, evidence
  * and CTA. Not an accordion.
  */
-export default function CapabilityChapter({ cap, index, lang, labels }) {
+export default function CapabilityChapter({ cap, route, index, lang, labels }) {
   const Visual = VISUALS[index];
   return (
     <article>
@@ -22,7 +22,7 @@ export default function CapabilityChapter({ cap, index, lang, labels }) {
       <div aria-hidden="true" className="mt-6 h-[230px] w-full">
         <Visual />
       </div>
-      <CapabilityFacts cap={cap} lang={lang} labels={labels} />
+      <CapabilityFacts cap={cap} route={route} labels={labels} />
     </article>
   );
 }

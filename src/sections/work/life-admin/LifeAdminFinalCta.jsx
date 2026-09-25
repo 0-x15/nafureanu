@@ -2,6 +2,7 @@ import Reveal from "@/components/Reveal";
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";
 import { DISPLAY, Mono } from "./laBits";
+import RelatedServices from "@/components/work/RelatedServices";
 
 /** Final CTA — the everyday business problem Life Admin's approach answers, and the product's honest status. */
 export default function LifeAdminFinalCta({ lang, c }) {
@@ -20,7 +21,10 @@ export default function LifeAdminFinalCta({ lang, c }) {
             <ActionLink to={langPath(lang, "/work")} variant="secondary" icon="right" size="lg">{t.secondary}</ActionLink>
           </Reveal>
         </div>
-        <Reveal delay={0.14} className="mt-14 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#E8E4DE] pt-6 text-xs text-[#706B66]">
+        <Reveal delay={0.12} className="mt-14 border-t border-[#E8E4DE] pt-6">
+          <RelatedServices lang={lang} ids={["ai-automation", "saas"]} />
+        </Reveal>
+        <Reveal delay={0.14} className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 border-t border-[#E8E4DE] pt-6 text-xs text-[#706B66]">
           <Mono>{t.status.label}</Mono>
           <span>{t.status.text}</span>
         </Reveal>

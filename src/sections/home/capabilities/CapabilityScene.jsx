@@ -24,7 +24,7 @@ const rise = (delay) => ({
   transition: { duration: 0.55, delay, ease: EASE },
 });
 
-export default function CapabilityScene({ capabilities, active, lang, labels }) {
+export default function CapabilityScene({ capabilities, routes, active, lang, labels }) {
   const cap = capabilities[active];
   const Visual = VISUALS[active];
 
@@ -71,7 +71,7 @@ export default function CapabilityScene({ capabilities, active, lang, labels }) 
             <Visual />
           </motion.div>
           <motion.div {...rise(0.24)} className="relative z-10">
-            <CapabilityFacts cap={cap} lang={lang} labels={labels} />
+            <CapabilityFacts cap={cap} route={routes[active]} labels={labels} />
           </motion.div>
         </motion.div>
       </AnimatePresence>
