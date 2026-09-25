@@ -1,56 +1,80 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, Minus, Plus } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { STRINGS, langPath } from "@/i18n";
-import { SERVICE_NAV_ITEMS, isDedicatedService, isServiceNavItemActive, isServicesSection, serviceNavPath } from "@/data/serviceNavigation";
+import { SERVICE_NAV, isServiceNavItemActive, serviceNavPath } from "@/data/serviceNavigation";
 import { cn } from "@/lib/utils";
+import { CurrentMark, FOCUS, MONO, pad } from "./mobileMenuBits";
 
 /**
- * Mobile treatment of the Services item: the label stays a real link to
- * the index and a separate disclosure button reveals the seven services
- * (open by default when the visitor is already inside the section).
+ * The second view of the mobile menu: the technical index of the seven
+ * services — numbered across the two groups of the service navigation,
+ * a title and one short line each — with the way back at the top and
+ * the Services index at the bottom. Destinations come from the shared
+ * service navigation; the service of the current page carries the mark.
  */
-export default function ServicesMobileNav({ lang = "es", linkClassName = "" }) {
+export default function ServicesMobileNav({ lang = "es", onBack = () => {} }) {
   const s = STRINGS[lang];
   const t = s.serviceNav;
   const { pathname } = useLocation();
   const base = langPath(lang, "/services");
-  const sectionActive = isServicesSection(pathname, lang);
-  const [open, setOpen] = useState(sectionActive);
+  const count = SERVICE_NAV.groups.reduce((n, g) => n + g.items.length, 0);
+  let index = 0;
   return (
-    <div className="border-b border-border">
-      <div className="flex items-center justify-between gap-4">
-        <Link to={base} aria-current={sectionActive ? "page" : undefined} className={cn(linkClassName, "border-b-0", sectionActive && "text-accent")}>{s.nav.services}</Link>
+    <>
+      <div className="flex items-center justify-between gap-4 border-b border-foreground/12 pb-2">
         <button
           type="button"
-          aria-expanded={open}
-          aria-controls="mobile-services-list"
-          aria-label={open ? t.close : t.open}
-          onClick={() => setOpen((v) => !v)}
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[6px] border border-border text-foreground outline-none transition-colors focus-visible:ring-2 focus-visible:ring-accent"
+          onClick={onBack}
+          className={cn("group -ml-2 inline-flex min-h-[44px] items-center gap-2 px-2 text-[14px] font-medium text-foreground transition-colors hover:text-accent", FOCUS)}
         >
-          {open ? <Minus aria-hidden="true" className="h-4 w-4" /> : <Plus aria-hidden="true" className="h-4 w-4" />}
+          <ArrowLeft aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:-translate-x-[2px]" />
+          {s.nav.menu.back}
         </button>
+        <p className={cn(MONO, "text-muted-foreground")}>01 — {pad(count)}</p>
       </div>
-      <ul id="mobile-services-list" hidden={!open} className="pb-5">
-        {SERVICE_NAV_ITEMS.map((item) => {
-          const active = isServiceNavItemActive(item, pathname, lang);
-          return (
-            <li key={item.id}>
-              <Link to={serviceNavPath(item, lang)} aria-current={active ? "page" : undefined} className={cn("flex items-center gap-3 py-2.5 text-[15px] font-medium outline-none focus-visible:text-accent", active ? "text-accent" : "text-foreground/85")}>
-                <span aria-hidden="true" className={cn("h-1.5 w-1.5 shrink-0 rounded-full", active ? "bg-accent" : isDedicatedService(item) ? "bg-accent/55" : "bg-border")} />
-                {t.items[item.id].label}
-              </Link>
-            </li>
-          );
-        })}
-        <li>
-          <Link to={base} className="mt-2 inline-flex items-center gap-1.5 py-1 text-[13px] font-medium text-accent outline-none focus-visible:underline">
-            {t.all}
-            <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
-          </Link>
-        </li>
-      </ul>
-    </div>
+      <h2 id="mm-services-title" className="mt-6 font-heading text-[clamp(1.9rem,8vw,2.6rem)] font-bold leading-[1.02] tracking-[-0.035em] text-foreground">
+        {s.nav.services}
+      </h2>
+      <nav aria-labelledby="mm-services-title" className="mt-2">
+        {SERVICE_NAV.groups.map((g) => (
+          <div key={g.id} className="mt-5">
+            <p className={cn(MONO, "text-muted-foreground")}>{t.groups[g.id]}</p>
+            <ol className="mt-1">
+              {g.items.map((item) => {
+                index += 1;
+                const copy = t.items[item.id];
+                const active = isServiceNavItemActive(item, pathname, lang);
+                return (
+                  <li key={item.id} className="border-b border-foreground/10">
+                    <Link
+                      to={serviceNavPath(item, lang)}
+                      aria-current={active ? "page" : undefined}
+                      className={cn("group relative grid grid-cols-[1.75rem_1fr_auto] items-start gap-x-3 py-3.5", FOCUS)}
+                    >
+                      <span className={cn(MONO, "pt-[5px]", active ? "text-accent" : "text-muted-foreground")}>{pad(index)}</span>
+                      <span className="min-w-0">
+                        <span className={cn("block font-heading text-[17px] font-bold leading-tight tracking-[-0.02em]", active ? "text-accent" : "text-foreground")}>{copy.label}</span>
+                        <span className="mt-1 block text-[12.5px] leading-snug text-muted-foreground">{copy.short}</span>
+                      </span>
+                      <ArrowRight aria-hidden="true" className={cn("mt-[3px] h-4 w-4 transition-transform duration-300 group-hover:translate-x-[2px] group-focus-visible:translate-x-[2px]", active ? "text-accent" : "text-foreground/35")} />
+                      {active && <CurrentMark />}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+        ))}
+      </nav>
+      <Link
+        to={base}
+        aria-current={pathname === base ? "page" : undefined}
+        className={cn("group relative mt-6 inline-flex min-h-[44px] items-center gap-2 text-[15px] font-medium text-accent transition-colors hover:text-accent-deep", FOCUS)}
+      >
+        {t.all}
+        <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-[2px]" />
+        {pathname === base && <CurrentMark />}
+      </Link>
+    </>
   );
 }
