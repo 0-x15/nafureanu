@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback, useLayoutEffect } from "react";
-import { easeInOut, motion, useAnimationFrame, useInView, useMotionValue } from "framer-motion";
+import { easeInOut, m as motion, useAnimationFrame, useInView, useMotionValue } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import CrmSegmentBubble from "./CrmSegmentBubble";

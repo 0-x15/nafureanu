@@ -1,17 +1,22 @@
+import { lazy } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { useReducedMotion } from "@/lib/motion";
 import { PROJECTS, projectSlug } from "@/data/projects";
-import { STRINGS, langPath, pick } from "@/i18n";
+import { STRINGS, langPath, loadBlock, pick } from "@/i18n";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import FlowDiagram from "@/components/diagrams/FlowDiagram";
 import RadialDiagram from "@/components/diagrams/RadialDiagram";
-import CrmCaseStudy from "@/sections/work/crm/CrmCaseStudy";
-import FivoCaseStudy from "@/sections/work/fivo/FivoCaseStudy";
-import LifeAdminCaseStudy from "@/sections/work/life-admin/LifeAdminCaseStudy";
-import WebProjectsCaseStudy from "@/sections/work/web-projects/WebProjectsCaseStudy";
 import BackToProjects from "@/components/work/BackToProjects";
+
+/* One chunk per case study: a visitor downloads the one they open (the route sits behind a Suspense boundary in AppRoutes). */
+const CASES = {
+  "crm-inmobiliario": lazy(() => import("@/sections/work/crm/CrmCaseStudy")),
+  fivo: lazy(() => import("@/sections/work/fivo/FivoCaseStudy")),
+  "life-admin": lazy(() => import("@/sections/work/life-admin/LifeAdminCaseStudy")),
+  "web-projects": lazy(() => import("@/sections/work/web-projects/WebProjectsCaseStudy")),
+};
 
 export default function CaseStudy({ lang = "es" }) {
   const { slug } = useParams();
@@ -41,17 +46,11 @@ export default function CaseStudy({ lang = "es" }) {
     return <Navigate to={langPath(lang, `/work/${canonicalSlug}`)} replace />;
   }
 
-  if (project.slug === "crm-inmobiliario") {
-    return <CrmCaseStudy lang={lang} />;
-  }
-  if (project.slug === "fivo") {
-    return <FivoCaseStudy lang={lang} />;
-  }
-  if (project.slug === "life-admin") {
-    return <LifeAdminCaseStudy lang={lang} />;
-  }
-  if (project.slug === "web-projects") {
-    return <WebProjectsCaseStudy lang={lang} />;
+  const Case = CASES[project.slug];
+  if (Case) {
+    /* the case study's copy travels in its own module: start it now, in parallel with the code */
+    if (project.strings) loadBlock(lang, project.strings);
+    return <Case lang={lang} />;
   }
 
   const idx = PROJECTS.indexOf(project);

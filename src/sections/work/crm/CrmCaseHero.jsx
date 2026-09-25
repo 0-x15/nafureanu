@@ -21,7 +21,7 @@ export default function CrmCaseHero({ lang, c }) {
   return (
     <header className="mx-auto grid max-w-[1440px] items-center gap-12 overflow-x-clip px-5 pb-8 pt-8 md:grid-cols-2 md:gap-16 md:px-10 md:pb-10 md:pt-12">
       <div className="min-w-0">
-        <Reveal>
+        <Reveal eager>
           <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">
             {h.kicker}
           </p>
@@ -33,7 +33,7 @@ export default function CrmCaseHero({ lang, c }) {
           </p>
         </Reveal>
 
-        <Reveal variant="left" delay={0.08} className="mt-10 flex flex-wrap gap-x-12 gap-y-5">
+        <Reveal eager variant="left" delay={0.08} className="mt-10 flex flex-wrap gap-x-12 gap-y-5">
           {h.proof.map((p) => (
             <div key={p.label}>
               <p className="font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl">
@@ -46,7 +46,7 @@ export default function CrmCaseHero({ lang, c }) {
           ))}
         </Reveal>
 
-        <Reveal delay={0.12} className="mt-7 flex flex-wrap gap-2">
+        <Reveal eager delay={0.12} className="mt-7 flex flex-wrap gap-2">
           {h.tech.split(" · ").map((chip) => (
             <span
               key={chip}
@@ -57,14 +57,14 @@ export default function CrmCaseHero({ lang, c }) {
           ))}
         </Reveal>
 
-        <Reveal delay={0.16} className="mt-10">
+        <Reveal eager delay={0.16} className="mt-10">
           <ActionLink to={langPath(lang, "/contact")} size="md">
             {STRINGS[lang].nav.start}
           </ActionLink>
         </Reveal>
       </div>
 
-      <Reveal variant="scale" delay={0.1} className="min-w-0">
+      <Reveal eager variant="scale" delay={0.1} className="min-w-0">
         <CrmHeroComposition lang={lang} />
       </Reveal>
     </header>

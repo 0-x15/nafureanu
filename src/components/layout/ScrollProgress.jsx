@@ -1,4 +1,4 @@
-import { motion, useScroll, useSpring } from "framer-motion";
+import { m as motion, useScroll, useSpring } from "framer-motion";
 
 /** Thin cobalt scroll progress line pinned to the top of the viewport. */
 export default function ScrollProgress() {

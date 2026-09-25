@@ -1,4 +1,4 @@
-import { motion, useMotionTemplate, useTransform } from "framer-motion";
+import { m as motion, useMotionTemplate, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /*

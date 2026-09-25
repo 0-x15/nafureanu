@@ -16,3 +16,6 @@ export const langPath = (lang, path) =>
 /** Resolve a bilingual value: string or { es, en }. */
 export const pick = (value, lang) =>
   typeof value === "string" ? value : value?.[lang];
+
+/** Copy of the on-demand pages (services, case studies) — see blocks.js. */
+export { loadBlock, useBlock } from "./blocks";

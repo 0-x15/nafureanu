@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import ActionLink from "@/components/ActionLink";
 import Reveal from "@/components/Reveal";
 import { STRINGS, langPath } from "@/i18n";

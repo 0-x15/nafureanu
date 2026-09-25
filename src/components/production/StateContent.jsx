@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
-import { motion, useTransform } from "framer-motion";
+import { m as motion, useTransform } from "framer-motion";
 import { langPath } from "@/i18n";
 
 /**

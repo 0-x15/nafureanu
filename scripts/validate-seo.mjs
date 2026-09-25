@@ -145,3 +145,29 @@ export async function validateOutput(pages, server, { root }) {
   }
   console.log(`seo validation passed: ${pages.length} pages`);
 }
+
+/* ── Performance guards ─────────────────────────────────────────────── */
+/* The libraries that belong to on-demand chunks only, as they appear in minified output. */
+const HEAVY = [/\bWebGLRenderer\b/, /\bgsap\b/i, /\bLenis\b/, /base44\.(app|com)/i, /@base44\//, /socket\.io/i, /\baxios\b/i, /@react-three/];
+/* Generous ceiling for the entry chunk (minified bytes): a regression that pulls a page's copy or a library back into it fails the build. */
+const ENTRY_BUDGET = 560 * 1024;
+
+/**
+ * The entry chunk referenced by the template must stay small and free of
+ * the on-demand libraries; every prerendered H1 must be visible without
+ * JavaScript (no entrance that starts at opacity 0 on the heading).
+ */
+export async function validatePerformance(pages, { root }) {
+  const dist = join(root, "dist");
+  const template = await readFile(join(dist, "index.html"), "utf8");
+  const entry = attr(template, /<script type="module"[^>]*src="([^"]+)"/);
+  if (!entry) throw new Error("perf: entry script not found in dist/index.html");
+  const code = await readFile(join(dist, entry.replace(/^\//, "")), "utf8");
+  if (code.length > ENTRY_BUDGET) throw new Error(`perf: entry chunk ${entry} is ${(code.length / 1024).toFixed(0)} kB, over the ${ENTRY_BUDGET / 1024} kB budget`);
+  for (const re of HEAVY) if (re.test(code)) throw new Error(`perf: entry chunk ${entry} contains ${re} — an on-demand library leaked into the initial bundle`);
+  for (const { path, html } of pages) {
+    const h1 = html.match(/<h1\b[^>]*>/);
+    if (h1 && /opacity:\s*0(;|"|$)/.test(h1[0])) throw new Error(`perf ${path}: the H1 is hidden in the static HTML (JavaScript-gated entrance)`);
+  }
+  console.log(`performance guards passed: entry ${(code.length / 1024).toFixed(0)} kB, ${pages.length} visible H1s`);
+}

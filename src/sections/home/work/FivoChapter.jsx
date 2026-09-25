@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import FivoCheckout from "@/components/mockups/FivoCheckout";
 import { STRINGS, langPath } from "@/i18n";

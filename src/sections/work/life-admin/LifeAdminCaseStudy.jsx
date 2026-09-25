@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { STRINGS } from "@/i18n";
+import { useBlock } from "@/i18n";
 import BackToProjects from "@/components/work/BackToProjects";
 import LifeAdminHero from "./LifeAdminHero";
 import LifeAdminProblem from "./LifeAdminProblem";
@@ -25,7 +25,7 @@ const FRAUNCES = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9.
  * mounted.
  */
 export default function LifeAdminCaseStudy({ lang = "es" }) {
-  const c = STRINGS[lang].lifeAdmin;
+  const c = useBlock(lang, "lifeAdmin");
 
   useEffect(() => {
     if (document.querySelector(`link[href="${FRAUNCES}"]`)) return undefined;

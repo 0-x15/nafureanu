@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { AnimatePresence, motion, useInView } from "framer-motion";
+import { AnimatePresence, m as motion, useInView } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { ArrowRight } from "lucide-react";
 import { PROJECTS, projectSlug } from "@/data/projects";

@@ -1,5 +1,5 @@
 import Reveal from "@/components/Reveal";
-import { STRINGS } from "@/i18n";
+import { useBlock } from "@/i18n";
 import MatchingDemo from "@/sections/work/crm/MatchingDemo";
 import { cn } from "@/lib/utils";
 import { Chapter, ChapterHead, Closing, MONO, Pill } from "./serviceBits";
@@ -11,7 +11,7 @@ import { Chapter, ChapterHead, Closing, MONO, Pill } from "./serviceBits";
  */
 export default function CrmServiceMatching({ lang, c }) {
   const m = c.matching;
-  const demo = STRINGS[lang].crm.matching;
+  const demo = useBlock(lang, "crm").matching;
   return (
     <Chapter id="crm-service-matching" tone="white">
       <ChapterHead id="crm-service-matching" kicker={m.kicker} title={m.title} />

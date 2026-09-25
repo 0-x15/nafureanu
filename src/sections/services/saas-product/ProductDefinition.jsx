@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { LayoutGroup, motion } from "framer-motion";
+import { LayoutGroup, m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";

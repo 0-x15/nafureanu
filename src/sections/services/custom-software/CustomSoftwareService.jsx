@@ -1,4 +1,4 @@
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import ServiceNav from "../shared/ServiceNav";
 import CsHero from "./CsHero";
@@ -36,7 +36,7 @@ const workPath = (lang, slug) => {
  * fictional pattern.
  */
 export default function CustomSoftwareService({ lang = "es" }) {
-  const c = STRINGS[lang].customSoftwareService;
+  const c = useBlock(lang, "customSoftwareService");
   const paths = { crm: workPath(lang, "crm-inmobiliario"), lifeAdmin: workPath(lang, "life-admin"), fivo: workPath(lang, "fivo") };
   return (
     <article className="pt-24 md:pt-28">

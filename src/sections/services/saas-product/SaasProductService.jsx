@@ -1,4 +1,4 @@
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import ProductProgress from "./ProductProgress";
 import ProductHero from "./ProductHero";
@@ -9,6 +9,7 @@ import ProductAfterLaunch from "./ProductAfterLaunch";
 import ProductProof from "./ProductProof";
 import ProductCollaboration from "./ProductCollaboration";
 import ProductCta from "./ProductCta";
+import LayoutFeatures from "@/components/motion/LayoutFeatures";
 
 const workPath = (lang, slug) => {
   const project = PROJECTS.find((p) => p.slug === slug);
@@ -24,19 +25,21 @@ const PROGRESS = { idea: ["sp-hero", "sp-definition"], product: ["sp-studio"], b
  * after launch, two real products, the shared table, and the door.
  */
 export default function SaasProductService({ lang = "es" }) {
-  const c = STRINGS[lang].saasProductService;
+  const c = useBlock(lang, "saasProductService");
   const paths = { fivo: workPath(lang, "fivo"), lifeAdmin: workPath(lang, "life-admin"), web: workPath(lang, "web-projects") };
   return (
-    <article className="pt-24 md:pt-28">
-      <ProductProgress items={c.progress.items} map={PROGRESS} label={c.progress.label} />
-      <ProductHero lang={lang} c={c} proofPath="#sp-proof" />
-      <ProductDefinition c={c} />
-      <ProductStudio c={c} />
-      <ProductShell c={c} />
-      <ProductAfterLaunch c={c} />
-      <ProductProof lang={lang} c={c} paths={paths} />
-      <ProductCollaboration c={c} />
-      <ProductCta lang={lang} c={c} />
-    </article>
+    <LayoutFeatures>
+      <article className="pt-24 md:pt-28">
+        <ProductProgress items={c.progress.items} map={PROGRESS} label={c.progress.label} />
+        <ProductHero lang={lang} c={c} proofPath="#sp-proof" />
+        <ProductDefinition c={c} />
+        <ProductStudio c={c} />
+        <ProductShell c={c} />
+        <ProductAfterLaunch c={c} />
+        <ProductProof lang={lang} c={c} paths={paths} />
+        <ProductCollaboration c={c} />
+        <ProductCta lang={lang} c={c} />
+      </article>
+    </LayoutFeatures>
   );
 }

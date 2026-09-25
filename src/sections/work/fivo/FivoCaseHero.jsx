@@ -18,7 +18,7 @@ export default function FivoCaseHero({ lang, c }) {
     <header className="mx-auto max-w-[1440px] overflow-x-clip px-5 pb-10 pt-8 md:px-10 md:pb-16 md:pt-12">
       <div className="grid gap-10 md:grid-cols-12 md:gap-12">
         <div className="min-w-0 md:col-span-7">
-          <Reveal>
+          <Reveal eager>
             <Kicker>{h.kicker}</Kicker>
             <div className="mt-5 flex items-center gap-4">
               <img
@@ -43,7 +43,7 @@ export default function FivoCaseHero({ lang, c }) {
         </div>
 
         <div className="min-w-0 md:col-span-5 md:self-end">
-          <Reveal variant="left" delay={0.08}>
+          <Reveal eager variant="left" delay={0.08}>
             <dl className="grid grid-cols-2 gap-x-8 gap-y-6">
               {h.proof.map((p) => (
                 <div key={p.label} className="border-l border-border pl-4">
@@ -80,7 +80,7 @@ export default function FivoCaseHero({ lang, c }) {
         </div>
       </div>
 
-      <Reveal variant="scale" delay={0.12} className="mt-16 md:mt-24">
+      <Reveal eager variant="scale" delay={0.12} className="mt-16 md:mt-24">
         <FivoHeroComposition c={h} />
       </Reveal>
     </header>

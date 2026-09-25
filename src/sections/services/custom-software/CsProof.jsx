@@ -14,8 +14,8 @@ export default function CsProof({ lang, c, paths }) {
   const p = c.proof;
   const visual = (id) => {
     if (id === "crm") return <CrmOpsMockup lang={lang} />;
-    const src = id === "lifeAdmin" ? `/work/life-admin/dashboard.${lang}.webp` : "/work/fivo/merchant-dashboard.webp";
-    return <img src={src} alt="" loading="lazy" decoding="async" className="block aspect-[16/10] w-full rounded-[8px] border border-border object-cover object-top" />;
+    const [src, w, h] = id === "lifeAdmin" ? [`/work/life-admin/dashboard.${lang}.webp`, 2400, 1383] : ["/work/fivo/merchant-dashboard.webp", 642, 416];
+    return <img src={src} width={w} height={h} alt="" loading="lazy" decoding="async" className="block aspect-[16/10] w-full rounded-[8px] border border-border object-cover object-top" />;
   };
   return (
     <Chapter id="cs-proof" tone="white">

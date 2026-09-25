@@ -1,4 +1,4 @@
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import CrmServiceNav from "./CrmServiceNav";
 import CrmServiceHero from "./CrmServiceHero";
@@ -34,7 +34,7 @@ import CrmServiceCta from "./CrmServiceCta";
  * the only place where that system is named as a project.
  */
 export default function CrmRealEstateService({ lang = "es", service }) {
-  const c = STRINGS[lang].crmService;
+  const c = useBlock(lang, "crmService");
   const project = PROJECTS.find((p) => p.slug === service.project);
   const proofPath = langPath(lang, `/work/${project ? projectSlug(project, lang) : service.project}`);
   return (

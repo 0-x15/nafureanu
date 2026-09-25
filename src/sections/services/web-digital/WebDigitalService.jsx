@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import WebCanvasHero from "./WebCanvasHero";
 import StructureAct from "./StructureAct";
@@ -9,6 +9,7 @@ import BuildReveal from "./BuildReveal";
 import WebBrief from "./WebBrief";
 import WebCta from "./WebCta";
 import "./webDigital.css";
+import LayoutFeatures from "@/components/motion/LayoutFeatures";
 
 const FRAUNCES = "https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&display=swap";
 
@@ -26,7 +27,7 @@ const workPath = (lang, slug) => {
  * page, and the brief. Fraunces loads only while this page is open.
  */
 export default function WebDigitalService({ lang = "es" }) {
-  const c = STRINGS[lang].webDigitalService;
+  const c = useBlock(lang, "webDigitalService");
   const [dir, setDir] = useState("editorial");
   const paths = { work: workPath(lang, "web-projects") };
 
@@ -40,14 +41,16 @@ export default function WebDigitalService({ lang = "es" }) {
   }, []);
 
   return (
-    <article className="pt-24 md:pt-28">
-      <WebCanvasHero lang={lang} c={c} />
-      <StructureAct c={c} />
-      <DirectionStudio c={c} dir={dir} setDir={setDir} />
-      <ResponsiveLab c={c} />
-      <BuildReveal c={c} />
-      <WebBrief c={c} />
-      <WebCta lang={lang} c={c} paths={paths} />
-    </article>
+    <LayoutFeatures>
+      <article className="pt-24 md:pt-28">
+        <WebCanvasHero lang={lang} c={c} />
+        <StructureAct c={c} />
+        <DirectionStudio c={c} dir={dir} setDir={setDir} />
+        <ResponsiveLab c={c} />
+        <BuildReveal c={c} />
+        <WebBrief c={c} />
+        <WebCta lang={lang} c={c} paths={paths} />
+      </article>
+    </LayoutFeatures>
   );
 }

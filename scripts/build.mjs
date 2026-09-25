@@ -1,6 +1,6 @@
 /**
  * The production build: client bundle → server bundle → static HTML for
- * every public URL → sitemap.xml from the manifest → validation. `npm run build` runs this; a fresh clone
+ * every public URL → sitemap.xml from the manifest → SEO and performance validation. `npm run build` runs this; a fresh clone
  * only needs `npm install && npm run build`. Any route that cannot be
  * rendered or validated fails the build.
  */
@@ -10,7 +10,7 @@ import { pathToFileURL } from "node:url";
 import { build } from "vite";
 import { prerender } from "./prerender.mjs";
 import { writeSitemap } from "./sitemap.mjs";
-import { validateOutput } from "./validate-seo.mjs";
+import { validateOutput, validatePerformance } from "./validate-seo.mjs";
 import { syncVercelConfig } from "./vercel-config.mjs";
 
 process.env.NODE_ENV = "production";
@@ -25,6 +25,7 @@ try {
   const pages = await prerender(server, { dist: resolve(root, "dist") });
   await writeSitemap(server, { dist: resolve(root, "dist") });
   await validateOutput(pages, server, { root });
+  await validatePerformance(pages, { root });
 } finally {
   await rm(serverDir, { recursive: true, force: true });
 }

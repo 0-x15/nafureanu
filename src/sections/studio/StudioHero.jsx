@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
+import { rise } from "@/lib/rise";
 import { LogoSymbol } from "@/components/brand/Logo";
 import { cn } from "@/lib/utils";
 import { EASE, H1, MONO } from "./studioBits";
@@ -48,37 +49,38 @@ export function SectionAxis({ ax, reduced, compact = false }) {
 /**
  * The entrance of the practice. One composition across the viewport: the
  * corporate statement, three institutional facts, the section drawing on
- * the right, and a signature line closing the room.
+ * the right, and a signature line closing the room. The entrance is CSS
+ * (`rise`): the statement paints with the static HTML.
  */
 export default function StudioHero({ a }) {
   const reduced = useReducedMotion();
   const h = a.hero;
-  const up = (i) => ({ initial: reduced ? false : { opacity: 0, y: 12 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: 0.1 + i * 0.1, ease: EASE } });
+  const up = (i) => rise(12, 0.7, 0.1 + i * 0.1);
   return (
     <header className="relative overflow-x-clip px-5 pb-10 pt-6 md:px-10 md:pb-14 md:pt-10">
       <div className="mx-auto max-w-[1440px]">
-        <motion.div {...up(0)} className="flex items-baseline justify-between gap-6 border-b border-foreground/12 pb-3">
+        <div className="rise flex items-baseline justify-between gap-6 border-b border-foreground/12 pb-3" style={up(0)}>
           <p className="flex items-baseline gap-4"><span className="text-xs font-medium uppercase tracking-[0.22em] text-accent">{a.kicker}</span><span className={cn(MONO, "hidden text-muted-foreground sm:inline")}>{a.company}</span></p>
           <p className={cn(MONO, "text-muted-foreground")}>{a.rev}</p>
-        </motion.div>
+        </div>
         <div className="mt-10 grid gap-12 md:mt-14 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-7">
-            <motion.h1 {...up(1)} className={cn(H1, "max-w-[17ch] text-foreground")}>{h.title}</motion.h1>
-            <motion.p {...up(2)} className="mt-6 max-w-[52ch] text-[16px] leading-[1.6] text-foreground/85 md:text-[17px]">{h.lead}</motion.p>
-            <motion.dl {...up(3)} className="mt-10 grid grid-cols-3 gap-6 border-t border-foreground/12 pt-4">
+            <h1 className={cn("rise", H1, "max-w-[17ch] text-foreground")} style={up(1)}>{h.title}</h1>
+            <p className="rise mt-6 max-w-[52ch] text-[16px] leading-[1.6] text-foreground/85 md:text-[17px]" style={up(2)}>{h.lead}</p>
+            <dl className="rise mt-10 grid grid-cols-3 gap-6 border-t border-foreground/12 pt-4" style={up(3)}>
               {h.facts.map((f) => <div key={f.k}><dt className={cn(MONO, "text-muted-foreground")}>{f.k}</dt><dd className="mt-1 text-[13px] font-semibold leading-snug text-foreground md:text-[14px]">{f.v}</dd></div>)}
-            </motion.dl>
+            </dl>
           </div>
-          <motion.div {...up(2)} className="lg:col-span-4 lg:col-start-9">
+          <div className="rise lg:col-span-4 lg:col-start-9" style={up(2)}>
             <p className={cn(MONO, "mb-4 text-muted-foreground")}>{h.axis.label}</p>
             <SectionAxis ax={h.axis} reduced={Boolean(reduced)} />
-          </motion.div>
+          </div>
         </div>
-        <motion.div {...up(4)} className="mt-12 flex items-center gap-4 md:mt-16">
+        <div className="rise mt-12 flex items-center gap-4 md:mt-16" style={up(4)}>
           <LogoSymbol size={14} className="text-foreground" />
           <span className={cn(MONO, "text-foreground/70")}>{h.signature}</span>
           <span aria-hidden="true" className="h-px flex-1 bg-foreground/12" />
-        </motion.div>
+        </div>
       </div>
     </header>
   );

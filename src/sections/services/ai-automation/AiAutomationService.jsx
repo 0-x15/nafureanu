@@ -1,4 +1,4 @@
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import { SERVICES, servicePath } from "@/data/services";
 import ServiceNav from "../shared/ServiceNav";
@@ -42,7 +42,7 @@ const workPath = (lang, slug) => {
  * systems we built; every other surface is a labelled pattern.
  */
 export default function AiAutomationService({ lang = "es" }) {
-  const c = STRINGS[lang].aiAutomationService;
+  const c = useBlock(lang, "aiAutomationService");
   const paths = { crm: workPath(lang, "crm-inmobiliario"), lifeAdmin: workPath(lang, "life-admin"), fivo: workPath(lang, "fivo") };
   const self = SERVICES.find((s) => s.id === "ai-automation");
   const proofPath = `${self ? servicePath(self, lang) : langPath(lang, "/services")}#ai-proof`;

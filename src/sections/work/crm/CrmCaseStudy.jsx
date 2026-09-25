@@ -1,4 +1,4 @@
-import { STRINGS } from "@/i18n";
+import { useBlock } from "@/i18n";
 import BackToProjects from "@/components/work/BackToProjects";
 import CrmCaseHero from "./CrmCaseHero";
 import CrmProblem from "./CrmProblem";
@@ -16,7 +16,7 @@ import CrmFinalCta from "./CrmFinalCta";
  * Back navigation sits at the very top.
  */
 export default function CrmCaseStudy({ lang = "es" }) {
-  const c = STRINGS[lang].crm;
+  const c = useBlock(lang, "crm");
 
   return (
     <article>

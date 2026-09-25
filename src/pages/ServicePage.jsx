@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { Navigate, useParams } from "react-router-dom";
 import PageNotFound from "@/lib/PageNotFound";
 import { findService, servicePath, serviceSlug } from "@/data/services";
+import { loadBlock } from "@/i18n";
 /* One lazy chunk per service: a visitor only downloads the page they open. */
 const PAGES = {
   "crm-real-estate": lazy(() => import("@/sections/services/crm-real-estate/CrmRealEstateService")),
@@ -25,6 +26,9 @@ export default function ServicePage({ lang = "es" }) {
 
   if (!service) return <PageNotFound />;
   if (slug !== serviceSlug(service, lang)) return <Navigate replace to={servicePath(service, lang)} />;
+  /* the page's copy travels in its own module: start it now, in parallel with the code (the CRM page also shows the case study's matching demo) */
+  loadBlock(lang, service.strings);
+  if (service.id === "crm-real-estate") loadBlock(lang, "crm");
   const Page = PAGES[service.id];
   return (
     <Suspense fallback={<div className="min-h-screen" aria-hidden="true" />}>

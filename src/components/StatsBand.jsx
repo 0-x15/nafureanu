@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
+import { m as motion, useMotionValueEvent, useScroll, useTransform } from "framer-motion";
 import { STRINGS, langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
 import StateAtmosphere from "@/components/production/StateAtmosphere";

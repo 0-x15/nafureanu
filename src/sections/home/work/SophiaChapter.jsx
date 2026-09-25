@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import SophIADashboard from "@/components/mockups/SophIADashboard";
 import { STRINGS, langPath } from "@/i18n";

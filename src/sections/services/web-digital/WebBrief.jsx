@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { Act, EASE, H2, Index, MONO, Reg, Segmented } from "./webBits";

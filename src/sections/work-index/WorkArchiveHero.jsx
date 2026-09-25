@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { m as motion, useScroll, useTransform } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
+import { rise } from "@/lib/rise";
 import { cn } from "@/lib/utils";
 import BackToHome from "@/components/work/BackToHome";
 import { EASE, MONO } from "./workBits";
@@ -17,7 +18,9 @@ import "./workHero.css";
  * their own pace. The racks rise one after another on entry and
  * scrolling walks you in, towards
  * the systems shown below in the cards. The scene is plain DOM/CSS:
- * one 3D transform per rack, gradients for every material.
+ * one 3D transform per rack, gradients for every material. Racks and
+ * statement enter with the CSS `rise`, so the room paints with the
+ * static HTML; only the walk-in and the marks need JavaScript.
  */
 const RACK_Z = [40, -110, -260, -410, -560, -710, -860];
 const MODULE_TOPS = [8, 27, 46, 65, 84];
@@ -34,19 +37,17 @@ const LED_B = `${leds("#3157F6", 72)},${leds("#E9EEFF", 83)}`;
  * compositor — the door itself is never repainted. Far racks keep the
  * overlays still.
  */
-function Rack({ side, z, i, reduced }) {
+function Rack({ side, z, i }) {
   const left = side === "l";
   const boxed = i < 2;
   const live = i < 4;
   const label = `${left ? "A" : "B"}-${String(i + 1).padStart(2, "0")}`;
   return (
-    <motion.div
-      initial={reduced ? false : { opacity: 0, y: 36 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1, delay: 0.25 + i * 0.1, ease: EASE }}
-      style={{ z: left ? z : z - 120, rotateY: left ? 78 : -78, transformOrigin: "left center" }}
+    <div
+      style={{ transform: `translateZ(${left ? z : z - 120}px) rotateY(${left ? 78 : -78}deg)`, transformOrigin: "left center" }}
       className={cn("absolute bottom-[24%] h-[260px] w-[120px]", boxed && "[transform-style:preserve-3d]", left ? "left-[14%] md:left-[7%]" : "left-[86%] md:left-[93%]")}
     >
+    <div className={cn("rise relative h-full w-full", boxed && "[transform-style:preserve-3d]")} style={rise(36, 1, 0.25 + i * 0.1)}>
       {/* the cabinet and its door */}
       <div className="wk-rack">
         <div className="wk-plate"><span>{label}</span><i className={live ? undefined : "wk-still"} /></div>
@@ -64,7 +65,8 @@ function Rack({ side, z, i, reduced }) {
       <div aria-hidden="true" className="absolute inset-x-0 top-full h-[70%] origin-top opacity-[0.32] [mask-image:linear-gradient(to_top,transparent_10%,rgba(0,0,0,0.9))] [transform:scaleY(-1)]">
         <div className="wk-rack"><div className="wk-door" /></div>
       </div>
-    </motion.div>
+    </div>
+    </div>
   );
 }
 
@@ -90,10 +92,10 @@ function Hall({ reduced, walk, scale }) {
 
           {/* the two rows of racks */}
           {RACK_Z.map((z, i) => (
-            <Rack key={`l${i}`} side="l" z={z} i={i} reduced={reduced} />
+            <Rack key={`l${i}`} side="l" z={z} i={i} />
           ))}
           {RACK_Z.map((z, i) => (
-            <Rack key={`r${i}`} side="r" z={z} i={i} reduced={reduced} />
+            <Rack key={`r${i}`} side="r" z={z} i={i} />
           ))}
         </motion.div>
       </div>
@@ -122,7 +124,7 @@ export default function WorkArchiveHero({ lang, t }) {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
-  const up = (i) => ({ initial: reduced ? false : { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, delay: 0.1 + i * 0.08, ease: EASE } });
+  const up = (i) => rise(14, 0.7, 0.1 + i * 0.08);
 
   return (
     <header ref={ref} className="relative flex h-[560px] flex-col overflow-hidden px-5 pb-10 pt-24 sm:h-[640px] md:px-10 md:pb-14 md:pt-24 lg:h-[min(88svh,860px)] lg:min-h-[640px]">
@@ -131,26 +133,26 @@ export default function WorkArchiveHero({ lang, t }) {
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1440px] flex-1 flex-col">
         {/* the top edge */}
-        <motion.div {...up(0)} className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-foreground/12 pb-3">
+        <div className="rise flex flex-wrap items-baseline justify-between gap-x-8 gap-y-3 border-b border-foreground/12 pb-3" style={up(0)}>
           <div className="flex items-baseline gap-6">
             <BackToHome lang={lang} />
             <p className="text-xs font-medium uppercase tracking-[0.22em] text-accent">{t.kicker}</p>
           </div>
           <p className={cn(MONO, "text-muted-foreground")}>{h.selected}</p>
           <p className={cn(MONO, "hidden text-muted-foreground md:block")}>{h.discipline}</p>
-        </motion.div>
+        </div>
 
         {/* the statement, standing in the middle of the room */}
         <div className="relative flex flex-1 flex-col items-center justify-center text-center">
           <span aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-[130%] w-[220%] -translate-x-1/2 -translate-y-1/2 bg-[radial-gradient(closest-side,rgba(249,247,240,0.96),rgba(249,247,240,0.8)_45%,transparent)] lg:h-[120%] lg:w-[min(100%,980px)] lg:bg-[radial-gradient(closest-side,rgba(249,247,240,0.9),rgba(249,247,240,0.55)_55%,transparent)]" />
-          <motion.h1 {...up(1)} className="relative max-w-[11em] font-heading text-[clamp(2.9rem,6vw,6.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground [text-wrap:balance]">
+          <h1 className="rise relative max-w-[11em] font-heading text-[clamp(2.9rem,6vw,6.2rem)] font-bold leading-[0.95] tracking-[-0.04em] text-foreground [text-wrap:balance]" style={up(1)}>
             {h.h1a} <span className="text-accent">{h.h1b}</span>
-          </motion.h1>
-          <motion.p {...up(2)} className="relative mt-6 max-w-[46ch] text-[16px] leading-[1.6] text-foreground/85 md:text-[18px]">
+          </h1>
+          <p className="rise relative mt-6 max-w-[46ch] text-[16px] leading-[1.6] text-foreground/85 md:text-[18px]" style={up(2)}>
             {t.intro}
-          </motion.p>
+          </p>
           {/* the line of state: three marks lighting up in sequence */}
-          <motion.div {...up(3)} className="relative mt-8 w-full max-w-[520px]" role="list" aria-label={h.stateLabel}>
+          <div className="rise relative mt-8 w-full max-w-[520px]" role="list" aria-label={h.stateLabel} style={up(3)}>
             <div className="relative h-px bg-foreground/15">
               <motion.span aria-hidden="true" initial={reduced ? false : { scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? 0 : 1.4, delay: 0.5, ease: EASE }} className="absolute inset-y-0 left-0 w-full origin-left bg-accent/60" />
             </div>
@@ -162,7 +164,7 @@ export default function WorkArchiveHero({ lang, t }) {
                 </li>
               ))}
             </ol>
-          </motion.div>
+          </div>
         </div>
       </div>
     </header>

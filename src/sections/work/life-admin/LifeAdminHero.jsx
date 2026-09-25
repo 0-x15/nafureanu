@@ -17,7 +17,7 @@ export default function LifeAdminHero({ lang, c }) {
     <header className="mx-auto max-w-[1440px] overflow-x-clip px-5 pb-10 pt-8 md:px-10 md:pb-16 md:pt-12">
       <div className="grid gap-10 md:grid-cols-12 md:gap-12">
         <div className="min-w-0 md:col-span-7">
-          <Reveal>
+          <Reveal eager>
             <Kicker>{h.kicker}</Kicker>
             <div className="mt-5 flex items-center gap-4">
               <LifeAdminMark className="h-11 w-11 shrink-0 text-[#201F1D] md:h-12 md:w-12" />
@@ -28,7 +28,7 @@ export default function LifeAdminHero({ lang, c }) {
           </Reveal>
         </div>
         <div className="min-w-0 md:col-span-5 md:self-end">
-          <Reveal variant="left" delay={0.08}>
+          <Reveal eager variant="left" delay={0.08}>
             <div className="rounded-xl border border-[#E8E4DE] bg-white px-4 py-3">
               <Mono>{h.status.label}</Mono>
               <p className="mt-1 flex items-start gap-2 text-sm font-medium text-[#201F1D]">
@@ -51,7 +51,7 @@ export default function LifeAdminHero({ lang, c }) {
         </div>
       </div>
 
-      <Reveal variant="scale" delay={0.12} className="mt-16 md:mt-24">
+      <Reveal eager variant="scale" delay={0.12} className="mt-16 md:mt-24">
         <div className="relative">
           <div aria-hidden="true" className="absolute inset-x-[1%] -top-6 bottom-4 rounded-[24px] border border-white bg-[linear-gradient(170deg,#F1EEE9_0%,#F9F8F4_60%,#F1EEE9_100%)] shadow-[0_50px_110px_-60px_rgba(32,31,29,0.35)] md:-top-10 md:bottom-8" />
           {/* Desktop composition */}

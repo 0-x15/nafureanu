@@ -83,10 +83,11 @@ export default function SiteBackground() {
     const onScroll = () => { if (!raf) raf = window.requestAnimationFrame(progress); };
     const onResize = () => {
       // the diagonal runs from the top of the left column to the bottom of the right one
+      // (the stylesheet computes the same two values for the first paint; these keep older engines drawing it)
       const dx = 0.27 * window.innerWidth;
       const dy = 0.72 * window.innerHeight;
-      root.style.setProperty("--diag", `${((Math.atan2(dx, dy) * 180) / Math.PI).toFixed(2)}deg`);
-      root.style.setProperty("--dlen", `${(Math.hypot(dx, dy) / 2).toFixed(1)}px`);
+      root.style.setProperty("--diag", `${((Math.atan2(dx, dy) * 180) / Math.PI).toFixed(4)}deg`);
+      root.style.setProperty("--dlen", `${(Math.hypot(dx, dy) / 2).toFixed(3)}px`);
       onScroll();
     };
     onResize();

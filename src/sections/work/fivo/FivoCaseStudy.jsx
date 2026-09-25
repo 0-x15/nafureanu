@@ -1,4 +1,4 @@
-import { STRINGS } from "@/i18n";
+import { useBlock } from "@/i18n";
 import BackToProjects from "@/components/work/BackToProjects";
 import FivoCaseHero from "./FivoCaseHero";
 import FivoProblem from "./FivoProblem";
@@ -27,7 +27,7 @@ import FivoFinalCta from "./FivoFinalCta";
  * from fivo.meta.
  */
 export default function FivoCaseStudy({ lang = "es" }) {
-  const c = STRINGS[lang].fivo;
+  const c = useBlock(lang, "fivo");
 
   return (
     <article>

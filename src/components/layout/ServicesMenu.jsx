@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import { STRINGS, langPath } from "@/i18n";

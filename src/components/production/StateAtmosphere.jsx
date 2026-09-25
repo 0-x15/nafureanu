@@ -1,4 +1,4 @@
-import { motion, useTransform } from "framer-motion";
+import { m as motion, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 /* Per-state atmospheric tint — restrained colour, blurred into the

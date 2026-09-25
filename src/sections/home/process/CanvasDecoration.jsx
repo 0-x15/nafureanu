@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 
 const EASE = [0.22, 1, 0.36, 1];

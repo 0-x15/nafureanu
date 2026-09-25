@@ -1,4 +1,4 @@
-import { motion, useTransform } from "framer-motion";
+import { m as motion, useTransform } from "framer-motion";
 
 /**
  * The proof mark — evidence, not protagonist. A confident metric with

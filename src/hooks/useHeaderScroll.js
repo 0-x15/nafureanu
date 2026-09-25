@@ -15,22 +15,27 @@ export default function useHeaderScroll({ menuOpenRef, interactingRef }) {
   const [hidden, setHidden] = useState(false);
 
   const reveal = useCallback(() => setHidden(false), []);
+  /* `reveal` bypasses the scroll bookkeeping on purpose: the next scroll event re-syncs it. */
 
   useEffect(() => {
     let lastY = window.scrollY;
     let lastDir = 0;
+    let lastCompact = null;
+    let lastHidden = null;
+    const compactTo = (v) => { if (v !== lastCompact) { lastCompact = v; setCompact(v); } };
+    const hiddenTo = (v) => { if (v !== lastHidden) { lastHidden = v; setHidden(v); } };
 
     const onScroll = () => {
       const y = window.scrollY;
       const delta = y - lastY;
       lastY = y;
 
-      setCompact(y > COMPACT_AFTER);
+      compactTo(y > COMPACT_AFTER);
 
       // Near the top the header is always visible.
       if (y <= HIDE_AFTER) {
         lastDir = 0;
-        setHidden(false);
+        hiddenTo(false);
         return;
       }
       // Ignore very small movements — no direction jitter.
@@ -41,10 +46,10 @@ export default function useHeaderScroll({ menuOpenRef, interactingRef }) {
 
       if (dir < 0) {
         // Scrolling up → reveal immediately.
-        setHidden(false);
+        hiddenTo(false);
       } else if (!menuOpenRef.current && !interactingRef.current) {
         // Scrolling down and nobody is using the header → hide.
-        setHidden(true);
+        hiddenTo(true);
       }
     };
 

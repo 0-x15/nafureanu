@@ -1,12 +1,11 @@
 import { renderToPipeableStream } from "react-dom/server";
 import { StaticRouter } from "react-router-dom/server";
-import { AuthProvider } from "@/lib/AuthContext";
 import AppRoutes from "./AppRoutes";
 
 /**
  * Build-time entry. `scripts/prerender.mjs` renders every public URL of
  * the route manifest through this function and writes static HTML; the
- * same route tree, providers and SEO model as the browser, behind a
+ * same route tree and SEO model as the browser, behind a
  * StaticRouter instead of a BrowserRouter.
  */
 export { PUBLIC_URLS, ALIASES, normalizePath } from "@/data/routes";
@@ -21,11 +20,9 @@ export { seoForPath, notFoundSeo, headHtml } from "@/lib/seo";
  */
 export function renderStream(url, options) {
   return renderToPipeableStream(
-    <AuthProvider>
-      <StaticRouter location={url}>
-        <AppRoutes />
-      </StaticRouter>
-    </AuthProvider>,
+    <StaticRouter location={url}>
+      <AppRoutes />
+    </StaticRouter>,
     options
   );
 }

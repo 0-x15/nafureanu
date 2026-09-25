@@ -1,6 +1,7 @@
 export const PROJECTS = [
   {
     slug: "fivo",
+    strings: "fivo",
     title: { es: "Fivo", en: "Fivo" },
     featured: true,
     client: { es: "Producto independiente", en: "Independent product" },
@@ -38,6 +39,7 @@ export const PROJECTS = [
   {
     slug: "crm-inmobiliario",
     slugEn: "real-estate-crm",
+    strings: "crm",
     title: { es: "CRM inmobiliario a medida", en: "Custom real-estate CRM" },
     featured: true,
     client: { es: "Empresa del sector inmobiliario", en: "Real-estate company" },
@@ -217,6 +219,7 @@ export const PROJECTS = [
   },
   {
     slug: "life-admin",
+    strings: "lifeAdmin",
     title: { es: "Life Admin", en: "Life Admin" },
     featured: true,
     client: { es: "Producto propio", en: "Own product" },
@@ -338,6 +341,7 @@ export const PROJECTS = [
   },
   {
     slug: "web-projects",
+    strings: "webProjects",
     title: { es: "Web y productos digitales", en: "Web & digital products" },
     featured: false,
     client: { es: "Clientes pymes", en: "SME clients" },

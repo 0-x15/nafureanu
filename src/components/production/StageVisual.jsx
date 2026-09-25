@@ -1,4 +1,4 @@
-import { motion, useTransform } from "framer-motion";
+import { m as motion, useTransform } from "framer-motion";
 
 /**
  * The stage zone wrapper. The product visual enters from depth

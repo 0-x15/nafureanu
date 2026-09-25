@@ -1,4 +1,4 @@
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import { SERVICES, servicePath } from "@/data/services";
 import ServiceNav from "../shared/ServiceNav";
@@ -38,7 +38,7 @@ const workPath = (lang, slug) => {
  * every other interface is a clearly fictional example of a pattern.
  */
 export default function BusinessSystemsService({ lang = "es", service }) {
-  const c = STRINGS[lang].businessSystemsService;
+  const c = useBlock(lang, "businessSystemsService");
   const crmService = SERVICES.find((s) => s.id === "crm-real-estate");
   const proofPath = crmService ? servicePath(crmService, lang) : workPath(lang, service.project);
   const casePath = workPath(lang, service.project);

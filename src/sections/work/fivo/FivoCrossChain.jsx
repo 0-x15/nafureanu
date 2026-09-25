@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Reveal from "@/components/Reveal";

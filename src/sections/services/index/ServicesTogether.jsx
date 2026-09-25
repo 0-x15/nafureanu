@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { m as motion, useInView } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import Reveal from "@/components/Reveal";

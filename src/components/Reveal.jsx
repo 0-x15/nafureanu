@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 const EASE = [0.22, 1, 0.36, 1];
 
@@ -25,9 +26,19 @@ const VARIANTS = {
   }),
 };
 
+/* The eager entrance (see .rise in index.css): where each variant starts from. */
+const EAGER_FROM = { up: (y) => [0, y], mask: (y) => [0, y], scale: () => [0, 12], left: () => [-44, 0] };
+
 /**
  * Scroll-into-view reveal with multiple motion languages so sections
  * don't all animate the same way. variant: "up" | "mask" | "scale" | "left".
+ *
+ * `eager` is for content in the first viewport of a page whose code loads
+ * on demand (the heroes of service pages and case studies): the entrance
+ * runs as a CSS animation from the static HTML, so the heading and lead
+ * paint before any JavaScript arrives instead of waiting, invisible, for
+ * the chunk and the hydration. It rises with the same timing; the mask,
+ * scale and blur languages are reserved for the scroll reveals below.
  */
 export default function Reveal({
   children,
@@ -35,7 +46,13 @@ export default function Reveal({
   delay = 0,
   y = 28,
   variant = "up",
+  eager = false,
 }) {
+  if (eager) {
+    const [fx, fy] = (EAGER_FROM[variant] || EAGER_FROM.up)(y);
+    const style = /** @type {any} */ ({ "--rise-x": `${fx}px`, "--rise-y": `${fy}px`, "--rise-t": "0.8s", "--rise-d": `${delay}s` });
+    return <div className={cn("rise", className)} style={style}>{children}</div>;
+  }
   const build = VARIANTS[variant] || VARIANTS.up;
   const { initial, whileInView } = build(y);
   return (

@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";

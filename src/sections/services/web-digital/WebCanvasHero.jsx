@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { m as motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useReducedMotion } from "@/lib/motion";
+import { rise } from "@/lib/rise";
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";
 import { cn } from "@/lib/utils";
@@ -119,18 +120,18 @@ export default function WebCanvasHero({ lang, c }) {
           </div>
           <h1 className="mt-8 max-w-[15ch] font-heading text-[clamp(2.1rem,4.3vw,4rem)] font-bold leading-[1] tracking-[-0.04em] text-foreground md:mt-10">
             {words.map((w, i) => (
-              <span key={`${w}-${i}`}><motion.span initial={reduced ? false : { opacity: 0, y: "0.4em" }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.1 + i * 0.05, ease: EASE }} className="inline-block">{w}</motion.span>{i < words.length - 1 ? " " : ""}</span>
+              <span key={`${w}-${i}`}><span className="rise inline-block" style={rise("0.4em", 0.8, 0.1 + i * 0.05)}>{w}</span>{i < words.length - 1 ? " " : ""}</span>
             ))}
           </h1>
-          <motion.p initial={reduced ? false : { opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.55, ease: EASE }} className="mt-6 max-w-[40ch] text-[16px] leading-[1.6] text-foreground/85 md:text-[17px]">{h.lead}</motion.p>
-          <motion.div initial={reduced ? false : { opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.8 }} className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <p className="rise mt-6 max-w-[40ch] text-[16px] leading-[1.6] text-foreground/85 md:text-[17px]" style={rise(8, 0.8, 0.55)}>{h.lead}</p>
+          <div className="rise mt-8 flex flex-wrap items-center gap-x-6 gap-y-4" style={rise(0, 0.8, 0.8)}>
             <ActionLink to={langPath(lang, "/contact")} size="lg">{h.primary}</ActionLink>
             <ActionLink to="#wd-structure" variant="text" icon="right" size="md">{h.secondary}</ActionLink>
-          </motion.div>
+          </div>
         </div>
-        <motion.div initial={reduced ? false : { opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.9, delay: 0.25, ease: EASE }} className="lg:col-span-7">
+        <div className="rise lg:col-span-7" style={rise(14, 0.9, 0.25)}>
           <DesignCanvas k={h.canvas} reduced={Boolean(reduced)} />
-        </motion.div>
+        </div>
       </div>
     </header>
   );

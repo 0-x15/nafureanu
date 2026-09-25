@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 
 /**
  * The bridge between chapters: the warm operational light cools into

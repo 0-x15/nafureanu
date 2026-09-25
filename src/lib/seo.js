@@ -13,9 +13,6 @@ import { matchRoute } from "@/data/routes";
  */
 export const DOMAIN = "https://nafureanu.com";
 const OG_LOCALE = { es: "es_ES", en: "en_GB" };
-/* Case studies with their own metadata block in i18n; the rest derive it from PROJECTS. */
-const CASE_META = { "crm-inmobiliario": "crm", fivo: "fivo", "life-admin": "lifeAdmin", "web-projects": "webProjects" };
-
 /**
  * @typedef {{ lang: string, type: string, id: string, title: string, description: string, path: string | null, alternatePath: string | null, canonical: string | null, alternates: { es: string, en: string, xDefault: string } | null, ogLocale: string, ogLocaleAlternate: string, robots: string | null, jsonLd: Record<string, any> | null }} PageSeo
  */
@@ -28,10 +25,11 @@ function copyFor(route, lang) {
     case "work-index": return s.meta.work;
     case "about": return s.meta.about;
     case "contact": return s.meta.contact;
-    case "service": return s[route.service.strings].meta;
+    case "service": return s.meta[route.service.strings];
     case "case-study": {
-      const key = CASE_META[route.project.slug];
-      if (key && s[key]?.meta) return s[key].meta;
+      /* case studies with their own copy block carry their metadata in meta.<block>; the rest derive it from PROJECTS */
+      const key = route.project.strings;
+      if (key && s.meta[key]) return s.meta[key];
       return { title: `${pick(route.project.title, lang)} — ${lang === "en" ? "Projects" : "Proyectos"} · Nafureanu`, description: route.project.copy?.[lang]?.summary || s.meta.work.description };
     }
     default: return s.meta.home;

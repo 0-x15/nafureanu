@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import { ArrowLeftRight, ArrowRight, Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 

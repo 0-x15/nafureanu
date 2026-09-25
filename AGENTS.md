@@ -20,7 +20,7 @@ npx skills add base44/skills
 ## Key Files
 
 - `src/`: frontend application source.
-- `src/api/base44Client.js`: frontend Base44 SDK client.
+- The public website ships no Base44 runtime client: it is a static, prerendered site (see `README.md`, "Production build and prerendering").
 - `vite.config.js`: Vite config and Base44 Vite plugin setup.
 - `.env.local`: local-only environment values; never commit secrets.
 

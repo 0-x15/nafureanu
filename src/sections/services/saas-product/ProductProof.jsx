@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
+import { SHOTS as FIVO_SHOTS } from "@/sections/work/fivo/fivoBits";
+import { SHOTS as LA_SHOTS } from "@/sections/work/life-admin/laBits";
 import { Act, MONO, Note, Statement, Tag } from "./saasBits";
 
 const IMG = "block aspect-[16/10] w-full rounded-[8px] border border-border object-cover object-top";
@@ -26,7 +28,7 @@ export default function ProductProof({ lang, c, paths }) {
           <ol className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {p.fivo.steps.map((st, i) => (
               <li key={st.label} className="relative rounded-[10px] border border-border bg-white p-2.5">
-                <img src={`/work/fivo/${st.img}.webp`} alt="" loading="lazy" decoding="async" className={IMG} />
+                <img src={`/work/fivo/${st.img}.webp`} width={FIVO_SHOTS[st.img]?.[0]} height={FIVO_SHOTS[st.img]?.[1]} alt="" loading="lazy" decoding="async" className={IMG} />
                 <span className={cn(MONO, "mt-3 block text-accent")}>0{i + 1} · {st.who}</span>
                 <span className="mt-1 block text-[13px] font-semibold text-foreground">{st.label}</span>
                 <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">{st.text}</span>
@@ -42,7 +44,7 @@ export default function ProductProof({ lang, c, paths }) {
           <ol className="grid gap-3 sm:grid-cols-3">
             {p.lifeAdmin.steps.map((st, i) => (
               <li key={st.label} className="relative rounded-[10px] border border-border bg-white p-2.5">
-                <img src={`/work/life-admin/${st.img}.${lang}.webp`} alt="" loading="lazy" decoding="async" className={IMG} />
+                <img src={`/work/life-admin/${st.img}.${lang}.webp`} width={LA_SHOTS[st.img]?.[0]} height={LA_SHOTS[st.img]?.[1]} alt="" loading="lazy" decoding="async" className={IMG} />
                 <span className={cn(MONO, "mt-3 block text-accent")}>0{i + 1}</span>
                 <span className="mt-1 block text-[13px] font-semibold text-foreground">{st.label}</span>
                 <span className="mt-0.5 block text-[12px] leading-snug text-muted-foreground">{st.text}</span>

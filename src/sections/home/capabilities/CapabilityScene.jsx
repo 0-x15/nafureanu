@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m as motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import VISUALS from "./visuals";
 import CapabilityFacts from "./CapabilityFacts";

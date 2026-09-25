@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import { LazyMotion, domAnimation } from "framer-motion";
 import PageNotFound from "./lib/PageNotFound";
 import ScrollToTop from "./components/ScrollToTop";
 import Home from "./pages/Home";
@@ -31,7 +32,8 @@ const ServicePage = (props) => (
  */
 export default function AppRoutes() {
   return (
-    <>
+    /* framer-motion loads only its animation/gesture features here (`m` components everywhere); the two pages that animate layout add domMax themselves */
+    <LazyMotion features={domAnimation}>
       <ScrollToTop />
       <Routes>
         {/* Spanish — primary language, default */}
@@ -56,6 +58,6 @@ export default function AppRoutes() {
         </Route>
         <Route path="*" element={<PageNotFound />} />
       </Routes>
-    </>
+    </LazyMotion>
   );
 }

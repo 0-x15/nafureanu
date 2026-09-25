@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m as motion } from "framer-motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import { STRINGS } from "@/i18n";

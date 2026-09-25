@@ -1,4 +1,4 @@
-import { STRINGS, langPath } from "@/i18n";
+import { langPath, useBlock } from "@/i18n";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import TraceSpine from "./TraceSpine";
 import IntegrationHero from "./IntegrationHero";
@@ -26,7 +26,7 @@ const SPINE = { manual: ["in-hero", "in-bridge"], transit: ["in-trace"], retry: 
  * stack, two real traces, the diagnostic, and the door.
  */
 export default function IntegrationsApiService({ lang = "es" }) {
-  const c = STRINGS[lang].integrationsApiService;
+  const c = useBlock(lang, "integrationsApiService");
   const paths = { fivo: workPath(lang, "fivo"), crm: workPath(lang, "crm-inmobiliario") };
   return (
     <article id="in-article" className="pt-24 md:pt-28">
