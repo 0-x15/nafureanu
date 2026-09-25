@@ -40,11 +40,12 @@ export async function syncVercelConfig(server, { root }) {
   }
   let parsed = null;
   try { parsed = JSON.parse(current); } catch { parsed = null; }
-  if (parsed && JSON.stringify(parsed) === JSON.stringify(generated)) return;
+  /* compare the routing we own, independent of key order or of fields the platform may add */
+  const stable = (v) => (Array.isArray(v) ? `[${v.map(stable).join(",")}]` : v && typeof v === "object" ? `{${Object.keys(v).sort().map((k) => `${JSON.stringify(k)}:${stable(v[k])}`).join(",")}}` : JSON.stringify(v));
+  const owned = (c) => stable({ cleanUrls: c.cleanUrls, trailingSlash: c.trailingSlash, redirects: c.redirects, headers: c.headers, rewrites: c.rewrites });
+  if (parsed && owned(parsed) === owned(generated)) return;
   if (process.env.VERCEL || process.env.CI) {
-    const have = parsed ? (parsed.redirects || []).map((r) => `${r.source} → ${r.destination}`) : ["<unparseable>"];
-    const want = generated.redirects.map((r) => `${r.source} → ${r.destination}`);
-    console.error("vercel.json differs from the route manifest.\n  file:", have.join("; "), "\n  manifest:", want.join("; "));
+    console.error("vercel.json differs from the route manifest.\n  file:", owned(parsed || {}).slice(0, 1500), "\n  manifest:", owned(generated).slice(0, 1500));
     throw new Error("vercel.json is out of date with the route manifest: run `npm run build` locally and commit vercel.json");
   }
   await writeFile(file, next);
