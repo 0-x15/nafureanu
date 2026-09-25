@@ -2,33 +2,25 @@
 
 ## Project Context
 
-This is a Base44 app repository. Treat it as user-owned application code, keep changes focused on the user's request, and preserve existing project conventions.
+This repository is the public corporate website of Nafureanu: a Vite + React site, statically prerendered at build time and deployed on Vercel. There is no Base44 runtime, SDK, Vite plugin or authentication layer — the site makes no platform request. The contact form posts to `/api/contact`, a Vercel serverless function.
 
-Start with `README.md` for local setup, environment variables, and publish workflow.
+Treat it as user-owned application code: keep changes focused on the request and preserve the existing conventions. The current local working tree is the source of truth; do not infer behaviour from older tooling or documentation.
 
-## Base44 References
-
-- CLI overview: https://docs.base44.com/developers/references/cli/get-started/overview.md
-- Agent skills: https://docs.base44.com/developers/backend/overview/skills.md
-
-If your agent supports Agent Skills, install or update Base44 skills before Base44-specific work:
-
-```bash
-npx skills add base44/skills
-```
+Start with `README.md` — the sections "Production build and prerendering", "Performance architecture" and "Contact form" describe the current architecture. Earlier sections about the Base44 CLI are historical and no longer apply.
 
 ## Key Files
 
-- `src/`: frontend application source.
-- The public website ships no Base44 runtime client: it is a static, prerendered site (see `README.md`, "Production build and prerendering").
-- `vite.config.js`: Vite config and Base44 Vite plugin setup.
-- `.env.local`: local-only environment values; never commit secrets.
+- `src/`: application source. `src/AppRoutes.jsx` is the route tree shared by the browser and the prerender; `src/data/routes.js` is the public route manifest; `src/lib/seo.js` the single SEO model (title, description, canonical, hreflang, JSON-LD).
+- `src/i18n/`: `es.js` / `en.js` hold the core copy and every page's metadata; the copy of each service page and case study lives in `src/i18n/<lang>/<block>.js` and loads with that page's chunk.
+- `scripts/`: `build.mjs` (client build → SSR build → prerender → sitemap → validation), `prerender.mjs`, `sitemap.mjs`, `validate-seo.mjs` (SEO and performance guards; fails the build on regressions), `vercel-config.mjs` (regenerates `vercel.json` from the manifest — commit it when it changes), `dev-api.mjs` (local harness for the contact endpoint).
+- `api/contact.js`: the contact endpoint (Vercel function). Its recipient and API key come only from Vercel environment variables.
+- `vite.config.js`: plain Vite + React; the `/api` proxy targets the local harness in development.
+- `vercel.json`: generated — do not edit by hand.
 
 ## Working Notes
 
-- Use `base44 dev` as the default local development command when you need the local Base44 backend. It can run the backend and frontend together.
-- When docs or code mention the frontend being started automatically, that usually means the Base44 project config includes `site.serveCommand`, for example `"serveCommand": "npm run dev"` in `base44/config.jsonc`.
-- Use `npm run dev` only for frontend-only work against the hosted Base44 backend.
-- Prefer the existing Base44 CLI workflow over adding new npm scripts for Base44-specific tasks.
-- Reuse the existing SDK client and Vite plugin patterns before adding new Base44 integration paths.
-- Run the relevant checks from `package.json` before finishing code changes.
+- `npm run dev` runs the site locally. For the contact form, run `node scripts/dev-api.mjs` alongside it.
+- Before finishing any code change, run `npm run lint`, `npm run typecheck` and `npm run build`. The build prerenders every public URL and validates metadata, JSON-LD, sitemap and performance guards; it must pass.
+- Do not break the prerender/SEO architecture: components must render on the server and hydrate without mismatches (no `window`/`matchMedia` reads during the first render), every route must stay in the manifest, metadata comes from the SEO model only.
+- Keep framer-motion imports as `m as motion` (LazyMotion); give above-the-fold entrances a CSS animation; keep new page copy in its i18n block.
+- Never commit secrets. No email address, API key or platform identifier belongs in the frontend, the HTML or the repository; environment values live only in Vercel (and local, gitignored `.env*` files).
