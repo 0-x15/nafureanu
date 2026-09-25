@@ -1,24 +1,24 @@
 export const ES = {
   meta: {
     home: {
-      title: "Nafureanu — Software, IA y automatización para empresas",
+      title: "Nafureanu — Ingeniería de software para empresas",
       description:
-        "Diseñamos y construimos software a medida, automatización e inteligencia artificial alrededor de procesos reales de negocio — desde sistemas internos hasta plataformas completas.",
+        "Nafureanu es una compañía de ingeniería de software en España. Diseñamos sistemas, automatización, inteligencia artificial y productos digitales alrededor de procesos reales de negocio.",
     },
     services: {
-      title: "Servicios — Nafureanu",
+      title: "Servicios de ingeniería de software — Nafureanu",
       description:
-        "Siete servicios con página propia: CRM inmobiliario a medida, CRM y sistemas de gestión, software a medida, IA y automatización, SaaS y productos digitales, integraciones y APIs, diseño y desarrollo web.",
+        "Siete servicios de ingeniería de software, cada uno con su propia página: sistemas y CRM a medida, software a medida, automatización con IA, SaaS, integraciones y web. Cada uno empieza en una situación concreta del negocio.",
     },
     work: {
       title: "Proyectos — Nafureanu",
       description:
-        "Sistemas en producción: plataforma de operaciones inmobiliarias, infraestructura de pagos con stablecoins, ingeniería Odoo y software a medida.",
+        "Cuatro sistemas seleccionados, en producción: un CRM inmobiliario sobre Odoo, la infraestructura de pagos con stablecoins de Fivo, Life Admin y una selección de webs y productos digitales.",
     },
     about: {
       title: "Estudio — Nafureanu",
       description:
-        "Nafureanu es una compañía de ingeniería de software especializada en software a medida, automatización e inteligencia artificial, con responsabilidad técnica desde la definición hasta producción.",
+        "Nafureanu es una compañía de ingeniería de software en España, dirigida por su fundador, que asume la responsabilidad técnica de cada sistema desde entender el problema hasta que funciona en producción.",
     },
     contact: {
       title: "Contacto — Nafureanu",
@@ -57,7 +57,7 @@ export const ES = {
     identifier: "Ingeniería de software · IA · Automatización",
     title: "Diseñamos y construimos el software que hace funcionar mejor una empresa.",
     lead:
-      "Nafureanu es una compañía de ingeniería de software para empresas. Diseñamos sistemas a medida cuando las herramientas existentes no encajan con la forma real de trabajar del negocio, cuando demasiadas operaciones siguen dependiendo de tareas manuales o cuando hace falta construir una tecnología que todavía no existe.",
+      "Nafureanu es una compañía de ingeniería de software en España que trabaja con empresas. Diseñamos sistemas a medida cuando las herramientas existentes no encajan con la forma real de trabajar del negocio, cuando demasiadas operaciones siguen dependiendo de tareas manuales o cuando hace falta construir una tecnología que todavía no existe.",
     chapters: [
       {
         label: "Qué hacemos",
@@ -472,8 +472,13 @@ export const ES = {
     },
   },
   crm: {
+    meta: {
+      title: "Caso real: CRM inmobiliario sobre Odoo — Nafureanu",
+      description:
+        "Caso de estudio: CRM inmobiliario a medida construido sobre Odoo para una inmobiliaria con más de 40.000 propiedades: matching automático, seguimiento de leads, portales, WhatsApp, documentación e IA. Diseñado y construido por Nafureanu.",
+    },
     hero: {
-      kicker: "CRM inmobiliario a medida",
+      kicker: "Caso real · CRM inmobiliario sobre Odoo",
       title: "Cuando el CRM se adapta a la inmobiliaria. No al revés.",
       support:
         "Un sistema construido sobre Odoo para centralizar propiedades, clientes, demandas, visitas y operaciones — automatizando el trabajo que normalmente depende del equipo.",
@@ -1511,7 +1516,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     meta: {
       title: "Life Admin — Software de administración personal · Nafureanu",
       description:
-        "Caso de estudio de Life Admin: un sistema de administración personal que convierte facturas y contratos en obligaciones estructuradas, deriva ciclos y estados de pago y sigue compras, beneficios y privacidad. Diseñado y construido por Nafureanu sobre Base44.",
+        "Caso de estudio de Life Admin: software de administración personal que extrae obligaciones de facturas y contratos con IA, deriva ciclos y estados de pago y sigue compras, beneficios y privacidad. Diseñado y construido por Nafureanu sobre Base44.",
     },
     hero: {
       kicker: "Administración personal · Documentos · Automatización",
@@ -1788,9 +1793,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   crmService: {
     meta: {
-      title: "CRM inmobiliario a medida — Nafureanu",
+      title: "CRM inmobiliario a medida para inmobiliarias — Nafureanu",
       description:
-        "Software a medida para inmobiliarias: un CRM diseñado alrededor de la operación real — propiedades, captación, clientes, demanda, matching, visitas, operaciones, documentación, comunicación, automatización e integraciones con portales.",
+        "Diseñamos CRM inmobiliario a medida para centralizar propiedades, clientes, demanda, matching, visitas, operaciones, automatización e integraciones.",
     },
     nav: {
       label: "Capítulos",
@@ -2199,9 +2204,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   businessSystemsService: {
     meta: {
-      title: "CRM y sistemas de gestión a medida — Nafureanu",
+      title: "Desarrollo de CRM a medida para empresas — Nafureanu",
       description:
-        "Diseñamos CRM, plataformas internas y software de gestión a medida alrededor de los procesos reales de cada empresa: datos, estados, personas, reglas, automatización, integraciones y operaciones.",
+        "Diseñamos CRM a medida y sistemas de gestión alrededor de los procesos reales de cada empresa: datos, operaciones, documentos, automatización e integraciones.",
     },
     nav: {
       label: "Capítulos",
@@ -2220,9 +2225,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       ],
     },
     hero: {
-      kicker: "CRM y sistemas de gestión a medida",
+      kicker: "CRM a medida y sistemas de gestión",
       title: "Tu empresa ya tiene un proceso. Construimos el sistema que lo entiende.",
-      support: "Diseñamos CRM, plataformas internas y sistemas de gestión alrededor de cómo funciona realmente cada empresa: sus datos, estados, personas, reglas, operaciones, documentos, automatizaciones e integraciones.",
+      support: "Un CRM a medida es un sistema diseñado alrededor de cómo trabaja tu empresa, en lugar de adaptar la empresa a un CRM estándar. Diseñamos CRM, plataformas internas y sistemas de gestión alrededor de cómo funciona realmente cada empresa: sus datos, estados, personas, reglas, operaciones, documentos, automatizaciones e integraciones.",
       secondary: "Cuando una herramienta genérica obliga al equipo a cambiar su forma de trabajar, crear hojas paralelas o resolver a mano lo que el software no contempla, probablemente el problema ya no es el proceso. Es el sistema.",
       primary: "Contarnos cómo funciona tu empresa",
       proof: "Ver un sistema real",
@@ -2656,9 +2661,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   customSoftwareService: {
     meta: {
-      title: "Software a medida para empresas — Nafureanu",
+      title: "Desarrollo de software a medida para empresas — Nafureanu",
       description:
-        "Diseñamos y desarrollamos software a medida para empresas: plataformas, aplicaciones, herramientas internas, portales, automatización, integraciones y sistemas construidos alrededor de necesidades reales.",
+        "Diseñamos y desarrollamos software a medida para empresas: plataformas, aplicaciones, herramientas internas y sistemas construidos alrededor de procesos reales.",
     },
     nav: {
       label: "Capítulos",
@@ -2679,7 +2684,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     hero: {
       kicker: "Software a medida",
       title: "Cuando la herramienta que necesitas no existe, la construimos.",
-      lead: "Diseñamos y desarrollamos software alrededor de problemas concretos: plataformas internas, aplicaciones, portales, herramientas operativas y sistemas especializados que no pueden resolverse bien con una solución genérica.",
+      lead: "Desarrollo de software a medida para empresas. Diseñamos y desarrollamos software alrededor de problemas concretos: plataformas internas, aplicaciones, portales, herramientas operativas y sistemas especializados que no pueden resolverse bien con una solución genérica.",
       support: "No empezamos preguntando qué tecnología quieres usar. Empezamos entendiendo qué debe hacer el software, quién lo utilizará, qué información necesita, qué reglas debe ejecutar y con qué sistemas tendrá que convivir.",
       primary: "Contarnos qué necesitas construir",
       proof: "Ver software que ya hemos construido",
@@ -3035,9 +3040,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   aiAutomationService: {
     meta: {
-      title: "IA y automatización para empresas — Nafureanu",
+      title: "Automatización de procesos con IA para empresas — Nafureanu",
       description:
-        "Diseñamos automatización e inteligencia artificial alrededor de procesos reales de negocio: documentos, datos, seguimiento, asistentes, flujos de trabajo, integraciones y tareas repetitivas, con reglas exactas donde hacen falta y control humano donde importa.",
+        "Automatizamos procesos empresariales con reglas e inteligencia artificial: documentos, datos, seguimiento, asistentes, integraciones y tareas repetitivas con control humano cuando importa.",
     },
     nav: {
       label: "Capítulos",
@@ -3055,9 +3060,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       ],
     },
     hero: {
-      kicker: "IA y automatización",
+      kicker: "Automatización de procesos con IA",
       title: "Automatizamos el trabajo que no necesita seguir siendo manual.",
-      lead: "Diseñamos sistemas que reciben información, aplican reglas, entienden documentos o conversaciones, conectan herramientas y ejecutan acciones para reducir el trabajo repetitivo dentro de una empresa.",
+      lead: "Diseñamos automatizaciones de procesos empresariales que reciben información, aplican reglas, entienden documentos o conversaciones, conectan herramientas y ejecutan acciones para reducir el trabajo repetitivo dentro de una empresa.",
       support: "No todo necesita inteligencia artificial. Algunas tareas se resuelven mejor con reglas exactas; otras necesitan interpretar información no estructurada; y otras deben seguir pasando por una persona. Diseñamos el proceso alrededor de esa diferencia.",
       primary: "Contarnos qué proceso quieres automatizar",
       proof: "Ver automatizaciones reales",
@@ -3491,15 +3496,15 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   saasProductService: {
     meta: {
-      title: "SaaS y productos digitales — Nafureanu",
+      title: "Desarrollo SaaS a medida — Nafureanu",
       description:
-        "Diseñamos y desarrollamos productos digitales y plataformas SaaS desde la definición del producto hasta la arquitectura, la experiencia, el software, el lanzamiento y la evolución con usuarios reales.",
+        "Diseñamos y desarrollamos productos SaaS desde la definición y arquitectura hasta la aplicación, integraciones, infraestructura, lanzamiento y evolución.",
     },
     progress: { label: "Recorrido del producto", items: [{ id: "idea", label: "Idea" }, { id: "product", label: "Producto" }, { id: "build", label: "Construir" }, { id: "launch", label: "Lanzar" }, { id: "evolve", label: "Evolucionar" }] },
     hero: {
       kicker: "SaaS y productos digitales",
       title: "De una idea a un producto que alguien puede usar.",
-      lead: "Diseñamos y construimos productos digitales completos: desde definir qué debe existir hasta desarrollar la aplicación, la lógica, los datos, las integraciones y la infraestructura necesaria para ponerla en manos de usuarios reales.",
+      lead: "Desarrollo SaaS a medida y productos digitales completos: desde definir qué debe existir hasta desarrollar la aplicación, la lógica, los datos, las integraciones y la infraestructura necesaria para ponerla en manos de usuarios reales.",
       support: "Puedes llegar con una idea, un problema o una primera versión. No necesitas tener resuelta la arquitectura, todas las funcionalidades ni la tecnología.",
       primary: "Contarnos la idea",
       proof: "Ver productos que hemos construido",
@@ -3672,9 +3677,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   integrationsApiService: {
     meta: {
-      title: "Integraciones y desarrollo de APIs — Nafureanu",
+      title: "Integración de sistemas y desarrollo de APIs — Nafureanu",
       description:
-        "Conectamos aplicaciones, CRM, ERP, plataformas y servicios mediante APIs, webhooks y sincronización de datos para eliminar procesos manuales entre sistemas.",
+        "Conectamos CRM, ERP, plataformas y servicios mediante integraciones a medida, APIs, webhooks y sincronización de datos para eliminar trabajo manual entre sistemas.",
     },
     spine: {
       trace: "Traza 01",
@@ -3686,7 +3691,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       kicker: "Integraciones y APIs",
       title: "Si una persona mueve información entre dos sistemas, probablemente falta una integración.",
       lead:
-        "Diseñamos APIs e integraciones para que aplicaciones, plataformas y servicios intercambien datos y acciones automáticamente, sin depender de copiar, exportar, comprobar y volver a introducir información.",
+        "Integración de sistemas a medida: diseñamos integraciones y APIs para que aplicaciones, plataformas y servicios intercambien datos y acciones automáticamente, sin depender de copiar, exportar, comprobar y volver a introducir información.",
       support:
         "Primero entendemos qué información debe moverse, cuándo, en qué dirección y qué debe ocurrir si algo no encaja. Después diseñamos la conexión adecuada.",
       primary: "Contarnos qué sistemas necesitas conectar",
@@ -3985,15 +3990,15 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   webDigitalService: {
     meta: {
-      title: "Diseño y desarrollo web — Nafureanu",
+      title: "Diseño y desarrollo web para empresas — Nafureanu",
       description:
-        "Diseñamos y desarrollamos webs profesionales alrededor de lo que una empresa necesita comunicar: estrategia de contenido, diseño visual, UX, interacción, responsive e implementación.",
+        "Diseñamos y desarrollamos webs para empresas combinando estrategia de contenido, dirección visual, UX, responsive e ingeniería en una sola experiencia.",
     },
     index: { hero: "01 · Lienzo", structure: "02 · Estructura", direction: "03 · Dirección", lab: "04 · Comportamiento", build: "05 · Construcción", brief: "06 · Tu web" },
     hero: {
       words: ["Web", "Diseño", "Desarrollo"],
       title: "Diseñamos cómo se percibe tu empresa en la web.",
-      lead: "Estrategia de contenido, dirección visual e ingeniería trabajadas como una sola pieza para construir una web propia, clara y técnicamente bien resuelta.",
+      lead: "Diseño y desarrollo web para empresas: estrategia de contenido, dirección visual e ingeniería trabajadas como una sola pieza para construir una web corporativa propia, clara y técnicamente bien resuelta.",
       primary: "Hablar sobre mi web",
       secondary: "Ver cómo trabajamos",
       canvas: {
@@ -4215,7 +4220,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   about: {
     kicker: "Estudio",
-    company: "Compañía de ingeniería de software",
+    company: "Compañía de ingeniería de software · España",
     rev: "Perfil · rev. 2026",
     hero: {
       title: "Ingeniería de software con responsabilidad directa.",

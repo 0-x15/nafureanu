@@ -33,6 +33,8 @@ export async function validateOutput(pages, server, { root }) {
   const warnings = [];
   const homeTitle = server.seoForPath("/").title;
   const canonicals = new Map();
+  const titles = new Map();
+  const descriptions = new Map();
   for (const page of pages) {
     const html = await readFile(page.file, "utf8");
     const p = page.path;
@@ -44,9 +46,13 @@ export async function validateOutput(pages, server, { root }) {
     if (count(head, /<title>/g) !== 1) fail(`expected exactly one <title> in <head>, found ${count(head, /<title>/g)}`);
     if (title !== seo.title) fail(`title mismatch: ${JSON.stringify(title)} vs ${JSON.stringify(seo.title)}`);
     if (p !== "/" && title === homeTitle) fail("title is the Home title");
+    if (titles.has(title)) fail(`title duplicates ${titles.get(title)}: ${JSON.stringify(title)}`);
+    titles.set(title, p);
     if (count(head, /<meta name="description"/g) !== 1) fail("expected exactly one meta description");
     const desc = attr(head, /<meta name="description" content="([^"]*)"/);
     if (desc !== seo.description) fail("description mismatch");
+    if (descriptions.has(desc)) fail(`description duplicates ${descriptions.get(desc)}`);
+    descriptions.set(desc, p);
     const canon = count(head, /<link rel="canonical"/g);
     if (canon !== 1) fail(`expected exactly one canonical, found ${canon}`);
     const canonHref = attr(head, /<link rel="canonical" href="([^"]*)"/);

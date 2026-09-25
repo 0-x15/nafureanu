@@ -1,24 +1,24 @@
 export const EN = {
   meta: {
     home: {
-      title: "Nafureanu — Software, AI and automation for companies",
+      title: "Nafureanu — Software engineering for businesses",
       description:
-        "We design and build custom software, automation and artificial intelligence around real business processes — from internal systems to complete platforms.",
+        "Nafureanu is a software engineering company working with businesses on operational systems, automation, artificial intelligence and digital products.",
     },
     services: {
-      title: "Services — Nafureanu",
+      title: "Software engineering services — Nafureanu",
       description:
-        "Seven services, each with its own page: custom real-estate CRM, custom CRM and business systems, custom software, AI and automation, SaaS and digital products, integrations and APIs, web design and development.",
+        "Seven software engineering services, each with its own page: custom CRM and business systems, custom software, AI process automation, SaaS, integrations and web. Each one starts from a concrete business situation.",
     },
     work: {
       title: "Projects — Nafureanu",
       description:
-        "Systems in production: a real-estate operations platform, stablecoin payment infrastructure, Odoo engineering and custom software.",
+        "Four selected systems in production: a real-estate CRM on Odoo, Fivo's stablecoin payment infrastructure, Life Admin and a selection of websites and digital products.",
     },
     about: {
       title: "Studio — Nafureanu",
       description:
-        "Nafureanu is a software engineering company specialising in custom software, automation and artificial intelligence, with technical responsibility from definition to production.",
+        "Nafureanu is a founder-led software engineering company based in Spain that takes technical responsibility for each system, from understanding the problem until it runs in production.",
     },
     contact: {
       title: "Contact — Nafureanu",
@@ -57,7 +57,7 @@ export const EN = {
     identifier: "Software engineering · AI · Automation",
     title: "We design and build the software that helps a company operate better.",
     lead:
-      "Nafureanu is a software engineering company for businesses. We design custom systems when existing tools no longer fit the way the business actually works, when too many operations still depend on manual work, or when the technology a company needs simply does not exist yet.",
+      "Nafureanu is a software engineering company based in Spain, working with businesses. We design custom systems when existing tools no longer fit the way the business actually works, when too many operations still depend on manual work, or when the technology a company needs simply does not exist yet.",
     chapters: [
       {
         label: "What we do",
@@ -471,8 +471,13 @@ export const EN = {
     },
   },
   crm: {
+    meta: {
+      title: "Case study: custom real estate CRM on Odoo — Nafureanu",
+      description:
+        "Case study: a custom real estate CRM built on Odoo for an agency with over 40,000 properties: automatic matching, lead follow-up, portals, WhatsApp, documentation and AI. Designed and built by Nafureanu.",
+    },
     hero: {
-      kicker: "Custom real-estate CRM",
+      kicker: "Case study · Real estate CRM on Odoo",
       title: "When the CRM adapts to the agency. Not the other way around.",
       support:
         "A system built on Odoo to centralize properties, clients, demand, visits and operations — automating the work that normally depends on the team.",
@@ -1510,7 +1515,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     meta: {
       title: "Life Admin — Personal administration software · Nafureanu",
       description:
-        "Life Admin case study: a personal administration system that turns invoices and contracts into structured obligations, derives cycles and payment states, and follows purchases, benefits and privacy. Designed and built by Nafureanu on Base44.",
+        "Life Admin case study: personal administration software that extracts obligations from invoices and contracts with AI, derives cycles and payment states, and follows purchases, benefits and privacy. Designed and built by Nafureanu on Base44.",
     },
     hero: {
       kicker: "Personal admin · Documents · Automation",
@@ -1787,9 +1792,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   crmService: {
     meta: {
-      title: "Custom real-estate CRM — Nafureanu",
+      title: "Custom real estate CRM development — Nafureanu",
       description:
-        "Custom software for real-estate agencies: a CRM designed around the real operation — properties, acquisition, clients, demand, matching, visits, operations, documentation, communication, automation and portal integrations.",
+        "Custom CRM development for real estate agencies: properties, clients, demand, matching, visits, operations, automation and portal integrations in one system built around the agency.",
     },
     nav: {
       label: "Chapters",
@@ -2198,9 +2203,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   businessSystemsService: {
     meta: {
-      title: "Custom CRM & business systems — Nafureanu",
+      title: "Custom CRM development for businesses — Nafureanu",
       description:
-        "We design custom CRM, internal platforms and management software around each company's real processes: data, states, people, rules, automation, integrations and operations.",
+        "We design custom CRM and business systems around each company's real processes: data, operations, documents, automation and integrations.",
     },
     nav: {
       label: "Chapters",
@@ -2221,7 +2226,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     hero: {
       kicker: "Custom CRM & business systems",
       title: "Your company already has a process. We build the system that understands it.",
-      support: "We design CRM, internal platforms and management systems around how each company really works: its data, states, people, rules, operations, documents, automation and integrations.",
+      support: "A custom CRM is a system designed around the way your company works, instead of adapting the company to a standard CRM. We design CRM, internal platforms and management systems around how each company really works: its data, states, people, rules, operations, documents, automation and integrations.",
       secondary: "When a generic tool forces the team to change the way it works, to keep parallel spreadsheets or to solve by hand what the software doesn't cover, the problem is probably no longer the process. It's the system.",
       primary: "Tell us how your company works",
       proof: "See a real system",
@@ -2655,9 +2660,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   customSoftwareService: {
     meta: {
-      title: "Custom software development — Nafureanu",
+      title: "Custom software development for businesses — Nafureanu",
       description:
-        "We design and develop custom software for companies: platforms, applications, internal tools, portals, automation, integrations and systems built around real needs.",
+        "Custom software development for businesses: internal platforms, applications and operational systems designed around real processes and requirements.",
     },
     nav: {
       label: "Chapters",
@@ -2678,7 +2683,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     hero: {
       kicker: "Custom software",
       title: "When the tool you need doesn't exist, we build it.",
-      lead: "We design and develop software around concrete problems: internal platforms, applications, portals, operational tools and specialised systems that a generic solution cannot solve well.",
+      lead: "Custom software development for businesses. We design and develop software around concrete problems: internal platforms, applications, portals, operational tools and specialised systems that a generic solution cannot solve well.",
       support: "We don't start by asking which technology you want to use. We start by understanding what the software has to do, who will use it, what information it needs, which rules it must apply and which systems it will have to live with.",
       primary: "Tell us what you need to build",
       proof: "See software we have already built",
@@ -3034,9 +3039,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   aiAutomationService: {
     meta: {
-      title: "AI & business automation — Nafureanu",
+      title: "AI business process automation — Nafureanu",
       description:
-        "We design automation and artificial intelligence around real business processes: documents, data, follow-up, assistants, workflows, integrations and repetitive tasks, with exact rules where they belong and human control where it matters.",
+        "We automate business processes with rules and artificial intelligence: documents, data, follow-up, assistants, integrations and repetitive tasks, with human control where it matters.",
     },
     nav: {
       label: "Chapters",
@@ -3054,9 +3059,9 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       ],
     },
     hero: {
-      kicker: "AI & automation",
+      kicker: "AI process automation",
       title: "We automate the work that no longer needs to be manual.",
-      lead: "We design systems that receive information, apply rules, understand documents or conversations, connect tools and execute actions to reduce repetitive work inside a company.",
+      lead: "We design business process automation that receives information, applies rules, understands documents or conversations, connects tools and executes actions to reduce repetitive work inside a company.",
       support: "Not everything needs artificial intelligence. Some tasks are better solved with exact rules; others need to interpret unstructured information; and others should keep going through a person. We design the process around that difference.",
       primary: "Tell us which process you want to automate",
       proof: "See real automations",
@@ -3490,15 +3495,15 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   saasProductService: {
     meta: {
-      title: "SaaS & digital product development — Nafureanu",
+      title: "Custom SaaS development — Nafureanu",
       description:
-        "We design and develop digital products and SaaS platforms from product definition to architecture, experience, software, launch and evolution with real users.",
+        "We design and develop SaaS products from definition and architecture to the application, integrations, infrastructure, launch and evolution.",
     },
     progress: { label: "Product journey", items: [{ id: "idea", label: "Idea" }, { id: "product", label: "Product" }, { id: "build", label: "Build" }, { id: "launch", label: "Launch" }, { id: "evolve", label: "Evolve" }] },
     hero: {
       kicker: "SaaS & digital products",
       title: "From an idea to a product someone can use.",
-      lead: "We design and build complete digital products: from defining what should exist to developing the application, the logic, the data, the integrations and the infrastructure needed to put it in the hands of real users.",
+      lead: "Custom SaaS development and complete digital products: from defining what should exist to developing the application, the logic, the data, the integrations and the infrastructure needed to put it in the hands of real users.",
       support: "You can arrive with an idea, a problem or a first version. You don't need the architecture, every feature or the technology figured out.",
       primary: "Tell us the idea",
       proof: "See products we have built",
@@ -3673,7 +3678,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
     meta: {
       title: "Systems integration & API development — Nafureanu",
       description:
-        "We connect applications, CRM, ERP, platforms and services through APIs, webhooks and data synchronisation to remove manual processes between systems.",
+        "We connect CRM, ERP, platforms and services through custom integrations, APIs, webhooks and data synchronisation to remove manual work between systems.",
     },
     spine: {
       trace: "Trace 01",
@@ -3685,7 +3690,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
       kicker: "Integrations & APIs",
       title: "If a person moves information between two systems, an integration is probably missing.",
       lead:
-        "We design APIs and integrations so that applications, platforms and services exchange data and actions automatically, without relying on copying, exporting, checking and re-entering information.",
+        "Custom systems integration: we design integrations and APIs so that applications, platforms and services exchange data and actions automatically, without relying on copying, exporting, checking and re-entering information.",
       support:
         "First we understand which information has to move, when, in which direction and what should happen when something does not fit. Then we design the right connection.",
       primary: "Tell us which systems you need to connect",
@@ -3984,15 +3989,15 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   webDigitalService: {
     meta: {
-      title: "Web design & development — Nafureanu",
+      title: "Web design & development for businesses — Nafureanu",
       description:
-        "We design and develop professional websites around what a company needs to communicate: content strategy, visual design, UX, interaction, responsive behaviour and implementation.",
+        "We design and develop websites for businesses, combining content strategy, art direction, UX, responsive behaviour and engineering in one experience.",
     },
     index: { hero: "01 · Canvas", structure: "02 · Structure", direction: "03 · Direction", lab: "04 · Behaviour", build: "05 · Construction", brief: "06 · Your website" },
     hero: {
       words: ["Web", "Design", "Development"],
       title: "We design how your company is perceived online.",
-      lead: "Content strategy, art direction and engineering worked as one piece, to build a website that is truly yours, clear and technically well resolved.",
+      lead: "Web design and development for businesses: content strategy, art direction and engineering worked as one piece, to build a corporate website that is truly yours, clear and technically well resolved.",
       primary: "Talk about my website",
       secondary: "See how we work",
       canvas: {
@@ -4214,7 +4219,7 @@ curl -X POST https://api.fivo.finance/refunds/api/create \
   },
   about: {
     kicker: "Studio",
-    company: "Software engineering company",
+    company: "Software engineering company · Spain",
     rev: "Profile · rev. 2026",
     hero: {
       title: "Software engineering with direct responsibility.",
