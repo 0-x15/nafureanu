@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { PROJECTS, projectSlug } from "@/data/projects";
 import { langPath } from "@/i18n";
 import { cn } from "@/lib/utils";

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { EASE, Frame, MONO, Status } from "./csBits";
 

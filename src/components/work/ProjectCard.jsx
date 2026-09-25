@@ -1,12 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import {
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useSpring,
-  useTransform,
-} from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { ArrowRight } from "lucide-react";
 import { projectSlug } from "@/data/projects";
 import { langPath, pick } from "@/i18n";

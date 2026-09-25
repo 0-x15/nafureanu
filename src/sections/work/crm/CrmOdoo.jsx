@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { ArrowDown } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";

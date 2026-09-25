@@ -61,6 +61,10 @@ Local development: [https://docs.base44.com/developers/backend/overview/local-de
 
 Support: [https://app.base44.com/support](https://app.base44.com/support)
 
+## Production build and prerendering
+
+`npm run build` runs `scripts/build.mjs`: the Vite client build, a Vite SSR build of `src/entry-server.jsx`, then a static render of every public URL in the route manifest (`src/data/routes.js`, derived from the static pages, `SERVICES` and `PROJECTS`) into `dist/<path>/index.html`, plus `dist/404.html`. Each page carries its own `<html lang>`, title, description, canonical, hreflang trio and Open Graph tags from the shared SEO model in `src/lib/seo.js`; the browser hydrates the static DOM and keeps `<head>` in sync on client-side navigation. `scripts/validate-seo.mjs` checks every generated page and fails the build on any missing route, metadata or content; `scripts/vercel-config.mjs` regenerates `vercel.json` (clean URLs, no trailing slash, one-hop redirects for the other language's slugs) from the same manifest — commit it when it changes.
+
 ## Contact form
 
 The site is a static Vite build deployed on Vercel. The only server-side piece is `api/contact.js`, a Vercel Serverless Function that receives the contact brief and sends it through Resend. The inbox is never in the frontend; configure these environment variables in Vercel (Project → Settings → Environment Variables, Production):

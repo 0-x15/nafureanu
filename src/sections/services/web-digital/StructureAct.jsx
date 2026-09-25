@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { LayoutGroup, motion, useInView, useReducedMotion } from "framer-motion";
+import { LayoutGroup, motion, useInView } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { Act, EASE, H2, Index, MONO, Reg, SERIF, tabKey } from "./webBits";
 

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 /**
@@ -10,14 +10,33 @@ import { useLocation } from "react-router-dom";
  * wanders before it locks into the diagonal — fresh on every page load
  * and every navigation, and feeds the scroll progress; the motion
  * itself is CSS. Purely decorative and inert.
+ *
+ * The prerendered HTML and the first client render must agree, so the
+ * initial scene comes from a small PRNG seeded by the pathname; once the
+ * page is hydrated the browser redraws it with real randomness.
  */
-const rnd = (min, max) => min + Math.random() * (max - min);
-const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+function seeded(text) {
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i += 1) h = Math.imul(h ^ text.charCodeAt(i), 16777619);
+  return () => {
+    h = (h + 0x6d2b79f5) | 0;
+    let t = h;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
 
-/** One random assembly: five strokes and the piece's route. */
-function draw() {
-  // arrival windows: a random order, each stroke taking 0.18–0.3 of the scroll
-  const order = [0, 1, 2, 3, 4].sort(() => Math.random() - 0.5);
+/** One assembly — five strokes and the piece's route — drawn with the given random source. */
+function draw(random) {
+  const rnd = (min, max) => min + random() * (max - min);
+  const pick = (arr) => arr[Math.floor(random() * arr.length)];
+  // arrival windows: a random order (Fisher–Yates, engine-independent), each stroke taking 0.18–0.3 of the scroll
+  const order = [0, 1, 2, 3, 4];
+  for (let i = order.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(random() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
   const panes = order.map((slot, i) => {
     const w1 = rnd(0.18, 0.3);
     const w0 = Math.min(0.6 - w1 * 0.4, slot * 0.14 + rnd(0, 0.06));
@@ -44,8 +63,11 @@ function draw() {
 export default function SiteBackground() {
   const ref = useRef(null);
   const { pathname } = useLocation();
-  // a new circuit for every page
-  const scene = useMemo(() => draw(), [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+  // a deterministic circuit for the static HTML, then a new random one for every page in the browser
+  const [scene, setScene] = useState(() => draw(seeded(pathname)));
+  useEffect(() => {
+    setScene(draw(Math.random));
+  }, [pathname]);
 
   useEffect(() => {
     const root = ref.current;

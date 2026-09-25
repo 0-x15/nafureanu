@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import ResponsiveSurface, { bpOf } from "./ResponsiveSurface";
 import { Act, H2, Index, MONO, Reg, Segmented } from "./webBits";

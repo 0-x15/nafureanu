@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";

@@ -1,7 +1,6 @@
 import { Suspense, lazy } from "react";
 import { STRINGS } from "@/i18n";
 import Gallery from "./gallery/Gallery";
-import HeroStatic from "./HeroStatic";
 import useExperienceMode from "./useExperienceMode";
 
 const Exhibition = lazy(() => import("./exhibition/Exhibition"));
@@ -17,7 +16,7 @@ export default function WebProjectsCaseStudy({ lang = "es" }) {
   const [mode, forceGallery] = useExperienceMode();
   if (mode === "gallery") return <Gallery lang={lang} c={c} />;
   return (
-    <Suspense fallback={<HeroStatic lang={lang} c={c} />}>
+    <Suspense fallback={<Gallery lang={lang} c={c} />}>
       <Exhibition lang={lang} c={c} onFallback={forceGallery} />
     </Suspense>
   );

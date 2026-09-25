@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { ArrowUpRight } from "lucide-react";
 import BackToProjects from "@/components/work/BackToProjects";
 import { cn } from "@/lib/utils";

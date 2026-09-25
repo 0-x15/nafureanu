@@ -1,6 +1,5 @@
-import { usePageMeta } from "@/lib/seo";
 import { PROJECTS } from "@/data/projects";
-import { STRINGS, langPath, otherLang } from "@/i18n";
+import { STRINGS } from "@/i18n";
 import CrmCardVisual from "@/components/work/visuals/CrmCardVisual";
 import LifeAdminCardVisual from "@/components/work/visuals/LifeAdminCardVisual";
 import WebCardVisual from "@/components/work/visuals/WebCardVisual";
@@ -27,13 +26,6 @@ export default function Work({ lang = "es" }) {
   const wp = s.workPage;
   const entries = ORDER.map((entry) => ({ ...entry, project: PROJECTS.find((p) => p.slug === entry.slug) }));
 
-  usePageMeta({
-    lang,
-    title: s.meta.work.title,
-    description: s.meta.work.description,
-    path: langPath(lang, "/work"),
-    alternatePath: langPath(otherLang(lang), "/work"),
-  });
 
   return (
     <div>

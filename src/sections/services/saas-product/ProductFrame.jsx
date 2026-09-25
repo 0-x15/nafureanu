@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { EASE, Handles, MONO, Tag, Wire } from "./saasBits";
 

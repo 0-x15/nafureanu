@@ -18,4 +18,8 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  // The build-time prerender bundles the router (its /server entry has no Node exports map).
+  ssr: {
+    noExternal: ['react-router-dom'],
+  },
 })

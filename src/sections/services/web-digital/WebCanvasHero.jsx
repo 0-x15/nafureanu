@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { motion, useMotionValue, useReducedMotion, useSpring, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import ActionLink from "@/components/ActionLink";
 import { langPath } from "@/i18n";
 import { cn } from "@/lib/utils";

@@ -35,11 +35,13 @@ function detect() {
  * a runtime WebGL failure) gets the DOM gallery.
  */
 export default function useExperienceMode() {
-  const [mode, setMode] = useState(detect);
+  /* "gallery" first, everywhere: the static HTML and the first client render match; the real mode is detected after mount. */
+  const [mode, setMode] = useState("gallery");
   const [forced, setForced] = useState(false);
   useEffect(() => {
     const lists = QUERIES.map((q) => window.matchMedia(q));
     const update = () => setMode(detect());
+    update();
     lists.forEach((l) => l.addEventListener("change", update));
     return () => lists.forEach((l) => l.removeEventListener("change", update));
   }, []);

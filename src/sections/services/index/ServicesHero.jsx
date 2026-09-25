@@ -1,4 +1,5 @@
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { EASE, KICKER } from "./servicesIndexBits";
 import ServiceSection from "./ServiceSection";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import { MONO } from "./intBits";
 

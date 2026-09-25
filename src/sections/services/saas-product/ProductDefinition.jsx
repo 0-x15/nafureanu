@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { LayoutGroup, motion, useReducedMotion } from "framer-motion";
+import { LayoutGroup, motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import { Act, EASE, Note, Statement, Tag } from "./saasBits";

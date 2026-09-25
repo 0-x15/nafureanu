@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
+import { useInView } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import BuildSpecimen from "./BuildSpecimen";
 import { Act, H2, H3, Index, MONO, Reg } from "./webBits";

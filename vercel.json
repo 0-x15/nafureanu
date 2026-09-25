@@ -2,6 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
     {
       "source": "/(.*)",
@@ -13,12 +15,91 @@
       ],
       "destination": "https://nafureanu.com/$1",
       "permanent": true
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/((?!api/).*)",
-      "destination": "/index.html"
+      "source": "/index.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/services/real-estate-crm",
+      "destination": "/services/crm-inmobiliario",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/crm-inmobiliario",
+      "destination": "/en/services/real-estate-crm",
+      "permanent": true
+    },
+    {
+      "source": "/services/custom-crm-business-systems",
+      "destination": "/services/crm-sistemas-gestion",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/crm-sistemas-gestion",
+      "destination": "/en/services/custom-crm-business-systems",
+      "permanent": true
+    },
+    {
+      "source": "/services/custom-software",
+      "destination": "/services/software-a-medida",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/software-a-medida",
+      "destination": "/en/services/custom-software",
+      "permanent": true
+    },
+    {
+      "source": "/services/ai-automation",
+      "destination": "/services/ia-automatizacion",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/ia-automatizacion",
+      "destination": "/en/services/ai-automation",
+      "permanent": true
+    },
+    {
+      "source": "/services/saas-digital-products",
+      "destination": "/services/saas-productos-digitales",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/saas-productos-digitales",
+      "destination": "/en/services/saas-digital-products",
+      "permanent": true
+    },
+    {
+      "source": "/services/integrations-apis",
+      "destination": "/services/integraciones-apis",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/integraciones-apis",
+      "destination": "/en/services/integrations-apis",
+      "permanent": true
+    },
+    {
+      "source": "/services/web-design-development",
+      "destination": "/services/diseno-desarrollo-web",
+      "permanent": true
+    },
+    {
+      "source": "/en/services/diseno-desarrollo-web",
+      "destination": "/en/services/web-design-development",
+      "permanent": true
+    },
+    {
+      "source": "/work/real-estate-crm",
+      "destination": "/work/crm-inmobiliario",
+      "permanent": true
+    },
+    {
+      "source": "/en/work/crm-inmobiliario",
+      "destination": "/en/work/real-estate-crm",
+      "permanent": true
     }
   ],
   "headers": [

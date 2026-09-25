@@ -1,19 +1,13 @@
 import { Link, useLocation } from "react-router-dom";
+import { translatePath } from "@/data/routes";
 
 /**
- * ES / EN switch. Toggles the /en prefix while preserving the
- * current page (case studies included).
+ * ES / EN switch. Links straight to the same page in the other language,
+ * translated slug included, through the public route manifest.
  */
 export default function LanguageSwitch({ lang, className = "" }) {
   const { pathname } = useLocation();
-  const target =
-    lang === "es"
-      ? pathname === "/"
-        ? "/en"
-        : `/en${pathname}`
-      : pathname === "/en"
-        ? "/"
-        : pathname.replace(/^\/en/, "") || "/";
+  const target = translatePath(pathname, lang === "es" ? "en" : "es");
 
   return (
     <Link

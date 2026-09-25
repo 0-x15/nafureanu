@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import ActionLink from "@/components/ActionLink";
-import { STRINGS, langPath, otherLang } from "@/i18n";
-import { usePageMeta } from "@/lib/seo";
+import { STRINGS, langPath } from "@/i18n";
 
 /**
  * Contact — where a project starts. One composition: the statement on
@@ -167,13 +167,6 @@ function Capacity({ c, className = "" }) {
 export default function Contact({ lang = "es" }) {
   const s = STRINGS[lang];
   const c = s.contact;
-  usePageMeta({
-    lang,
-    title: s.meta.contact.title,
-    description: s.meta.contact.description,
-    path: langPath(lang, "/contact"),
-    alternatePath: langPath(otherLang(lang), "/contact"),
-  });
   const reduced = useReducedMotion();
 
   const [form, setForm] = useState(EMPTY);

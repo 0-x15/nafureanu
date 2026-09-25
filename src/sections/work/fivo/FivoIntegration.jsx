@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import { Chapter, ChapterHead, CheckItem, Code, Mono, Shot } from "./fivoBits";

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useInView, useReducedMotion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import { Chapter, ChapterHead, Closing, MONO, Pill, Tag, tabKey } from "./csBits";

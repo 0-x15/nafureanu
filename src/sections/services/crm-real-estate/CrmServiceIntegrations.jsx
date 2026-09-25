@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import Reveal from "@/components/Reveal";
 import { cn } from "@/lib/utils";
 import { Chapter, ChapterHead, MONO, Pill } from "./serviceBits";

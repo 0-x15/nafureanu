@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import LandingSurface from "./LandingSurface";
 import { Act, H2, H3, Index, MONO, Reg, Segmented, tabKey } from "./webBits";

@@ -1,8 +1,8 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { PROJECTS, projectSlug } from "@/data/projects";
-import { STRINGS, langPath, otherLang, pick } from "@/i18n";
+import { STRINGS, langPath, pick } from "@/i18n";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import FlowDiagram from "@/components/diagrams/FlowDiagram";
@@ -12,7 +12,6 @@ import FivoCaseStudy from "@/sections/work/fivo/FivoCaseStudy";
 import LifeAdminCaseStudy from "@/sections/work/life-admin/LifeAdminCaseStudy";
 import WebProjectsCaseStudy from "@/sections/work/web-projects/WebProjectsCaseStudy";
 import BackToProjects from "@/components/work/BackToProjects";
-import { usePageMeta } from "@/lib/seo";
 
 export default function CaseStudy({ lang = "es" }) {
   const { slug } = useParams();
@@ -22,22 +21,6 @@ export default function CaseStudy({ lang = "es" }) {
   const c = project?.copy?.[lang];
   const cs = s.caseStudy;
   const canonicalSlug = project ? projectSlug(project, lang) : slug;
-
-  /* Custom case studies carry their own page metadata. */
-  const customMeta = project?.slug === "fivo" ? s.fivo.meta : project?.slug === "life-admin" ? s.lifeAdmin.meta : project?.slug === "web-projects" ? s.webProjects.meta : null;
-
-  usePageMeta({
-    lang,
-    title: customMeta?.title ?? (project
-      ? `${pick(project.title, lang)} — Nafureanu`
-      : s.meta.work.title),
-    description: customMeta?.description ?? c?.summary,
-    path: langPath(lang, `/work/${canonicalSlug}`),
-    alternatePath: langPath(
-      otherLang(lang),
-      `/work/${project ? projectSlug(project, otherLang(lang)) : slug}`
-    ),
-  });
 
   if (!project || !c) {
     return (

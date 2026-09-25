@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import BackToHome from "@/components/work/BackToHome";
 import { EASE, MONO } from "./workBits";

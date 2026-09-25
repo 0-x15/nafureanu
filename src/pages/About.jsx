@@ -1,5 +1,4 @@
-import { usePageMeta } from "@/lib/seo";
-import { STRINGS, langPath, otherLang } from "@/i18n";
+import { STRINGS } from "@/i18n";
 import StudioHero from "@/sections/studio/StudioHero";
 import StudioModel from "@/sections/studio/StudioModel";
 import DecisionStandard from "@/sections/studio/DecisionStandard";
@@ -18,13 +17,6 @@ import StudioCta from "@/sections/studio/StudioCta";
 export default function About({ lang = "es" }) {
   const s = STRINGS[lang];
   const a = s.about;
-  usePageMeta({
-    lang,
-    title: s.meta.about.title,
-    description: s.meta.about.description,
-    path: langPath(lang, "/about"),
-    alternatePath: langPath(otherLang(lang), "/about"),
-  });
   return (
     <article className="pt-24 md:pt-28">
       <StudioHero a={a} />

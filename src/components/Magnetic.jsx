@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useReducedMotion } from "framer-motion";
+import { useReducedMotion } from "@/lib/motion";
 
 /**
  * Magnetic hover: element is gently pulled toward the cursor.
