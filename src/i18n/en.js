@@ -738,6 +738,10 @@ export const EN = {
       kicker: "Capacity",
       text: "We work with a limited number of concurrent projects to keep direct technical attention.",
     },
+    direct: {
+      kicker: "Direct email",
+      text: "If you prefer, you can write directly.",
+    },
   },
   footer: {
     tagline: "Custom software, AI and automation for companies.",

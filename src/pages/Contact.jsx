@@ -4,6 +4,7 @@ import { useReducedMotion } from "@/lib/motion";
 import { cn } from "@/lib/utils";
 import ActionLink from "@/components/ActionLink";
 import { STRINGS, langPath } from "@/i18n";
+import { SITE } from "@/data/site";
 
 /**
  * Contact — where a project starts. One composition: the statement on
@@ -12,6 +13,8 @@ import { STRINGS, langPath } from "@/i18n";
  * part carries a mark that fills as it is completed; sending resolves
  * the document into its received state in place. The message goes to a
  * server-side endpoint that owns the recipient; nothing here knows it.
+ * Beside the brief, the public address (SITE.email) for whoever prefers
+ * to write directly.
  */
 const MONO = "font-mono text-[10px] uppercase tracking-[0.16em]";
 const EASE = [0.22, 1, 0.36, 1];
@@ -164,6 +167,22 @@ function Capacity({ c, className = "" }) {
   );
 }
 
+/** The alternative to the brief: the public address, as a real mailto link. */
+function DirectEmail({ c, className = "" }) {
+  return (
+    <div className={className}>
+      <p className={cn(MONO, "text-muted-foreground")}>{c.direct.kicker}</p>
+      <p className="mt-3 max-w-[38ch] text-[14px] leading-[1.6] text-foreground/75">{c.direct.text}</p>
+      <a
+        href={`mailto:${SITE.email}`}
+        className="mt-2 inline-block text-[15px] font-medium tracking-[-0.005em] text-foreground underline decoration-foreground/25 decoration-1 underline-offset-[6px] transition-colors hover:text-accent hover:decoration-accent focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent"
+      >
+        {SITE.email}
+      </a>
+    </div>
+  );
+}
+
 export default function Contact({ lang = "es" }) {
   const s = STRINGS[lang];
   const c = s.contact;
@@ -281,6 +300,7 @@ export default function Contact({ lang = "es" }) {
             <div className="mt-14 hidden lg:block">
               <After c={c} />
               <Capacity c={c} className="mt-10 border-t border-foreground/12 pt-6" />
+              <DirectEmail c={c} className="mt-8 border-t border-foreground/12 pt-6" />
             </div>
           </div>
 
@@ -339,10 +359,11 @@ export default function Contact({ lang = "es" }) {
           </div>
         </div>
 
-        {/* below lg, what happens next and the capacity note follow the brief */}
+        {/* below lg, what happens next, the capacity note and the direct address follow the brief */}
         <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:hidden">
           <After c={c} />
           <Capacity c={c} />
+          <DirectEmail c={c} className="border-t border-foreground/12 pt-6 sm:col-span-2" />
         </div>
       </div>
     </section>

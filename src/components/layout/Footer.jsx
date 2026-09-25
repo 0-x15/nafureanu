@@ -129,11 +129,16 @@ export default function Footer({ lang = "es" }) {
           <div className="md:col-span-3">
             <p className={labelClass}>{f.contact}</p>
             <p className="mt-5 max-w-[26ch] text-[13px] leading-relaxed text-muted-foreground">{f.contactLine}</p>
-            <ul className="mt-2.5 text-[13px]">
+            <ul className="mt-2.5 space-y-2.5 text-[13px]">
               <li>
                 <Link className={linkClass} to={langPath(lang, "/contact")}>
                   {s.nav.start}
                 </Link>
+              </li>
+              <li>
+                <a className={linkClass} href={`mailto:${SITE.email}`}>
+                  {SITE.email}
+                </a>
               </li>
             </ul>
           </div>

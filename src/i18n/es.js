@@ -739,6 +739,10 @@ export const ES = {
       kicker: "Capacidad",
       text: "Trabajamos con un número limitado de proyectos simultáneos para mantener atención técnica directa.",
     },
+    direct: {
+      kicker: "Email directo",
+      text: "Si lo prefieres, escríbenos directamente.",
+    },
   },
   footer: {
     tagline: "Software, IA y automatización para empresas.",

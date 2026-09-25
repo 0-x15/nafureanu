@@ -1,8 +1,10 @@
 export const SITE = {
   name: "Nafureanu",
   domain: "https://nafureanu.com",
-  // The only public contact channel is the form at /contact; the inbox it
-  // delivers to is configured server-side (see api/contact.js).
+  // The public business address, shown on the Contact page and in the
+  // footer. The form at /contact is the primary channel; the inbox it
+  // delivers to is configured server-side only (CONTACT_TO, api/contact.js).
+  email: "contact@nafureanu.com",
   tagline: {
     es: "Software que elimina trabajo.",
     en: "Software that removes work.",
