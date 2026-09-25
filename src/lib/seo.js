@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { STRINGS, otherLang, pick } from "@/i18n";
+import { STRINGS, langPath, otherLang, pick } from "@/i18n";
 import { SITE } from "@/data/site";
 import { matchRoute } from "@/data/routes";
 
@@ -8,6 +8,8 @@ import { matchRoute } from "@/data/routes";
  * language into everything the <head> needs. The build-time prerender
  * serialises it with `headHtml`; the browser applies the same object with
  * `applyHead` on every client-side navigation. There is no second copy.
+ * The JSON-LD graph (organisation, website, page, breadcrumb and, on the
+ * seven service pages, the service) comes from the same model.
  */
 export const DOMAIN = "https://nafureanu.com";
 const OG_LOCALE = { es: "es_ES", en: "en_GB" };
@@ -36,24 +38,64 @@ function copyFor(route, lang) {
   }
 }
 
-/* The organisation as it is stated on the site today; only the home page carries it in this phase. */
-function organization(lang) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "@id": `${DOMAIN}/#organization`,
-    name: SITE.name,
-    url: `${DOMAIN}/`,
-    logo: `${DOMAIN}/icon-512.png`,
-    slogan: SITE.tagline[lang],
-    description: SITE.description[lang],
+/* --- structured data: one @graph per page, from the same model ------------ */
+
+const ORG_ID = `${DOMAIN}/#organization`;
+const SITE_ID = `${DOMAIN}/#website`;
+const PAGE_TYPE = { home: "WebPage", "services-index": "CollectionPage", "work-index": "CollectionPage", service: "WebPage", "case-study": "WebPage", about: "AboutPage", contact: "ContactPage" };
+
+/* The organisation as it is stated on the site: name, site, logo, slogan and description. The home page carries the full node; other pages only reference it. */
+function organizationNode(lang, full) {
+  const node = { "@type": "Organization", "@id": ORG_ID, name: SITE.name, url: `${DOMAIN}/` };
+  if (full) Object.assign(node, { logo: `${DOMAIN}/icon-512.png`, slogan: SITE.tagline[lang], description: SITE.description[lang] });
+  return node;
+}
+
+const websiteNode = () => ({ "@type": "WebSite", "@id": SITE_ID, url: `${DOMAIN}/`, name: SITE.name, publisher: { "@id": ORG_ID }, inLanguage: ["es", "en"] });
+
+/* The real hierarchy of the site, in the page's language and with canonical URLs. */
+function breadcrumbNode(route, lang, canonical) {
+  const s = STRINGS[lang];
+  const home = { name: s.nav.home, url: DOMAIN + langPath(lang, "/") };
+  const trails = {
+    "services-index": [home, { name: s.nav.services, url: canonical }],
+    service: [home, { name: s.nav.services, url: DOMAIN + langPath(lang, "/services") }, { name: s.servicesPage.names[route.id], url: canonical }],
+    "work-index": [home, { name: s.nav.work, url: canonical }],
+    "case-study": [home, { name: s.nav.work, url: DOMAIN + langPath(lang, "/work") }, { name: route.project ? pick(route.project.title, lang) : route.id, url: canonical }],
+    about: [home, { name: s.nav.about, url: canonical }],
+    contact: [home, { name: s.contact.kicker, url: canonical }],
   };
+  const trail = trails[route.type];
+  if (!trail) return null;
+  return { "@type": "BreadcrumbList", "@id": `${canonical}#breadcrumb`, itemListElement: trail.map((item, i) => ({ "@type": "ListItem", position: i + 1, name: item.name, item: item.url })) };
+}
+
+function graphFor(route, lang, { title, description, canonical }) {
+  const s = STRINGS[lang];
+  const breadcrumb = breadcrumbNode(route, lang, canonical);
+  const service = route.type === "service"
+    ? { "@type": "Service", "@id": `${canonical}#service`, name: s.servicesPage.names[route.id], description, url: canonical, provider: { "@id": ORG_ID }, mainEntityOfPage: { "@id": `${canonical}#webpage` } }
+    : null;
+  const page = {
+    "@type": PAGE_TYPE[route.type] || "WebPage",
+    "@id": `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    inLanguage: lang,
+    isPartOf: { "@id": SITE_ID },
+    ...(route.type === "home" ? { about: { "@id": ORG_ID } } : {}),
+    ...(breadcrumb ? { breadcrumb: { "@id": breadcrumb["@id"] } } : {}),
+    ...(service ? { mainEntity: { "@id": service["@id"] } } : {}),
+  };
+  return { "@context": "https://schema.org", "@graph": [organizationNode(lang, route.type === "home"), websiteNode(), page, ...(breadcrumb ? [breadcrumb] : []), ...(service ? [service] : [])] };
 }
 
 /** @returns {PageSeo} */
 export function seoFor(route, lang) {
   const { title, description } = copyFor(route, lang);
   const path = route.paths[lang];
+  const canonical = DOMAIN + path;
   return {
     lang,
     type: route.type,
@@ -62,12 +104,12 @@ export function seoFor(route, lang) {
     description,
     path,
     alternatePath: route.paths[otherLang(lang)],
-    canonical: DOMAIN + path,
+    canonical,
     alternates: { es: DOMAIN + route.paths.es, en: DOMAIN + route.paths.en, xDefault: DOMAIN + route.paths.es },
     ogLocale: OG_LOCALE[lang],
     ogLocaleAlternate: OG_LOCALE[otherLang(lang)],
     robots: null,
-    jsonLd: route.type === "home" ? organization(lang) : null,
+    jsonLd: graphFor(route, lang, { title, description, canonical }),
   };
 }
 
