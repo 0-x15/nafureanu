@@ -7,6 +7,13 @@
  */
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
+import { SITE } from "../src/data/site.js";
+
+/* The organisation entity: one @id for the whole site; the full definition with the public address lives on the home pages only, every other page carries a bare reference. */
+const ORG_ID = `${SITE.domain}/#organization`;
+const ORG_REF_KEYS = new Set(["@type", "@id", "name", "url"]);
+const ORG_FULL_KEYS = ["logo", "slogan", "description", "email"];
+const EMAIL_RE = /[\w.+-]+@[\w-]+\.[\w.]+/;
 
 const unesc = (s) => s.replace(/&quot;/g, '"').replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 const count = (html, re) => (html.match(re) || []).length;
@@ -92,11 +99,37 @@ export async function validateOutput(pages, server, { root }) {
         const services = nodes.filter((n) => n["@type"] === "Service");
         if (seo.type === "service" ? services.length !== 1 : services.length !== 0) fail(`Service nodes: ${services.length} on a ${seo.type} page`);
         if (services[0] && services[0]["@id"] !== `${seo.canonical}#service`) fail("Service @id ≠ canonical#service");
-        const org = nodes.find((n) => n["@type"] === "Organization");
-        if (!org || org["@id"] !== "https://nafureanu.com/#organization") fail("Organization node missing or wrong @id");
+        const orgs = nodes.filter((n) => n["@type"] === "Organization");
+        if (orgs.length !== 1) fail(`expected exactly one Organization node, found ${orgs.length}`);
+        const org = orgs[0];
+        if (org) {
+          if (org["@id"] !== ORG_ID) fail(`Organization @id ≠ ${ORG_ID}`);
+          if (org.name !== SITE.name) fail(`Organization name ≠ ${SITE.name}`);
+          if (org.url !== `${SITE.domain}/`) fail(`Organization url ≠ ${SITE.domain}/`);
+          if (seo.type === "home") {
+            if (org.email !== SITE.email) fail(`home Organization email ≠ ${SITE.email}`);
+            for (const k of ORG_FULL_KEYS) if (typeof org[k] !== "string" || !org[k]) fail(`home Organization missing ${k}`);
+          } else {
+            const extra = Object.keys(org).filter((k) => !ORG_REF_KEYS.has(k));
+            if (extra.length) fail(`Organization reference carries full data on a ${seo.type} page: ${extra.join(", ")}`);
+          }
+        }
         for (const n of nodes) if (typeof n["@id"] === "string" && /^https:\/\/nafureanu\.com\//.test(n["@id"]) && !n["@id"].startsWith(seo.canonical) && !/#(organization|website)$/.test(n["@id"])) fail(`node from another route: ${n["@id"]}`);
-        const forbidden = new Set(["email", "telephone", "faxNumber", "address", "contactPoint", "aggregateRating", "review", "reviews", "offers", "price", "priceRange", "sameAs", "foundingDate", "numberOfEmployees", "award", "openingHours", "areaServed"]);
-        const walk = (v, path) => { if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`)); else if (v && typeof v === "object") for (const [k, x] of Object.entries(v)) { if (forbidden.has(k)) fail(`forbidden property ${k} at ${path}`); walk(x, `${path}.${k}`); } else if (typeof v === "string" && /[\w.+-]+@[\w-]+\.[\w.]+/.test(v)) fail(`email address in JSON-LD at ${path}`); };
+        /* nothing invented anywhere in the graph; the one address allowed is Organization.email on the home pages, checked above */
+        const forbidden = new Set(["telephone", "faxNumber", "address", "contactPoint", "aggregateRating", "review", "reviews", "offers", "price", "priceRange", "sameAs", "foundingDate", "numberOfEmployees", "award", "openingHours", "areaServed"]);
+        const walk = (v, path) => {
+          if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`));
+          else if (v && typeof v === "object") {
+            for (const [k, x] of Object.entries(v)) {
+              if (forbidden.has(k)) fail(`forbidden property ${k} at ${path}`);
+              if (k === "email") {
+                if (v === org && seo.type === "home" && x === SITE.email) continue;
+                fail(`email outside the home Organization node at ${path}.${k}`);
+              }
+              walk(x, `${path}.${k}`);
+            }
+          } else if (typeof v === "string" && EMAIL_RE.test(v)) fail(`email address in JSON-LD at ${path}`);
+        };
         walk(graph, "$");
       }
     }

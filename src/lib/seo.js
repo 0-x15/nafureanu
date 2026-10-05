@@ -45,7 +45,8 @@ const PAGE_TYPE = { home: "WebPage", "services-index": "CollectionPage", "work-i
 /* The organisation as it is stated on the site: name, site, logo, slogan and description. The home page carries the full node; other pages only reference it. */
 function organizationNode(lang, full) {
   const node = { "@type": "Organization", "@id": ORG_ID, name: SITE.name, url: `${DOMAIN}/` };
-  if (full) Object.assign(node, { logo: `${DOMAIN}/icon-512.png`, slogan: SITE.tagline[lang], description: SITE.description[lang] });
+  /* the full definition (home only): logo, slogan, description and the public address — all from the shared site model */
+  if (full) Object.assign(node, { logo: `${DOMAIN}/icon-512.png`, slogan: SITE.tagline[lang], description: SITE.description[lang], email: SITE.email });
   return node;
 }
 
