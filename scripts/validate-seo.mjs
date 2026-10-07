@@ -9,7 +9,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { SITE } from "../src/data/site.js";
 
-/* The organisation entity: one @id for the whole site; the full definition with the public address lives on the home pages only, every other page carries a bare reference. */
+/* The organisation entity: one @id for the whole site; the full definition with the public address and the official profiles (sameAs) lives on the home pages only, every other page carries a bare reference. */
 const ORG_ID = `${SITE.domain}/#organization`;
 const ORG_REF_KEYS = new Set(["@type", "@id", "name", "url"]);
 const ORG_FULL_KEYS = ["logo", "slogan", "description", "email"];
@@ -109,14 +109,22 @@ export async function validateOutput(pages, server, { root }) {
           if (seo.type === "home") {
             if (org.email !== SITE.email) fail(`home Organization email ≠ ${SITE.email}`);
             for (const k of ORG_FULL_KEYS) if (typeof org[k] !== "string" || !org[k]) fail(`home Organization missing ${k}`);
+            /* the official profiles: SITE.sameAs is a non-empty list of unique https URLs, and the node carries exactly that list */
+            if (!Array.isArray(SITE.sameAs) || !SITE.sameAs.length) fail("SITE.sameAs must be a non-empty array");
+            else {
+              if (new Set(SITE.sameAs).size !== SITE.sameAs.length) fail("SITE.sameAs has duplicate entries");
+              for (const u of SITE.sameAs) { let https = false; try { https = new URL(u).protocol === "https:"; } catch { https = false; } if (!https) fail(`SITE.sameAs entry is not an https URL: ${u}`); }
+              if (!Array.isArray(org.sameAs)) fail("home Organization missing sameAs");
+              else if (JSON.stringify(org.sameAs) !== JSON.stringify(SITE.sameAs)) fail(`home Organization sameAs ≠ SITE.sameAs: ${JSON.stringify(org.sameAs)}`);
+            }
           } else {
             const extra = Object.keys(org).filter((k) => !ORG_REF_KEYS.has(k));
             if (extra.length) fail(`Organization reference carries full data on a ${seo.type} page: ${extra.join(", ")}`);
           }
         }
         for (const n of nodes) if (typeof n["@id"] === "string" && /^https:\/\/nafureanu\.com\//.test(n["@id"]) && !n["@id"].startsWith(seo.canonical) && !/#(organization|website)$/.test(n["@id"])) fail(`node from another route: ${n["@id"]}`);
-        /* nothing invented anywhere in the graph; the one address allowed is Organization.email on the home pages, checked above */
-        const forbidden = new Set(["telephone", "faxNumber", "address", "contactPoint", "aggregateRating", "review", "reviews", "offers", "price", "priceRange", "sameAs", "foundingDate", "numberOfEmployees", "award", "openingHours", "areaServed"]);
+        /* nothing invented anywhere in the graph; the address and the profiles are allowed on the home Organization node only, checked above */
+        const forbidden = new Set(["telephone", "faxNumber", "address", "contactPoint", "aggregateRating", "review", "reviews", "offers", "price", "priceRange", "foundingDate", "numberOfEmployees", "award", "openingHours", "areaServed"]);
         const walk = (v, path) => {
           if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${path}[${i}]`));
           else if (v && typeof v === "object") {
@@ -125,6 +133,10 @@ export async function validateOutput(pages, server, { root }) {
               if (k === "email") {
                 if (v === org && seo.type === "home" && x === SITE.email) continue;
                 fail(`email outside the home Organization node at ${path}.${k}`);
+              }
+              if (k === "sameAs") {
+                if (v === org && seo.type === "home") continue;
+                fail(`sameAs outside the home Organization node at ${path}.${k}`);
               }
               walk(x, `${path}.${k}`);
             }

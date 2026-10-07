@@ -5,6 +5,10 @@ export const SITE = {
   // footer. The form at /contact is the primary channel; the inbox it
   // delivers to is configured server-side only (CONTACT_TO, api/contact.js).
   email: "contact@nafureanu.com",
+  // Official public profiles of the company (Organization.sameAs on the home
+  // pages). Only verified corporate profiles belong here — never personal
+  // accounts or product pages.
+  sameAs: ["https://www.linkedin.com/company/nafureanu"],
   tagline: {
     es: "Software que elimina trabajo.",
     en: "Software that removes work.",
