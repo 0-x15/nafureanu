@@ -31,6 +31,9 @@ export default function Footer({ lang = "es" }) {
     { to: "/contact", label: f.contact },
   ];
 
+  /* the official company profile, from the shared site model (also Organization.sameAs); nothing renders if it is not there */
+  const linkedin = SITE.sameAs.find((url) => url.includes("linkedin.com/company/"));
+
   const workLinks = [
     { to: "/work", label: s.nav.work },
     {
@@ -140,6 +143,15 @@ export default function Footer({ lang = "es" }) {
                   {SITE.email}
                 </a>
               </li>
+              {linkedin && (
+                <li>
+                  <a className={`${linkClass} group inline-flex items-center gap-1`} href={linkedin} target="_blank" rel="noopener noreferrer">
+                    LinkedIn
+                    <ArrowUpRight aria-hidden="true" className="h-3 w-3 transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-[2px] group-hover:translate-x-[2px]" />
+                    <span className="sr-only">{lang === "es" ? " (se abre en una pestaña nueva)" : " (opens in a new tab)"}</span>
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
         </div>
